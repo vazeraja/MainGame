@@ -45,8 +45,6 @@ namespace MainGame {
             inputReader.dashEvent += OnDashInitiated;
             inputReader.dashCanceledEvent += OnDashCancelled;
             inputReader.dashKeyboardEvent += OnDashKeyboard;
-
-
         }
         protected override void OnDisable() {
             base.OnDisable();
