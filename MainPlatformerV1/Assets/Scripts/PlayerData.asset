@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f75f73f13665949955a45d85691c66, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
+  currentScore: 200
   movementSpeed: 12
   jumpSpeed: 40
   attackRate: 2
-  lookSphereCastRadius: 1
+  dashCoolDown: 0.5
+  dashMaxHoldTime: 5
+  holdTimeScale: 0.25
+  dashTime: 0.2
+  dashVelocity: 30
+  drag: 10
+  variableDashMultiplier: 0.2
+  distanceBetweenAfterImages: 0.5
+  dashTimeFreeze: 0

@@ -9,7 +9,7 @@ namespace MainGame {
 
         // private float nextAttack = 0;
         public override void OnEnter(Player player) {
-
+            player.PlayerData.currentScore += 5;
         }
         public override void LogicUpdate(Player player) {
             Attack(player);

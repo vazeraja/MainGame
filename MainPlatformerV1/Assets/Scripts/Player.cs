@@ -58,17 +58,18 @@ namespace MainGame {
             inputReader.dashCanceledEvent -= OnDashCancelled;
             inputReader.dashKeyboardEvent -= OnDashKeyboard;
         }
-        protected override void Update() {
-            base.Update();
-
-            currentState.OnLogicUpdate(this);
-            currentStateName.text = currentState.stateName;
-        }
         protected override void Start() {
             base.Start();
 
             currentState.OnStateEnter(this);
             startTime = Time.time;
+        }
+        protected override void Update() {
+            base.Update();
+
+            currentState.OnLogicUpdate(this);
+            // currentStateName.text = currentState.stateName;
+            currentStateName.text = playerData.currentScore.ToString();
         }
 
         /// <summary>
@@ -94,8 +95,5 @@ namespace MainGame {
         private void OnDashCancelled() => DashInput = false;
         private void OnDashKeyboard(Vector2 input) => DashKeyboardInput = input;
 
-        private void OnDrawGizmos() {
-
-        }
     }
 }

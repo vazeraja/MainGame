@@ -8,7 +8,6 @@ namespace MainGame {
     public class IdleState : State {
 
         public override void OnEnter(Player player) {
-            Debug.Log("entered idle");
         }
 
         public override void LogicUpdate(Player player) {
@@ -16,7 +15,6 @@ namespace MainGame {
         }
 
         public override void OnExit(Player player) {
-            Debug.Log("exited idle");
         }
 
         private void Idle(Player player) {
