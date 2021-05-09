@@ -12,11 +12,11 @@ namespace MainGame {
         private void Start() {
             LoadJsonData(this);
         }
-        private void OnApplicationQuit() => SaveJsonData(this);
+        private void OnApplicationQuit() => SaveJsonData();
 
-        private static void SaveJsonData(GameManager gameManager) {
+        public void SaveJsonData() {
             SaveData sd = new SaveData();
-            gameManager.PopulateSaveData(sd);
+            PopulateSaveData(sd);
 
             if (FileManager.WriteToFile("SaveData.dat", sd.ToJson())) {
                 Debug.Log("Save Successful");

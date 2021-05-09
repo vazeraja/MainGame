@@ -26,6 +26,11 @@ namespace MainGame {
         [HideInInspector] public bool DashInput = false;
         [HideInInspector] public Vector2 DashKeyboardInput;
 
+        protected override void Awake() {
+            base.Awake();
+            GameManager.Instance.SaveJsonData();
+        }
+
         protected override void OnEnable() {
             base.OnEnable();
 
