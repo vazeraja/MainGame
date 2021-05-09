@@ -12,7 +12,6 @@ namespace MainGame {
         private void Start() {
             LoadJsonData(this);
         }
-
         private void OnApplicationQuit() => SaveJsonData(this);
 
         private static void SaveJsonData(GameManager gameManager) {

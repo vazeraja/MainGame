@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/IdleState")]
-    public class IdleState : State {
+    public class IdleState : State<Player> {
 
         public override void OnEnter(Player player) {
         }

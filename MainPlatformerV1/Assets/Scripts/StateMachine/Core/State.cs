@@ -4,13 +4,13 @@ using UnityEngine;
 using System;
 
 namespace MainGame {
-    public abstract class State : ScriptableObject {
+    public abstract class State<T> : ScriptableObject {
 
-        public abstract void OnEnter(Player player);
+        public abstract void OnEnter(T type);
 
-        public abstract void LogicUpdate(Player player);
+        public abstract void LogicUpdate(T type);
 
-        public abstract void OnExit(Player player);
+        public abstract void OnExit(T type);
 
     }
 }

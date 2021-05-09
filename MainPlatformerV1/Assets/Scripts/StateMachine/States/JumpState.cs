@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/JumpState")]
-    public class JumpState : State {
+    public class JumpState : State<Player> {
         public override void OnEnter(Player player) {
         }
         public override void LogicUpdate(Player player) {
@@ -17,17 +17,17 @@ namespace MainGame {
         private void Jump(Player player) {
             player.Anim.Play("Jump/Fall");
 
-            player.Anim.SetFloat("yVelocity", player.yVelocity);
+            player.Anim.SetFloat("yVelocity", player.velocity.y);
             player.Anim.SetFloat("xVelocity", Mathf.Abs(player.MovementVelocity.x));
 
             if (player.JumpInput && player.IsGrounded) {
-                player.yVelocity = player.PlayerData.jumpSpeed;
+                player.velocity.y = player.PlayerData.jumpSpeed;
                 // if (player.yVelocity > 0)
                 // player.Anim.Play("player_jump");
             } else if (!player.JumpInput) {
-                if (player.yVelocity > 0) {
+                if (player.velocity.y > 0) {
                     // player.Anim.Play("player_fall");
-                    player.yVelocity *= 0.5f;
+                    player.velocity.y *= 0.5f;
                 }
             }
 

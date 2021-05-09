@@ -9,17 +9,11 @@ namespace MainGame {
 
         public Weapon Weapon => weapon;
         public PlayerData PlayerData => playerData;
-        public Rigidbody2D RB => rb2d;
-        public Animator Anim => animator;
-        public SpriteRenderer SR => spriteRenderer;
 
-        public Vector2 MovementVelocity { get { return targetVelocity; } set { targetVelocity = value; } }
-        public float yVelocity { get { return velocity.y; } set { velocity.y = value; } }
-        public bool IsGrounded => grounded;
         [HideInInspector] public int FacingDirection;
 
-        public State_SO currentState;
-        public State_SO remainState;
+        public PlayerState_SO currentState;
+        public PlayerState_SO remainState;
         public TextMeshProUGUI currentStateName;
 
         [HideInInspector] public bool isAnimationFinished;
@@ -75,7 +69,7 @@ namespace MainGame {
         /// <summary>
         /// Move to next state only if next state is not equal to remain state
         /// </summary>
-        public void TransitionToState(State_SO nextState) {
+        public void TransitionToState(PlayerState_SO nextState) {
             if (nextState != remainState) {
                 currentState.OnStateExit(this);
                 currentState = nextState;

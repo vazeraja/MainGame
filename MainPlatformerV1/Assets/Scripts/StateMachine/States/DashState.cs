@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/DashState")]
-    public class DashState : State {
+    public class DashState : State<Player> {
 
         public bool CanDash { get; private set; }
         private bool isHolding;
@@ -30,7 +30,7 @@ namespace MainGame {
         public override void LogicUpdate(Player player) {
 
             // Set x and y velocity of player
-            player.Anim.SetFloat("yVelocity", player.yVelocity);
+            player.Anim.SetFloat("yVelocity", player.velocity.y);
             player.Anim.SetFloat("xVelocity", Mathf.Abs(player.MovementVelocity.x));
 
             // Logic for when Dash button is being held down

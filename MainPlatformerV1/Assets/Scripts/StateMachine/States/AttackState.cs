@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/AttackState")]
-    public class AttackState : State {
+    public class AttackState : State<Player> {
 
         // private float nextAttack = 0;
         public override void OnEnter(Player player) {

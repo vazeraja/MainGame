@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/GroundedDecision")]
-    public class CheckGroundedDecision : Decision {
+    public class CheckGroundedDecision : Decision<Player> {
         public override bool Decide(Player player) {
 
             bool IsGrounded = CheckGrounded(player);

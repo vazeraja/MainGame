@@ -5,17 +5,22 @@ using UnityEngine;
 namespace MainGame {
     public class CustomPhysics : MonoBehaviour {
 
+        #region Public Variables
+        public Rigidbody2D RB;
+        public Animator Anim;
+        public SpriteRenderer SR;
+        public Vector2 velocity;
+        public Vector2 MovementVelocity;
+        public bool IsGrounded;
+
+        #endregion
+
+        #region Internal Variables
         public float minGroundNormalY = 0.65f;
         public float gravityModifier = 1f;
 
-        protected Vector2 targetVelocity;
-        protected bool grounded;
         protected Vector2 groundNormal;
 
-        protected Vector2 velocity;
-        protected Rigidbody2D rb2d;
-        protected Animator animator;
-        protected SpriteRenderer spriteRenderer;
         protected ContactFilter2D contactFilter;
         protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
         protected List<RaycastHit2D> hitbufferList = new List<RaycastHit2D>(16);
@@ -23,10 +28,12 @@ namespace MainGame {
         protected const float minMoveDistance = 0.001f;
         protected const float shellRadius = 0.01f;
 
+        #endregion
+
         protected virtual void OnEnable() {
-            rb2d = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            RB = GetComponent<Rigidbody2D>();
+            Anim = GetComponent<Animator>();
+            SR = GetComponent<SpriteRenderer>();
         }
         protected virtual void OnDisable() {
 
@@ -41,14 +48,14 @@ namespace MainGame {
             contactFilter.useLayerMask = true;
         }
         protected virtual void Update() {
-            targetVelocity = Vector2.zero;
+            MovementVelocity = Vector2.zero;
             ApplyVelocity();
         }
         protected virtual void FixedUpdate() {
             velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
-            velocity.x = targetVelocity.x;
+            velocity.x = MovementVelocity.x;
 
-            grounded = false;
+            IsGrounded = false;
 
             Vector2 deltaPosition = velocity * Time.deltaTime;
             Vector2 moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
@@ -65,7 +72,7 @@ namespace MainGame {
             float distance = move.magnitude;
 
             if (distance > minMoveDistance) {
-                int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
+                int count = RB.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
 
                 hitbufferList.Clear();
                 for (int i = 0; i < count; i++) {
@@ -75,7 +82,7 @@ namespace MainGame {
                 for (int i = 0; i < hitbufferList.Count; i++) {
                     Vector2 currentNormal = hitbufferList[i].normal;
                     if (currentNormal.y > minGroundNormalY) {
-                        grounded = true;
+                        IsGrounded = true;
                         if (yMovement) {
                             groundNormal = currentNormal;
                             currentNormal.x = 0;
@@ -89,7 +96,7 @@ namespace MainGame {
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
-            rb2d.position = rb2d.position + move.normalized * distance;
+            RB.position = RB.position + move.normalized * distance;
         }
         protected virtual void ApplyVelocity() {
         }

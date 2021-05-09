@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AttackDecision")]
-    public class AttackInputDecision : Decision {
+    public class AttackInputDecision : Decision<Player> {
         public override bool Decide(Player player) {
             bool attackPressed = CheckAttack(player);
             return attackPressed;

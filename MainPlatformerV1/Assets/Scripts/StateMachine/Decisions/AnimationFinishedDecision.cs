@@ -6,7 +6,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AnimationFinishedDecision")]
-    public class AnimationFinishedDecision : Decision {
+    public class AnimationFinishedDecision : Decision<Player> {
         public override bool Decide(Player player) {
             bool isAnimationFinished = FinishTrigger(player);
             return isAnimationFinished;

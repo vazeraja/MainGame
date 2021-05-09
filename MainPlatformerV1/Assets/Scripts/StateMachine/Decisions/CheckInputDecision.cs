@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/MovingDecision")]
-    public class CheckInputDecision : Decision {
+    public class CheckInputDecision : Decision<Player> {
         public override bool Decide(Player player) {
 
             bool isMoving = CheckInput(player);
