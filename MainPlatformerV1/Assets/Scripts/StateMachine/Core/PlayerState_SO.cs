@@ -7,9 +7,9 @@ using System;
 
 namespace MainGame {
 
-    [CreateAssetMenu(menuName = "PluggableAI/Base State")]
-    public class PlayerState_SO : BaseState<Player> {
-        public PlayerState_SO(string stateName, State<Player>[] states, Transition<Player>[] transitions, Action<Player> enterStateEvent,
+    [CreateAssetMenu(menuName = "PluggableAI/Player Base State")]
+    public class PlayerState_SO : BaseState<Player, PlayerState_SO> {
+        public PlayerState_SO(string stateName, State<Player>[] states, Transition<Player, PlayerState_SO>[] transitions, Action<Player> enterStateEvent,
             Action<Player> exitStateEvent, Action<Player> updateStateEvent) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent) {
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    public class CustomPhysics : MonoBehaviour {
+    public abstract class CustomPhysics<T> : MonoBehaviour {
 
         #region Public Variables
         public Rigidbody2D RB;
@@ -79,8 +79,9 @@ namespace MainGame {
                     hitbufferList.Add(hitBuffer[i]);
                 }
 
-                for (int i = 0; i < hitbufferList.Count; i++) {
-                    Vector2 currentNormal = hitbufferList[i].normal;
+
+                foreach (RaycastHit2D hitbuffer in hitbufferList) {
+                    Vector2 currentNormal = hitbuffer.normal;
                     if (currentNormal.y > minGroundNormalY) {
                         IsGrounded = true;
                         if (yMovement) {
@@ -92,7 +93,7 @@ namespace MainGame {
                     if (projection < 0) {
                         velocity = velocity - projection * currentNormal;
                     }
-                    float modifiedDistance = hitbufferList[i].distance - shellRadius;
+                    float modifiedDistance = hitbuffer.distance - shellRadius;
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
@@ -100,6 +101,8 @@ namespace MainGame {
         }
         protected virtual void ApplyVelocity() {
         }
+
+        public abstract void TransitionToState(T nextState);
 
     }
 }

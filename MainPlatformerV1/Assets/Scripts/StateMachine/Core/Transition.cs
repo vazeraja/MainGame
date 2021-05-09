@@ -3,10 +3,10 @@
 namespace MainGame {
 
     [System.Serializable]
-    public struct Transition<T> {
+    public struct Transition<T, U> {
         public Decision<T> decision;
-        public PlayerState_SO trueState;
-        public PlayerState_SO falseState;
+        public U trueState;
+        public U falseState;
 
     }
 

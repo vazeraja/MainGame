@@ -2,7 +2,7 @@
 using TMPro;
 
 namespace MainGame {
-    public class Player : CustomPhysics {
+    public class Player : CustomPhysics<PlayerState_SO> {
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
         [SerializeField] private Weapon weapon = default;
@@ -74,7 +74,7 @@ namespace MainGame {
         /// <summary>
         /// Move to next state only if next state is not equal to remain state
         /// </summary>
-        public void TransitionToState(PlayerState_SO nextState) {
+        public override void TransitionToState(PlayerState_SO nextState) {
             if (nextState != remainState) {
                 currentState.OnStateExit(this);
                 currentState = nextState;

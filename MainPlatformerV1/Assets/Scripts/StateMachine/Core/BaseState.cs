@@ -4,16 +4,16 @@ using UnityEngine;
 using System;
 
 namespace MainGame {
-    public abstract class BaseState<T> : ScriptableObject where T : CustomPhysics {
+    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics<U> { // U is BaseState_SO
         [SerializeField] protected string stateName;
         [SerializeField] protected State<T>[] states;
-        [SerializeField] protected Transition<T>[] transitions;
+        [SerializeField] protected Transition<T, U>[] transitions;
 
         protected event Action<T> enterStateEvent;
         protected event Action<T> exitStateEvent;
         protected event Action<T> updateStateEvent;
 
-        protected BaseState(string stateName, State<T>[] states, Transition<T>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent) {
+        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent) {
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
