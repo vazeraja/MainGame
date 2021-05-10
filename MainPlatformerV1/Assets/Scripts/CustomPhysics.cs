@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    public abstract class CustomPhysics<T> : MonoBehaviour {
+    public abstract class CustomPhysics : MonoBehaviour {
 
         #region Public Variables
-        public Rigidbody2D RB;
-        public Animator Anim;
-        public SpriteRenderer SR;
-        public Vector2 velocity;
-        public Vector2 MovementVelocity;
-        public bool IsGrounded;
+        [HideInInspector] public Rigidbody2D RB;
+        [HideInInspector] public Animator Anim;
+        [HideInInspector] public SpriteRenderer SR;
+        [HideInInspector] public Vector2 velocity;
+        [HideInInspector] public Vector2 MovementVelocity;
+        [HideInInspector] public bool IsGrounded;
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace MainGame {
             ApplyVelocity();
         }
         protected virtual void FixedUpdate() {
-            velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+            velocity += Physics2D.gravity * (gravityModifier * Time.deltaTime);
             velocity.x = MovementVelocity.x;
 
             IsGrounded = false;
@@ -101,8 +101,6 @@ namespace MainGame {
         }
         protected virtual void ApplyVelocity() {
         }
-
-        public abstract void TransitionToState(T nextState);
 
     }
 }

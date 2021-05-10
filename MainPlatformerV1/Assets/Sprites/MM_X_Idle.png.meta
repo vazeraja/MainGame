@@ -1,34 +1,46 @@
 fileFormatVersion: 2
-guid: 222292e7516ec164d80cc9c3ff048936
+guid: 02af8cf6111cc8e4283554409df93869
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3648201735164558126
-    second: OX_Attack1_0
+      213: -2563499775765002913
+    second: MM_X_Ultimate_0
   - first:
-      213: 1941221042056309756
-    second: OX_Attack1_1
+      213: 8875256597684673098
+    second: MM_X_Ultimate_1
   - first:
-      213: -2801082209375574856
-    second: OX_Attack1_2
+      213: 7742855100480745937
+    second: MM_X_Ultimate_2
   - first:
-      213: 3885750210373954939
-    second: OX_Attack1_3
+      213: -8041541731018567386
+    second: MM_X_Ultimate_3
   - first:
-      213: -6369634356422939103
-    second: OX_Attack1_4
+      213: 8065924068867478992
+    second: MM_X_Ultimate_4
   - first:
-      213: 8314947050250161634
-    second: OX_Attack1_5
+      213: 1405205426618958432
+    second: MM_X_Ultimate_5
   - first:
-      213: 5375050855910681473
-    second: OX_Attack1_6
+      213: -8943727395076653306
+    second: MM_X_Ultimate_6
   - first:
-      213: -1548818671200796016
-    second: OX_Attack1_7
+      213: -7016004942567855961
+    second: MM_X_Ultimate_7
   - first:
-      213: -6100612960988352516
-    second: OX_Attack1_8
+      213: -4682344503779485229
+    second: MM_X_Ultimate_8
+  - first:
+      213: 8835797720810284638
+    second: MM_X_Ultimate_9
+  - first:
+      213: 2073393172630353197
+    second: MM_X_Ultimate_10
+  - first:
+      213: -3983195741515795872
+    second: MM_X_Ultimate_11
+  - first:
+      213: 5707295350937728686
+    second: MM_X_Ultimate_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -50,6 +62,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -81,9 +94,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -138,13 +154,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OX_Attack1_0
+      name: MM_X_Ultimate_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 30
-        height: 39
+        x: 1
+        y: 3
+        width: 35
+        height: 47
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d48d82d9dbfe5dc0800000000000000
-      internalID: -3648201735164558126
+      spriteID: f55cbb3398e9c6cd0800000000000000
+      internalID: -2563499775765002913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_1
+      name: MM_X_Ultimate_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 72
-        height: 42
+        x: 50
+        y: 3
+        width: 35
+        height: 46
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfba742b04a90fa10800000000000000
-      internalID: 1941221042056309756
+      spriteID: a4adf6b3ade3b2b70800000000000000
+      internalID: 8875256597684673098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_2
+      name: MM_X_Ultimate_2
       rect:
         serializedVersion: 2
-        x: 106
-        y: 0
-        width: 72
-        height: 42
+        x: 99
+        y: 3
+        width: 35
+        height: 47
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b4a083429e8029d0800000000000000
-      internalID: -2801082209375574856
+      spriteID: 1d1f973c0b5247b60800000000000000
+      internalID: 7742855100480745937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_3
+      name: MM_X_Ultimate_3
       rect:
         serializedVersion: 2
-        x: 180
-        y: 0
-        width: 54
-        height: 42
+        x: 148
+        y: 3
+        width: 35
+        height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7d2d3f8a35fce530800000000000000
-      internalID: 3885750210373954939
+      spriteID: 621982cc664b66090800000000000000
+      internalID: -8041541731018567386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_4
+      name: MM_X_Ultimate_4
       rect:
         serializedVersion: 2
-        x: 236
-        y: 0
-        width: 43
-        height: 42
+        x: 197
+        y: 3
+        width: 35
+        height: 47
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +252,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12e6944fc438a97a0800000000000000
-      internalID: -6369634356422939103
+      spriteID: 0d59e1e943befef60800000000000000
+      internalID: 8065924068867478992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_5
+      name: MM_X_Ultimate_5
       rect:
         serializedVersion: 2
-        x: 281
-        y: 0
-        width: 43
-        height: 42
+        x: 246
+        y: 3
+        width: 35
+        height: 46
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +273,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2edc758a940a46370800000000000000
-      internalID: 8314947050250161634
+      spriteID: 0620312f3ea408310800000000000000
+      internalID: 1405205426618958432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_6
+      name: MM_X_Ultimate_6
       rect:
         serializedVersion: 2
-        x: 326
-        y: 0
-        width: 47
-        height: 42
+        x: 295
+        y: 3
+        width: 35
+        height: 46
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +294,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18b27347644089a40800000000000000
-      internalID: 5375050855910681473
+      spriteID: 60fb680f15f71e380800000000000000
+      internalID: -8943727395076653306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_7
+      name: MM_X_Ultimate_7
       rect:
         serializedVersion: 2
-        x: 375
-        y: 0
+        x: 344
+        y: 3
+        width: 35
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a8abd75da422ae90800000000000000
+      internalID: -7016004942567855961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MM_X_Ultimate_8
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 3
+        width: 35
+        height: 47
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d998306b78f40fb0800000000000000
+      internalID: -4682344503779485229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MM_X_Ultimate_9
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 3
+        width: 35
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e566a18863f0f9a70800000000000000
+      internalID: 8835797720810284638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MM_X_Ultimate_10
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 1
         width: 33
-        height: 40
+        height: 46
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +378,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0928591ef9d718ae0800000000000000
-      internalID: -1548818671200796016
+      spriteID: d253a5eea1c26cc10800000000000000
+      internalID: 2073393172630353197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_8
+      name: MM_X_Ultimate_11
       rect:
         serializedVersion: 2
-        x: 414
-        y: 0
+        x: 543
+        y: 1
         width: 33
-        height: 40
+        height: 47
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,8 +399,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cff252c95d4465ba0800000000000000
-      internalID: -6100612960988352516
+      spriteID: 0623a14b398d8b8c0800000000000000
+      internalID: -3983195741515795872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MM_X_Ultimate_12
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 1
+        width: 33
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea6b1e412e2643f40800000000000000
+      internalID: 5707295350937728686
       vertices: []
       indices: 
       edges: []

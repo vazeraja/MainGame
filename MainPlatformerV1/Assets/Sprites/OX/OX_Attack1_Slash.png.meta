@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: dca1d816517e6494baa4c9bb9fdf30f3
+guid: e2e9ee2c0873dec4c8c11441cdb1dd4c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5579430217178138547
-    second: OX_Hoverboard-Sheet_0
+      213: -8328891246209674207
+    second: OX_Attack1_Slash_0
   - first:
-      213: -8062566154279892665
-    second: OX_Hoverboard-Sheet_1
+      213: -8640597146472775169
+    second: OX_Attack1_Slash_1
   - first:
-      213: -2729114436610294438
-    second: OX_Hoverboard-Sheet_2
+      213: 2500729700155357999
+    second: OX_Attack1_Slash_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,6 +32,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,9 +64,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -120,64 +124,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OX_Hoverboard-Sheet_0
+      name: OX_Attack1_Slash_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 0
-        width: 67
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 72
+        height: 42
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b7cbffa83e1e6d40800000000000000
-      internalID: 5579430217178138547
+      spriteID: 124dfc83a85d96c80800000000000000
+      internalID: -8328891246209674207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Hoverboard-Sheet_1
+      name: OX_Attack1_Slash_1
       rect:
         serializedVersion: 2
-        x: 67
+        x: 106
         y: 0
-        width: 67
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 72
+        height: 42
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7494f0cccc20c1090800000000000000
-      internalID: -8062566154279892665
+      spriteID: ff18c35dcae661880800000000000000
+      internalID: -8640597146472775169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Hoverboard-Sheet_2
+      name: OX_Attack1_Slash_2
       rect:
         serializedVersion: 2
-        x: 134
+        x: 180
         y: 0
-        width: 67
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 54
+        height: 42
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5df37e11ec302ad0800000000000000
-      internalID: -2729114436610294438
+      spriteID: f2b7701b96064b220800000000000000
+      internalID: 2500729700155357999
       vertices: []
       indices: 
       edges: []

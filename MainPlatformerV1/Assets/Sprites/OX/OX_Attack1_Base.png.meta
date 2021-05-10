@@ -1,25 +1,34 @@
 fileFormatVersion: 2
-guid: 74b9506b583f0684f82c1fbef55cb478
+guid: 8567709f1fb968d4da6a269ad48b39d8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6634666579341203183
-    second: OX_Dash_0
+      213: -882494847407958087
+    second: OX_Attack1_Base_0
   - first:
-      213: 5202269524590081078
-    second: OX_Dash_1
+      213: -8260971258004909671
+    second: OX_Attack1_Base_1
   - first:
-      213: 6083397165471834829
-    second: OX_Dash_2
+      213: 5303176364711477363
+    second: OX_Attack1_Base_2
   - first:
-      213: 34089494329823717
-    second: OX_Dash_3
+      213: -5688981111023466410
+    second: OX_Attack1_Base_3
   - first:
-      213: 8127286180841753250
-    second: OX_Dash_4
+      213: 5591468522387686667
+    second: OX_Attack1_Base_4
   - first:
-      213: -6287879136161540175
-    second: OX_Dash_5
+      213: -8421046627553215166
+    second: OX_Attack1_Base_5
+  - first:
+      213: 1453271001210399156
+    second: OX_Attack1_Base_6
+  - first:
+      213: 2034628389906872090
+    second: OX_Attack1_Base_7
+  - first:
+      213: 8058058452461702836
+    second: OX_Attack1_Base_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,6 +50,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -72,9 +82,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -129,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OX_Dash_0
+      name: OX_Attack1_Base_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 31
-        height: 33
+        width: 30
+        height: 39
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1192637e5edece3a0800000000000000
-      internalID: -6634666579341203183
+      spriteID: 9b7d228ac9fb0c3f0800000000000000
+      internalID: -882494847407958087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Dash_1
+      name: OX_Attack1_Base_1
       rect:
         serializedVersion: 2
-        x: 33
+        x: 37
         y: 0
         width: 38
-        height: 30
+        height: 39
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 634380fd19c223840800000000000000
-      internalID: 5202269524590081078
+      spriteID: 991d7eac8622b5d80800000000000000
+      internalID: -8260971258004909671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Dash_2
+      name: OX_Attack1_Base_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 112
         y: 0
-        width: 38
-        height: 28
+        width: 37
+        height: 36
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc22193ad719c6450800000000000000
-      internalID: 6083397165471834829
+      spriteID: 37000e76ecaa89940800000000000000
+      internalID: 5303176364711477363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Dash_3
+      name: OX_Attack1_Base_3
       rect:
         serializedVersion: 2
-        x: 113
+        x: 186
         y: 0
-        width: 38
-        height: 28
+        width: 37
+        height: 36
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +219,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e11a18e63c197000800000000000000
-      internalID: 34089494329823717
+      spriteID: 6580a8f22ddac01b0800000000000000
+      internalID: -5688981111023466410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Dash_4
+      name: OX_Attack1_Base_4
       rect:
         serializedVersion: 2
-        x: 153
+        x: 236
         y: 0
-        width: 38
-        height: 28
+        width: 43
+        height: 42
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2aa8305a8bbe9c070800000000000000
-      internalID: 8127286180841753250
+      spriteID: b0542b90ff2e89d40800000000000000
+      internalID: 5591468522387686667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Dash_5
+      name: OX_Attack1_Base_5
       rect:
         serializedVersion: 2
-        x: 193
+        x: 281
         y: 0
-        width: 38
-        height: 28
+        width: 43
+        height: 42
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,8 +261,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b750828d37fcb8a0800000000000000
-      internalID: -6287879136161540175
+      spriteID: 24d70b775be622b80800000000000000
+      internalID: -8421046627553215166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Attack1_Base_6
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 0
+        width: 47
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b9a58d964e0b2410800000000000000
+      internalID: 1453271001210399156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Attack1_Base_7
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 0
+        width: 33
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a17f25e9db37c3c10800000000000000
+      internalID: 2034628389906872090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Attack1_Base_8
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 0
+        width: 33
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4be40561879f3df60800000000000000
+      internalID: 8058058452461702836
       vertices: []
       indices: 
       edges: []

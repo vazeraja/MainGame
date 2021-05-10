@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    public class Enemy : CustomPhysics<EnemyState_SO> {
+    public class Enemy : CustomPhysics, IStateMachine<EnemyStateSO> {
 
-        public EnemyState_SO currentState;
-        public EnemyState_SO remainState;
+        public EnemyStateSO currentState;
+        public EnemyStateSO remainState;
         [HideInInspector] public bool isAnimationFinished;
 
-        public override void TransitionToState(EnemyState_SO nextState) {
+        public void TransitionToState(EnemyStateSO nextState) {
             if (nextState != remainState) {
                 currentState.OnStateExit(this);
                 currentState = nextState;

@@ -2,7 +2,8 @@
 using TMPro;
 
 namespace MainGame {
-    public class Player : CustomPhysics<PlayerState_SO> {
+    
+    public class Player : CustomPhysics, IStateMachine<PlayerStateSO> {
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
         [SerializeField] private Weapon weapon = default;
@@ -12,13 +13,12 @@ namespace MainGame {
 
         [HideInInspector] public int FacingDirection;
 
-        public PlayerState_SO currentState;
-        public PlayerState_SO remainState;
+        public PlayerStateSO currentState;
+        public PlayerStateSO remainState;
         public TextMeshProUGUI currentStateName;
 
         [HideInInspector] public bool isAnimationFinished;
         [HideInInspector] public float startTime;
-
 
         [HideInInspector] public Vector2 MovementInput;
         [HideInInspector] public bool JumpInput;
@@ -34,7 +34,7 @@ namespace MainGame {
         protected override void OnEnable() {
             base.OnEnable();
 
-            FacingDirection = 1;
+            FacingDirection = -1;
 
             inputReader.moveEvent += OnMove;
             inputReader.jumpEvent += OnJumpInitiated;
@@ -74,13 +74,16 @@ namespace MainGame {
         /// <summary>
         /// Move to next state only if next state is not equal to remain state
         /// </summary>
-        public override void TransitionToState(PlayerState_SO nextState) {
-            if (nextState != remainState) {
-                currentState.OnStateExit(this);
-                currentState = nextState;
-                currentState.OnStateEnter(this);
-            }
+        public void TransitionToState(PlayerStateSO nextState)
+        {
+            if (nextState == remainState)
+                return;
+            
+            currentState.OnStateExit(this);
+            currentState = nextState;
+            currentState.OnStateEnter(this);
         }
+        
         public void AnimationFinishTrigger() => isAnimationFinished = true;
 
 

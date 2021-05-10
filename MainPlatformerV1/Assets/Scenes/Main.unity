@@ -10336,6 +10336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f196dcfec53644a803c273e4013c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RB: {fileID: 0}
+  Anim: {fileID: 0}
+  SR: {fileID: 0}
+  velocity: {x: 0, y: 0}
+  MovementVelocity: {x: 0, y: 0}
+  IsGrounded: 0
   minGroundNormalY: 0.65
   gravityModifier: 6
   inputReader: {fileID: 11400000, guid: c5b262ef41fb5ea43aeb052a744016f1, type: 2}
@@ -10391,7 +10397,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
     oldSize: {x: 2.125, y: 2.375}
-    newSize: {x: 2.3125, y: 2.5}
+    newSize: {x: 1.6875, y: 3.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -10445,7 +10451,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.3125, y: 2.5}
+  m_Size: {x: 1.6875, y: 3.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

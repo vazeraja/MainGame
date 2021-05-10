@@ -1,16 +1,25 @@
 fileFormatVersion: 2
-guid: e2e9ee2c0873dec4c8c11441cdb1dd4c
+guid: 74b9506b583f0684f82c1fbef55cb478
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8328891246209674207
-    second: OX_Attack1_Slash_0
+      213: -6634666579341203183
+    second: OX_Dash_0
   - first:
-      213: -8640597146472775169
-    second: OX_Attack1_Slash_1
+      213: 5202269524590081078
+    second: OX_Dash_1
   - first:
-      213: 2500729700155357999
-    second: OX_Attack1_Slash_2
+      213: 6083397165471834829
+    second: OX_Dash_2
+  - first:
+      213: 34089494329823717
+    second: OX_Dash_3
+  - first:
+      213: 8127286180841753250
+    second: OX_Dash_4
+  - first:
+      213: -6287879136161540175
+    second: OX_Dash_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,6 +41,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,9 +73,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -120,64 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OX_Attack1_Slash_0
+      name: OX_Dash_0
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 0
-        width: 72
-        height: 42
-      alignment: 9
-      pivot: {x: 0.33, y: 0}
+        width: 31
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 124dfc83a85d96c80800000000000000
-      internalID: -8328891246209674207
+      spriteID: 1192637e5edece3a0800000000000000
+      internalID: -6634666579341203183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_Slash_1
+      name: OX_Dash_1
       rect:
         serializedVersion: 2
-        x: 106
+        x: 33
         y: 0
-        width: 72
-        height: 42
-      alignment: 9
-      pivot: {x: 0.33, y: 0}
+        width: 38
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff18c35dcae661880800000000000000
-      internalID: -8640597146472775169
+      spriteID: 634380fd19c223840800000000000000
+      internalID: 5202269524590081078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_Attack1_Slash_2
+      name: OX_Dash_2
       rect:
         serializedVersion: 2
-        x: 180
+        x: 73
         y: 0
-        width: 54
-        height: 42
-      alignment: 9
-      pivot: {x: 0.33, y: 0}
+        width: 38
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2b7701b96064b220800000000000000
-      internalID: 2500729700155357999
+      spriteID: dc22193ad719c6450800000000000000
+      internalID: 6083397165471834829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Dash_3
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 0
+        width: 38
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e11a18e63c197000800000000000000
+      internalID: 34089494329823717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Dash_4
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 0
+        width: 38
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa8305a8bbe9c070800000000000000
+      internalID: 8127286180841753250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Dash_5
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 0
+        width: 38
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b750828d37fcb8a0800000000000000
+      internalID: -6287879136161540175
       vertices: []
       indices: 
       edges: []

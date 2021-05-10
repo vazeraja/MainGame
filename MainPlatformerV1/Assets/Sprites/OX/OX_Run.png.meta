@@ -1,49 +1,40 @@
 fileFormatVersion: 2
-guid: c582847355126574ea2af7834eded638
+guid: 12521459214cb984a802b0af9ac1b2ec
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3750172678149463681
-    second: OX_JumpFall_0
+      213: -7762163916396704579
+    second: OX_Run_0
   - first:
-      213: -2679181634659669953
-    second: OX_JumpFall_1
+      213: 6768308618708130926
+    second: OX_Run_1
   - first:
-      213: -5728482838193673787
-    second: OX_JumpFall_2
+      213: -4809947354968171098
+    second: OX_Run_2
   - first:
-      213: -4245822400622038410
-    second: OX_JumpFall_3
+      213: 7073026847056882055
+    second: OX_Run_3
   - first:
-      213: 3631202477584723965
-    second: OX_JumpFall_4
+      213: -8538971085945958112
+    second: OX_Run_4
   - first:
-      213: -2669718574385776029
-    second: OX_JumpFall_5
+      213: 7958069348835647952
+    second: OX_Run_5
   - first:
-      213: -1068188484296279617
-    second: OX_JumpFall_6
+      213: 944730337999318695
+    second: OX_Run_6
   - first:
-      213: -8622571786247115029
-    second: OX_JumpFall_7
+      213: 128395058306663306
+    second: OX_Run_7
   - first:
-      213: -1402166921588053526
-    second: OX_JumpFall_8
+      213: 6914584928182235701
+    second: OX_Run_8
   - first:
-      213: 3118269248912519214
-    second: OX_JumpFall_9
+      213: -2494595122957217944
+    second: OX_Run_9
   - first:
-      213: -4044166805763467216
-    second: OX_JumpFall_10
-  - first:
-      213: -2695279079532330498
-    second: OX_JumpFall_11
-  - first:
-      213: 523733429446814744
-    second: OX_JumpFall_12
-  - first:
-      213: -948579146712123418
-    second: OX_JumpFall_13
+      213: 8733544457221178142
+    second: OX_Run_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -65,6 +56,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -96,9 +88,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -153,264 +148,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OX_JumpFall_0
+      name: OX_Run_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 36
-        height: 37
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18e59777e2a4b0430800000000000000
-      internalID: 3750172678149463681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 31
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f382c598f72a1dad0800000000000000
-      internalID: -2679181634659669953
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_2
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 0
-        width: 28
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c96b8f95375080b0800000000000000
-      internalID: -5728482838193673787
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_3
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 0
         width: 30
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 672f68f950fc315c0800000000000000
-      internalID: -4245822400622038410
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_4
-      rect:
-        serializedVersion: 2
-        x: 133
-        y: 0
-        width: 30
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dffa4f71a6f946230800000000000000
-      internalID: 3631202477584723965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_5
-      rect:
-        serializedVersion: 2
-        x: 165
-        y: 0
-        width: 29
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36a3973f91143fad0800000000000000
-      internalID: -2669718574385776029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_6
-      rect:
-        serializedVersion: 2
-        x: 196
-        y: 0
-        width: 36
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb97b58ab380d21f0800000000000000
-      internalID: -1068188484296279617
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_7
-      rect:
-        serializedVersion: 2
-        x: 234
-        y: 0
-        width: 33
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bee6f6e05a8765880800000000000000
-      internalID: -8622571786247115029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_8
-      rect:
-        serializedVersion: 2
-        x: 269
-        y: 0
-        width: 33
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae9e0f22d908a8ce0800000000000000
-      internalID: -1402166921588053526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_9
-      rect:
-        serializedVersion: 2
-        x: 304
-        y: 0
-        width: 33
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e20747f4c51564b20800000000000000
-      internalID: 3118269248912519214
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_10
-      rect:
-        serializedVersion: 2
-        x: 339
-        y: 0
-        width: 33
-        height: 47
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 038da0297bb30e7c0800000000000000
-      internalID: -4044166805763467216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_11
-      rect:
-        serializedVersion: 2
-        x: 374
-        y: 0
-        width: 34
-        height: 42
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef10fe515f1789ad0800000000000000
-      internalID: -2695279079532330498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: OX_JumpFall_12
-      rect:
-        serializedVersion: 2
-        x: 410
-        y: 0
-        width: 37
         height: 38
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -419,29 +162,218 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81cac2b77cca44700800000000000000
-      internalID: 523733429446814744
+      spriteID: dbcc1d23b01474490800000000000000
+      internalID: -7762163916396704579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OX_JumpFall_13
+      name: OX_Run_1
       rect:
         serializedVersion: 2
-        x: 9
-        y: 39
-        width: 18
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 32
+        y: 0
+        width: 31
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e771e6ba48f5d2f0800000000000000
-      internalID: -948579146712123418
+      spriteID: e6c105424dcdded50800000000000000
+      internalID: 6768308618708130926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 37
+        height: 39
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6addac66d52af3db0800000000000000
+      internalID: -4809947354968171098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 39
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78960a16170782260800000000000000
+      internalID: 7073026847056882055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_4
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 0
+        width: 32
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0211cdae90b7f7980800000000000000
+      internalID: -8538971085945958112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_5
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 0
+        width: 24
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d1e54bb8edb07e60800000000000000
+      internalID: 7958069348835647952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_6
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 0
+        width: 28
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aeebfcac3b5c1d00800000000000000
+      internalID: 944730337999318695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_7
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 0
+        width: 34
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83c84110a628c100800000000000000
+      internalID: 128395058306663306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_8
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 0
+        width: 34
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532729d6b5a85ff50800000000000000
+      internalID: 6914584928182235701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_9
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 0
+        width: 38
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86f86bdd3fa616dd0800000000000000
+      internalID: -2494595122957217944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OX_Run_10
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 0
+        width: 34
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1300ca5968c33970800000000000000
+      internalID: 8733544457221178142
       vertices: []
       indices: 
       edges: []
