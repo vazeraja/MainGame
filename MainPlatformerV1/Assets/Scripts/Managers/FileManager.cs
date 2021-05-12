@@ -10,7 +10,6 @@ namespace MainGame {
 
             try {
                 File.WriteAllText(fullPath, a_FileContents);
-                Debug.Log(fullPath);
                 return true;
             } catch (Exception e) {
                 Debug.LogError($"Failed to write to {fullPath} with exception {e}");

@@ -7,15 +7,8 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AnimationFinishedDecision")]
     public class AnimationFinishedDecision : Decision<Player> {
-        public override bool Decide(Player player) {
-            bool isAnimationFinished = FinishTrigger(player);
-            return isAnimationFinished;
-        }
+        public override bool Decide(Player player) => player.isAnimationFinished;
 
-        private bool FinishTrigger(Player player) {
-            if (player.isAnimationFinished) {
-                return true;
-            } else return false;
-        }
+
     }
 }

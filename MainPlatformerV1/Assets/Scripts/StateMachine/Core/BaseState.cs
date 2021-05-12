@@ -8,7 +8,7 @@ namespace MainGame {
         public void TransitionToState(T nextState);
     }
     public abstract class BaseState<T,U> : ScriptableObject where T : CustomPhysics { // U is BaseState_SO
-        [SerializeField] protected string stateName;
+        [SerializeField] public string stateName;
         [SerializeField] protected State<T>[] states;
         [SerializeField] protected Transition<T, U>[] transitions;
 

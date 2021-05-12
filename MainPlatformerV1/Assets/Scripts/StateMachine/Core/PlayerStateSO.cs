@@ -5,13 +5,15 @@ using UnityEngine.Events;
 using System;
 
 namespace MainGame {
-    
+
     [CreateAssetMenu(menuName = "PluggableAI/Player Base State")]
     public class PlayerStateSO : BaseState<Player, PlayerStateSO> {
+
+        public string animBoolName;
         public PlayerStateSO(string stateName, State<Player>[] states, Transition<Player, PlayerStateSO>[] transitions,
-            Action<Player> enterStateEvent,
-            Action<Player> exitStateEvent, Action<Player> updateStateEvent) : base(stateName, states, transitions,
-            enterStateEvent, exitStateEvent, updateStateEvent) { }
+            Action<Player> enterStateEvent, Action<Player> exitStateEvent, Action<Player> updateStateEvent, string animBoolName) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent) {
+            this.animBoolName = animBoolName;
+        }
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -28,6 +30,7 @@ namespace MainGame {
                 bool decisionSucceeded = transitions[i].decision.Decide(player);
 
                 player.TransitionToState(decisionSucceeded ? transitions[i].trueState : transitions[i].falseState);
+                
             }
         }
     }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b84c377b4e22984faae0a99ec674d8b, type: 3}
   m_Name: MoveState
   m_EditorClassIdentifier: 
+  _dashState: {fileID: 11400000, guid: ef385ad4e7137ef4fb797fd290f50e0f, type: 2}

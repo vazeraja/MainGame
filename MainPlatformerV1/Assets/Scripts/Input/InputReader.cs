@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
 namespace MainGame {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
     public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions {
-
+        
         // Gameplay
         public event UnityAction<Vector2> moveEvent;
         public event UnityAction jumpEvent;

@@ -11,15 +11,11 @@ namespace MainGame {
         }
 
         public override void LogicUpdate(Player player) {
-            Idle(player);
         }
 
         public override void OnExit(Player player) {
         }
 
-        private void Idle(Player player) {
-            player.Anim.Play("player_idle");
-        }
 
     }
 }
