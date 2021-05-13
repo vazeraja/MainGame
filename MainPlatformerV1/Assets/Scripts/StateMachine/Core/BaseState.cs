@@ -7,7 +7,9 @@ namespace MainGame {
     public interface IStateMachine<in T> {
         void TransitionToState(T nextState);
     }
-    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics { // U is BaseState_SO
+
+    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics {
+        // U is BaseState_SO
         [SerializeField] public string stateName;
         [SerializeField] protected State<T>[] states;
         [SerializeField] protected Transition<T, U>[] transitions;
@@ -16,7 +18,8 @@ namespace MainGame {
         protected event Action<T> exitStateEvent;
         protected event Action<T> updateStateEvent;
 
-        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent) {
+        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions,
+            Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent) {
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
@@ -31,18 +34,22 @@ namespace MainGame {
                 updateStateEvent += state.LogicUpdate;
                 exitStateEvent += state.OnExit;
             }
+
             updateStateEvent += CheckTransitions;
             exitStateEvent += ResetAnimationFinished;
         }
+
         protected virtual void OnDisable() {
             foreach (State<T> state in states) {
                 enterStateEvent -= state.OnEnter;
                 updateStateEvent -= state.LogicUpdate;
                 exitStateEvent -= state.OnExit;
             }
+
             updateStateEvent -= CheckTransitions;
             exitStateEvent -= ResetAnimationFinished;
         }
+
         protected abstract void CheckTransitions(T entity);
         protected abstract void ResetAnimationFinished(T entity);
 
