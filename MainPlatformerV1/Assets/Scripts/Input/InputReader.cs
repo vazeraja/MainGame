@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace MainGame {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
     public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions {
-        
+
         // Gameplay
         public event UnityAction<Vector2> moveEvent;
         public event UnityAction jumpEvent;
@@ -25,10 +25,12 @@ namespace MainGame {
         public event UnityAction disableMouseControlCameraEvent;
 
         // Dialogue
-        public event UnityAction advanceDialogueEvent = delegate { };
+        public event UnityAction advanceDialogueEvent;
+        public event UnityAction resetDialogueEvent;
         public event UnityAction onMoveSelectionEvent = delegate { };
 
         private GameInput gameInput;
+
 
         private void OnEnable() {
             if (gameInput == null) {
@@ -124,7 +126,9 @@ namespace MainGame {
 
         public void OnAdvanceDialogue(InputAction.CallbackContext context) {
             if (context.phase == InputActionPhase.Performed)
-                advanceDialogueEvent();
+                advanceDialogueEvent?.Invoke();
+            if (context.phase == InputActionPhase.Canceled)
+                resetDialogueEvent?.Invoke();
         }
 
         public void EnableDialogueInput() {

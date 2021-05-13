@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: New DialogueObject
   m_EditorClassIdentifier: 
   dialogueID: 1
+  preset: 2
   dialogue:
-  - 
+  - <c=(100, 69, 69)><w>Yeehaw Yeehaw Yeehaw! amazin</w></c>
+  - <c=(100,200, 69)><w>NICE COCK! amazin</w></c>
   responseOptions: []

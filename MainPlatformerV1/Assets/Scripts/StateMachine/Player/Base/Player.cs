@@ -17,7 +17,7 @@ namespace MainGame {
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
         public TextMeshProUGUI currentStateName;
-        
+
         [HideInInspector] public bool isAnimationFinished;
 
         [HideInInspector] public Vector2 MovementInput;
@@ -78,13 +78,13 @@ namespace MainGame {
             currentState.OnStateExit(this);
             Anim.SetBool(currentState.animBoolName, false);
             currentState = nextState;
-            Anim.SetBool(currentState.animBoolName, true); 
+            Anim.SetBool(currentState.animBoolName, true);
             currentState.OnStateEnter(this);
         }
         public void AnimationFinishTrigger() => isAnimationFinished = true;
         public void Flip() {
             FacingDirection *= -1;
-            
+
             var scale = transform.localScale;
             scale.x *= -1; transform.localScale = scale;
         }
@@ -99,6 +99,5 @@ namespace MainGame {
         private void OnDashInitiated() => DashInput = true;
         private void OnDashCancelled() => DashInput = false;
         private void OnDashKeyboard(Vector2 input) => DashKeyboardInput = input;
-
     }
 }

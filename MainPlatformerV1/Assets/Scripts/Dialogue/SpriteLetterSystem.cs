@@ -25,7 +25,7 @@ namespace MainGame {
         [SerializeField] private float wavyStrength = 0.5f;
         [SerializeField] private float shakyStrength = 0.5f;
         // private
-        private RectTransform dialogueBoxRT;
+        public RectTransform dialogueBoxRT = default;
         private TextEffect activeEffect;
         private Color activeColor;
         private List<GameObject> letterObjects = new List<GameObject>();
@@ -70,8 +70,6 @@ namespace MainGame {
 
         private void Awake() {
             loadedFont = FontLoader.LoadFontResource(charSheet);
-            RectTransform[] rects = GetComponentsInParent<RectTransform>();
-            dialogueBoxRT = rects.First(x => x.name == "DialoguePanel");
         }
 
         private void FixedUpdate() {
@@ -131,7 +129,7 @@ namespace MainGame {
                     // Create new game object
                     GameObject newLetterSprite = CreateNewLetter(currentCharacterData, xPosition, yPosition, index);
                     newLetterSprite.transform.localScale = new Vector3(scale, scale, 1f);
-                    Debug.Log(xPosition + " " + index);
+                    // Debug.Log(xPosition + " " + index);
 
                     letterObjects.Add(newLetterSprite);
 

@@ -24,7 +24,7 @@ namespace MainGame {
         }
 
         private void SetBigPreset() {
-            letterSpacing = 6f;
+            letterSpacing = 7f;
             wordSpacing = 10f;
             lineSpacing = 110f;
             letterSize = 80f;
