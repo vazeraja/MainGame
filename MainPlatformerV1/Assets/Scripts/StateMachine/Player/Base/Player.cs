@@ -65,7 +65,7 @@ namespace MainGame {
             base.Update();
 
             currentState.OnLogicUpdate(this);
-            // currentStateName.text = currentState.stateName;
+            currentStateName.text = currentState.stateName;
         }
 
         /// <summary>

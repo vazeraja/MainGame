@@ -15,6 +15,6 @@ MonoBehaviour:
   dialogueID: 1
   preset: 2
   dialogue:
-  - <c=(100, 69, 69)><w>Yeehaw Yeehaw Yeehaw! amazin</w></c>
-  - <c=(100,200, 69)><w>NICE COCK! amazin</w></c>
+  - <c=(100, 69, 69)><w>Yeehaw Yeehaw</w></c>
+  - <c=(100,200, 69)><w>NICE COCK!</w></c>
   responseOptions: []
