@@ -37,7 +37,8 @@ namespace MainGame.Timeline.CustomDialogueTrack {
                 inputReader.advanceDialogueEvent += SkipDialogue;
 
                 SPL = playerData as SpriteLetterSystem;
-                if (!System.Object.ReferenceEquals(SPL, null)) {
+                
+                if (SPL is {}) {
                     SPL.dialogueBoxRT.gameObject.SetActive(true);
 
                     inputReader.EnableDialogueInput();
@@ -85,7 +86,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
             inputReader.EnableGameplayInput();
             inputReader.advanceDialogueEvent -= AdvanceDialogue;
             inputReader.advanceDialogueEvent -= SkipDialogue;
-            if (!System.Object.ReferenceEquals(SPL, null))
+            if (SPL is {})
                 SPL.dialogueBoxRT.gameObject.SetActive(false);
         }
 
