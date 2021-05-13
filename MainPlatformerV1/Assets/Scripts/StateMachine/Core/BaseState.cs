@@ -5,9 +5,9 @@ using System;
 
 namespace MainGame {
     public interface IStateMachine<in T> {
-        public void TransitionToState(T nextState);
+        void TransitionToState(T nextState);
     }
-    public abstract class BaseState<T,U> : ScriptableObject where T : CustomPhysics { // U is BaseState_SO
+    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics { // U is BaseState_SO
         [SerializeField] public string stateName;
         [SerializeField] protected State<T>[] states;
         [SerializeField] protected Transition<T, U>[] transitions;
