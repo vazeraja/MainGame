@@ -37,21 +37,24 @@ namespace MainGame.Timeline.CustomDialogueTrack {
                 inputReader.advanceDialogueEvent += SkipDialogue;
 
                 SPL = playerData as SpriteLetterSystem;
-                SPL.dialogueBoxRT.gameObject.SetActive(true);
+                if (SPL is { }) {
+                    SPL.dialogueBoxRT.gameObject.SetActive(true);
 
-                inputReader.EnableDialogueInput();
+                    inputReader.EnableDialogueInput();
 
-                try {
-                    switch (dialogueType) {
-                        case DialogueType.DIALOGUE:
-                            SPL.GenerateSpriteText(dialogue.dialogue[index]);
-                            break;
-                        case DialogueType.RESPONSE:
-                            SPL.GenerateSpriteText(dialogue.responseOptions[index].text);
-                            break;
+                    try {
+                        switch (dialogueType) {
+                            case DialogueType.DIALOGUE:
+                                SPL.GenerateSpriteText(dialogue.dialogue[index]);
+                                break;
+                            case DialogueType.RESPONSE:
+                                SPL.GenerateSpriteText(dialogue.responseOptions[index].text);
+                                break;
+                        }
                     }
-                } catch {
-                    Debug.Log("index out of bounds for dialogue array.");
+                    catch {
+                        Debug.Log("index out of bounds for dialogue array.");
+                    }
                 }
 
                 hasPlayed = true;
@@ -82,7 +85,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
             inputReader.EnableGameplayInput();
             inputReader.advanceDialogueEvent -= AdvanceDialogue;
             inputReader.advanceDialogueEvent -= SkipDialogue;
-            SPL.dialogueBoxRT.gameObject.SetActive(false);
+            if (SPL is { }) SPL.dialogueBoxRT.gameObject.SetActive(false);
         }
 
         private void AdvanceDialogue() {

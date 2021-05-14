@@ -25688,6 +25688,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   wavyStrength: 0.5
   shakyStrength: 0.5
+  dialogueBoxRT: {fileID: 1508910787}
 --- !u!1 &935482930
 GameObject:
   m_ObjectHideFlags: 0
@@ -25901,7 +25902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1508910787
 RectTransform:
   m_ObjectHideFlags: 0
