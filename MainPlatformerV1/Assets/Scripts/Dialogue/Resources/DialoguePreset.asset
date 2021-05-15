@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334dbb46caccc9948a1785eaf61c0422, type: 3}
   m_Name: DialoguePreset
   m_EditorClassIdentifier: 
-  letterSpacing: 0
-  wordSpacing: 0
-  lineSpacing: 0
-  letterSize: 0
-  indentLeft: 0
-  indentRight: 0
-  indentTop: 0
+  presets:
+  - {fileID: 11400000, guid: c287d9c84cb8fd14e9819cea024c6eb8, type: 2}
+  - {fileID: 11400000, guid: 2f3d7c0ebb6b1a94581de0daca5e27f1, type: 2}
+  - {fileID: 11400000, guid: dd4004fee6f70db488ac53ff9f31bcda, type: 2}
+  letterSpacing: 5.7
+  wordSpacing: 10
+  lineSpacing: 110
+  letterSize: 80
+  indentLeft: 50
+  indentRight: 50
+  indentTop: -120
   indentBottom: 0

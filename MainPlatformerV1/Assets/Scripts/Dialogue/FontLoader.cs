@@ -161,6 +161,7 @@ namespace MainGame {
                         var halfWidth = spriteSize / 2;
                         var leftOffset = halfWidth - leftEdge;
                         var rightOffset = halfWidth - rightEdge;
+                        Debug.Log(spriteSize + leftOffset + rightOffset);
 
                         charData.Add(Chars[charIndex],
                             new CharData(currentSpriteWidth, characterSprites[charIndex], leftOffset, rightOffset));

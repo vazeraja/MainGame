@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c189d2cf9e8cfee4393c3a03fc34e990, type: 3}
-  m_Name: New DialogueObject
+  m_Script: {fileID: 11500000, guid: 430cfeb59e6bbc345b4c550425f990c1, type: 3}
+  m_Name: Font1 Medium
   m_EditorClassIdentifier: 
-  dialogueID: 1
-  preset: 3
-  dialogue:
-  - '<c=(100, 255, 69)><w>Big Chungus yeehaw *2" : wow!</w></c>'
-  - <c=(100,200, 69)><w>NICE COCK!</w></c>
-  responseOptions: []
+  presetName: Medium
+  letterSpacing: 4
+  wordSpacing: 10
+  lineSpacing: 70
+  letterSize: 50
+  indentLeft: 40
+  indentRight: 40
+  indentTop: -60
+  indentBottom: 0
