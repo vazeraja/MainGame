@@ -1,6 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using MainGame.Utils;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
+using UnityEditor.Animations;
 
 namespace MainGame {
 
@@ -25,12 +31,14 @@ namespace MainGame {
         [HideInInspector] public bool AttackInput = false;
         [HideInInspector] public bool DashInput = false;
         [HideInInspector] public Vector2 DashKeyboardInput;
+        
+        private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
 
-        protected override void Awake() {
+        protected override void Awake(){
             base.Awake();
         }
 
-        protected override void OnEnable() {
+        protected override void OnEnable(){
             base.OnEnable();
 
             FacingDirection = 1;
@@ -44,7 +52,7 @@ namespace MainGame {
             inputReader.dashCanceledEvent += OnDashCancelled;
             inputReader.dashKeyboardEvent += OnDashKeyboard;
         }
-        protected override void OnDisable() {
+        protected override void OnDisable(){
             base.OnDisable();
 
             inputReader.moveEvent -= OnMove;
@@ -56,22 +64,37 @@ namespace MainGame {
             inputReader.dashCanceledEvent -= OnDashCancelled;
             inputReader.dashKeyboardEvent -= OnDashKeyboard;
         }
-        protected override void Start() {
+        protected override void Start(){
             base.Start();
 
             currentState.OnStateEnter(this);
+            UpdateAnimClipTimes();
         }
-        protected override void Update() {
+        protected override void Update(){
             base.Update();
 
             currentState.OnLogicUpdate(this);
             currentStateName.text = currentState.stateName;
         }
 
+        private void UpdateAnimClipTimes(){
+            var clips = Anim.runtimeAnimatorController.animationClips;
+            foreach (var animationClip in clips) {
+                var stateNames = new List<string> { animationClip.name };
+                switch (animationClip.name) {
+                    case "player_run":
+                        // Add run animation clip to dictionary with number of frames
+                        AnimationStates.Add("player_run", animationClip.length * animationClip.frameRate); 
+                        break;
+                }
+            }
+            AnimationStates.Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Debug.Log);
+        }
+
         /// <summary>
         /// Move to next state only if next state is not equal to remain state
         /// </summary>
-        public void TransitionToState(PlayerStateSO nextState) {
+        public void TransitionToState(PlayerStateSO nextState){
             if (nextState == remainState)
                 return;
 
@@ -82,13 +105,13 @@ namespace MainGame {
             currentState.OnStateEnter(this);
         }
         public void AnimationFinishTrigger() => isAnimationFinished = true;
-        public void Flip() {
+        public void Flip(){
             FacingDirection *= -1;
-
-            var scale = transform.localScale;
-            scale.x *= -1; transform.localScale = scale;
+            var transform1 = transform;
+            var scale = transform1.localScale;
+            scale.x *= -1;
+            transform1.localScale = scale;
         }
-
 
         //---- EVENT LISTENERS ----
         private void OnMove(Vector2 input) => MovementInput = input;

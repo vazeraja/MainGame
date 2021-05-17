@@ -93,7 +93,7 @@ namespace MainGame {
 
         public void OnMove(InputAction.CallbackContext context) {
             if (moveEvent != null) {
-                moveEvent.Invoke(context.ReadValue<Vector2>());
+                moveEvent.Invoke(context.ReadValue<Vector2>().normalized);
             }
         }
 

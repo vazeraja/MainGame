@@ -103,7 +103,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Gamepad Left Stick"",
                     ""id"": ""bb70cc63-ec03-4bda-b1f6-edc72656ba83"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -311,17 +311,6 @@ public class @GameInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8b85e5da-3435-4347-9595-50cc57356b80"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""433e8393-e1b1-484a-af51-d084849fe7c3"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
@@ -478,6 +467,17 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""08e210ce-12bd-4bf7-b50e-24be22fb3f0b"",
                     ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardOrGamepad"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b8ecce-183f-47e4-ba4e-4ff466341eb9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
