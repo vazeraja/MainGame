@@ -31,7 +31,7 @@ namespace MainGame {
         [HideInInspector] public bool AttackInput = false;
         [HideInInspector] public bool DashInput = false;
         [HideInInspector] public Vector2 DashKeyboardInput;
-        
+
         private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
 
         protected override void Awake(){
@@ -83,8 +83,11 @@ namespace MainGame {
                 var stateNames = new List<string> { animationClip.name };
                 switch (animationClip.name) {
                     case "player_run":
-                        // Add run animation clip to dictionary with number of frames
-                        AnimationStates.Add("player_run", animationClip.length * animationClip.frameRate); 
+                        // Add run animation clip to dictionary with length of clip in seconds
+                        AnimationStates.Add("player_run", animationClip.length); // Multiply by framerate to get amount of frames in clip
+                        break;
+                    case "attack1":
+                        AnimationStates.Add("player_attack1", animationClip.length);
                         break;
                 }
             }

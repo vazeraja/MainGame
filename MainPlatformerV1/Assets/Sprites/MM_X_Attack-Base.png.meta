@@ -4,49 +4,49 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 1803084307389288396
-    second: MM_X_Attack-Base_0
+    second: 15
   - first:
       213: -1054892117928590730
-    second: MM_X_Attack-Base_1
+    second: 14
   - first:
       213: -5989658091842335075
-    second: MM_X_Attack-Base_2
+    second: 13
   - first:
       213: -3869170862599756519
-    second: MM_X_Attack-Base_3
+    second: 12
   - first:
       213: -4435833810360309694
-    second: MM_X_Attack-Base_4
+    second: 11
   - first:
       213: -3727636276432551496
-    second: MM_X_Attack-Base_5
+    second: 10
   - first:
       213: 3803699085688936018
-    second: MM_X_Attack-Base_6
+    second: 9
   - first:
       213: 7992330947548708254
-    second: MM_X_Attack-Base_7
+    second: 8
   - first:
       213: -2864487065827246293
-    second: MM_X_Attack-Base_8
+    second: 7
   - first:
       213: 8613416950116196341
-    second: MM_X_Attack-Base_9
+    second: 6
   - first:
       213: -2042840877361246568
-    second: MM_X_Attack-Base_10
+    second: 5
   - first:
       213: 279858079353187796
-    second: MM_X_Attack-Base_11
+    second: 4
   - first:
       213: -5834510755032030690
-    second: MM_X_Attack-Base_12
+    second: 3
   - first:
       213: 560670606865959950
-    second: MM_X_Attack-Base_13
+    second: 2
   - first:
       213: -8387473733383971485
-    second: MM_X_Attack-Base_14
+    second: 1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -160,12 +160,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MM_X_Attack-Base_0
+      name: 15
       rect:
         serializedVersion: 2
-        x: 3
+        x: 5
         y: 17
-        width: 40
+        width: 39
         height: 49
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -181,13 +181,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_1
+      name: 14
       rect:
         serializedVersion: 2
-        x: 55
+        x: 53
         y: 17
-        width: 37
-        height: 50
+        width: 45
+        height: 46
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,13 +202,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_2
+      name: 13
       rect:
         serializedVersion: 2
-        x: 107
+        x: 108
         y: 17
-        width: 43
-        height: 48
+        width: 53
+        height: 41
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,13 +223,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_3
+      name: 12
       rect:
         serializedVersion: 2
-        x: 209
+        x: 165
         y: 17
         width: 53
-        height: 42
+        height: 41
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +244,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_4
+      name: 11
       rect:
         serializedVersion: 2
-        x: 317
+        x: 222
         y: 17
         width: 53
         height: 41
@@ -265,10 +265,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_5
+      name: 10
       rect:
         serializedVersion: 2
-        x: 430
+        x: 279
         y: 17
         width: 53
         height: 41
@@ -286,10 +286,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_6
+      name: 9
       rect:
         serializedVersion: 2
-        x: 535
+        x: 336
         y: 17
         width: 53
         height: 41
@@ -307,10 +307,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_7
+      name: 8
       rect:
         serializedVersion: 2
-        x: 609
+        x: 395
         y: 17
         width: 53
         height: 41
@@ -328,10 +328,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_8
+      name: 7
       rect:
         serializedVersion: 2
-        x: 668
+        x: 469
         y: 17
         width: 53
         height: 41
@@ -349,10 +349,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_9
+      name: 6
       rect:
         serializedVersion: 2
-        x: 725
+        x: 574
         y: 17
         width: 53
         height: 41
@@ -370,10 +370,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_10
+      name: 5
       rect:
         serializedVersion: 2
-        x: 782
+        x: 687
         y: 17
         width: 53
         height: 41
@@ -391,13 +391,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_11
+      name: 4
       rect:
         serializedVersion: 2
-        x: 839
+        x: 794
         y: 17
-        width: 53
-        height: 41
+        width: 54
+        height: 42
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,13 +412,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_12
+      name: 3
       rect:
         serializedVersion: 2
-        x: 896
+        x: 907
         y: 17
-        width: 53
-        height: 41
+        width: 43
+        height: 48
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -433,13 +433,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_13
+      name: 2
       rect:
         serializedVersion: 2
-        x: 959
+        x: 965
         y: 17
-        width: 45
-        height: 46
+        width: 37
+        height: 50
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,12 +454,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MM_X_Attack-Base_14
+      name: 1
       rect:
         serializedVersion: 2
-        x: 1013
+        x: 1014
         y: 17
-        width: 39
+        width: 40
         height: 49
       alignment: 7
       pivot: {x: 0.5, y: 0}
