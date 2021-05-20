@@ -33,8 +33,8 @@ namespace MainGame.Timeline.CustomDialogueTrack {
 
                 director.playableGraph.GetRootPlayable(0).SetSpeed(1d);
 
-                inputReader.advanceDialogueEvent += AdvanceDialogue;
-                inputReader.advanceDialogueEvent += SkipDialogue;
+                inputReader.AdvanceDialogueEvent += AdvanceDialogue;
+                inputReader.AdvanceDialogueEvent += SkipDialogue;
 
                 SPL = playerData as SpriteLetterSystem;
                 
@@ -84,8 +84,8 @@ namespace MainGame.Timeline.CustomDialogueTrack {
 
         public override void OnGraphStop(Playable playable) {
             inputReader.EnableGameplayInput();
-            inputReader.advanceDialogueEvent -= AdvanceDialogue;
-            inputReader.advanceDialogueEvent -= SkipDialogue;
+            inputReader.AdvanceDialogueEvent -= AdvanceDialogue;
+            inputReader.AdvanceDialogueEvent -= SkipDialogue;
             if (SPL is {})
                 SPL.dialogueBoxRT.gameObject.SetActive(false);
         }

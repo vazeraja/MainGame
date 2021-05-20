@@ -34,8 +34,8 @@ namespace MainGame {
                 force = CalculateForce(player, holdDowntime);
 
                 player.Anim.SetBool(DashX, true);
+                player.MovementVelocity.x = player.DashKeyboardInput.x != 0 ? player.DashKeyboardInput.x * force : player.FacingDirection * force;
                 CheckIfShouldFlip(player, (int)player.DashKeyboardInput.x);
-                CheckKeyboardInput(player);
                 CheckDashTime();
             }
         }
@@ -52,15 +52,6 @@ namespace MainGame {
             float holdTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
             float force = holdTimeNormalized * player.PlayerData.dashMaxForce;
             return force;
-        }
-        private void CheckKeyboardInput(Player player) {
-
-            if (player.DashKeyboardInput.x != 0) {
-                player.MovementVelocity.x = player.DashKeyboardInput.x * force;
-            }
-            else {
-                player.MovementVelocity.x = player.FacingDirection * force;
-            }
         }
         private void CheckDashTime() {
             if (timerIsRunning) {

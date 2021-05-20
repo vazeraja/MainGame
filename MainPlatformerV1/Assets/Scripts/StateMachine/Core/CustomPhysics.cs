@@ -12,7 +12,6 @@ namespace MainGame {
         [HideInInspector] public Vector2 velocity;
         [HideInInspector] public Vector2 MovementVelocity;
         [HideInInspector] public bool IsGrounded;
-
         #endregion
 
         #region Internal Variables
@@ -27,31 +26,31 @@ namespace MainGame {
 
         private const float minMoveDistance = 0.001f;
         private const float shellRadius = 0.01f;
-
         #endregion
 
-        protected virtual void OnEnable() {
+        #region Unity Callbacks Functions
+
+        protected virtual void OnEnable(){
             RB = GetComponent<Rigidbody2D>();
             Anim = GetComponent<Animator>();
             SR = GetComponent<SpriteRenderer>();
         }
-        protected virtual void OnDisable() {
+        protected virtual void OnDisable(){
 
         }
-        protected virtual void Awake() {
+        protected virtual void Awake(){
 
         }
 
-        protected virtual void Start() {
+        protected virtual void Start(){
             contactFilter.useTriggers = false;
             contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Use settings from Physics2D to determine what layers to check collisions against
             contactFilter.useLayerMask = true;
         }
-        protected virtual void Update() {
+        protected virtual void Update(){
             MovementVelocity = Vector2.zero;
-            ApplyVelocity();
         }
-        protected virtual void FixedUpdate() {
+        protected virtual void FixedUpdate(){
             velocity += Physics2D.gravity * (gravityModifier * Time.deltaTime);
             velocity.x = MovementVelocity.x;
 
@@ -67,8 +66,11 @@ namespace MainGame {
 
             Movement(move, true);
         }
+        
+        #endregion
 
-        void Movement(Vector2 move, bool yMovement) {
+        #region Physics Logic
+        private void Movement(Vector2 move, bool yMovement){
             float distance = move.magnitude;
 
             if (distance > minMoveDistance) {
@@ -80,8 +82,8 @@ namespace MainGame {
                 }
 
 
-                foreach (RaycastHit2D hitbuffer in hitbufferList) {
-                    Vector2 currentNormal = hitbuffer.normal;
+                foreach (var hitBuffer in hitbufferList) {
+                    var currentNormal = hitBuffer.normal;
                     if (currentNormal.y > minGroundNormalY) {
                         IsGrounded = true;
                         if (yMovement) {
@@ -91,16 +93,15 @@ namespace MainGame {
                     }
                     float projection = Vector2.Dot(velocity, currentNormal);
                     if (projection < 0) {
-                        velocity = velocity - projection * currentNormal;
+                        velocity -= projection * currentNormal;
                     }
-                    float modifiedDistance = hitbuffer.distance - shellRadius;
+                    float modifiedDistance = hitBuffer.distance - shellRadius;
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
-            RB.position = RB.position + move.normalized * distance;
+            RB.position += move.normalized * distance;
         }
-        protected virtual void ApplyVelocity() {
-        }
-
+        
+        #endregion
     }
 }

@@ -19,3 +19,4 @@ MonoBehaviour:
   - decision: {fileID: 11400000, guid: 97c9c6a6e4236154fad20241afc110f9, type: 2}
     trueState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
     falseState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
+  animBoolName: attack

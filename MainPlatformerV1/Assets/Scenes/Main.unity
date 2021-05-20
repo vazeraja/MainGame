@@ -25488,7 +25488,6 @@ MonoBehaviour:
   gravityModifier: 7
   inputReader: {fileID: 11400000, guid: c5b262ef41fb5ea43aeb052a744016f1, type: 2}
   playerData: {fileID: 11400000, guid: 47cb074794fa5394791012ff1ca0e92c, type: 2}
-  weapon: {fileID: 0}
   FacingDirection: 0
   currentState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
   remainState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
@@ -25537,7 +25536,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 3.3125, y: 2.5625}
+    oldSize: {x: 2.1875, y: 2.9375}
     newSize: {x: 2.1875, y: 2.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

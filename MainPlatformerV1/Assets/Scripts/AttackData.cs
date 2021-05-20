@@ -20,7 +20,7 @@ namespace MainGame {
 
 
         // Factory method. A method that is responsible for creating the object you want with the inputs you like.
-        public void Init(float damage, float currentCooldown, float maxCooldown) {
+        private void Init(float damage, float currentCooldown, float maxCooldown) {
             this.attackDamage = damage;
             this.currentCooldown = currentCooldown;
             this.maxCooldown = maxCooldown;
