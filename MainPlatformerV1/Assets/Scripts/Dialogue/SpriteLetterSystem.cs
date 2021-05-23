@@ -31,7 +31,6 @@ namespace MainGame {
         private List<GameObject> letterObjects = new List<GameObject>();
         private Dictionary<CharSpriteData, TextEffect> fxChars = new Dictionary<CharSpriteData, TextEffect>();
         private Dictionary<char, CharData> loadedFont;
-
         #endregion
 
         /// <summary>
@@ -39,13 +38,13 @@ namespace MainGame {
         /// </summary>
         private struct CharSpriteData {
             public Transform transform; // gameobject component
-            public Vector2 position { get { return this.transform.position; } }
+            public Vector2 position => transform.position;
             public Image image; // gameobject component
             public RectTransform rectTransform; // gameobject component
             public float rightOffset;
             public float leftOffset;
 
-            public CharSpriteData(Transform t, Image i, Color c, RectTransform rt, float right, float left) {
+            public CharSpriteData(Transform t, Image i, Color c, RectTransform rt, float right, float left){
                 transform = t;
                 image = i;
                 image.color = c;
@@ -58,21 +57,22 @@ namespace MainGame {
 
 
 #if UNITY_EDITOR
-        private void OnGUI() {
+        private void OnGUI(){
             if (GUI.Button(new Rect(0, 0, 200, 50), "Generate Text")) {
                 GenerateSpriteText(dialogue.dialogue[0]);
-            } else if (GUI.Button(new Rect(0, 50, 200, 50), "Clear Text")) {
+            }
+            else if (GUI.Button(new Rect(0, 50, 200, 50), "Clear Text")) {
                 gameObject.DestroyAllChildren<RectTransform>();
                 fxChars.Clear();
             }
         }
 #endif
 
-        private void Awake() {
+        private void Awake(){
             loadedFont = FontLoader.LoadFontResource(charSheet);
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate(){
             DoTextEffects();
         }
 
@@ -80,7 +80,7 @@ namespace MainGame {
         /// <summary>
         /// Generates characters sprites from string and applies text effects
         /// </summary>
-        public void GenerateSpriteText(string textToGenerate) {
+        public void GenerateSpriteText(string textToGenerate){
 
             dialoguePreset.SetPreset(dialogue.preset);
 
@@ -95,7 +95,7 @@ namespace MainGame {
 
             float scale = dialoguePreset.letterSize / 100f;
 
-            Rect dBoxRect = dialogueBoxRT.rect;
+            var dBoxRect = dialogueBoxRT.rect;
 
             float xPosition = dialoguePreset.indentLeft;
             float yPosition = dialoguePreset.indentTop;
@@ -104,37 +104,36 @@ namespace MainGame {
 
             int wordCount = 0;
 
-            List<CharSpriteData> wordList = new List<CharSpriteData>();
+            var wordList = new List<CharSpriteData>();
 
-            foreach (var (currentCharacter, index) in textToGenerate.WithIndex()) {
+            foreach ((char currentCharacter, int index) in textToGenerate.WithIndex()) {
 
                 CheckTag(textToGenerate, currentCharacter, index, ref inTag);
 
                 // Out of dialogue box bounds Y
-                if (yPosition < -dBoxRect.height + dialoguePreset.indentBottom) {
+                if (yPosition < -dBoxRect.height + dialoguePreset.indentBottom)
                     continue;
-                }
 
                 if (!inTag) {
                     if (currentCharacter == ' ') {
-                        xPosition += (dialoguePreset.letterSpacing * dialoguePreset.wordSpacing * scale);
+                        xPosition += dialoguePreset.letterSpacing * dialoguePreset.wordSpacing * scale;
                         wordCount++;
                         wordList.Clear();
                         continue;
                     }
-                    CharData currentCharacterData = loadedFont[currentCharacter];
+                    var currentCharacterData = loadedFont[currentCharacter];
 
                     xPosition += currentCharacterData.LeftOffset * dialoguePreset.letterSpacing * scale;
 
                     // Create new game object
-                    GameObject newLetterSprite = CreateNewLetter(currentCharacterData, xPosition, yPosition, index);
+                    var newLetterSprite = CreateNewLetter(currentCharacterData, xPosition, yPosition, index);
                     newLetterSprite.transform.localScale = new Vector3(scale, scale, 1f);
                     // Debug.Log(xPosition + " " + index);
 
                     letterObjects.Add(newLetterSprite);
 
                     // set active color here so we can wrap other effects in color tags
-                    CharSpriteData charData = new CharSpriteData(
+                    var charData = new CharSpriteData(
                         newLetterSprite.transform,
                         newLetterSprite.GetComponent<Image>(),
                         activeColor,
@@ -153,7 +152,7 @@ namespace MainGame {
                         xPosition = dialoguePreset.indentLeft; // reset x position
 
                         // puts characters of unfinished word on the next line
-                        if (wordList.Count > 0) {
+                        if (wordList.Count > 0)
                             foreach (var letterData in wordList) {
                                 xPosition += letterData.leftOffset * dialoguePreset.letterSpacing * scale;
                                 letterData.transform.localPosition = new Vector3(xPosition, yPosition, 1f);
@@ -161,7 +160,6 @@ namespace MainGame {
 
                                 if (yPosition < -dBoxRect.height) letterData.transform.gameObject.SetActive(false);
                             }
-                        }
                     }
                 }
             }
@@ -171,14 +169,14 @@ namespace MainGame {
         /// <summary>
         /// Creates new letter sprite and displays on canvas
         /// </summary>
-        private GameObject CreateNewLetter(CharData newCharacter, float positionX, float positionY, int letterNumber) {
+        private GameObject CreateNewLetter(CharData newCharacter, float positionX, float positionY, int letterNumber){
 
             //Create new game object
-            GameObject newLetterSprite = Instantiate(letterObject, transform);
-            RectTransform newLetterTransform = newLetterSprite.GetComponent<RectTransform>();
+            var newLetterSprite = Instantiate(letterObject, transform);
+            var newLetterTransform = newLetterSprite.GetComponent<RectTransform>();
             newLetterSprite.name = "lettersprite_" + letterNumber;
             newLetterTransform.localPosition += new Vector3(positionX, positionY, 0f);
-            Image newLetterImage = newLetterSprite.GetComponent<Image>();
+            var newLetterImage = newLetterSprite.GetComponent<Image>();
             newLetterImage.sprite = newCharacter.Sprite;
 
             return newLetterSprite;
@@ -188,7 +186,7 @@ namespace MainGame {
         /// <summary>
         /// Applies tag effects and checks if current char is in tagged element
         /// </summary>
-        private void CheckTag(string fullText, char c, int j, ref bool inTag) {
+        private void CheckTag(string fullText, char c, int j, ref bool inTag){
             if (c == '<') {
                 inTag = true;
 
@@ -196,15 +194,23 @@ namespace MainGame {
 
                 if (next != '/') {
                     switch (next) {
-                        case 'w': activeEffect = TextEffect.Wavy; break;
-                        case 's': activeEffect = TextEffect.Shaky; break;
-                        case 'c': SetColorFromText(fullText, j + 4); break;
+                        case 'w':
+                            activeEffect = TextEffect.Wavy;
+                            break;
+                        case 's':
+                            activeEffect = TextEffect.Shaky;
+                            break;
+                        case 'c':
+                            SetColorFromText(fullText, j + 4);
+                            break;
                     }
-                } else {
+                }
+                else {
                     activeEffect = TextEffect.None;
                     activeColor = defaultColor;
                 }
-            } else if (j > 0 && fullText[j - 1] == '>') {
+            }
+            else if (j > 0 && fullText[j - 1] == '>') {
                 inTag = false;
             }
         }
@@ -213,7 +219,7 @@ namespace MainGame {
         /// <summary>
         /// Sets active color to value specified in element tag
         /// </summary>
-        private void SetColorFromText(string fullText, int start) {
+        private void SetColorFromText(string fullText, int start){
             // c=( 256, 256, 256)
 
             int end = start;
@@ -246,8 +252,8 @@ namespace MainGame {
         /// <summary>
         /// Applies text effects to each text object in the ui canvas
         /// </summary>
-        private void DoTextEffects() {
-            foreach (CharSpriteData charData in fxChars.Keys) {
+        private void DoTextEffects(){
+            foreach (var charData in fxChars.Keys) {
                 var effect = fxChars[charData];
                 var rectTransform = charData.rectTransform;
                 var position = charData.position;

@@ -2,23 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MainGame.Utils;
 using UnityEngine;
 using TMPro;
-using UnityEditor;
-using UnityEditor.Animations;
+
 
 namespace MainGame {
 
     public class Player : CustomPhysics, IStateMachine<PlayerStateSO> {
 
         #region Variables
-        
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
-        
+
         public PlayerData PlayerData => playerData;
-        
+
+        public CharacterStat Strength;
+
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
         public TextMeshProUGUI currentStateName;
@@ -33,11 +32,9 @@ namespace MainGame {
         [HideInInspector] public Vector2 DashKeyboardInput;
 
         private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
-        
         #endregion
 
         #region Unity Callback Functions
-        
         protected override void OnEnable(){
             base.OnEnable();
 
@@ -76,7 +73,6 @@ namespace MainGame {
             currentState.OnLogicUpdate(this);
             currentStateName.text = currentState.stateName;
         }
-
         #endregion
 
         /// <summary>
@@ -92,15 +88,14 @@ namespace MainGame {
             Anim.SetBool(currentState.animBoolName, true);
             currentState.OnStateEnter(this);
         }
-        
-        
+
+
         #region Animation
         public void AnimationFinishTrigger() => isAnimationFinished = true;
 
         private void UpdateAnimClipTimes(){
             var clips = Anim.runtimeAnimatorController.animationClips;
-            foreach (var animationClip in clips) {
-                // Add run animation clip to dictionary with length of clip in seconds
+            foreach (var animationClip in clips) // Add run animation clip to dictionary with length of clip in seconds
                 switch (animationClip.name) {
                     case "player_idle":
                         AnimationStates.Add($"player_idle", animationClip.length); // Multiply by framerate to get amount of frames in clip
@@ -121,14 +116,11 @@ namespace MainGame {
                         AnimationStates.Add($"player_saber-fire", animationClip.length);
                         break;
                 }
-            }
             AnimationStates.Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Debug.Log);
         }
-        
         #endregion
 
         #region Event Listeners
-        
         private void OnMove(Vector2 input) => MovementInput = input;
         private void OnJumpInitiated() => JumpInput = true;
         private void OnJumpCanceled() => JumpInput = false;
@@ -137,17 +129,16 @@ namespace MainGame {
         private void OnDashKeyboard(Vector2 input) => DashKeyboardInput = input;
         private void OnAttackInitiated() => AttackInput = true;
         private void OnAttackCanceled() => AttackInput = false;
-        
         #endregion
-        
+
         #region Other
-            
         public void Flip(){
             FacingDirection *= -1;
-            var t = transform; var s = t.localScale;
-            s.x *= -1; t.localScale = s;
+            var t = transform;
+            var s = t.localScale;
+            s.x *= -1;
+            t.localScale = s;
         }
-        
         #endregion
 
     }

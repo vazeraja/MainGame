@@ -11,26 +11,28 @@ namespace MainGame {
 
         public string animBoolName;
         public PlayerStateSO(string stateName, State<Player>[] states, Transition<Player, PlayerStateSO>[] transitions,
-            Action<Player> enterStateEvent, Action<Player> exitStateEvent, Action<Player> updateStateEvent, string animBoolName) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent) {
+            Action<Player> enterStateEvent, Action<Player> exitStateEvent, Action<Player> updateStateEvent, string animBoolName) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent){
             this.animBoolName = animBoolName;
         }
 
-        protected override void OnEnable() {
+        protected override void OnEnable(){
             base.OnEnable();
         }
 
-        protected override void OnDisable() {
+        protected override void OnDisable(){
             base.OnDisable();
         }
 
-        protected override void ResetAnimationFinished(Player player) => player.isAnimationFinished = false;
+        protected override void ResetAnimationFinished(Player player){
+            player.isAnimationFinished = false;
+        }
 
-        protected override void CheckTransitions(Player player) {
+        protected override void CheckTransitions(Player player){
             for (int i = 0; i < transitions.Length; i++) {
                 bool decisionSucceeded = transitions[i].decision.Decide(player);
 
                 player.TransitionToState(decisionSucceeded ? transitions[i].trueState : transitions[i].falseState);
-                
+
             }
         }
     }

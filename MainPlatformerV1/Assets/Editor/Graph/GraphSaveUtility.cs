@@ -10,10 +10,8 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace MainGame.DialogueGraph
-{
-    public class GraphSaveUtility
-    {
+namespace MainGame.DialogueGraph {
+    public class GraphSaveUtility {
         private List<Edge> Edges => _graphView.edges.ToList();
         private List<DialogueNode> Nodes => _graphView.nodes.ToList().Cast<DialogueNode>().ToList();
 
@@ -23,16 +21,13 @@ namespace MainGame.DialogueGraph
         private DialogueContainer _dialogueContainer;
         private StoryGraphView _graphView;
 
-        public static GraphSaveUtility GetInstance(StoryGraphView graphView)
-        {
-            return new GraphSaveUtility
-            {
+        public static GraphSaveUtility GetInstance(StoryGraphView graphView){
+            return new GraphSaveUtility {
                 _graphView = graphView
             };
         }
 
-        public void SaveGraph(string fileName)
-        {
+        public void SaveGraph(string fileName){
             var dialogueContainerObject = ScriptableObject.CreateInstance<DialogueContainer>();
             if (!SaveNodes(fileName, dialogueContainerObject)) return;
             SaveExposedProperties(dialogueContainerObject);
@@ -41,15 +36,13 @@ namespace MainGame.DialogueGraph
             if (!AssetDatabase.IsValidFolder("Assets/Resources"))
                 AssetDatabase.CreateFolder("Assets", "Resources");
 
-            UnityEngine.Object loadedAsset = AssetDatabase.LoadAssetAtPath($"Assets/Resources/{fileName}.asset", typeof(DialogueContainer));
+            var loadedAsset = AssetDatabase.LoadAssetAtPath($"Assets/Resources/{fileName}.asset", typeof(DialogueContainer));
 
-            if (loadedAsset == null || !AssetDatabase.Contains(loadedAsset)) 
-			{
+            if (loadedAsset == null || !AssetDatabase.Contains(loadedAsset)) {
                 AssetDatabase.CreateAsset(dialogueContainerObject, $"Assets/Resources/{fileName}.asset");
             }
-            else 
-			{
-                DialogueContainer container = loadedAsset as DialogueContainer;
+            else {
+                var container = loadedAsset as DialogueContainer;
                 container.NodeLinks = dialogueContainerObject.NodeLinks;
                 container.DialogueNodeData = dialogueContainerObject.DialogueNodeData;
                 container.ExposedProperties = dialogueContainerObject.ExposedProperties;
@@ -60,16 +53,13 @@ namespace MainGame.DialogueGraph
             AssetDatabase.SaveAssets();
         }
 
-        private bool SaveNodes(string fileName, DialogueContainer dialogueContainerObject)
-        {
+        private bool SaveNodes(string fileName, DialogueContainer dialogueContainerObject){
             if (!Edges.Any()) return false;
             var connectedSockets = Edges.Where(x => x.input.node != null).ToArray();
-            for (var i = 0; i < connectedSockets.Count(); i++)
-            {
-                var outputNode = (connectedSockets[i].output.node as DialogueNode);
-                var inputNode = (connectedSockets[i].input.node as DialogueNode);
-                dialogueContainerObject.NodeLinks.Add(new NodeLinkData
-                {
+            for (int i = 0; i < connectedSockets.Count(); i++) {
+                var outputNode = connectedSockets[i].output.node as DialogueNode;
+                var inputNode = connectedSockets[i].input.node as DialogueNode;
+                dialogueContainerObject.NodeLinks.Add(new NodeLinkData {
                     BaseNodeGUID = outputNode.GUID,
                     PortName = connectedSockets[i].output.portName,
                     TargetNodeGUID = inputNode.GUID
@@ -77,33 +67,26 @@ namespace MainGame.DialogueGraph
             }
 
             foreach (var node in Nodes.Where(node => !node.EntyPoint))
-            {
-                dialogueContainerObject.DialogueNodeData.Add(new DialogueNodeData
-                {
+                dialogueContainerObject.DialogueNodeData.Add(new DialogueNodeData {
                     NodeGUID = node.GUID,
                     DialogueText = node.DialogueText,
                     Position = node.GetPosition().position
                 });
-            }
 
             return true;
         }
 
-        private void SaveExposedProperties(DialogueContainer dialogueContainer)
-        {
+        private void SaveExposedProperties(DialogueContainer dialogueContainer){
             dialogueContainer.ExposedProperties.Clear();
             dialogueContainer.ExposedProperties.AddRange(_graphView.ExposedProperties);
         }
 
-        private void SaveCommentBlocks(DialogueContainer dialogueContainer)
-        {
-            foreach (var block in CommentBlocks)
-            {
+        private void SaveCommentBlocks(DialogueContainer dialogueContainer){
+            foreach (var block in CommentBlocks) {
                 var nodes = block.containedElements.Where(x => x is DialogueNode).Cast<DialogueNode>().Select(x => x.GUID)
                     .ToList();
 
-                dialogueContainer.CommentBlockData.Add(new CommentBlockData
-                {
+                dialogueContainer.CommentBlockData.Add(new CommentBlockData {
                     ChildNodes = nodes,
                     Title = block.title,
                     Position = block.GetPosition().position
@@ -111,11 +94,9 @@ namespace MainGame.DialogueGraph
             }
         }
 
-        public void LoadNarrative(string fileName)
-        {
+        public void LoadNarrative(string fileName){
             _dialogueContainer = Resources.Load<DialogueContainer>(fileName);
-            if (_dialogueContainer == null)
-            {
+            if (_dialogueContainer == null) {
                 EditorUtility.DisplayDialog("File Not Found", "Target Narrative Data does not exist!", "OK");
                 return;
             }
@@ -130,11 +111,9 @@ namespace MainGame.DialogueGraph
         /// <summary>
         /// Set Entry point GUID then Get All Nodes, remove all and their edges. Leave only the entrypoint node. (Remove its edge too)
         /// </summary>
-        private void ClearGraph()
-        {
+        private void ClearGraph(){
             Nodes.Find(x => x.EntyPoint).GUID = _dialogueContainer.NodeLinks[0].BaseNodeGUID;
-            foreach (var perNode in Nodes)
-            {
+            foreach (var perNode in Nodes) {
                 if (perNode.EntyPoint) continue;
                 Edges.Where(x => x.input.node == perNode).ToList()
                     .ForEach(edge => _graphView.RemoveElement(edge));
@@ -145,10 +124,8 @@ namespace MainGame.DialogueGraph
         /// <summary>
         /// Create All serialized nodes and assign their guid and dialogue text to them
         /// </summary>
-        private void GenerateDialogueNodes()
-        {
-            foreach (var perNode in _dialogueContainer.DialogueNodeData)
-            {
+        private void GenerateDialogueNodes(){
+            foreach (var perNode in _dialogueContainer.DialogueNodeData) {
                 var tempNode = _graphView.CreateNode(perNode.DialogueText, Vector2.zero);
                 tempNode.GUID = perNode.NodeGUID;
                 _graphView.AddElement(tempNode);
@@ -158,17 +135,14 @@ namespace MainGame.DialogueGraph
             }
         }
 
-        private void ConnectDialogueNodes()
-        {
-            for (var i = 0; i < Nodes.Count; i++)
-            {
-                var k = i; //Prevent access to modified closure
+        private void ConnectDialogueNodes(){
+            for (int i = 0; i < Nodes.Count; i++) {
+                int k = i; //Prevent access to modified closure
                 var connections = _dialogueContainer.NodeLinks.Where(x => x.BaseNodeGUID == Nodes[k].GUID).ToList();
-                for (var j = 0; j < connections.Count(); j++)
-                {
-                    var targetNodeGUID = connections[j].TargetNodeGUID;
+                for (int j = 0; j < connections.Count(); j++) {
+                    string targetNodeGUID = connections[j].TargetNodeGUID;
                     var targetNode = Nodes.First(x => x.GUID == targetNodeGUID);
-                    LinkNodesTogether(Nodes[i].outputContainer[j].Q<Port>(), (Port) targetNode.inputContainer[0]);
+                    LinkNodesTogether(Nodes[i].outputContainer[j].Q<Port>(), (Port)targetNode.inputContainer[0]);
 
                     targetNode.SetPosition(new Rect(
                         _dialogueContainer.DialogueNodeData.First(x => x.NodeGUID == targetNodeGUID).Position,
@@ -177,10 +151,8 @@ namespace MainGame.DialogueGraph
             }
         }
 
-        private void LinkNodesTogether(Port outputSocket, Port inputSocket)
-        {
-            var tempEdge = new Edge()
-            {
+        private void LinkNodesTogether(Port outputSocket, Port inputSocket){
+            var tempEdge = new Edge() {
                 output = outputSocket,
                 input = inputSocket
             };
@@ -189,27 +161,20 @@ namespace MainGame.DialogueGraph
             _graphView.Add(tempEdge);
         }
 
-        private void AddExposedProperties()
-        {
+        private void AddExposedProperties(){
             _graphView.ClearBlackBoardAndExposedProperties();
             foreach (var exposedProperty in _dialogueContainer.ExposedProperties)
-            {
                 _graphView.AddPropertyToBlackBoard(exposedProperty);
-            }
         }
 
-        private void GenerateCommentBlocks()
-        {
+        private void GenerateCommentBlocks(){
             foreach (var commentBlock in CommentBlocks)
-            {
                 _graphView.RemoveElement(commentBlock);
-            }
 
-            foreach (var commentBlockData in _dialogueContainer.CommentBlockData)
-            {
-               var block = _graphView.CreateCommentBlock(new Rect(commentBlockData.Position, _graphView.DefaultCommentBlockSize),
+            foreach (var commentBlockData in _dialogueContainer.CommentBlockData) {
+                var block = _graphView.CreateCommentBlock(new Rect(commentBlockData.Position, _graphView.DefaultCommentBlockSize),
                     commentBlockData);
-               block.AddElements(Nodes.Where(x=>commentBlockData.ChildNodes.Contains(x.GUID)));
+                block.AddElements(Nodes.Where(x => commentBlockData.ChildNodes.Contains(x.GUID)));
             }
         }
     }

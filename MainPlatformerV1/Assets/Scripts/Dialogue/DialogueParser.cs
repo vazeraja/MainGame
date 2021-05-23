@@ -25,9 +25,8 @@ namespace MainGame.DialogueGraph {
             // dialogueText.text = ProcessProperties(text);
             dialogueText.text = text;
             var buttons = buttonContainer.GetComponentsInChildren<Button>();
-            foreach (var button in buttons) {
+            foreach (var button in buttons)
                 Destroy(button.gameObject);
-            }
 
             foreach (var choice in choices) {
                 var button = Instantiate(choicePrefab, buttonContainer);

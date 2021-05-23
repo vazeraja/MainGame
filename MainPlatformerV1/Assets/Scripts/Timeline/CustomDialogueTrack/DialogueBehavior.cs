@@ -23,11 +23,11 @@ namespace MainGame.Timeline.CustomDialogueTrack {
         private bool hasPlayed = false;
         private PlayableDirector director;
 
-        public override void OnPlayableCreate(Playable playable) {
-            director = (playable.GetGraph().GetResolver() as PlayableDirector);
+        public override void OnPlayableCreate(Playable playable){
+            director = playable.GetGraph().GetResolver() as PlayableDirector;
         }
 
-        public override void ProcessFrame(Playable playable, FrameData info, object playerData) {
+        public override void ProcessFrame(Playable playable, FrameData info, object playerData){
 
             if (!hasPlayed) {
 
@@ -37,7 +37,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
                 inputReader.AdvanceDialogueEvent += SkipDialogue;
 
                 SPL = playerData as SpriteLetterSystem;
-                
+
                 if (SPL is {}) {
                     SPL.dialogueBoxRT.gameObject.SetActive(true);
 
@@ -62,17 +62,15 @@ namespace MainGame.Timeline.CustomDialogueTrack {
             }
 
             if (!clipPlayed && info.weight > 0f) {
-                if (Application.isPlaying) {
-                    if (hasToPause) {
+                if (Application.isPlaying)
+                    if (hasToPause)
                         pauseScheduled = true;
-                    }
-                }
 
                 clipPlayed = true;
             }
         }
 
-        public override void OnBehaviourPause(Playable playable, FrameData info) {
+        public override void OnBehaviourPause(Playable playable, FrameData info){
             if (pauseScheduled) {
                 pauseScheduled = false;
                 director.playableGraph.GetRootPlayable(0).SetSpeed(0d);
@@ -82,7 +80,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
             clipPlayed = false;
         }
 
-        public override void OnGraphStop(Playable playable) {
+        public override void OnGraphStop(Playable playable){
             inputReader.EnableGameplayInput();
             inputReader.AdvanceDialogueEvent -= AdvanceDialogue;
             inputReader.AdvanceDialogueEvent -= SkipDialogue;
@@ -90,10 +88,10 @@ namespace MainGame.Timeline.CustomDialogueTrack {
                 SPL.dialogueBoxRT.gameObject.SetActive(false);
         }
 
-        private void AdvanceDialogue() {
+        private void AdvanceDialogue(){
             director.playableGraph.GetRootPlayable(0).SetSpeed(1d);
         }
-        private void SkipDialogue() {
+        private void SkipDialogue(){
             director.playableGraph.GetRootPlayable(0).SetSpeed(5d);
         }
         // private void SkipCutscene() {

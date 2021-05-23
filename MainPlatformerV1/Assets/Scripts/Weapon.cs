@@ -10,13 +10,13 @@ namespace MainGame {
         [HideInInspector] public Animator baseAnimator;
         [HideInInspector] public Animator weaponAnimator;
 
-        private void OnEnable() {
+        private void OnEnable(){
             controller = GetComponentInParent<Player>();
 
             baseAnimator = transform.Find("Base").GetComponent<Animator>();
             weaponAnimator = transform.Find("Attack").GetComponent<Animator>();
         }
-        public void EnterWeapon() {
+        public void EnterWeapon(){
             gameObject.SetActive(true);
 
             // Resets attack counter after final attack sequence reached, Reset counter once time since first attack passes the reset time limit
@@ -37,7 +37,7 @@ namespace MainGame {
             baseAnimator.SetBool("attack", true);
             weaponAnimator.SetBool("attack", true);
         }
-        public void ExitWeapon() {
+        public void ExitWeapon(){
             baseAnimator.SetBool("attack", false);
             weaponAnimator.SetBool("attack", false);
             controller.SR.enabled = true;
@@ -45,7 +45,9 @@ namespace MainGame {
             gameObject.SetActive(false);
         }
 
-        public void AnimationFinishTrigger() => controller.AnimationFinishTrigger();
+        public void AnimationFinishTrigger(){
+            controller.AnimationFinishTrigger();
+        }
 
     }
 }

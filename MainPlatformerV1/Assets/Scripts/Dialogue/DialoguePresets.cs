@@ -14,16 +14,20 @@ namespace MainGame {
 
         public float letterSpacing, wordSpacing, lineSpacing, letterSize, indentLeft, indentRight, indentTop, indentBottom;
 
-        public void SetPreset(PresetTypes preset) {
+        public void SetPreset(PresetTypes preset){
             switch (preset) {
-                case PresetTypes.SMALL: SetSmallPreset(); break;
+                case PresetTypes.SMALL:
+                    SetSmallPreset();
+                    break;
                 case PresetTypes.MEDIUM: break;
-                case PresetTypes.BIG: SetBigPreset(); break;
+                case PresetTypes.BIG:
+                    SetBigPreset();
+                    break;
                 default: break;
             }
         }
 
-        private void SetBigPreset() {
+        private void SetBigPreset(){
             letterSpacing = 7f;
             wordSpacing = 10f;
             lineSpacing = 110f;
@@ -34,7 +38,7 @@ namespace MainGame {
             indentBottom = 0f;
         }
 
-        public void SetSmallPreset() {
+        public void SetSmallPreset(){
             letterSpacing = 4f;
             wordSpacing = 10f;
             lineSpacing = 70f;

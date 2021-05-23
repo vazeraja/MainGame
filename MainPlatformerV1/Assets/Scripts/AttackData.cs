@@ -20,19 +20,19 @@ namespace MainGame {
 
 
         // Factory method. A method that is responsible for creating the object you want with the inputs you like.
-        private void Init(float damage, float currentCooldown, float maxCooldown) {
-            this.attackDamage = damage;
+        private void Init(float damage, float currentCooldown, float maxCooldown){
+            attackDamage = damage;
             this.currentCooldown = currentCooldown;
             this.maxCooldown = maxCooldown;
         }
 
-        public static AttackData CreateInstance(float damage, float currentCooldown, float maxCooldown) {
+        public static AttackData CreateInstance(float damage, float currentCooldown, float maxCooldown){
             var data = ScriptableObject.CreateInstance<AttackData>();
             data.Init(damage, currentCooldown, maxCooldown);
             return data;
         }
 
-        public bool IsAttackReady() {
+        public bool IsAttackReady(){
             return currentCooldown <= 0;
         }
     }

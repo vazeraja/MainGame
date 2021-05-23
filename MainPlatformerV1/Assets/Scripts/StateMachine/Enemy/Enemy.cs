@@ -9,7 +9,7 @@ namespace MainGame {
         public EnemyStateSO remainState;
         [HideInInspector] public bool isAnimationFinished;
 
-        public void TransitionToState(EnemyStateSO nextState) {
+        public void TransitionToState(EnemyStateSO nextState){
             if (nextState != remainState) {
                 currentState.OnStateExit(this);
                 currentState = nextState;

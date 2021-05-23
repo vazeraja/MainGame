@@ -11,25 +11,25 @@ namespace MainGame {
         [HideInInspector] public SpriteRenderer SR;
         [HideInInspector] public Vector2 velocity;
         [HideInInspector] public Vector2 MovementVelocity;
-        [HideInInspector] public bool IsGrounded;
+        [HideInInspector] public bool IsGrounded => _isGrounded;
         #endregion
 
         #region Internal Variables
-        public float minGroundNormalY = 0.65f;
+        private const float minGroundNormalY = 0.65f;
         public float gravityModifier = 1f;
 
-        private Vector2 groundNormal;
+        private Vector2 _groundNormal;
+        private bool _isGrounded;
 
-        private ContactFilter2D contactFilter;
-        private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
-        private List<RaycastHit2D> hitbufferList = new List<RaycastHit2D>(16);
+        private ContactFilter2D _contactFilter;
+        private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
+        private readonly List<RaycastHit2D> _hitBufferList = new List<RaycastHit2D>(16);
 
         private const float minMoveDistance = 0.001f;
         private const float shellRadius = 0.01f;
         #endregion
 
         #region Unity Callbacks Functions
-
         protected virtual void OnEnable(){
             RB = GetComponent<Rigidbody2D>();
             Anim = GetComponent<Animator>();
@@ -43,9 +43,9 @@ namespace MainGame {
         }
 
         protected virtual void Start(){
-            contactFilter.useTriggers = false;
-            contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Use settings from Physics2D to determine what layers to check collisions against
-            contactFilter.useLayerMask = true;
+            _contactFilter.useTriggers = false;
+            _contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Use settings from Physics2D to determine what layers to check collisions against
+            _contactFilter.useLayerMask = true;
         }
         protected virtual void Update(){
             MovementVelocity = Vector2.zero;
@@ -54,11 +54,11 @@ namespace MainGame {
             velocity += Physics2D.gravity * (gravityModifier * Time.deltaTime);
             velocity.x = MovementVelocity.x;
 
-            IsGrounded = false;
+            _isGrounded = false;
 
-            Vector2 deltaPosition = velocity * Time.deltaTime;
-            Vector2 moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
-            Vector2 move = moveAlongGround * deltaPosition.x;
+            var deltaPosition = velocity * Time.deltaTime;
+            var moveAlongGround = new Vector2(_groundNormal.y, -_groundNormal.x);
+            var move = moveAlongGround * deltaPosition.x;
 
             Movement(move, false);
 
@@ -66,7 +66,6 @@ namespace MainGame {
 
             Movement(move, true);
         }
-        
         #endregion
 
         #region Physics Logic
@@ -74,34 +73,31 @@ namespace MainGame {
             float distance = move.magnitude;
 
             if (distance > minMoveDistance) {
-                int count = RB.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
+                int count = RB.Cast(move, _contactFilter, _hitBuffer, distance + shellRadius);
 
-                hitbufferList.Clear();
-                for (int i = 0; i < count; i++) {
-                    hitbufferList.Add(hitBuffer[i]);
-                }
+                _hitBufferList.Clear();
+                for (int i = 0; i < count; i++)
+                    _hitBufferList.Add(_hitBuffer[i]);
 
 
-                foreach (var hitBuffer in hitbufferList) {
-                    var currentNormal = hitBuffer.normal;
+                foreach (var buffer in _hitBufferList) {
+                    var currentNormal = buffer.normal;
                     if (currentNormal.y > minGroundNormalY) {
-                        IsGrounded = true;
+                        _isGrounded = true;
                         if (yMovement) {
-                            groundNormal = currentNormal;
+                            _groundNormal = currentNormal;
                             currentNormal.x = 0;
                         }
                     }
                     float projection = Vector2.Dot(velocity, currentNormal);
-                    if (projection < 0) {
+                    if (projection < 0)
                         velocity -= projection * currentNormal;
-                    }
-                    float modifiedDistance = hitBuffer.distance - shellRadius;
+                    float modifiedDistance = buffer.distance - shellRadius;
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
             RB.position += move.normalized * distance;
         }
-        
         #endregion
     }
 }

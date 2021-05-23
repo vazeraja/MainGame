@@ -21,7 +21,7 @@ namespace MainGame {
         }
 
         public bool IsSameAs(ComboInput test){
-            return (type == test.type);
+            return type == test.type;
         }
     }
 
@@ -31,7 +31,7 @@ namespace MainGame {
         public List<ComboInput> inputs;
         public Attack comboAttack;
         public UnityEvent onCombo;
-        int curInput = 0;
+        private int curInput = 0;
 
         public bool ContinueCombo(ComboInput i){
             if (inputs[curInput].IsSameAs(i)) {

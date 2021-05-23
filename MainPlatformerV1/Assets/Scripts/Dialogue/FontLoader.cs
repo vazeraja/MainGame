@@ -15,14 +15,12 @@ namespace MainGame {
         /// <summary>
         /// Property with dictonary of font characters and char data
         /// </summary>
-        public static List<Dictionary<char, CharData>> LoadedFonts {
-            get { return loadedFonts; }
-        }
+        public static List<Dictionary<char, CharData>> LoadedFonts => loadedFonts;
 
         /// <summary>
         /// Loads font resources from character sheet array into dictionary
         /// </summary>
-        public static List<Dictionary<char, CharData>> LoadFontResources(params Texture2D[] characterSheet) {
+        public static List<Dictionary<char, CharData>> LoadFontResources(params Texture2D[] characterSheet){
             return characterSheet != null && characterSheet.Any() ?
                 characterSheet.Select(x => LoadFontResource(x)).ToList() :
                 new List<Dictionary<char, CharData>>();
@@ -31,7 +29,7 @@ namespace MainGame {
         /// <summary>
         /// Reload font resources from character sheet array into dictionary
         /// </summary>
-        public static List<Dictionary<char, CharData>> ReloadFontResources(params Texture2D[] characterSheet) {
+        public static List<Dictionary<char, CharData>> ReloadFontResources(params Texture2D[] characterSheet){
             return characterSheet != null && characterSheet.Any() ?
                 characterSheet.Select(x => ReloadFontResource(x)).ToList() :
                 new List<Dictionary<char, CharData>>();
@@ -40,23 +38,25 @@ namespace MainGame {
         /// <summary>
         /// Loads font resources from character sheet into dictionary
         /// </summary>
-        public static Dictionary<char, CharData> LoadFontResource(Texture2D characterSheet) => LoadFontResource(characterSheet, true);
+        public static Dictionary<char, CharData> LoadFontResource(Texture2D characterSheet){
+            return LoadFontResource(characterSheet, true);
+        }
 
         /// <summary>
         /// Loads font resource from character sheet and adds it to existing loaded font if applicable
         /// </summary>
-        private static Dictionary<char, CharData> LoadFontResource(Texture2D characterSheet, bool addToLoaded) {
+        private static Dictionary<char, CharData> LoadFontResource(Texture2D characterSheet, bool addToLoaded){
             //If we already have this loaded then we just return the loaded one
             if (IsFontLoaded(characterSheet)) return loadedFonts[loadedFontResources.IndexOf(characterSheet)];
 
-            Sprite[] subsprites = Resources.LoadAll<Sprite>(characterSheet.name);
+            var subsprites = Resources.LoadAll<Sprite>(characterSheet.name);
             int spriteSize = (int)subsprites.Max(x => x.rect.width);
             // int spriteSize = (int)subsprites[0].rect.width; //characterSheet.width / subsprites.Length; //OLD
 
             // Debug.Log(subsprites.Length);
             // Debug.Log(chars.Length);
 
-            Dictionary<char, CharData> loadedFontDictionary = GenerateCharFontDictionary(characterSheet, spriteSize, subsprites);
+            var loadedFontDictionary = GenerateCharFontDictionary(characterSheet, spriteSize, subsprites);
 
 
             if (addToLoaded) {
@@ -70,12 +70,13 @@ namespace MainGame {
         /// <summary>
         /// Reloads font resource from character sheet into dictionary
         /// </summary>
-        public static Dictionary<char, CharData> ReloadFontResource(Texture2D characterSheet) {
+        public static Dictionary<char, CharData> ReloadFontResource(Texture2D characterSheet){
             if (IsFontLoaded(characterSheet)) {
-                Dictionary<char, CharData> loadedFontResource = LoadFontResource(characterSheet, false);
+                var loadedFontResource = LoadFontResource(characterSheet, false);
                 loadedFonts[loadedFontResources.IndexOf(characterSheet)] = loadedFontResource;
                 return loadedFontResource;
-            } else {
+            }
+            else {
                 Debug.Log("Font in Texture2D: " + characterSheet.name + " hasn't previously been loaded, Loading normally. Please use LoadFontResource/LoadFontResources if this behaviour is not desired.");
                 return LoadFontResource(characterSheet);
             }
@@ -84,18 +85,20 @@ namespace MainGame {
         /// <summary>
         /// Checks if loaded font resources contains the character sheet
         /// </summary>
-        public static bool IsFontLoaded(Texture2D characterSheet) => loadedFontResources.Contains(characterSheet);
+        public static bool IsFontLoaded(Texture2D characterSheet){
+            return loadedFontResources.Contains(characterSheet);
+        }
 
         /// <summary>
         /// Generates font dictionary by performing a vertical scan on each font sprite and stores character width
         /// </summary>
-        private static Dictionary<char, CharData> GenerateCharFontDictionary(Texture2D characterSheet, int spriteSize, Sprite[] characterSprites) {
+        private static Dictionary<char, CharData> GenerateCharFontDictionary(Texture2D characterSheet, int spriteSize, Sprite[] characterSprites){
             int height = characterSheet.height; // We might need this if we ever use a text image that is on more than one line
             int width = characterSheet.width;
 
             int charIndex = 0;
 
-            Dictionary<char, CharData> charData = new Dictionary<char, CharData>();
+            var charData = new Dictionary<char, CharData>();
 
             // Perform vertical scan on each sprite to find the widths
 
@@ -145,7 +148,8 @@ namespace MainGame {
                         // vape fix, just manually set width for "!" and "B" because its setting the width to < 0
                         // CharData temp = charData['A'];
                         charData.Add(chars[charIndex], new CharData(14, characterSprites[charIndex], 3, 3));
-                    } else {
+                    }
+                    else {
                         //Determine center offsets
                         int halfWidth = spriteSize / 2;
                         int leftOffset = halfWidth - leftEdge;
@@ -184,7 +188,7 @@ namespace MainGame {
 
         public Sprite Sprite;
 
-        public CharData(int width, Sprite sprite, int leftOffset, int rightOffset) {
+        public CharData(int width, Sprite sprite, int leftOffset, int rightOffset){
             Width = width;
             Sprite = sprite;
             LeftOffset = leftOffset;

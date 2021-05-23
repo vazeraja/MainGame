@@ -10,7 +10,7 @@ namespace MainGame {
         }
 
         public override void LogicUpdate(Player player){
-      
+
         }
 
         public override void OnExit(Player player){

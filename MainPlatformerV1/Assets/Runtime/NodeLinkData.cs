@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MainGame.DialogueGraph {
-    
+
     [Serializable]
     public class NodeLinkData {
         public string BaseNodeGUID;

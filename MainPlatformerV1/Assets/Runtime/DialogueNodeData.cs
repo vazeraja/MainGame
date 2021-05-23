@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace MainGame.DialogueGraph {
-    
+
     [Serializable]
     public class DialogueNodeData {
         public string NodeGUID;

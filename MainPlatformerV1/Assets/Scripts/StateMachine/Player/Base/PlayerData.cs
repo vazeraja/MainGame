@@ -10,7 +10,7 @@ namespace MainGame {
         public float maxHealth;
         public float currentHealth = 50;
         public float currentScore = 100;
-        
+
         [Header("Move State Variables")]
         public float movementSpeed = 7f;
         public float jumpSpeed = 40f;
@@ -23,5 +23,3 @@ namespace MainGame {
         public float dashMaxForce = 150f;
     }
 }
-
-

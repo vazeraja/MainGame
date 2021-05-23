@@ -7,9 +7,13 @@ namespace MainGame {
     public class WeaponTrigger : MonoBehaviour {
         private Weapon weapon;
 
-        private void Start() => weapon = GetComponentInParent<Weapon>();
+        private void Start(){
+            weapon = GetComponentInParent<Weapon>();
+        }
 
-        private void AnimationFinishTrigger() => weapon.AnimationFinishTrigger();
+        private void AnimationFinishTrigger(){
+            weapon.AnimationFinishTrigger();
+        }
 
         // private void AnimationStartMovementTrigger() => weapon.AnimationStartMovementTrigger();
         // private void AnimationStopMovementTrigger() => weapon.AnimationStopMovementTrigger();

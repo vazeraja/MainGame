@@ -64,12 +64,11 @@ namespace MainGame.DialogueGraph {
         }
 
         public void AddPropertyToBlackBoard(ExposedProperty property, bool loadMode = false){
-            var localPropertyName = property.PropertyName;
-            var localPropertyValue = property.PropertyValue;
-            if (!loadMode) {
+            string localPropertyName = property.PropertyName;
+            string localPropertyValue = property.PropertyValue;
+            if (!loadMode)
                 while (ExposedProperties.Any(x => x.PropertyName == localPropertyName))
                     localPropertyName = $"{localPropertyName}(1)";
-            }
 
             var item = ExposedProperty.CreateInstance();
             item.PropertyName = localPropertyName;
@@ -87,7 +86,7 @@ namespace MainGame.DialogueGraph {
                 value = localPropertyValue
             };
             propertyValueTextField.RegisterValueChangedCallback(evt => {
-                var index = ExposedProperties.FindIndex(x => x.PropertyName == item.PropertyName);
+                int index = ExposedProperties.FindIndex(x => x.PropertyName == item.PropertyName);
                 ExposedProperties[index].PropertyValue = evt.newValue;
             });
             var sa = new BlackboardRow(field, propertyValueTextField);
@@ -148,8 +147,8 @@ namespace MainGame.DialogueGraph {
             var portLabel = generatedPort.contentContainer.Q<Label>("type");
             generatedPort.contentContainer.Remove(portLabel);
 
-            var outputPortCount = nodeCache.outputContainer.Query("connector").ToList().Count();
-            var outputPortName = string.IsNullOrEmpty(overriddenPortName)
+            int outputPortCount = nodeCache.outputContainer.Query("connector").ToList().Count();
+            string outputPortName = string.IsNullOrEmpty(overriddenPortName)
                 ? $"Option {outputPortCount + 1}"
                 : overriddenPortName;
 

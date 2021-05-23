@@ -6,11 +6,9 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @GameInput : IInputActionCollection, IDisposable
-{
+public class @GameInput : IInputActionCollection, IDisposable {
     public InputActionAsset asset { get; }
-    public @GameInput()
-    {
+    public @GameInput(){
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""GameInput"",
     ""maps"": [
@@ -736,63 +734,55 @@ public class @GameInput : IInputActionCollection, IDisposable
     ]
 }");
         // Gameplay
-        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
-        m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
-        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_Gameplay_DashDirectionKeyboard = m_Gameplay.FindAction("DashDirectionKeyboard", throwIfNotFound: true);
+        m_Gameplay = asset.FindActionMap("Gameplay", true);
+        m_Gameplay_Move = m_Gameplay.FindAction("Move", true);
+        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", true);
+        m_Gameplay_Attack = m_Gameplay.FindAction("Attack", true);
+        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", true);
+        m_Gameplay_DashDirectionKeyboard = m_Gameplay.FindAction("DashDirectionKeyboard", true);
         // Menus
-        m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
-        m_Menus_MoveSelection = m_Menus.FindAction("MoveSelection", throwIfNotFound: true);
-        m_Menus_Confirm = m_Menus.FindAction("Confirm", throwIfNotFound: true);
-        m_Menus_Cancel = m_Menus.FindAction("Cancel", throwIfNotFound: true);
+        m_Menus = asset.FindActionMap("Menus", true);
+        m_Menus_MoveSelection = m_Menus.FindAction("MoveSelection", true);
+        m_Menus_Confirm = m_Menus.FindAction("Confirm", true);
+        m_Menus_Cancel = m_Menus.FindAction("Cancel", true);
         // Dialogues
-        m_Dialogues = asset.FindActionMap("Dialogues", throwIfNotFound: true);
-        m_Dialogues_AdvanceDialogue = m_Dialogues.FindAction("AdvanceDialogue", throwIfNotFound: true);
+        m_Dialogues = asset.FindActionMap("Dialogues", true);
+        m_Dialogues_AdvanceDialogue = m_Dialogues.FindAction("AdvanceDialogue", true);
     }
 
-    public void Dispose()
-    {
+    public void Dispose(){
         UnityEngine.Object.Destroy(asset);
     }
 
-    public InputBinding? bindingMask
-    {
+    public InputBinding? bindingMask {
         get => asset.bindingMask;
         set => asset.bindingMask = value;
     }
 
-    public ReadOnlyArray<InputDevice>? devices
-    {
+    public ReadOnlyArray<InputDevice>? devices {
         get => asset.devices;
         set => asset.devices = value;
     }
 
     public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-    public bool Contains(InputAction action)
-    {
+    public bool Contains(InputAction action){
         return asset.Contains(action);
     }
 
-    public IEnumerator<InputAction> GetEnumerator()
-    {
+    public IEnumerator<InputAction> GetEnumerator(){
         return asset.GetEnumerator();
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
+    IEnumerator IEnumerable.GetEnumerator(){
         return GetEnumerator();
     }
 
-    public void Enable()
-    {
+    public void Enable(){
         asset.Enable();
     }
 
-    public void Disable()
-    {
+    public void Disable(){
         asset.Disable();
     }
 
@@ -804,24 +794,21 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Attack;
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_DashDirectionKeyboard;
-    public struct GameplayActions
-    {
+    public struct GameplayActions {
         private @GameInput m_Wrapper;
-        public GameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public GameplayActions(@GameInput wrapper){ m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @DashDirectionKeyboard => m_Wrapper.m_Gameplay_DashDirectionKeyboard;
-        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
+        public InputActionMap Get(){ return m_Wrapper.m_Gameplay; }
+        public void Enable(){ Get().Enable(); }
+        public void Disable(){ Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
-        public void SetCallbacks(IGameplayActions instance)
-        {
-            if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
-            {
+        public static implicit operator InputActionMap(GameplayActions set){ return set.Get(); }
+        public void SetCallbacks(IGameplayActions instance){
+            if (m_Wrapper.m_GameplayActionsCallbackInterface != null) {
                 @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
@@ -839,8 +826,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @DashDirectionKeyboard.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDashDirectionKeyboard;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
-            if (instance != null)
-            {
+            if (instance != null) {
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -867,22 +853,19 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Menus_MoveSelection;
     private readonly InputAction m_Menus_Confirm;
     private readonly InputAction m_Menus_Cancel;
-    public struct MenusActions
-    {
+    public struct MenusActions {
         private @GameInput m_Wrapper;
-        public MenusActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public MenusActions(@GameInput wrapper){ m_Wrapper = wrapper; }
         public InputAction @MoveSelection => m_Wrapper.m_Menus_MoveSelection;
         public InputAction @Confirm => m_Wrapper.m_Menus_Confirm;
         public InputAction @Cancel => m_Wrapper.m_Menus_Cancel;
-        public InputActionMap Get() { return m_Wrapper.m_Menus; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
+        public InputActionMap Get(){ return m_Wrapper.m_Menus; }
+        public void Enable(){ Get().Enable(); }
+        public void Disable(){ Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MenusActions set) { return set.Get(); }
-        public void SetCallbacks(IMenusActions instance)
-        {
-            if (m_Wrapper.m_MenusActionsCallbackInterface != null)
-            {
+        public static implicit operator InputActionMap(MenusActions set){ return set.Get(); }
+        public void SetCallbacks(IMenusActions instance){
+            if (m_Wrapper.m_MenusActionsCallbackInterface != null) {
                 @MoveSelection.started -= m_Wrapper.m_MenusActionsCallbackInterface.OnMoveSelection;
                 @MoveSelection.performed -= m_Wrapper.m_MenusActionsCallbackInterface.OnMoveSelection;
                 @MoveSelection.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnMoveSelection;
@@ -894,8 +877,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Cancel.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_MenusActionsCallbackInterface = instance;
-            if (instance != null)
-            {
+            if (instance != null) {
                 @MoveSelection.started += instance.OnMoveSelection;
                 @MoveSelection.performed += instance.OnMoveSelection;
                 @MoveSelection.canceled += instance.OnMoveSelection;
@@ -914,27 +896,23 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Dialogues;
     private IDialoguesActions m_DialoguesActionsCallbackInterface;
     private readonly InputAction m_Dialogues_AdvanceDialogue;
-    public struct DialoguesActions
-    {
+    public struct DialoguesActions {
         private @GameInput m_Wrapper;
-        public DialoguesActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public DialoguesActions(@GameInput wrapper){ m_Wrapper = wrapper; }
         public InputAction @AdvanceDialogue => m_Wrapper.m_Dialogues_AdvanceDialogue;
-        public InputActionMap Get() { return m_Wrapper.m_Dialogues; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
+        public InputActionMap Get(){ return m_Wrapper.m_Dialogues; }
+        public void Enable(){ Get().Enable(); }
+        public void Disable(){ Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DialoguesActions set) { return set.Get(); }
-        public void SetCallbacks(IDialoguesActions instance)
-        {
-            if (m_Wrapper.m_DialoguesActionsCallbackInterface != null)
-            {
+        public static implicit operator InputActionMap(DialoguesActions set){ return set.Get(); }
+        public void SetCallbacks(IDialoguesActions instance){
+            if (m_Wrapper.m_DialoguesActionsCallbackInterface != null) {
                 @AdvanceDialogue.started -= m_Wrapper.m_DialoguesActionsCallbackInterface.OnAdvanceDialogue;
                 @AdvanceDialogue.performed -= m_Wrapper.m_DialoguesActionsCallbackInterface.OnAdvanceDialogue;
                 @AdvanceDialogue.canceled -= m_Wrapper.m_DialoguesActionsCallbackInterface.OnAdvanceDialogue;
             }
             m_Wrapper.m_DialoguesActionsCallbackInterface = instance;
-            if (instance != null)
-            {
+            if (instance != null) {
                 @AdvanceDialogue.started += instance.OnAdvanceDialogue;
                 @AdvanceDialogue.performed += instance.OnAdvanceDialogue;
                 @AdvanceDialogue.canceled += instance.OnAdvanceDialogue;
@@ -943,30 +921,25 @@ public class @GameInput : IInputActionCollection, IDisposable
     }
     public DialoguesActions @Dialogues => new DialoguesActions(this);
     private int m_KeyboardOrGamepadSchemeIndex = -1;
-    public InputControlScheme KeyboardOrGamepadScheme
-    {
-        get
-        {
+    public InputControlScheme KeyboardOrGamepadScheme {
+        get {
             if (m_KeyboardOrGamepadSchemeIndex == -1) m_KeyboardOrGamepadSchemeIndex = asset.FindControlSchemeIndex("KeyboardOrGamepad");
             return asset.controlSchemes[m_KeyboardOrGamepadSchemeIndex];
         }
     }
-    public interface IGameplayActions
-    {
+    public interface IGameplayActions {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnDashDirectionKeyboard(InputAction.CallbackContext context);
     }
-    public interface IMenusActions
-    {
+    public interface IMenusActions {
         void OnMoveSelection(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
     }
-    public interface IDialoguesActions
-    {
+    public interface IDialoguesActions {
         void OnAdvanceDialogue(InputAction.CallbackContext context);
     }
 }
