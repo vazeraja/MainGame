@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 
 namespace MainGame {
@@ -20,6 +21,7 @@ namespace MainGame {
 
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
+        public PlayerStateSO lastState;
         public TextMeshProUGUI currentStateName;
 
         [HideInInspector] public int FacingDirection;
@@ -32,6 +34,8 @@ namespace MainGame {
         [HideInInspector] public Vector2 DashKeyboardInput;
 
         private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
+
+        // private UniversalAdditionalCameraData camData;
         #endregion
 
         #region Unity Callback Functions
@@ -75,6 +79,7 @@ namespace MainGame {
         }
         #endregion
 
+        #region State Machine
         /// <summary>
         /// Move to next state only if next state is not equal to remain state
         /// </summary>
@@ -83,12 +88,13 @@ namespace MainGame {
                 return;
 
             currentState.OnStateExit(this);
+            lastState = currentState;
             Anim.SetBool(currentState.animBoolName, false);
             currentState = nextState;
             Anim.SetBool(currentState.animBoolName, true);
             currentState.OnStateEnter(this);
         }
-
+        #endregion
 
         #region Animation
         public void AnimationFinishTrigger() => isAnimationFinished = true;
@@ -116,7 +122,7 @@ namespace MainGame {
                         AnimationStates.Add($"player_saber-fire", animationClip.length);
                         break;
                 }
-            AnimationStates.Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Debug.Log);
+            //AnimationStates.Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Debug.Log);
         }
         #endregion
 

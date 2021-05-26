@@ -18,7 +18,7 @@ namespace MainGame {
         private static readonly int NoCombo = Animator.StringToHash("noCombo");
 
         private float timeLeftToCombo = 0;
-        private float comboTime = 5f;
+        private const float comboTime = .25f;
         private int buttonPresses;
         private bool buttonReleased = true;
 
@@ -38,10 +38,12 @@ namespace MainGame {
         }
 
         public override void LogicUpdate(Player player){
-            if (!(timeLeftToCombo > 0))
-                player.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
-            else
+            if (timeLeftToCombo > 0) {
+                Debug.Log(timeLeftToCombo);
                 timeLeftToCombo -= Time.deltaTime;
+            }
+            else
+                player.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
         }
 
         public override void OnExit(Player player){

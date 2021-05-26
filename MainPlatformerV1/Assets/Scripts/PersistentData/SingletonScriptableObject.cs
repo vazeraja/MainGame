@@ -91,7 +91,7 @@ namespace SingletonScriptableObjectNamespace {
 
     public class BehaviourScriptableObject : ScriptableObject, IBehaviour {
         public void Awake(){ ScriptableObjectAwake(); }
-        public virtual void ScriptableObjectAwake(){}
+        protected virtual void ScriptableObjectAwake(){}
         public virtual void MonoBehaviourAwake(){}
         public virtual void Start(){}
         public virtual void Update(){}

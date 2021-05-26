@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   currentScore: 250
-  movementSpeed: 15
+  movementSpeed: 12
   jumpSpeed: 50
   attackRate: 2
   dashTime: 0.25
