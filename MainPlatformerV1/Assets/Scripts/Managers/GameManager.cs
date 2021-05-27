@@ -16,6 +16,7 @@ namespace MainGame {
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
         
         private void Start(){
+            SpawnPlayer();
             LoadJsonData(this);
         }
         public void RegisterPlayer(Player player) => activePlayer = player;
@@ -23,17 +24,15 @@ namespace MainGame {
         public void SpawnPlayer(){
             var localToWorldMatrix = transform.localToWorldMatrix;
             
-            var playerPrefab = Instantiate(Resources.Load<GameObject>("Player"), 
+            var playerPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/Player"), 
                 (localToWorldMatrix * spawnPoint), Quaternion.identity);
             playerPrefab.name = "Player";
 
-            var cam = Instantiate(Resources.Load<GameObject>("CinemachineVCam"), 
+            var cam = Instantiate(Resources.Load<GameObject>("Prefabs/CinemachineVCam"), 
                 (localToWorldMatrix * new Vector4(0,0,0,0)), Quaternion.identity);
             cam.GetComponent<CinemachineVirtualCamera>().Follow = playerPrefab.transform;
         }
-        public void DestroyPlayer(){
-            Destroy(activePlayer.gameObject);
-        }
+        public void DestroyPlayer() => Destroy(activePlayer.gameObject);
 
         #region Save System
         private void SaveJsonData(){

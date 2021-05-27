@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.Universal;
+using MainGame.Utils;
 
 namespace MainGame {
 
@@ -103,28 +104,11 @@ namespace MainGame {
 
         private void UpdateAnimClipTimes(){
             var clips = Anim.runtimeAnimatorController.animationClips;
-            foreach (var animationClip in clips) // Add run animation clip to dictionary with length of clip in seconds
-                switch (animationClip.name) {
-                    case "player_idle":
-                        AnimationStates.Add($"player_idle", animationClip.length); // Multiply by framerate to get amount of frames in clip
-                        break;
-                    case "player_run":
-                        AnimationStates.Add($"player_run", animationClip.length);
-                        break;
-                    case "player_saber-green":
-                        AnimationStates.Add($"player_saber-green", animationClip.length);
-                        break;
-                    case "player_saber-orange":
-                        AnimationStates.Add($"player_saber-orange", animationClip.length);
-                        break;
-                    case "player_saber-purple":
-                        AnimationStates.Add($"player_saber-purple", animationClip.length);
-                        break;
-                    case "player_saber-fire":
-                        AnimationStates.Add($"player_saber-fire", animationClip.length);
-                        break;
-                }
-            //AnimationStates.Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Debug.Log);
+            foreach (var animationClip in clips) {
+                if(!AnimationStates.ContainsKey(animationClip.name))
+                    AnimationStates.Add(animationClip.name, animationClip.length);
+            }
+            // AnimationStates.Select(i => $"{i.Key}: {i.Value}").ForEach(Debug.Log);
         }
         #endregion
 
