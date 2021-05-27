@@ -6,7 +6,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.Universal;
 
-
 namespace MainGame {
 
     public class Player : CustomPhysics, IStateMachine<PlayerStateSO> {
