@@ -183,8 +183,8 @@ namespace MainGame {
     /// </summary>
     public struct CharData {
         public int Width;
-        public int LeftOffset;
-        public int RightOffset;
+        public readonly int LeftOffset;
+        public readonly int RightOffset;
 
         public Sprite Sprite;
 

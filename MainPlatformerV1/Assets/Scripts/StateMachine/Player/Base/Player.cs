@@ -36,13 +36,13 @@ namespace MainGame {
 
         private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
 
-        // private UniversalAdditionalCameraData camData;
+        private UniversalAdditionalCameraData camData;
         #endregion
 
         #region Unity Callback Functions
         protected override void OnEnable(){
             base.OnEnable();
-            
+
             GameManager.Instance.RegisterPlayer(this);
 
             FacingDirection = 1;
