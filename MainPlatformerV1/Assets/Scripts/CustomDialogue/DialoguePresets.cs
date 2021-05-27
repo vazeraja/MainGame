@@ -1,53 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace MainGame {
-
     [CreateAssetMenu(fileName = "DialoguePresets", menuName = "Dialogue/DialoguePresets", order = 0)]
     public class DialoguePresets : ScriptableObject {
-
         public enum PresetTypes {
-            SMALL, MEDIUM, BIG
+            Small,
+            Medium,
+            Big,
+            None,
         }
 
-        public float letterSpacing, wordSpacing, lineSpacing, letterSize, indentLeft, indentRight, indentTop, indentBottom;
+        public DialoguePresetValues[] presets;
+
+        public float letterSpacing,
+            wordSpacing,
+            lineSpacing,
+            letterSize,
+            indentLeft,
+            indentRight,
+            indentTop,
+            indentBottom;
 
         public void SetPreset(PresetTypes preset){
             switch (preset) {
-                case PresetTypes.SMALL:
-                    SetSmallPreset();
+                case PresetTypes.Small:
+                    SetPreset(presets[0]);
                     break;
-                case PresetTypes.MEDIUM: break;
-                case PresetTypes.BIG:
-                    SetBigPreset();
+                case PresetTypes.Medium:
+                    SetPreset(presets[1]);
                     break;
-                default: break;
+                case PresetTypes.Big:
+                    SetPreset(presets[2]);
+                    break;
+                case PresetTypes.None: break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(preset), preset, null);
             }
         }
 
-        private void SetBigPreset(){
-            letterSpacing = 7f;
-            wordSpacing = 10f;
-            lineSpacing = 110f;
-            letterSize = 80f;
-            indentLeft = 50f;
-            indentRight = 50f;
-            indentTop = -120f;
-            indentBottom = 0f;
-        }
-
-        public void SetSmallPreset(){
-            letterSpacing = 4f;
-            wordSpacing = 10f;
-            lineSpacing = 70f;
-            letterSize = 50f;
-            indentLeft = 40f;
-            indentRight = 40f;
-            indentTop = -60f;
-            indentBottom = 0f;
+        private void SetPreset(DialoguePresetValues presetValues) {
+            letterSpacing = presetValues.letterSpacing;
+            wordSpacing = presetValues.wordSpacing;
+            lineSpacing = presetValues.lineSpacing;
+            letterSize = presetValues.letterSize;
+            indentLeft = presetValues.indentLeft;
+            indentRight = presetValues.indentRight;
+            indentTop = presetValues.indentTop;
+            indentBottom = presetValues.indentBottom;
         }
     }
-
 }

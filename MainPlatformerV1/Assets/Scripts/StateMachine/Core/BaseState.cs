@@ -7,7 +7,9 @@ namespace MainGame {
     public interface IStateMachine<in T> {
         void TransitionToState(T nextState);
     }
-    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics { // U is BaseState_SO
+
+    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics {
+        // U is BaseState_SO
         [SerializeField] public string stateName;
         [SerializeField] protected State<T>[] states;
         [SerializeField] protected Transition<T, U>[] transitions;
@@ -31,6 +33,7 @@ namespace MainGame {
                 updateStateEvent += state.LogicUpdate;
                 exitStateEvent += state.OnExit;
             }
+
             updateStateEvent += CheckTransitions;
             exitStateEvent += ResetAnimationFinished;
         }
@@ -40,9 +43,11 @@ namespace MainGame {
                 updateStateEvent -= state.LogicUpdate;
                 exitStateEvent -= state.OnExit;
             }
+
             updateStateEvent -= CheckTransitions;
             exitStateEvent -= ResetAnimationFinished;
         }
+
         protected abstract void CheckTransitions(T entity);
         protected abstract void ResetAnimationFinished(T entity);
 
