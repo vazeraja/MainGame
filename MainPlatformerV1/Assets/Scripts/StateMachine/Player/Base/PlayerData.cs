@@ -6,6 +6,16 @@ namespace MainGame {
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data/Base Data")]
     public class PlayerData : ScriptableObject {
 
+        [Header("Player Components")]
+        public GameObject CinemachineFollowCam;
+        
+        public Sprite baseSprite;
+        public PhysicsMaterial2D noFrictionMat;
+        public RuntimeAnimatorController playerAnimator;
+
+        public PlayerStateSO idleState;
+        public PlayerStateSO remainInState;
+
         [Header("Base Player Info")]
         public float maxHealth;
         public float currentHealth = 50;

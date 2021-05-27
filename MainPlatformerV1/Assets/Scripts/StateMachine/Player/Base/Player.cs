@@ -15,13 +15,14 @@ namespace MainGame {
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
 
-        public PlayerData PlayerData => playerData;
+        public PlayerData PlayerData { get => playerData; set => playerData = value; }
+        public InputReader InputReader { get => inputReader; set => inputReader = value; }
 
-        public CharacterStat Strength;
+        // public CharacterStat Strength;
 
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
-        public PlayerStateSO lastState;
+        private PlayerStateSO lastState;
         public TextMeshProUGUI currentStateName;
 
         [HideInInspector] public int FacingDirection;
@@ -41,29 +42,31 @@ namespace MainGame {
         #region Unity Callback Functions
         protected override void OnEnable(){
             base.OnEnable();
+            
+            GameManager.Instance.RegisterPlayer(this);
 
             FacingDirection = 1;
 
-            inputReader.MoveEvent += OnMove;
-            inputReader.JumpEvent += OnJumpInitiated;
-            inputReader.JumpCanceledEvent += OnJumpCanceled;
-            inputReader.DashEvent += OnDashInitiated;
-            inputReader.DashCanceledEvent += OnDashCancelled;
-            inputReader.DashKeyboardEvent += OnDashKeyboard;
-            inputReader.AttackEvent += OnAttackInitiated;
-            inputReader.AttackCanceledEvent += OnAttackCanceled;
+            InputReader.MoveEvent += OnMove;
+            InputReader.JumpEvent += OnJumpInitiated;
+            InputReader.JumpCanceledEvent += OnJumpCanceled;
+            InputReader.DashEvent += OnDashInitiated;
+            InputReader.DashCanceledEvent += OnDashCancelled;
+            InputReader.DashKeyboardEvent += OnDashKeyboard;
+            InputReader.AttackEvent += OnAttackInitiated;
+            InputReader.AttackCanceledEvent += OnAttackCanceled;
         }
         protected override void OnDisable(){
             base.OnDisable();
 
-            inputReader.MoveEvent -= OnMove;
-            inputReader.JumpEvent -= OnJumpInitiated;
-            inputReader.JumpCanceledEvent -= OnJumpCanceled;
-            inputReader.DashEvent -= OnDashInitiated;
-            inputReader.DashCanceledEvent -= OnDashCancelled;
-            inputReader.DashKeyboardEvent -= OnDashKeyboard;
-            inputReader.AttackEvent -= OnAttackInitiated;
-            inputReader.AttackCanceledEvent -= OnAttackCanceled;
+            InputReader.MoveEvent -= OnMove;
+            InputReader.JumpEvent -= OnJumpInitiated;
+            InputReader.JumpCanceledEvent -= OnJumpCanceled;
+            InputReader.DashEvent -= OnDashInitiated;
+            InputReader.DashCanceledEvent -= OnDashCancelled;
+            InputReader.DashKeyboardEvent -= OnDashKeyboard;
+            InputReader.AttackEvent -= OnAttackInitiated;
+            InputReader.AttackCanceledEvent -= OnAttackCanceled;
         }
         protected override void Start(){
             base.Start();
@@ -75,7 +78,7 @@ namespace MainGame {
             base.Update();
 
             currentState.OnLogicUpdate(this);
-            currentStateName.text = currentState.stateName;
+            // currentStateName.text = currentState.stateName;
         }
         #endregion
 

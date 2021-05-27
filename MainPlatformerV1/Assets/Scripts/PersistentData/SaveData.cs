@@ -14,7 +14,7 @@ namespace MainGame {
         }
     }
     public interface ISaveable {
-        void PopulateSaveData(SaveData a_Savedata);
+        void PopulateSaveData(SaveData saveData);
         void LoadFromSaveData(SaveData a_SaveData);
     }
 }
