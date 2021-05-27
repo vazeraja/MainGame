@@ -6,11 +6,21 @@ namespace MainGame {
     [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data/Base Data")]
     public class PlayerData : ScriptableObject {
 
+        [Header("Player Components")]
+        public GameObject CinemachineFollowCam;
+        
+        public Sprite baseSprite;
+        public PhysicsMaterial2D noFrictionMat;
+        public RuntimeAnimatorController playerAnimator;
+
+        public PlayerStateSO idleState;
+        public PlayerStateSO remainInState;
+
         [Header("Base Player Info")]
         public float maxHealth;
         public float currentHealth = 50;
         public float currentScore = 100;
-        
+
         [Header("Move State Variables")]
         public float movementSpeed = 7f;
         public float jumpSpeed = 40f;
@@ -23,5 +33,3 @@ namespace MainGame {
         public float dashMaxForce = 150f;
     }
 }
-
-

@@ -5,34 +5,29 @@ using UnityEngine.Events;
 
 namespace MainGame {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
-    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions {
+    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IDeveloperConsoleActions {
 
         // Gameplay
-        public event UnityAction<Vector2> moveEvent;
-        public event UnityAction jumpEvent;
-        public event UnityAction jumpCanceledEvent;
-        public event UnityAction attackEvent;
-        public event UnityAction attackCanceledEvent;
-        public event UnityAction dashEvent;
-        public event UnityAction dashCanceledEvent;
-        public event UnityAction<Vector2> dashKeyboardEvent;
-
-        public event UnityAction interactEvent; // Used to talk, pickup objects, interact with tools like the cooking cauldron
-        public event UnityAction extraActionEvent; // Used to bring up the inventory
-        public event UnityAction pauseEvent;
-        public event UnityAction<Vector2, bool> cameraMoveEvent;
-        public event UnityAction enableMouseControlCameraEvent;
-        public event UnityAction disableMouseControlCameraEvent;
-
+        public event UnityAction<Vector2> MoveEvent;
+        public event UnityAction JumpEvent;
+        public event UnityAction JumpCanceledEvent;
+        public event UnityAction AttackEvent;
+        public event UnityAction AttackCanceledEvent;
+        public event UnityAction DashEvent;
+        public event UnityAction DashCanceledEvent;
+        public event UnityAction<Vector2> DashKeyboardEvent;
+        
         // Dialogue
-        public event UnityAction advanceDialogueEvent;
-        public event UnityAction resetDialogueEvent;
-        public event UnityAction onMoveSelectionEvent = delegate { };
+        public event UnityAction AdvanceDialogueEvent;
+        public event UnityAction ResetDialogueEvent;
+
+        // Developer Console
+        public event UnityAction openDevConsole;
+        public event UnityAction executeDevCommand;
 
         private GameInput gameInput;
 
-
-        private void OnEnable() {
+        private void OnEnable(){
             if (gameInput == null) {
                 gameInput = new GameInput();
                 gameInput.Gameplay.SetCallbacks(this);
@@ -42,109 +37,83 @@ namespace MainGame {
             EnableGameplayInput();
         }
 
-        private void OnDisable() {
-            DisableAllInput();
+        private void OnDisable() => DisableAllInput();
+
+        #region Gameplay Actions
+        public void OnJump(InputAction.CallbackContext context){
+            if (JumpEvent != null && context.phase == InputActionPhase.Performed)
+                JumpEvent.Invoke();
+
+            if (JumpCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                JumpCanceledEvent.Invoke();
         }
 
-        public void OnAttack(InputAction.CallbackContext context) {
-            if (attackEvent != null
-                && context.phase == InputActionPhase.Performed)
-                attackEvent.Invoke();
-
-            if (attackCanceledEvent != null
-                && context.phase == InputActionPhase.Canceled)
-                attackCanceledEvent.Invoke();
+        public void OnMove(InputAction.CallbackContext context){
+            MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
         }
 
-        public void OnDash(InputAction.CallbackContext context) {
-            if (dashEvent != null && context.phase == InputActionPhase.Performed)
-                dashEvent.Invoke();
+        public void OnDash(InputAction.CallbackContext context){
+            if (DashEvent != null && context.phase == InputActionPhase.Performed)
+                DashEvent.Invoke();
 
-            if (dashCanceledEvent != null && context.phase == InputActionPhase.Canceled)
-                dashCanceledEvent.Invoke();
-        }
-        public void OnDashDirectionKeyboard(InputAction.CallbackContext context) {
-            if (dashKeyboardEvent != null) {
-                dashKeyboardEvent.Invoke(context.ReadValue<Vector2>());
-            }
+            if (DashCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                DashCanceledEvent.Invoke();
         }
 
-        public void OnExtraAction(InputAction.CallbackContext context) {
-            if (extraActionEvent != null
-                && context.phase == InputActionPhase.Performed)
-                extraActionEvent.Invoke();
+        public void OnDashDirectionKeyboard(InputAction.CallbackContext context){
+            DashKeyboardEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
-        public void OnInteract(InputAction.CallbackContext context) {
-            if (interactEvent != null
-                && context.phase == InputActionPhase.Performed)
-                interactEvent.Invoke();
+        public void OnAttack(InputAction.CallbackContext context){
+            if (AttackEvent != null && context.phase == InputActionPhase.Performed)
+                AttackEvent.Invoke();
+
+            if (AttackCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                AttackCanceledEvent.Invoke();
         }
+        #endregion
 
-        public void OnJump(InputAction.CallbackContext context) {
-            if (jumpEvent != null
-                && context.phase == InputActionPhase.Performed)
-                jumpEvent.Invoke();
-
-            if (jumpCanceledEvent != null
-                && context.phase == InputActionPhase.Canceled)
-                jumpCanceledEvent.Invoke();
-        }
-
-        public void OnMove(InputAction.CallbackContext context) {
-            if (moveEvent != null) {
-                moveEvent.Invoke(context.ReadValue<Vector2>());
-            }
-        }
-
-        public void OnPause(InputAction.CallbackContext context) {
-            if (pauseEvent != null
-                && context.phase == InputActionPhase.Performed)
-                pauseEvent.Invoke();
-        }
-
-        public void OnRotateCamera(InputAction.CallbackContext context) {
-            if (cameraMoveEvent != null) {
-                cameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
-            }
-        }
-
-        public void OnMouseControlCamera(InputAction.CallbackContext context) {
+        #region Dialogue Actions
+        public void OnAdvanceDialogue(InputAction.CallbackContext context){
             if (context.phase == InputActionPhase.Performed)
-                enableMouseControlCameraEvent?.Invoke();
-
+                AdvanceDialogueEvent?.Invoke();
             if (context.phase == InputActionPhase.Canceled)
-                disableMouseControlCameraEvent?.Invoke();
+                ResetDialogueEvent?.Invoke();
         }
+        #endregion
 
-        private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
-
-        public void OnMoveSelection(InputAction.CallbackContext context) {
-            if (context.phase == InputActionPhase.Performed)
-                onMoveSelectionEvent();
+        #region Developer Console Actions
+        public void OnOpen(InputAction.CallbackContext context){
+            if (openDevConsole != null && context.phase == InputActionPhase.Performed)
+                openDevConsole.Invoke();
         }
-
-        public void OnAdvanceDialogue(InputAction.CallbackContext context) {
-            if (context.phase == InputActionPhase.Performed)
-                advanceDialogueEvent?.Invoke();
-            if (context.phase == InputActionPhase.Canceled)
-                resetDialogueEvent?.Invoke();
+        public void OnEnter(InputAction.CallbackContext context){
+            if (executeDevCommand != null && context.phase == InputActionPhase.Performed)
+                executeDevCommand.Invoke();
         }
-
-        public void EnableDialogueInput() {
-            gameInput.Dialogues.Enable();
-            gameInput.Gameplay.Disable();
-        }
-
-        public void EnableGameplayInput() {
+        #endregion
+        
+        public void EnableGameplayInput(){
             gameInput.Gameplay.Enable();
             gameInput.Dialogues.Disable();
+            gameInput.DeveloperConsole.Disable();
         }
-
-        public void DisableAllInput() {
+        public void EnableDialogueInput(){
+            gameInput.Dialogues.Enable();
+            gameInput.Gameplay.Disable();
+            gameInput.DeveloperConsole.Disable();
+        }
+        public void EnableDevConsoleInput(){
+            gameInput.DeveloperConsole.Enable();
             gameInput.Gameplay.Disable();
             gameInput.Dialogues.Disable();
         }
+
+        public void DisableAllInput(){
+            gameInput.Gameplay.Disable();
+            gameInput.Dialogues.Disable();
+            gameInput.DeveloperConsole.Disable();
+        }
+
     }
 }
-

@@ -1,14 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace MainGame {
-    
+namespace MainGame.DialogueGraph {
+
     [Serializable]
     public class DialogueNodeData {
-        
-        public string Guid;
+        public string NodeGUID;
         public string DialogueText;
         public Vector2 Position;
-        
     }
 }

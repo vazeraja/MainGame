@@ -1,36 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cinemachine;
 using UnityEngine;
-using UnityEngine.Playables;
 
 namespace MainGame {
     public class GameManager : Singleton<GameManager>, ISaveable {
-        protected GameManager() {} // (Optional) Prevent non-singleton constructor use.
+        protected GameManager(){} // (Optional) Prevent non-singleton constructor use.
 
+        [SerializeField] private InputReader inputReader = null;
         [SerializeField] private PlayerData playerData = null;
-        public PlayerData PlayerData => playerData;
+        private Player activePlayer = null;
 
-        private void Start() {
+        private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
+        
+        private void Start(){
             LoadJsonData(this);
         }
-        private void OnApplicationQuit() => SaveJsonData();
+        public void RegisterPlayer(Player player) => activePlayer = player;
+        
+        public void SpawnPlayer(){
+            var localToWorldMatrix = transform.localToWorldMatrix;
+            
+            var playerPrefab = Instantiate(Resources.Load<GameObject>("Player"), 
+                (localToWorldMatrix * spawnPoint), Quaternion.identity);
+            playerPrefab.name = "Player";
 
-        public void SaveJsonData() {
-            SaveData sd = new SaveData();
+            var cam = Instantiate(Resources.Load<GameObject>("CinemachineVCam"), 
+                (localToWorldMatrix * new Vector4(0,0,0,0)), Quaternion.identity);
+            cam.GetComponent<CinemachineVirtualCamera>().Follow = playerPrefab.transform;
+        }
+        public void DestroyPlayer(){
+            Destroy(activePlayer.gameObject);
+        }
+
+        #region Save System
+        private void SaveJsonData(){
+            var sd = new SaveData();
             PopulateSaveData(sd);
 
-            if (FileManager.WriteToFile("SaveData.dat", sd.ToJson())) {
+            if (FileManager.WriteToFile("SaveData.dat", sd.ToJson()))
                 Debug.Log("Save Successful");
-            }
 
         }
-        public void PopulateSaveData(SaveData a_Savedata) {
-            a_Savedata.m_Score = playerData.currentScore;
+        public void PopulateSaveData(SaveData saveData){
+            saveData.m_Score = playerData.currentScore;
         }
 
-        private static void LoadJsonData(GameManager gameManager) {
-            if (FileManager.LoadFromFile("SaveData.dat", out var json)) {
-                SaveData sd = new SaveData();
+        private static void LoadJsonData(GameManager gameManager){
+            if (FileManager.LoadFromFile("SaveData.dat", out string json)) {
+                var sd = new SaveData();
                 sd.LoadFromJson(json);
 
                 gameManager.LoadFromSaveData(sd);
@@ -38,10 +58,14 @@ namespace MainGame {
             }
         }
 
-        public void LoadFromSaveData(SaveData a_SaveData) {
+        public void LoadFromSaveData(SaveData a_SaveData){
             playerData.currentScore = a_SaveData.m_Score;
         }
+        #endregion
 
+        private void OnApplicationQuit(){
+            SaveJsonData();
+        }
     }
 
 }

@@ -6,9 +6,9 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/JumpDecision")]
     public class CheckJumpDecision : Decision<Player> {
-        public override bool Decide(Player player) {
+        public override bool Decide(Player player){
             return player.JumpInput;
         }
-        
+
     }
 }

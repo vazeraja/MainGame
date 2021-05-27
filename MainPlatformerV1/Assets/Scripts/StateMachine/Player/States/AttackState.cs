@@ -1,39 +1,68 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using MainGame.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/AttackState")]
     public class AttackState : State<Player> {
 
-        // private float nextAttack = 0;
-        public override void OnEnter(Player player) {
-            player.PlayerData.currentScore += 5;
+        [SerializeField] private InputActionMap comboMap = new InputActionMap();
+        private ReadOnlyArray<InputAction> Actions => comboMap.actions;
+
+        private static readonly int Combo = Animator.StringToHash("combo");
+        private static readonly int NoCombo = Animator.StringToHash("noCombo");
+
+        private float timeLeftToCombo = 0;
+        private const float comboTime = .25f;
+        private int buttonPresses;
+        private bool buttonReleased = true;
+
+        private void OnEnable(){
+            comboMap.Enable();
+
+            Actions.ForEach(x => x.started += _ => ComboButtonStarted());
+            Actions.ForEach(x => x.canceled += _ => ComboButtonReleased());
         }
-        public override void LogicUpdate(Player player) {
-            Attack(player);
-        }
-        public override void OnExit(Player player) {
+        private void OnDisable(){
+            comboMap.Disable();
         }
 
-        private void Attack(Player player) {
+        public override void OnEnter(Player player){
+            buttonPresses = 1;
+            timeLeftToCombo = comboTime;
+        }
 
-            if (player.AttackInput) {
-
-                // nextAttack = Time.time + player.PlayerData.attackRate;
-
-                // Debug.Log(nextAttack);
-
-                player.Weapon.EnterWeapon();
-
-
+        public override void LogicUpdate(Player player){
+            if (timeLeftToCombo > 0) {
+                Debug.Log(timeLeftToCombo);
+                timeLeftToCombo -= Time.deltaTime;
             }
-
-            if (player.isAnimationFinished) {
-                player.Weapon.ExitWeapon();
-            }
+            else
+                player.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
         }
+
+        public override void OnExit(Player player){
+            Debug.Log(buttonPresses);
+
+            player.Anim.SetBool(Combo, false);
+            player.Anim.SetBool(NoCombo, false);
+        }
+
+        private void ComboButtonStarted(){
+            if (!buttonReleased) return;
+            buttonPresses += 1;
+            buttonReleased = false;
+        }
+        private void ComboButtonReleased(){
+            buttonReleased = true;
+        }
+
+
 
     }
 }

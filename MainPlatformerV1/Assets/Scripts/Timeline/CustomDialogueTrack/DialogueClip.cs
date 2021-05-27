@@ -16,10 +16,10 @@ namespace MainGame.Timeline.CustomDialogueTrack {
 
         public ClipCaps clipCaps => ClipCaps.All;
 
-        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner) {
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner){
             var playable = ScriptPlayable<DialogueBehaviour>.Create(graph);
 
-            DialogueBehaviour dialogueBehaviour = playable.GetBehaviour();
+            var dialogueBehaviour = playable.GetBehaviour();
             dialogueBehaviour.dialogue = dialogue;
             dialogueBehaviour.hasToPause = hasToPause;
             dialogueBehaviour.index = index;
@@ -31,4 +31,3 @@ namespace MainGame.Timeline.CustomDialogueTrack {
     }
 
 }
-

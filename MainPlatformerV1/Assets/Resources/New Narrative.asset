@@ -9,32 +9,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10994d03fab045c69a4544c1a73149c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b3b045ba31c4b189ec3fe8db4471315, type: 3}
   m_Name: New Narrative
   m_EditorClassIdentifier: 
   NodeLinks:
-  - BaseNodeGuid: 7392c505-c922-4303-b3ea-d713dfd45a1f
+  - BaseNodeGUID: f92224bb-3a0f-47bc-8fac-fcaef1ba24e0
     PortName: Next
-    TargetNodeGuid: 8b817207-e69f-4ca5-8cee-e0a88be62ebe
-  - BaseNodeGuid: 8b817207-e69f-4ca5-8cee-e0a88be62ebe
-    PortName: Choice 1
-    TargetNodeGuid: 21c03b8e-c178-4e5e-9c2b-68fa8114e5e9
-  - BaseNodeGuid: 8b817207-e69f-4ca5-8cee-e0a88be62ebe
-    PortName: Choice 3
-    TargetNodeGuid: d3378755-fd14-414e-b412-66ccdd3f0695
-  - BaseNodeGuid: 8b817207-e69f-4ca5-8cee-e0a88be62ebe
-    PortName: Choice 3
-    TargetNodeGuid: f332efda-569b-4cd2-87f0-077e8b194186
+    TargetNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+  - BaseNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    PortName: thicc
+    TargetNodeGUID: c001abe6-b4f1-47be-81f5-e5ee5e1e85ee
+  - BaseNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    PortName: long
+    TargetNodeGUID: 09ea0e1c-21d4-4ec2-a6a4-113d0d62b04f
+  - BaseNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    PortName: round
+    TargetNodeGUID: 24f94605-4d9c-4a7a-a5aa-1f65d4658c8d
+  - BaseNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    PortName: 'big '
+    TargetNodeGUID: 8384f96a-e301-48ec-90b5-a5851d27a655
+  - BaseNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    PortName: ass
+    TargetNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+  - BaseNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    PortName: cock
+    TargetNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
   DialogueNodeData:
-  - Guid: 21c03b8e-c178-4e5e-9c2b-68fa8114e5e9
-    DialogueText: Dialogue Node
-    Position: {x: 512, y: 102}
-  - Guid: 8b817207-e69f-4ca5-8cee-e0a88be62ebe
-    DialogueText: Dialogue Node
-    Position: {x: 207, y: 102}
-  - Guid: f332efda-569b-4cd2-87f0-077e8b194186
-    DialogueText: Dialogue Node
-    Position: {x: 468, y: 418}
-  - Guid: d3378755-fd14-414e-b412-66ccdd3f0695
-    DialogueText: Dialogue Node
-    Position: {x: 716, y: 303}
+  - NodeGUID: c001abe6-b4f1-47be-81f5-e5ee5e1e85ee
+    DialogueText: nice
+    Position: {x: 931, y: 413}
+  - NodeGUID: 09ea0e1c-21d4-4ec2-a6a4-113d0d62b04f
+    DialogueText: nice
+    Position: {x: 931, y: 270}
+  - NodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    DialogueText: cock is nice
+    Position: {x: 592, y: 329}
+  - NodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    DialogueText: i love ass too
+    Position: {x: 592, y: -6}
+  - NodeGUID: 24f94605-4d9c-4a7a-a5aa-1f65d4658c8d
+    DialogueText: nice
+    Position: {x: 931, y: 87}
+  - NodeGUID: 8384f96a-e301-48ec-90b5-a5851d27a655
+    DialogueText: nice
+    Position: {x: 931, y: -55}
+  - NodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    DialogueText: Pick one option
+    Position: {x: 246, y: 139}
+  ExposedProperties:
+  - PropertyName: Username
+    PropertyValue: Geo
+  - PropertyName: Opponent
+    PropertyValue: Leo
+  CommentBlockData: []

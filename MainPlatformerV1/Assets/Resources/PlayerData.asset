@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f75f73f13665949955a45d85691c66, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  baseSprite: {fileID: -6990790484676308680, guid: 02af8cf6111cc8e4283554409df93869,
+    type: 3}
+  noFrictionMat: {fileID: 6200000, guid: 284c7964c95c60b41b8032a915c9a9d0, type: 2}
+  playerAnimator: {fileID: 9100000, guid: 9d9c933311aa9ca45a512a2c1c1a44c6, type: 2}
+  idleState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
+  remainInState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
   maxHealth: 0
   currentHealth: 0
-  currentScore: 250
-  movementSpeed: 15
+  currentScore: 200
+  movementSpeed: 12
   jumpSpeed: 50
   attackRate: 2
   dashTime: 0.25

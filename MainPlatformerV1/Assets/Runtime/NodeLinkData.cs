@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Linq;
 
-namespace MainGame {
+namespace MainGame.DialogueGraph {
 
     [Serializable]
     public class NodeLinkData {
-        public string BaseNodeGuid;
+        public string BaseNodeGUID;
         public string PortName;
-        public string TargetNodeGuid;
+        public string TargetNodeGUID;
     }
-
 }
