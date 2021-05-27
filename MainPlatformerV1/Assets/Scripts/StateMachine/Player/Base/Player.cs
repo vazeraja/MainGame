@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Rendering.Universal;
 
 
 namespace MainGame {

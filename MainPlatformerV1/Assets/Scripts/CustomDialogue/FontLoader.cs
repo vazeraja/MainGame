@@ -7,12 +7,13 @@ namespace MainGame {
         //This is the order that the characters should be in the characterSheet
         // private static char[] chars = "abcdefghijklmnopqrstuvwxyzæABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~><!?'\"#%&/\\()[]{}@£$*^+-.,:;_=".ToCharArray();
         // private static char[] chars = " !\"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\\]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~".ToCharArray();
-        private static readonly char[] Chars =
+        private static readonly char[] chars =
             "!\"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\\]^_ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~"
                 .ToCharArray();
 
+        private static List<Dictionary<char, CharData>> loadedFonts = new List<Dictionary<char, CharData>>();
         private static readonly List<Texture2D>
-            LoadedFontResources =
+            loadedFontResources =
                 new List<Texture2D>(); //This is to keep track of all the loaded fonts and only load them once
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace MainGame {
         /// </summary>
         private static Dictionary<char, CharData> LoadFontResource(Texture2D characterSheet, bool addToLoaded){
             //If we already have this loaded then we just return the loaded one
-            if (IsFontLoaded(characterSheet)) return LoadedFonts[LoadedFontResources.IndexOf(characterSheet)];
+            if (IsFontLoaded(characterSheet)) return LoadedFonts[loadedFontResources.IndexOf(characterSheet)];
 
             var subsprites = Resources.LoadAll<Sprite>(characterSheet.name);
             int spriteSize = (int)subsprites.Max(x => x.rect.width);
@@ -65,7 +66,7 @@ namespace MainGame {
             if (!addToLoaded) return loadedFontDictionary;
 
             LoadedFonts.Add(loadedFontDictionary);
-            LoadedFontResources.Add(characterSheet);
+            loadedFontResources.Add(characterSheet);
 
             return loadedFontDictionary;
         }
@@ -111,12 +112,12 @@ namespace MainGame {
 
             //Y Texture Coordinate
             for (var texCoordY = height - spriteSize;
-                texCoordY >= 0 && charIndex < Chars.Length;
+                texCoordY >= 0 && charIndex < chars.Length;
                 texCoordY -= spriteSize) {
                 var maxY = texCoordY + spriteSize;
 
                 //X Texture Coordinate
-                for (var texCoordX = 0; texCoordX < width && charIndex < Chars.Length; texCoordX += spriteSize) {
+                for (var texCoordX = 0; texCoordX < width && charIndex < chars.Length; texCoordX += spriteSize) {
                     var maxX = texCoordX + (spriteSize - 1);
                     var edgeFound = false;
 
@@ -165,7 +166,7 @@ namespace MainGame {
                         var rightOffset = halfWidth - rightEdge;
                         Debug.Log(spriteSize + leftOffset + rightOffset);
 
-                        charData.Add(Chars[charIndex],
+                        charData.Add(chars[charIndex],
                             new CharData(currentSpriteWidth, characterSprites[charIndex], leftOffset, rightOffset));
                     }
 
@@ -181,7 +182,7 @@ namespace MainGame {
     ///     Struct holding char data of width, left offset, right offset, and sprite data
     /// </summary>
     public struct CharData {
-        private int _width;
+        private int Width;
         public readonly int LeftOffset;
         public readonly int RightOffset;
 
