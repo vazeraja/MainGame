@@ -5,9 +5,9 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/MovingDecision")]
-    public class CheckInputDecision : Decision<Player> {
-        public override bool Decide(Player player){
-            return player.MovementInput.x != 0 && player.MovementInput.y == 0;
+    public class CheckInputDecision : Decision<MainPlayer> {
+        public override bool Decide(MainPlayer mainPlayer){
+            return mainPlayer.MovementInput.x != 0 && mainPlayer.MovementInput.y == 0;
         }
     }
 }

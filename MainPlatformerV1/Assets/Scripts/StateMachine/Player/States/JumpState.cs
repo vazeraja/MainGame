@@ -5,40 +5,40 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/JumpState")]
-    public class JumpState : State<Player> {
+    public class JumpState : State<MainPlayer> {
 
         private static readonly int XVelocity = Animator.StringToHash("xVelocity");
         private static readonly int YVelocity = Animator.StringToHash("yVelocity");
 
-        public override void OnEnter(Player player){
+        public override void OnEnter(MainPlayer mainPlayer){
         }
-        public override void LogicUpdate(Player player){
-            Jump(player);
-            CheckIfShouldFlip(player);
+        public override void LogicUpdate(MainPlayer mainPlayer){
+            Jump(mainPlayer);
+            CheckIfShouldFlip(mainPlayer);
         }
-        public override void OnExit(Player player){
+        public override void OnExit(MainPlayer mainPlayer){
 
         }
-        private void Jump(Player player){
-            player.Anim.SetFloat(XVelocity, Mathf.Abs(player.velocity.x));
-            player.Anim.SetFloat(YVelocity, player.velocity.y);
+        private void Jump(MainPlayer mainPlayer){
+            mainPlayer.Anim.SetFloat(XVelocity, Mathf.Abs(mainPlayer.velocity.x));
+            mainPlayer.Anim.SetFloat(YVelocity, mainPlayer.velocity.y);
 
-            if (player.JumpInput && player.IsGrounded) {
-                if (player.velocity.y > 0) {
+            if (mainPlayer.JumpInput && mainPlayer.IsGrounded) {
+                if (mainPlayer.velocity.y > 0) {
                 }
-                player.velocity.y = player.PlayerData.jumpSpeed;
+                mainPlayer.velocity.y = mainPlayer.PlayerData.jumpSpeed;
             }
-            else if (!player.JumpInput) {
-                if (player.velocity.y > 0)
-                    player.velocity.y *= 0.5f;
+            else if (!mainPlayer.JumpInput) {
+                if (mainPlayer.velocity.y > 0)
+                    mainPlayer.velocity.y *= 0.5f;
             }
 
-            if (player.MovementInput != Vector2.zero)
-                player.MovementVelocity = player.MovementInput * player.PlayerData.movementSpeed;
+            if (mainPlayer.MovementInput != Vector2.zero)
+                mainPlayer.MovementVelocity = mainPlayer.MovementInput * mainPlayer.PlayerData.movementSpeed;
         }
-        private void CheckIfShouldFlip(Player player){
-            if (player.MovementInput.x != 0 && player.MovementInput.x != player.FacingDirection)
-                player.Flip();
+        private void CheckIfShouldFlip(MainPlayer mainPlayer){
+            if (mainPlayer.MovementInput.x != 0 && mainPlayer.MovementInput.x != mainPlayer.FacingDirection)
+                mainPlayer.Flip();
         }
 
     }

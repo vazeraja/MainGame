@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.Utilities;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/AttackState")]
-    public class AttackState : State<Player> {
+    public class AttackState : State<MainPlayer> {
 
         [SerializeField] private InputActionMap comboMap = new InputActionMap();
         private ReadOnlyArray<InputAction> Actions => comboMap.actions;
@@ -32,25 +32,25 @@ namespace MainGame {
             comboMap.Disable();
         }
 
-        public override void OnEnter(Player player){
+        public override void OnEnter(MainPlayer mainPlayer){
             buttonPresses = 1;
             timeLeftToCombo = comboTime;
         }
 
-        public override void LogicUpdate(Player player){
+        public override void LogicUpdate(MainPlayer mainPlayer){
             if (timeLeftToCombo > 0) {
                 Debug.Log(timeLeftToCombo);
                 timeLeftToCombo -= Time.deltaTime;
             }
             else
-                player.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
+                mainPlayer.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
         }
 
-        public override void OnExit(Player player){
+        public override void OnExit(MainPlayer mainPlayer){
             Debug.Log(buttonPresses);
 
-            player.Anim.SetBool(Combo, false);
-            player.Anim.SetBool(NoCombo, false);
+            mainPlayer.Anim.SetBool(Combo, false);
+            mainPlayer.Anim.SetBool(NoCombo, false);
         }
 
         private void ComboButtonStarted(){

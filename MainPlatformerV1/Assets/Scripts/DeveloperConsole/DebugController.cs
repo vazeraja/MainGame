@@ -32,7 +32,7 @@ namespace MainGame {
         private void Awake(){
 
             SPAWN_PLAYER = new DebugCommand("spawn_player", "Spawns a player into the scene.", "spawn_player", () => {
-                // GameManager.Instance.SpawnPlayer();
+                //GameManager.Instance.SpawnPlayer();
             });
 
             SET_SCORE = new DebugCommand<int>("set_gold", "Sets the player score to given amount", "set_gold <score_amount>", (x) => {
@@ -40,7 +40,7 @@ namespace MainGame {
             });
 
             KILL_PLAYER = new DebugCommand("kill_player", "Kills the active player on the scene", "kill_player", () => {
-                // GameManager.Instance.DestroyPlayer();
+                //GameManager.Instance.DestroyPlayer();
             });
 
             commandList = new List<object> {

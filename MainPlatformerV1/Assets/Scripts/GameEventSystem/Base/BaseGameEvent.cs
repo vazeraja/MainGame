@@ -7,7 +7,7 @@ namespace MainGame {
 
         private readonly List<IGameEventListener<T>> eventListeners = new List<IGameEventListener<T>>();
 
-        protected void Raise(T item){
+        public void Raise(T item){
             for (int i = eventListeners.Count - 1; i >= 0; i--) {
                 eventListeners[i].OnEventRaised(item);
             }

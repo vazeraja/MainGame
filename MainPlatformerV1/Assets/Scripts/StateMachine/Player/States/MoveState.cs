@@ -5,23 +5,23 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/MoveState")]
-    public class MoveState : State<Player> {
+    public class MoveState : State<MainPlayer> {
 
-        public override void OnEnter(Player player){
+        public override void OnEnter(MainPlayer mainPlayer){
         }
-        public override void LogicUpdate(Player player){
-            Move(player);
-            CheckIfShouldFlip(player);
+        public override void LogicUpdate(MainPlayer mainPlayer){
+            Move(mainPlayer);
+            CheckIfShouldFlip(mainPlayer);
         }
-        public override void OnExit(Player player){
+        public override void OnExit(MainPlayer mainPlayer){
         }
-        private void Move(Player player){
-            if (player.MovementInput.x != 0 && player.IsGrounded)
-                player.MovementVelocity = player.MovementInput * player.PlayerData.movementSpeed;
+        private void Move(MainPlayer mainPlayer){
+            if (mainPlayer.MovementInput.x != 0 && mainPlayer.IsGrounded)
+                mainPlayer.MovementVelocity = mainPlayer.MovementInput * mainPlayer.PlayerData.movementSpeed;
         }
-        private void CheckIfShouldFlip(Player player){
-            if (player.MovementInput.x != 0 && (int)player.MovementInput.x != player.FacingDirection)
-                player.Flip();
+        private void CheckIfShouldFlip(MainPlayer mainPlayer){
+            if (mainPlayer.MovementInput.x != 0 && (int)mainPlayer.MovementInput.x != mainPlayer.FacingDirection)
+                mainPlayer.Flip();
         }
 
     }

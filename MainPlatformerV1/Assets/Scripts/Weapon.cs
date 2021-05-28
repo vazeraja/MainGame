@@ -5,13 +5,13 @@ using UnityEngine;
 namespace MainGame {
     public class Weapon : MonoBehaviour {
 
-        private Player controller;
+        private MainPlayer controller;
 
         [HideInInspector] public Animator baseAnimator;
         [HideInInspector] public Animator weaponAnimator;
 
         private void OnEnable(){
-            controller = GetComponentInParent<Player>();
+            controller = GetComponentInParent<MainPlayer>();
 
             baseAnimator = transform.Find("Base").GetComponent<Animator>();
             weaponAnimator = transform.Find("Attack").GetComponent<Animator>();

@@ -9,12 +9,12 @@ namespace MainGame {
         public string ToJson(){
             return JsonUtility.ToJson(this);
         }
-        public void LoadFromJson(string a_Json){
-            JsonUtility.FromJsonOverwrite(a_Json, this);
+        public void LoadFromJson(string json){
+            JsonUtility.FromJsonOverwrite(json, this);
         }
     }
     public interface ISaveable {
         void PopulateSaveData(SaveData saveData);
-        void LoadFromSaveData(SaveData a_SaveData);
+        void LoadFromSaveData(SaveData saveData);
     }
 }

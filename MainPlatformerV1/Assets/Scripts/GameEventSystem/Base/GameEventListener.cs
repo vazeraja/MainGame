@@ -7,13 +7,14 @@ namespace MainGame {
         void OnEventRaised(T item);
     }
 
-    public abstract class BaseGameEventListener<TType, TEvent, TUer> : MonoBehaviour,
-        IGameEventListener<TType> where TEvent : BaseGameEvent<TType> where TUer : UnityEvent<TType> {
+    public abstract class GameEventListener<TType, TGameEvent, TUnityEvent> : MonoBehaviour,
+        IGameEventListener<TType> where TGameEvent : BaseGameEvent<TType> where TUnityEvent : UnityEvent<TType> {
 
-        [SerializeField] private TEvent gameEvent;
-        public TEvent GameEvent { get => gameEvent; set => gameEvent = value; }
+        [SerializeField] private TGameEvent gameEvent;
+        public TGameEvent GameEvent { get => gameEvent; set => gameEvent = value; }
 
-        [SerializeField] private TUer unityEventResponse;
+        [SerializeField] private TUnityEvent unityEventResponse;
+        public TUnityEvent UnityEventResponse { get => unityEventResponse; set => unityEventResponse = value; }
 
         private void OnEnable(){
             if (gameEvent == null) return;

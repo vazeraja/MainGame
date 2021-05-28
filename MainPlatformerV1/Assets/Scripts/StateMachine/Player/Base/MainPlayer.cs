@@ -9,26 +9,26 @@ using MainGame.Utils;
 
 namespace MainGame {
 
-    public class Player : CustomPhysics, IStateMachine<PlayerStateSO> {
+    public class MainPlayer : CustomPhysics, IStateMachine<PlayerStateSO> {
 
-        #region Variables
+        [Header("Scriptable Objects")]
+        [Space]
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
-        [SerializeField] private VoidEvent onPlayerInitialized;
+        [SerializeField] private PlayerEvent onPlayerInitialized;
 
-        public PlayerData PlayerData { get => playerData; set => playerData = value; }
-        public InputReader InputReader { get => inputReader; set => inputReader = value; }
-
-        // public CharacterStat Strength;
-
+        [Header("State")]
+        [Space]
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
         private PlayerStateSO lastState;
-        public TextMeshProUGUI currentStateName;
 
-        [HideInInspector] public int FacingDirection;
+        // public CharacterStat Strength;
+        public PlayerData PlayerData { get => playerData; set => playerData = value; }
+        public InputReader InputReader { get => inputReader; set => inputReader = value; }
+
+        [NonSerialized] public int FacingDirection = 1;
         [HideInInspector] public bool isAnimationFinished;
-
         [HideInInspector] public Vector2 MovementInput;
         [HideInInspector] public bool JumpInput;
         [HideInInspector] public bool AttackInput = false;
@@ -37,17 +37,8 @@ namespace MainGame {
 
         private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
 
-        private UniversalAdditionalCameraData camData;
-        #endregion
-
         #region Unity Callback Functions
-        protected override void OnEnable(){
-            base.OnEnable();
-
-            onPlayerInitialized.Raise();
-
-            FacingDirection = 1;
-
+        protected override void Awake(){
             InputReader.MoveEvent += OnMove;
             InputReader.JumpEvent += OnJumpInitiated;
             InputReader.JumpCanceledEvent += OnJumpCanceled;
@@ -71,7 +62,7 @@ namespace MainGame {
         }
         protected override void Start(){
             base.Start();
-
+            onPlayerInitialized.Raise(this);
             currentState.OnStateEnter(this);
             UpdateAnimClipTimes();
         }
@@ -79,7 +70,6 @@ namespace MainGame {
             base.Update();
 
             currentState.OnLogicUpdate(this);
-            // currentStateName.text = currentState.stateName;
         }
         #endregion
 
@@ -106,7 +96,7 @@ namespace MainGame {
         private void UpdateAnimClipTimes(){
             var clips = Anim.runtimeAnimatorController.animationClips;
             foreach (var animationClip in clips) {
-                if(!AnimationStates.ContainsKey(animationClip.name))
+                if (!AnimationStates.ContainsKey(animationClip.name))
                     AnimationStates.Add(animationClip.name, animationClip.length);
             }
             // AnimationStates.Select(i => $"{i.Key}: {i.Value}").ForEach(Debug.Log);
