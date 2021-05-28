@@ -14,6 +14,7 @@ namespace MainGame {
         #region Variables
         [SerializeField] private InputReader inputReader = default;
         [SerializeField] private PlayerData playerData = default;
+        [SerializeField] private VoidEvent onPlayerInitialized;
 
         public PlayerData PlayerData { get => playerData; set => playerData = value; }
         public InputReader InputReader { get => inputReader; set => inputReader = value; }
@@ -43,7 +44,7 @@ namespace MainGame {
         protected override void OnEnable(){
             base.OnEnable();
 
-            GameManager.Instance.RegisterPlayer(this);
+            onPlayerInitialized.Raise();
 
             FacingDirection = 1;
 

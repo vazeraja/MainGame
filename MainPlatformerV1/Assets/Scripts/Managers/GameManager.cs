@@ -6,17 +6,16 @@ using Cinemachine;
 using UnityEngine;
 
 namespace MainGame {
-    public class GameManager : Singleton<GameManager>, ISaveable {
+    public class GameManager : MonoBehaviour, ISaveable {
         protected GameManager(){} // (Optional) Prevent non-singleton constructor use.
 
-        [SerializeField] private InputReader inputReader = null;
         [SerializeField] private PlayerData playerData = null;
         private Player activePlayer = null;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
         
         private void Start(){
-            SpawnPlayer();
+            // SpawnPlayer();
             LoadJsonData(this);
         }
         public void RegisterPlayer(Player player) => activePlayer = player;

@@ -8,7 +8,7 @@ namespace MainGame {
 
         // Lazy loading: Doesnt create the singleton instance until you request for one
         private static PubSubBroker instance;
-        public static PubSubBroker Instance => Equals(instance, null) ? instance = CreateNewBroker() : instance;
+        public static PubSubBroker Instance => instance ??= CreateNewBroker();
         private static PubSubBroker CreateNewBroker(){
             var gameObject = new GameObject("PubSubBroker");
             return gameObject.AddComponent<PubSubBroker>();
