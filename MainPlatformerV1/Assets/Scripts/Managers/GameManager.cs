@@ -13,11 +13,8 @@ namespace MainGame {
         private MainPlayer activePlayer = null;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
-
-        public void RegisterPlayer(MainPlayer mainPlayer){
-            Debug.Log("player spawned");
-            activePlayer = mainPlayer;
-        }
+        
+        public void RegisterPlayer(MainPlayer mainPlayer) => activePlayer = mainPlayer;
         public void SpawnPlayer(){
             var localToWorldMatrix = transform.localToWorldMatrix;
 

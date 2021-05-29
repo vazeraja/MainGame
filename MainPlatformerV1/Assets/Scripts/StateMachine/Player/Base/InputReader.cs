@@ -25,13 +25,13 @@ namespace MainGame {
         public event UnityAction openDevConsole;
         public event UnityAction executeDevCommand;
 
-        private GameInput gameInput;
+        public GameInput GameInput { get; private set; }
 
         private void OnEnable(){
-            if (gameInput == null) {
-                gameInput = new GameInput();
-                gameInput.Gameplay.SetCallbacks(this);
-                gameInput.Dialogues.SetCallbacks(this);
+            if (GameInput == null) {
+                GameInput = new GameInput();
+                GameInput.Gameplay.SetCallbacks(this);
+                GameInput.Dialogues.SetCallbacks(this);
             }
 
             EnableGameplayInput();
@@ -94,25 +94,25 @@ namespace MainGame {
         #endregion
         
         public void EnableGameplayInput(){
-            gameInput.Gameplay.Enable();
-            gameInput.Dialogues.Disable();
-            gameInput.DeveloperConsole.Disable();
+            GameInput.Gameplay.Enable();
+            GameInput.Dialogues.Disable();
+            GameInput.DeveloperConsole.Disable();
         }
         public void EnableDialogueInput(){
-            gameInput.Dialogues.Enable();
-            gameInput.Gameplay.Disable();
-            gameInput.DeveloperConsole.Disable();
+            GameInput.Dialogues.Enable();
+            GameInput.Gameplay.Disable();
+            GameInput.DeveloperConsole.Disable();
         }
         public void EnableDevConsoleInput(){
-            gameInput.DeveloperConsole.Enable();
-            gameInput.Gameplay.Disable();
-            gameInput.Dialogues.Disable();
+            GameInput.DeveloperConsole.Enable();
+            GameInput.Gameplay.Disable();
+            GameInput.Dialogues.Disable();
         }
 
         public void DisableAllInput(){
-            gameInput.Gameplay.Disable();
-            gameInput.Dialogues.Disable();
-            gameInput.DeveloperConsole.Disable();
+            GameInput.Gameplay.Disable();
+            GameInput.Dialogues.Disable();
+            GameInput.DeveloperConsole.Disable();
         }
 
     }
