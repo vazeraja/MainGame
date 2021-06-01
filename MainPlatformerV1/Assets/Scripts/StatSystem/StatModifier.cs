@@ -13,7 +13,7 @@ namespace MainGame {
         public readonly float Value;
         public readonly StatModType Type;
         public readonly int Order;
-        public readonly object Source; // It can only hold literally kind of type
+        public readonly object Source; // It can only hold literally any kind of type
 
         public StatModifier(float value, StatModType type, int order, object source){
             Value = value;

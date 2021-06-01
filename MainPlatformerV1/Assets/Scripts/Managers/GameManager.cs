@@ -9,14 +9,14 @@ namespace MainGame {
     public class GameManager : MonoBehaviour {
 
         [SerializeField] private InputReader inputReader = null;
-        
+
         [Header("Developer Console")]
         [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
-        private MainPlayer activePlayer = null;
+        private MainPlayer activePlayer;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
-        private void Awake(){
+        private void OnEnable(){
             inputReader.EnableGameplayInput();
             inputReader.OpenDevConsole += OpenDevConsole;
         }
@@ -24,7 +24,10 @@ namespace MainGame {
             inputReader.OpenDevConsole -= OpenDevConsole;
         }
 
-        public void RegisterPlayer(MainPlayer mainPlayer) => activePlayer = mainPlayer;
+        public void RegisterPlayer(MainPlayer mainPlayer){
+            Debug.Log("player found - manager");
+            activePlayer = mainPlayer;
+        }
         public void SpawnPlayer(Scene scene, LoadSceneMode mode){
             var localToWorldMatrix = transform.localToWorldMatrix;
 
@@ -35,10 +38,10 @@ namespace MainGame {
             cam.GetComponent<CinemachineVirtualCamera>().Follow = playerPrefab.transform;
         }
         public void DestroyPlayer() => Destroy(activePlayer.gameObject);
-        
+
         // --- Event Listeners --- 
         private void OpenDevConsole() => DeveloperConsoleBehaviour.GetDevConsole(commands, inputReader, "/");
-        
+
     }
 
 }

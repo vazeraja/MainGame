@@ -1,14 +1,41 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using TMPro;
-using UnityEngine.Rendering.Universal;
-using MainGame.Utils;
 
 namespace MainGame {
 
+    [Serializable] 
+    public struct Optional<T> {
+        [SerializeField] private bool enabled;
+        [SerializeField] private T value;
+
+        public Optional(T initialValue){
+            enabled = true;
+            value = initialValue;
+        }
+        public Optional(bool enabled){
+            this.enabled = enabled;
+            value = default;
+        }
+        public Optional(T initialValue, bool enabled){
+            this.enabled = enabled;
+            value = initialValue;
+        }
+        
+        public bool Enabled {
+            get => enabled;
+            set => enabled = value;
+        }
+        public T Value {
+            get => value;
+            set => this.value = value;
+        }
+    }
+
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(BoxCollider2D))]
     public class MainPlayer : CustomPhysics, IStateMachine<PlayerStateSO> {
 
         [Header("Scriptable Objects")]
@@ -23,11 +50,15 @@ namespace MainGame {
         public PlayerStateSO remainState;
         private PlayerStateSO lastState;
 
+        [Header("Other")]
+        [Space]
+        [SerializeField] private Optional<float> target = new Optional<float>(5);
+
         // public CharacterStat Strength;
         public PlayerData PlayerData { get => playerData; set => playerData = value; }
         public InputReader InputReader { get => inputReader; set => inputReader = value; }
 
-        [NonSerialized] public int FacingDirection = 1;
+        [HideInInspector] public int FacingDirection = 1;
         [HideInInspector] public bool isAnimationFinished;
         [HideInInspector] public Vector2 MovementInput;
         [HideInInspector] public bool JumpInput;
@@ -48,6 +79,10 @@ namespace MainGame {
             InputReader.AttackEvent += OnAttackInitiated;
             InputReader.AttackCanceledEvent += OnAttackCanceled;
         }
+        protected override void OnEnable(){
+            base.OnEnable();
+            onPlayerInitialized.Raise(this);
+        }
         protected override void OnDisable(){
             base.OnDisable();
 
@@ -62,7 +97,7 @@ namespace MainGame {
         }
         protected override void Start(){
             base.Start();
-            onPlayerInitialized.Raise(this);
+            
             currentState.OnStateEnter(this);
             UpdateAnimClipTimes();
         }

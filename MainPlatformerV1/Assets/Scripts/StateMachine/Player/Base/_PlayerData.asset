@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87f75f73f13665949955a45d85691c66, type: 3}
-  m_Name: PlayerData
+  m_Name: _PlayerData
   m_EditorClassIdentifier: 
+  CinemachineFollowCam: {fileID: 0}
   baseSprite: {fileID: -6990790484676308680, guid: 02af8cf6111cc8e4283554409df93869,
     type: 3}
   noFrictionMat: {fileID: 6200000, guid: 284c7964c95c60b41b8032a915c9a9d0, type: 2}
