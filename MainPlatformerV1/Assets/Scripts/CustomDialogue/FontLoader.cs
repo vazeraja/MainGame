@@ -85,9 +85,9 @@ namespace MainGame {
                 return LoadFontResource(characterSheet);
             }
 
-            Debug.Log("Font in Texture2D: " + characterSheet.name +
-                      " hasn't previously been loaded, Loading normally. Please use LoadFontResource/LoadFontResources if this behaviour is not desired.");
-            return LoadFontResource(characterSheet);
+            // Debug.Log("Font in Texture2D: " + characterSheet.name +
+            //           " hasn't previously been loaded, Loading normally. Please use LoadFontResource/LoadFontResources if this behaviour is not desired.");
+            // return LoadFontResource(characterSheet);
         }
 
         /// <summary>

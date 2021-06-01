@@ -11,6 +11,17 @@ using UnityEditor.Animations;
 
 
 namespace MainGame.Utils {
+    public enum AnchorPresets {
+        TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft,
+        BottomCenter, BottomRight, BottomStretch, VertStretchLeft, VertStretchRight, VertStretchCenter, HorStretchTop,
+        HorStretchMiddle, HorStretchBottom, StretchAll
+    }
+
+    public enum PivotPresets {
+        TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight,
+        BottomLeft, BottomCenter, BottomRight,
+    }
+
     /// <summary>
     /// Useful functions
     /// </summary>
@@ -66,7 +77,6 @@ namespace MainGame.Utils {
         }
         #endregion
 
-
         #region Animator Extensions
         /// <summary>
         /// Returns all the state names from an animator as a string array.
@@ -114,7 +124,6 @@ namespace MainGame.Utils {
         }
         #endregion
 
-
         #region Generic Extensions
         /// <summary>
         /// Allows a loop with the item and index. <para />
@@ -147,6 +156,30 @@ namespace MainGame.Utils {
                 action(item);
         }
         #endregion
+
+        public static void SetAndStretchToParentSize(this RectTransform _mRect, RectTransform _parent){
+            _mRect.anchoredPosition = _parent.position;
+            _mRect.anchorMin = new Vector2(1, 0);
+            _mRect.anchorMax = new Vector2(0, 1);
+            _mRect.pivot = new Vector2(0.5f, 0.5f);
+            _mRect.sizeDelta = _parent.rect.size;
+            _mRect.transform.SetParent(_parent);
+        }
+        public static void SetLeft(this RectTransform rt, float left){
+            rt.offsetMin = new Vector2(left, rt.offsetMin.y);
+        }
+
+        public static void SetRight(this RectTransform rt, float right){
+            rt.offsetMax = new Vector2(-right, rt.offsetMax.y);
+        }
+
+        public static void SetTop(this RectTransform rt, float top){
+            rt.offsetMax = new Vector2(rt.offsetMax.x, -top);
+        }
+
+        public static void SetBottom(this RectTransform rt, float bottom){
+            rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
+        }
 
     }
 }

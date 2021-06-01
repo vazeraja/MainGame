@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace MainGame {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
-    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IDeveloperConsoleActions {
+    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions {
 
         // Gameplay
         public event UnityAction<Vector2> MoveEvent;
@@ -16,14 +16,13 @@ namespace MainGame {
         public event UnityAction DashEvent;
         public event UnityAction DashCanceledEvent;
         public event UnityAction<Vector2> DashKeyboardEvent;
-        
+
         // Dialogue
         public event UnityAction AdvanceDialogueEvent;
         public event UnityAction ResetDialogueEvent;
 
         // Developer Console
-        public event UnityAction openDevConsole;
-        public event UnityAction executeDevCommand;
+        public event UnityAction OpenDevConsole;
 
         public GameInput GameInput { get; private set; }
 
@@ -72,6 +71,12 @@ namespace MainGame {
                 AttackCanceledEvent.Invoke();
         }
         #endregion
+        
+        // Dev Console
+        public void OnOpenDevConsole(InputAction.CallbackContext context){
+            if (OpenDevConsole != null && context.phase == InputActionPhase.Performed)
+                OpenDevConsole.Invoke();
+        }
 
         #region Dialogue Actions
         public void OnAdvanceDialogue(InputAction.CallbackContext context){
@@ -82,37 +87,19 @@ namespace MainGame {
         }
         #endregion
 
-        #region Developer Console Actions
-        public void OnOpen(InputAction.CallbackContext context){
-            if (openDevConsole != null && context.phase == InputActionPhase.Performed)
-                openDevConsole.Invoke();
-        }
-        public void OnEnter(InputAction.CallbackContext context){
-            if (executeDevCommand != null && context.phase == InputActionPhase.Performed)
-                executeDevCommand.Invoke();
-        }
-        #endregion
-        
+
         public void EnableGameplayInput(){
             GameInput.Gameplay.Enable();
             GameInput.Dialogues.Disable();
-            GameInput.DeveloperConsole.Disable();
         }
         public void EnableDialogueInput(){
             GameInput.Dialogues.Enable();
             GameInput.Gameplay.Disable();
-            GameInput.DeveloperConsole.Disable();
-        }
-        public void EnableDevConsoleInput(){
-            GameInput.DeveloperConsole.Enable();
-            GameInput.Gameplay.Disable();
-            GameInput.Dialogues.Disable();
         }
 
         public void DisableAllInput(){
             GameInput.Gameplay.Disable();
             GameInput.Dialogues.Disable();
-            GameInput.DeveloperConsole.Disable();
         }
 
     }

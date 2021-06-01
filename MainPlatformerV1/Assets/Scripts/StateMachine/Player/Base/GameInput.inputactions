@@ -44,6 +44,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OpenDevConsole",
+                    "type": "Button",
+                    "id": "dcbcb6e6-cb56-481d-af2f-ea3ad19e8adf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -332,6 +340,17 @@
                     "action": "DashDirectionKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0f9c921c-c737-4827-8e9f-1f595bb92124",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyboardOrGamepad",
+                    "action": "OpenDevConsole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -379,52 +398,6 @@
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
                     "action": "AdvanceDialogue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "DeveloperConsole",
-            "id": "5a2d2c73-8dfb-4d86-b42e-779532e5bab5",
-            "actions": [
-                {
-                    "name": "Open",
-                    "type": "Button",
-                    "id": "ab27ab1b-9a4b-46d2-98fb-1fb527355c0f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Enter",
-                    "type": "Button",
-                    "id": "6b1c22c4-96c4-4639-a165-f3775715dcd0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press"
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a420ce33-f651-4459-a57c-2e736e68102f",
-                    "path": "<Keyboard>/backquote",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "Open",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f636d4be-bc70-489e-ad21-bf06367eb913",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
