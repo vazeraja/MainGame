@@ -6,14 +6,20 @@ namespace MainGame {
 
     public class AutoSetPlayer : MonoBehaviour {
         
-        private CinemachineVirtualCamera cam;
+        public CinemachineVirtualCamera cam;
         public GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
 
         public Optional<MainPlayer> target;
 
-        private void OnEnable(){
-            cam = GetComponent<CinemachineVirtualCamera>();
-            if(target.Enabled) playerListener.UnityEvent.AddListener((x) => { target.Value = x; cam.Follow = x.transform;});
+        private void Awake(){
+            playerListener.UnityEvent.AddListener(SetPlayer);
+        }
+        private void SetPlayer(MainPlayer player){
+            if (!target.Enabled) return;
+
+            Debug.Log("Cinemachine: Follow target assigned to player");
+            target.Value = player;
+            cam.Follow = target.Value.transform;
         }
     }
 }

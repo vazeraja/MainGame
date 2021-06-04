@@ -9,10 +9,10 @@ namespace MainGame {
     [CreateAssetMenu(menuName = "PluggableAI/Player Base State")]
     public class PlayerStateSO : BaseState<MainPlayer, PlayerStateSO> {
 
-        public string animBoolName;
+        public Optional<string> animBoolName;
         public PlayerStateSO(string stateName, State<MainPlayer>[] states, Transition<MainPlayer, PlayerStateSO>[] transitions,
             Action<MainPlayer> enterStateEvent, Action<MainPlayer> exitStateEvent, Action<MainPlayer> updateStateEvent, string animBoolName) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent){
-            this.animBoolName = animBoolName;
+            this.animBoolName.Value = animBoolName;
         }
 
         protected override void OnEnable(){
@@ -31,7 +31,8 @@ namespace MainGame {
             for (int i = 0; i < transitions.Length; i++) {
                 bool decisionSucceeded = transitions[i].decision.Decide(mainPlayer);
 
-                mainPlayer.TransitionToState(decisionSucceeded ? transitions[i].trueState : transitions[i].falseState);
+                // mainPlayer.TransitionToState(decisionSucceeded ? transitions[i].trueState : transitions[i].falseState);
+                mainPlayer.OnStateTransition?.Invoke(decisionSucceeded ? transitions[i].trueState : transitions[i].falseState);
 
             }
         }

@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a152ced8a5b348cfa4bffab54d2ed465, type: 3}
-  m_Name: _PlayerEventListener
+  m_Script: {fileID: 11500000, guid: f4fd70516c324042af7176fc9acecf37, type: 3}
+  m_Name: PlayerEvent_OnPlayerInitialized
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 6886def80d973894e86ea46db5d1bd73, type: 2}
-  unityEvent:
-    m_PersistentCalls:
-      m_Calls: []

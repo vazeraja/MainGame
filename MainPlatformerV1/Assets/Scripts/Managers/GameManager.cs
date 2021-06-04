@@ -13,11 +13,14 @@ namespace MainGame {
         [Header("Developer Console")]
         [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
+        public GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
         private MainPlayer activePlayer;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
+        private void Awake(){
+            playerListener.UnityEvent.AddListener(RegisterPlayer);
+        }
         private void OnEnable(){
-            inputReader.EnableGameplayInput();
             inputReader.OpenDevConsole += OpenDevConsole;
         }
         private void OnDisable(){
@@ -25,9 +28,10 @@ namespace MainGame {
         }
 
         public void RegisterPlayer(MainPlayer mainPlayer){
-            Debug.Log("player found - manager");
+            Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
             activePlayer = mainPlayer;
         }
+        
         public void SpawnPlayer(Scene scene, LoadSceneMode mode){
             var localToWorldMatrix = transform.localToWorldMatrix;
 

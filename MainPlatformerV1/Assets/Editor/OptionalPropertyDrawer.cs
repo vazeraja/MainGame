@@ -13,7 +13,7 @@ namespace MainGame {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label){
             var valueProperty = property.FindPropertyRelative("value");
             var enabledProperty = property.FindPropertyRelative("enabled");
-
+            
             position.width -= 24;
             EditorGUI.BeginDisabledGroup(!enabledProperty.boolValue);
             EditorGUI.PropertyField(position, valueProperty, label, true);

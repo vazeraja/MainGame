@@ -1,37 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace MainGame {
-
-    [Serializable] 
-    public struct Optional<T> {
-        [SerializeField] private bool enabled;
-        [SerializeField] private T value;
-
-        public Optional(T initialValue){
-            enabled = true;
-            value = initialValue;
-        }
-        public Optional(bool enabled){
-            this.enabled = enabled;
-            value = default;
-        }
-        public Optional(T initialValue, bool enabled){
-            this.enabled = enabled;
-            value = initialValue;
-        }
-        
-        public bool Enabled {
-            get => enabled;
-            set => enabled = value;
-        }
-        public T Value {
-            get => value;
-            set => this.value = value;
-        }
-    }
-
+    
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Animator))]
@@ -46,13 +19,14 @@ namespace MainGame {
 
         [Header("State")]
         [Space]
+        public Action<PlayerStateSO> OnStateTransition;
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
         private PlayerStateSO lastState;
-
+        
         [Header("Other")]
         [Space]
-        [SerializeField] private Optional<float> target = new Optional<float>(5);
+        [SerializeField] private Optional<TextMeshProUGUI> stateName;
 
         // public CharacterStat Strength;
         public PlayerData PlayerData { get => playerData; set => playerData = value; }
@@ -70,6 +44,8 @@ namespace MainGame {
 
         #region Unity Callback Functions
         protected override void Awake(){
+            inputReader.EnableGameplayInput();
+
             InputReader.MoveEvent += OnMove;
             InputReader.JumpEvent += OnJumpInitiated;
             InputReader.JumpCanceledEvent += OnJumpCanceled;
@@ -78,10 +54,12 @@ namespace MainGame {
             InputReader.DashKeyboardEvent += OnDashKeyboard;
             InputReader.AttackEvent += OnAttackInitiated;
             InputReader.AttackCanceledEvent += OnAttackCanceled;
+
+            OnStateTransition += TransitionToState;
+            OnStateTransition += _ => ChangeStateName();
         }
         protected override void OnEnable(){
             base.OnEnable();
-            onPlayerInitialized.Raise(this);
         }
         protected override void OnDisable(){
             base.OnDisable();
@@ -94,16 +72,19 @@ namespace MainGame {
             InputReader.DashKeyboardEvent -= OnDashKeyboard;
             InputReader.AttackEvent -= OnAttackInitiated;
             InputReader.AttackCanceledEvent -= OnAttackCanceled;
+
+            OnStateTransition -= TransitionToState;
+            OnStateTransition -= _ => ChangeStateName();
         }
         protected override void Start(){
             base.Start();
             
+            onPlayerInitialized.Raise(this);
             currentState.OnStateEnter(this);
             UpdateAnimClipTimes();
         }
         protected override void Update(){
             base.Update();
-
             currentState.OnLogicUpdate(this);
         }
         #endregion
@@ -118,11 +99,15 @@ namespace MainGame {
 
             currentState.OnStateExit(this);
             lastState = currentState;
-            Anim.SetBool(currentState.animBoolName, false);
+            if(currentState.animBoolName.Enabled) Anim.SetBool(currentState.animBoolName.Value, false);
             currentState = nextState;
-            Anim.SetBool(currentState.animBoolName, true);
+            if (currentState.animBoolName.Enabled) Anim.SetBool(currentState.animBoolName.Value, true);
             currentState.OnStateEnter(this);
         }
+        private void ChangeStateName(){
+            if (stateName.Enabled) stateName.Value.text = currentState.stateName;
+        }
+        
         #endregion
 
         #region Animation
