@@ -17,14 +17,12 @@ namespace MainGame {
 		[SerializeField] private bool dashInput = false;
 		[SerializeField] private Vector2 dashKeyboardInput;
 		[SerializeField] private bool isAnimationFinished;
-
-		public int FacingDirection { get => facingDirection; set => facingDirection = value; }
+		
 		public Vector2 MovementInput { get => movementInput; set => movementInput = value; }
 		public bool JumpInput { get => jumpInput; set => jumpInput = value; }
 		public bool AttackInput { get => attackInput; set => attackInput = value; }
 		public bool DashInput { get => dashInput; set => dashInput = value; }
 		public Vector2 DashKeyboardInput { get => dashKeyboardInput; set => dashKeyboardInput = value; }
-		public bool IsAnimationFinished { get => isAnimationFinished; set => isAnimationFinished = value; }
 
 		public void RegisterEvents(){
 			inputReader.MoveEvent += OnMove;
@@ -62,7 +60,6 @@ namespace MainGame {
 		private void OnAttackCanceled() => AttackInput = false;
 
 		public void Reset(){
-			FacingDirection = 1;
 			movementInput = Vector2.zero;
 			jumpInput = false;
 			attackInput = false;

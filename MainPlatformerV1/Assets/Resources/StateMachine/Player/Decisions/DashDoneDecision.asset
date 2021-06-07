@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d1f297f1f4bdd4d8f5e5779943bdd9, type: 3}
-  m_Name: RemainInState
+  m_Script: {fileID: 11500000, guid: 2114942abdea4b39a5d08419318fe947, type: 3}
+  m_Name: DashDoneDecision
   m_EditorClassIdentifier: 
-  stateName: 
-  states: []
-  transitions: []
   playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
-  animBoolName:
-    enabled: 0
-    value: 
+  playerData: {fileID: 11400000, guid: 15d764a02bdad2e408c2b0465c0d3ac6, type: 2}
+  _dashState: {fileID: 11400000, guid: ef385ad4e7137ef4fb797fd290f50e0f, type: 2}

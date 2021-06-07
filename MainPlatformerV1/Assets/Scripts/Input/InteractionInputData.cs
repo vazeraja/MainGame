@@ -11,10 +11,14 @@ namespace MainGame {
         [SerializeField] private bool interactionClicked;
         [SerializeField] private bool interactionReleased;
 
+        [Space] 
+        public bool isInteracting;
+        public float holdTimer;
+
         // ReSharper disable once ConvertToAutoProperty
-        public bool InteractedClicked { get => interactionClicked; set => interactionClicked = value; }
+        public bool InteractClicked { get => interactionClicked; set => interactionClicked = value; }
         // ReSharper disable once ConvertToAutoProperty
-        public bool InteractedRelease { get => interactionReleased; set => interactionReleased = value; }
+        public bool InteractReleased { get => interactionReleased; set => interactionReleased = value; }
 
         public void RegisterEvents(){
             inputReader.InteractionStartedEvent += OnInteractionClicked;
@@ -26,12 +30,16 @@ namespace MainGame {
         }
 
         private void OnInteractionClicked(){
-            InteractedClicked = true;
-            InteractedRelease = false;
+            InteractClicked = true;
+            InteractReleased = false;
+            isInteracting = true;
+            holdTimer = 0;
         }
         private void OnInteractionReleased(){
-            InteractedClicked = false;
-            InteractedRelease = true;
+            InteractClicked = false;
+            InteractReleased = true;
+            isInteracting = false;
+            holdTimer = 0;
         }
 
         public void Reset(){

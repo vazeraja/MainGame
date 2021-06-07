@@ -5,9 +5,9 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/JumpDecision")]
-    public class CheckJumpDecision : Decision<MainPlayer> {
-        public CheckJumpDecision(PlayerInputData playerInputData) : base(playerInputData){}
+    public class CheckJumpDecision : Decision<Player> {
+        public CheckJumpDecision(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
         
-        public override bool Decide(MainPlayer mainPlayer) => playerInputData.JumpInput;
+        public override bool Decide(Player player) => playerInputData.JumpInput;
     }
 }

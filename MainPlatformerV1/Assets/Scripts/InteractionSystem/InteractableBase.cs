@@ -23,6 +23,8 @@ namespace MainGame {
 		public bool MultipleUse => multipleUse;
 		public bool IsInteractable => isInteractable;
 
-		public void OnInteract(){}
+		public void OnInteract() {
+			Debug.Log("INTERACTED: " + gameObject.name);
+		}
 	}
 }

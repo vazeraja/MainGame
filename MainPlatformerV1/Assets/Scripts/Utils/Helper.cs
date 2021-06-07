@@ -155,7 +155,6 @@ namespace MainGame.Utils {
             foreach (var item in source)
                 action(item);
         }
-        #endregion
 
         public static void SetAndStretchToParentSize(this RectTransform _mRect, RectTransform _parent){
             _mRect.anchoredPosition = _parent.position;
@@ -165,6 +164,19 @@ namespace MainGame.Utils {
             _mRect.sizeDelta = _parent.rect.size;
             _mRect.transform.SetParent(_parent);
         }
+        
+        public static bool Raycast(Vector2 origin, Vector2 direction, float distance, LayerMask layer, out RaycastHit2D ray) => 
+            ray = Physics2D.Raycast(origin, direction, distance, layer);
+
+        public static void CallWithDelay(this MonoBehaviour mono, Action method, float delay) {
+            mono.StartCoroutine(CallWithDelayRoutine(method, delay));
+        }
+
+        private static IEnumerator CallWithDelayRoutine(Action method, float delay) {
+            yield return new WaitForSeconds(delay);
+            method();
+        }
+        #endregion
 
     }
 }

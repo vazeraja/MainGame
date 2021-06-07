@@ -6,7 +6,7 @@ using System;
 namespace MainGame {
     public interface IStateMachine<in T> {
         public void OnStateEnter(T entity);
-        public void OnLogicUpdate(T entity);
+        public void OnStateUpdate(T entity);
         public void OnStateExit(T entity);
     }
 
@@ -16,51 +16,51 @@ namespace MainGame {
         [SerializeField] protected State<T>[] states;
         [SerializeField] protected Transition<T, U>[] transitions;
 
-        protected event Action<T> enterStateEvent;
-        protected event Action<T> exitStateEvent;
-        protected event Action<T> updateStateEvent;
+        protected event Action<T> EnterStateEvent;
+        protected event Action<T> ExitStateEvent;
+        protected event Action<T> UpdateStateEvent;
 
         protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent){
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
-            this.enterStateEvent = enterStateEvent;
-            this.exitStateEvent = exitStateEvent;
-            this.updateStateEvent = updateStateEvent;
+            this.EnterStateEvent = enterStateEvent;
+            this.ExitStateEvent = exitStateEvent;
+            this.UpdateStateEvent = updateStateEvent;
         }
 
         protected virtual void OnEnable(){
             foreach (var state in states) {
-                enterStateEvent += state.OnEnter;
-                updateStateEvent += state.LogicUpdate;
-                exitStateEvent += state.OnExit;
+                EnterStateEvent += state.OnEnter;
+                UpdateStateEvent += state.LogicUpdate;
+                ExitStateEvent += state.OnExit;
             }
 
-            updateStateEvent += CheckTransitions;
-            exitStateEvent += ResetAnimationFinished;
+            UpdateStateEvent += CheckTransitions;
+            ExitStateEvent += ResetAnimationFinished;
         }
         protected virtual void OnDisable(){
             foreach (var state in states) {
-                enterStateEvent -= state.OnEnter;
-                updateStateEvent -= state.LogicUpdate;
-                exitStateEvent -= state.OnExit;
+                EnterStateEvent -= state.OnEnter;
+                UpdateStateEvent -= state.LogicUpdate;
+                ExitStateEvent -= state.OnExit;
             }
 
-            updateStateEvent -= CheckTransitions;
-            exitStateEvent -= ResetAnimationFinished;
+            UpdateStateEvent -= CheckTransitions;
+            ExitStateEvent -= ResetAnimationFinished;
         }
 
         protected abstract void CheckTransitions(T entity);
         protected abstract void ResetAnimationFinished(T entity);
 
         public void OnStateEnter(T entity){
-            enterStateEvent?.Invoke(entity);
+            EnterStateEvent?.Invoke(entity);
         }
-        public void OnLogicUpdate(T entity){
-            updateStateEvent?.Invoke(entity);
+        public void OnStateUpdate(T entity){
+            UpdateStateEvent?.Invoke(entity);
         }
         public void OnStateExit(T entity){
-            exitStateEvent?.Invoke(entity);
+            ExitStateEvent?.Invoke(entity);
         }
     }
 }

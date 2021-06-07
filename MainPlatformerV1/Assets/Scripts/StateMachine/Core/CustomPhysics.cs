@@ -17,7 +17,7 @@ namespace MainGame {
         #endregion
 
         #region Internal Variables
-        private const float minGroundNormalY = 0.65f;
+        private const float MINGroundNormalY = 0.65f;
         public float gravityModifier = 1f;
 
         private Vector2 _groundNormal;
@@ -27,8 +27,8 @@ namespace MainGame {
         private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[16];
         private readonly List<RaycastHit2D> _hitBufferList = new List<RaycastHit2D>(16);
 
-        private const float minMoveDistance = 0.001f;
-        private const float shellRadius = 0.01f;
+        private const float MINMoveDistance = 0.001f;
+        private const float ShellRadius = 0.01f;
         #endregion
 
         #region Unity Callbacks Functions
@@ -37,13 +37,6 @@ namespace MainGame {
             Anim = GetComponent<Animator>();
             SR = GetComponent<SpriteRenderer>();
         }
-        protected virtual void OnDisable(){
-
-        }
-        protected virtual void Awake(){
-
-        }
-
         protected virtual void Start(){
             _contactFilter.useTriggers = false;
             _contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Use settings from Physics2D to determine what layers to check collisions against
@@ -74,8 +67,8 @@ namespace MainGame {
         private void Movement(Vector2 move, bool yMovement){
             float distance = move.magnitude;
 
-            if (distance > minMoveDistance) {
-                int count = RB.Cast(move, _contactFilter, _hitBuffer, distance + shellRadius);
+            if (distance > MINMoveDistance) {
+                int count = RB.Cast(move, _contactFilter, _hitBuffer, distance + ShellRadius);
 
                 _hitBufferList.Clear();
                 for (int i = 0; i < count; i++)
@@ -84,7 +77,7 @@ namespace MainGame {
 
                 foreach (var buffer in _hitBufferList) {
                     var currentNormal = buffer.normal;
-                    if (currentNormal.y > minGroundNormalY) {
+                    if (currentNormal.y > MINGroundNormalY) {
                         _isGrounded = true;
                         if (yMovement) {
                             _groundNormal = currentNormal;
@@ -94,15 +87,12 @@ namespace MainGame {
                     float projection = Vector2.Dot(velocity, currentNormal);
                     if (projection < 0)
                         velocity -= projection * currentNormal;
-                    float modifiedDistance = buffer.distance - shellRadius;
+                    float modifiedDistance = buffer.distance - ShellRadius;
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
             RB.position += move.normalized * distance;
         }
         #endregion
-        protected virtual void OnDrawGizmos(){
-            
-        }
     }
 }

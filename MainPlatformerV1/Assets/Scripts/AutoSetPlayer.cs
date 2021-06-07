@@ -7,14 +7,14 @@ namespace MainGame {
     public class AutoSetPlayer : MonoBehaviour {
         
         public CinemachineVirtualCamera cam;
-        public GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
+        public GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
 
-        public Optional<MainPlayer> target;
+        public Optional<Player> target;
 
         private void Awake(){
             playerListener.UnityEvent.AddListener(SetPlayer);
         }
-        private void SetPlayer(MainPlayer player){
+        private void SetPlayer(Player player){
             if (!target.Enabled) 
                 return;
             

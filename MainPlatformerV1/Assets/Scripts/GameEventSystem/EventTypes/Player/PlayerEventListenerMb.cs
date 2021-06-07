@@ -3,6 +3,6 @@ using UnityEngine.Events;
 
 namespace MainGame {
     
-    public class PlayerEventListenerMb : GameEventListenerMB<MainPlayer, PlayerEvent, UnityPlayerEvent> {}
+    public class PlayerEventListenerMb : GameEventListenerMB<Player, PlayerEvent, UnityPlayerEvent> {}
     
 }

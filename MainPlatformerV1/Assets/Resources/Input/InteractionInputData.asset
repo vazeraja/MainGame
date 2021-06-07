@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2114942abdea4b39a5d08419318fe947, type: 3}
-  m_Name: DashDoneDecision
+  m_Script: {fileID: 11500000, guid: c5a1035d634d468bbbe014b662bb2cb3, type: 3}
+  m_Name: InteractionInputData
   m_EditorClassIdentifier: 
-  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
-  _dashState: {fileID: 11400000, guid: ef385ad4e7137ef4fb797fd290f50e0f, type: 2}
+  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
+  interactionClicked: 0
+  interactionReleased: 0
+  isInteracting: 0
+  holdTimer: 0

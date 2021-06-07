@@ -6,12 +6,12 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AnimationFinishedDecision")]
-    public class AnimationFinishedDecision : Decision<MainPlayer> {
-        public AnimationFinishedDecision(PlayerInputData playerInputData) : base(playerInputData){}
+    public class AnimationFinishedDecision : Decision<Player> {
+        public AnimationFinishedDecision(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData) { }
         
-        public override bool Decide(MainPlayer mainPlayer){
-            return playerInputData.IsAnimationFinished;
+        public override bool Decide(Player player){
+            return playerData.isAnimationFinished;
         }
-        
+
     }
 }

@@ -9,12 +9,12 @@ namespace MainGame {
     public class GameManager : MonoBehaviour {
 
         [SerializeField] private InputReader inputReader = null;
-        [SerializeField] private GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
+        [SerializeField] private GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
 
         [Header("Developer Console")]
         [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
-        private MainPlayer activePlayer;
+        private Player activePlayer;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
         private void Awake(){
@@ -27,8 +27,8 @@ namespace MainGame {
             inputReader.OpenDevConsole -= OpenDevConsole;
         }
 
-        public void RegisterPlayer(MainPlayer mainPlayer){
-            activePlayer = mainPlayer;
+        public void RegisterPlayer(Player player){
+            activePlayer = player;
             Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
         }
         

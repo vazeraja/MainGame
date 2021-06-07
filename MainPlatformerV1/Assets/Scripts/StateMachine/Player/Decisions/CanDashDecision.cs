@@ -2,9 +2,9 @@
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/DashDecision")]
-    public class CanDashDecision : Decision<MainPlayer> {
-        public CanDashDecision(PlayerInputData playerInputData) : base(playerInputData){}
+    public class CanDashDecision : Decision<Player> {
+        public CanDashDecision(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
 
-        public override bool Decide(MainPlayer mainPlayer) => playerInputData.DashInput;
+        public override bool Decide(Player player) => playerInputData.DashInput;
     }
 }

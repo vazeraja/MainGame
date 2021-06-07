@@ -8,7 +8,7 @@ using Debug = UnityEngine.Debug;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/DashState")]
-    public class DashState : State<MainPlayer> {
+    public class DashState : State<Player> {
         public DashState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
 
         public bool isAbilityDone;
@@ -20,35 +20,36 @@ namespace MainGame {
 
         private static readonly int DashX = Animator.StringToHash("dashX");
 
-        public override void OnEnter(MainPlayer mainPlayer){
+        public override void OnEnter(Player player){
             isAbilityDone = false;
             dashTime = playerData.dashTime;
         }
-        public override void LogicUpdate(MainPlayer mainPlayer){
+        public override void LogicUpdate(Player player){
             if (playerInputData.DashInput) {
                 holdDownStartTime = Time.time;
-                mainPlayer.Anim.SetBool(DashX, false);
+                player.Anim.SetBool(DashX, false);
             }
             if (!playerInputData.DashInput) {
                 timerIsRunning = true;
                 float holdDowntime = Time.time - holdDownStartTime;
-                force = CalculateForce(mainPlayer, holdDowntime);
+                force = CalculateForce(holdDowntime);
 
-                mainPlayer.Anim.SetBool(DashX, true);
-                mainPlayer.MovementVelocity.x = playerInputData.DashKeyboardInput.x != 0 
-                    ? playerInputData.DashKeyboardInput.x * force : playerInputData.FacingDirection * force;
-                CheckIfShouldFlip(mainPlayer, (int)playerInputData.DashKeyboardInput.x);
+                player.Anim.SetBool(DashX, true);
+                player.MovementVelocity.x = playerInputData.DashKeyboardInput.x != 0 
+                    ? playerInputData.DashKeyboardInput.x * force : playerData.facingDirection * force;
+                CheckIfShouldFlip(player, (int)playerInputData.DashKeyboardInput.x);
                 CheckDashTime();
             }
         }
-        public override void OnExit(MainPlayer mainPlayer){
-            mainPlayer.Anim.SetBool(DashX, false);
+        public override void OnExit(Player player){
+            player.Anim.SetBool(DashX, false);
         }
-        private void CheckIfShouldFlip(MainPlayer mainPlayer, int input){
-            if (input != 0 && input != playerInputData.FacingDirection)
-                mainPlayer.Flip();
+        private void CheckIfShouldFlip(Player player, int input) {
+            if (input == 0 || input == playerData.facingDirection) return;
+            playerData.facingDirection *= -1;
+            player.transform.Rotate(0f, -180f, 0f);
         }
-        private float CalculateForce(MainPlayer mainPlayer, float holdTime){
+        private float CalculateForce(float holdTime){
             float maxForceHoldDownTime = .25f;
             float holdTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
             float force = holdTimeNormalized * playerData.dashMaxForce;

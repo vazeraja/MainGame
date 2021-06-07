@@ -5,17 +5,17 @@ using UnityEngine;
 namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/IdleState")]
-    public class IdleState : State<MainPlayer> {
+    public class IdleState : State<Player> {
         public IdleState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
         
-        public override void OnEnter(MainPlayer mainPlayer){
+        public override void OnEnter(Player player){
         }
 
-        public override void LogicUpdate(MainPlayer mainPlayer){
+        public override void LogicUpdate(Player player){
 
         }
 
-        public override void OnExit(MainPlayer mainPlayer){
+        public override void OnExit(Player player){
         }
 
     }
