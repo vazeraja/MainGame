@@ -26,9 +26,15 @@ namespace MainGame {
 
 		private readonly Dictionary<string, float> AnimationStates = new Dictionary<string, float>();
 
-		#region Built-In Methods
 		protected override void Awake(){
+			base.Awake();
 			inputReader.EnableGameplayInput();
+		}
+
+		#region Built-In Methods
+		protected override void OnEnable(){
+			base.OnEnable();
+			
 			playerInputData.RegisterEvents();
 			interactionInputData.RegisterEvents();
 

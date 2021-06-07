@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe9b6a4281b475cb69974ff6230819e, type: 3}
   m_Name: _PlayerInputData
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
   facingDirection: 1
   movementInput: {x: 0, y: 0}
   jumpInput: 0
   attackInput: 0
   dashInput: 0
   dashKeyboardInput: {x: 0, y: 0}
+  isAnimationFinished: 0

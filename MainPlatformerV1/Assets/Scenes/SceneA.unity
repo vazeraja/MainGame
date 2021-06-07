@@ -28643,8 +28643,7 @@ MonoBehaviour:
   interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
     type: 2}
   playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
-  onPlayerInitialized: {fileID: 11400000, guid: 9e068c30a3774a74a8cc9b561a971a78,
-    type: 2}
+  playerInitialized: {fileID: 11400000, guid: 9e068c30a3774a74a8cc9b561a971a78, type: 2}
   currentState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
   remainState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
   stateName:
