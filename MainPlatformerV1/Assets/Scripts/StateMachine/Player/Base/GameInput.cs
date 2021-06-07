@@ -65,6 +65,14 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""dabc56f1-2ebe-4f74-9475-81bc8e5c32bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -280,7 +288,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""08e210ce-12bd-4bf7-b50e-24be22fb3f0b"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
@@ -364,6 +372,17 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""action"": ""OpenDevConsole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""241b2433-c327-4497-987d-7d53b8e0d21f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardOrGamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -444,6 +463,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_DashDirectionKeyboard = m_Gameplay.FindAction("DashDirectionKeyboard", throwIfNotFound: true);
         m_Gameplay_OpenDevConsole = m_Gameplay.FindAction("OpenDevConsole", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         // Dialogues
         m_Dialogues = asset.FindActionMap("Dialogues", throwIfNotFound: true);
         m_Dialogues_AdvanceDialogue = m_Dialogues.FindAction("AdvanceDialogue", throwIfNotFound: true);
@@ -502,6 +522,7 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_DashDirectionKeyboard;
     private readonly InputAction m_Gameplay_OpenDevConsole;
+    private readonly InputAction m_Gameplay_Interact;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -512,6 +533,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @DashDirectionKeyboard => m_Wrapper.m_Gameplay_DashDirectionKeyboard;
         public InputAction @OpenDevConsole => m_Wrapper.m_Gameplay_OpenDevConsole;
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -539,6 +561,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @OpenDevConsole.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
                 @OpenDevConsole.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
                 @OpenDevConsole.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
+                @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -561,6 +586,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @OpenDevConsole.started += instance.OnOpenDevConsole;
                 @OpenDevConsole.performed += instance.OnOpenDevConsole;
                 @OpenDevConsole.canceled += instance.OnOpenDevConsole;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -615,6 +643,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnDashDirectionKeyboard(InputAction.CallbackContext context);
         void OnOpenDevConsole(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IDialoguesActions
     {

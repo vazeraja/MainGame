@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "dabc56f1-2ebe-4f74-9475-81bc8e5c32bf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -267,7 +275,7 @@
                 {
                     "name": "",
                     "id": "08e210ce-12bd-4bf7-b50e-24be22fb3f0b",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
@@ -349,6 +357,17 @@
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
                     "action": "OpenDevConsole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "241b2433-c327-4497-987d-7d53b8e0d21f",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardOrGamepad",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -20,6 +20,10 @@ namespace MainGame {
         // Dialogue
         public event UnityAction AdvanceDialogueEvent;
         public event UnityAction ResetDialogueEvent;
+        
+        // Interaction
+        public event UnityAction InteractionStartedEvent;
+        public event UnityAction InteractionCancelledEvent;
 
         // Developer Console
         public event UnityAction OpenDevConsole;
@@ -72,12 +76,6 @@ namespace MainGame {
         }
         #endregion
         
-        // Dev Console
-        public void OnOpenDevConsole(InputAction.CallbackContext context){
-            if (OpenDevConsole != null && context.phase == InputActionPhase.Performed)
-                OpenDevConsole.Invoke();
-        }
-
         #region Dialogue Actions
         public void OnAdvanceDialogue(InputAction.CallbackContext context){
             if (context.phase == InputActionPhase.Performed)
@@ -86,6 +84,20 @@ namespace MainGame {
                 ResetDialogueEvent?.Invoke();
         }
         #endregion
+        
+        // Dev Console
+        public void OnOpenDevConsole(InputAction.CallbackContext context){
+            if (OpenDevConsole != null && context.phase == InputActionPhase.Performed)
+                OpenDevConsole.Invoke();
+        }
+        public void OnInteract(InputAction.CallbackContext context){
+            if (InteractionStartedEvent != null && context.phase == InputActionPhase.Started)
+                InteractionStartedEvent.Invoke();
+
+            if (InteractionCancelledEvent != null && context.phase == InputActionPhase.Canceled)
+                InteractionCancelledEvent.Invoke();
+        }
+
 
 
         public void EnableGameplayInput(){

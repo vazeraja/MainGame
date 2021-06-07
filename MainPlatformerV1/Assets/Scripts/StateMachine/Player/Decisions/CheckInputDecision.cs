@@ -6,8 +6,10 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/MovingDecision")]
     public class CheckInputDecision : Decision<MainPlayer> {
+        public CheckInputDecision(PlayerInputData playerInputData) : base(playerInputData){}
+        
         public override bool Decide(MainPlayer mainPlayer){
-            return mainPlayer.MovementInput.x != 0 && mainPlayer.MovementInput.y == 0;
+            return playerInputData.MovementInput.x != 0 && playerInputData.MovementInput.y == 0;
         }
     }
 }

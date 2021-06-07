@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d1f297f1f4bdd4d8f5e5779943bdd9, type: 3}
   m_Name: RemainInState
   m_EditorClassIdentifier: 
-  actions: []
+  stateName: 
+  states: []
   transitions: []
-  sceneGizmoColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  animBoolName:
+    enabled: 0
+    value: 

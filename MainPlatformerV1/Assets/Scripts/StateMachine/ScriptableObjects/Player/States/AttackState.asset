@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b86634cadfe31b40b957294d96f286f, type: 3}
   m_Name: AttackState
   m_EditorClassIdentifier: 
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  playerData: {fileID: 11400000, guid: 15d764a02bdad2e408c2b0465c0d3ac6, type: 2}
   comboMap:
     m_Name: Combo Map
     m_Id: d03b02f7-1323-4c44-9a1c-2a952905c23a

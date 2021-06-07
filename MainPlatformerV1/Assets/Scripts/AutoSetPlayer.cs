@@ -15,11 +15,13 @@ namespace MainGame {
             playerListener.UnityEvent.AddListener(SetPlayer);
         }
         private void SetPlayer(MainPlayer player){
-            if (!target.Enabled) return;
-
-            Debug.Log("Cinemachine: Follow target assigned to player");
+            if (!target.Enabled) 
+                return;
+            
             target.Value = player;
             cam.Follow = target.Value.transform;
+            
+            Debug.Log("<b><color=white>Cinemachine: Follow target assigned to player </color></b>");
         }
     }
 }

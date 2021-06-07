@@ -31,6 +31,7 @@ MonoBehaviour:
   - decision: {fileID: 11400000, guid: 34739d873e397b34d8e7507dd830de08, type: 2}
     trueState: {fileID: 11400000, guid: 53f0b96a1e83c6e458a353c2b7aa2d06, type: 2}
     falseState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
   animBoolName:
     enabled: 1
     value: idle

@@ -5,10 +5,12 @@ using System;
 
 namespace MainGame {
     public interface IStateMachine<in T> {
-        void TransitionToState(T nextState);
+        public void OnStateEnter(T entity);
+        public void OnLogicUpdate(T entity);
+        public void OnStateExit(T entity);
     }
 
-    public abstract class BaseState<T, U> : ScriptableObject where T : CustomPhysics {
+    public abstract class BaseState<T, U> : ScriptableObject, IStateMachine<T> {
         // U is BaseState_SO
         [SerializeField] public string stateName;
         [SerializeField] protected State<T>[] states;

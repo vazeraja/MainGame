@@ -9,11 +9,11 @@ namespace MainGame {
     public class GameManager : MonoBehaviour {
 
         [SerializeField] private InputReader inputReader = null;
+        [SerializeField] private GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
 
         [Header("Developer Console")]
         [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
-        public GameEventListenerSO<MainPlayer, PlayerEvent, UnityPlayerEvent> playerListener;
         private MainPlayer activePlayer;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
@@ -28,18 +28,14 @@ namespace MainGame {
         }
 
         public void RegisterPlayer(MainPlayer mainPlayer){
-            Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
             activePlayer = mainPlayer;
+            Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
         }
         
         public void SpawnPlayer(Scene scene, LoadSceneMode mode){
             var localToWorldMatrix = transform.localToWorldMatrix;
-
             var playerPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/Player"), (localToWorldMatrix * spawnPoint), Quaternion.identity);
             playerPrefab.name = "Player";
-
-            var cam = Instantiate(Resources.Load<GameObject>("Prefabs/CinemachineVCam"), (localToWorldMatrix * new Vector4(0, 0, 0, 0)), Quaternion.identity);
-            cam.GetComponent<CinemachineVirtualCamera>().Follow = playerPrefab.transform;
         }
         public void DestroyPlayer() => Destroy(activePlayer.gameObject);
 

@@ -10,6 +10,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/AttackState")]
     public class AttackState : State<MainPlayer> {
+        public AttackState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
 
         [SerializeField] private InputActionMap comboMap = new InputActionMap();
         private ReadOnlyArray<InputAction> Actions => comboMap.actions;
@@ -39,7 +40,7 @@ namespace MainGame {
 
         public override void LogicUpdate(MainPlayer mainPlayer){
             if (timeLeftToCombo > 0) {
-                Debug.Log(timeLeftToCombo);
+                // Debug.Log(timeLeftToCombo);
                 timeLeftToCombo -= Time.deltaTime;
             }
             else
@@ -47,7 +48,7 @@ namespace MainGame {
         }
 
         public override void OnExit(MainPlayer mainPlayer){
-            Debug.Log(buttonPresses);
+            // Debug.Log("Button Presses: " + buttonPresses);
 
             mainPlayer.Anim.SetBool(Combo, false);
             mainPlayer.Anim.SetBool(NoCombo, false);

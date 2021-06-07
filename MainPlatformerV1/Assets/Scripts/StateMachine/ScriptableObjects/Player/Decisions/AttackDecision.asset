@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c86c94b6036084296a3b73f9198539, type: 3}
   m_Name: AttackDecision
   m_EditorClassIdentifier: 
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}

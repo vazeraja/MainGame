@@ -6,6 +6,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/JumpState")]
     public class JumpState : State<MainPlayer> {
+        public JumpState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
 
         private static readonly int XVelocity = Animator.StringToHash("xVelocity");
         private static readonly int YVelocity = Animator.StringToHash("yVelocity");
@@ -23,21 +24,21 @@ namespace MainGame {
             mainPlayer.Anim.SetFloat(XVelocity, Mathf.Abs(mainPlayer.velocity.x));
             mainPlayer.Anim.SetFloat(YVelocity, mainPlayer.velocity.y);
 
-            if (mainPlayer.JumpInput && mainPlayer.IsGrounded) {
+            if (playerInputData.JumpInput && mainPlayer.IsGrounded) {
                 if (mainPlayer.velocity.y > 0) {
                 }
-                mainPlayer.velocity.y = mainPlayer.PlayerData.jumpSpeed;
+                mainPlayer.velocity.y = playerData.jumpSpeed;
             }
-            else if (!mainPlayer.JumpInput) {
+            else if (!playerInputData.JumpInput) {
                 if (mainPlayer.velocity.y > 0)
                     mainPlayer.velocity.y *= 0.5f;
             }
 
-            if (mainPlayer.MovementInput != Vector2.zero)
-                mainPlayer.MovementVelocity = mainPlayer.MovementInput * mainPlayer.PlayerData.movementSpeed;
+            if (playerInputData.MovementInput != Vector2.zero)
+                mainPlayer.MovementVelocity = playerInputData.MovementInput * playerData.movementSpeed;
         }
         private void CheckIfShouldFlip(MainPlayer mainPlayer){
-            if (mainPlayer.MovementInput.x != 0 && mainPlayer.MovementInput.x != mainPlayer.FacingDirection)
+            if (playerInputData.MovementInput.x != 0 && (int)playerInputData.MovementInput.x != playerInputData.FacingDirection)
                 mainPlayer.Flip();
         }
 

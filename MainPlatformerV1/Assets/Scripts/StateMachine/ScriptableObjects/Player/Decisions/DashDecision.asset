@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5f35a69b8e4c19867b00b328475724, type: 3}
   m_Name: DashDecision
   m_EditorClassIdentifier: 
-  _dashState: {fileID: 11400000, guid: ef385ad4e7137ef4fb797fd290f50e0f, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}

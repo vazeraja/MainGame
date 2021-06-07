@@ -3,18 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data/Base Data")]
+    [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data")]
     public class PlayerData : ScriptableObject {
-
-        [Header("Player Components")]
-        public GameObject CinemachineFollowCam;
-        
-        public Sprite baseSprite;
-        public PhysicsMaterial2D noFrictionMat;
-        public RuntimeAnimatorController playerAnimator;
-
-        public PlayerStateSO idleState;
-        public PlayerStateSO remainInState;
 
         [Header("Base Player Info")]
         public float maxHealth;
@@ -31,5 +21,8 @@ namespace MainGame {
         [Header("Dash State Variables")]
         public float dashTime = 0.2f; // How long do we dash before we leave
         public float dashMaxForce = 150f;
+
+        public LayerMask interactable;
+        public float interactableDistance = 0.5f;
     }
 }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2d7f0b8a43b28428be45f4e34ab8ba, type: 3}
   m_Name: JumpDecision
   m_EditorClassIdentifier: 
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}

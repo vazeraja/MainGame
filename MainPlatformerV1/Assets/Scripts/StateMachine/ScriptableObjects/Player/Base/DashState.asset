@@ -19,6 +19,7 @@ MonoBehaviour:
   - decision: {fileID: 11400000, guid: d1204541748898949856647193c0a5f0, type: 2}
     trueState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
     falseState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
   animBoolName:
     enabled: 1
     value: dash

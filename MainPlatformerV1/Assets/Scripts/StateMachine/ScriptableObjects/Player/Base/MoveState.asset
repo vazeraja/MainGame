@@ -28,6 +28,7 @@ MonoBehaviour:
   - decision: {fileID: 11400000, guid: cfa8213f5eebbfa42a8ae3c518e36b14, type: 2}
     trueState: {fileID: 11400000, guid: fc1948eea2b44724795ea2128ee14e6e, type: 2}
     falseState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
   animBoolName:
     enabled: 1
     value: move

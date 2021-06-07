@@ -9,6 +9,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/DashState")]
     public class DashState : State<MainPlayer> {
+        public DashState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
 
         public bool isAbilityDone;
 
@@ -21,21 +22,22 @@ namespace MainGame {
 
         public override void OnEnter(MainPlayer mainPlayer){
             isAbilityDone = false;
-            dashTime = mainPlayer.PlayerData.dashTime;
+            dashTime = playerData.dashTime;
         }
         public override void LogicUpdate(MainPlayer mainPlayer){
-            if (mainPlayer.DashInput) {
+            if (playerInputData.DashInput) {
                 holdDownStartTime = Time.time;
                 mainPlayer.Anim.SetBool(DashX, false);
             }
-            if (!mainPlayer.DashInput) {
+            if (!playerInputData.DashInput) {
                 timerIsRunning = true;
                 float holdDowntime = Time.time - holdDownStartTime;
                 force = CalculateForce(mainPlayer, holdDowntime);
 
                 mainPlayer.Anim.SetBool(DashX, true);
-                mainPlayer.MovementVelocity.x = mainPlayer.DashKeyboardInput.x != 0 ? mainPlayer.DashKeyboardInput.x * force : mainPlayer.FacingDirection * force;
-                CheckIfShouldFlip(mainPlayer, (int)mainPlayer.DashKeyboardInput.x);
+                mainPlayer.MovementVelocity.x = playerInputData.DashKeyboardInput.x != 0 
+                    ? playerInputData.DashKeyboardInput.x * force : playerInputData.FacingDirection * force;
+                CheckIfShouldFlip(mainPlayer, (int)playerInputData.DashKeyboardInput.x);
                 CheckDashTime();
             }
         }
@@ -43,13 +45,13 @@ namespace MainGame {
             mainPlayer.Anim.SetBool(DashX, false);
         }
         private void CheckIfShouldFlip(MainPlayer mainPlayer, int input){
-            if (input != 0 && input != mainPlayer.FacingDirection)
+            if (input != 0 && input != playerInputData.FacingDirection)
                 mainPlayer.Flip();
         }
         private float CalculateForce(MainPlayer mainPlayer, float holdTime){
             float maxForceHoldDownTime = .25f;
             float holdTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
-            float force = holdTimeNormalized * mainPlayer.PlayerData.dashMaxForce;
+            float force = holdTimeNormalized * playerData.dashMaxForce;
             return force;
         }
         private void CheckDashTime(){

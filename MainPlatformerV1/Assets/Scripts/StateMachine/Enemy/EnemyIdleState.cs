@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MainGame {
     public class EnemyIdleState : State<Enemy> {
+        public EnemyIdleState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
         public override void LogicUpdate(Enemy type){
             throw new System.NotImplementedException();
         }

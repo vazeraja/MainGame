@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    public class Enemy : CustomPhysics, IStateMachine<EnemyStateSO> {
+    public class Enemy : CustomPhysics {
 
         public EnemyStateSO currentState;
         public EnemyStateSO remainState;

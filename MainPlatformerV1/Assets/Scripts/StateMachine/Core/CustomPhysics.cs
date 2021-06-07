@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace MainGame {
         [HideInInspector] public SpriteRenderer SR;
         [HideInInspector] public Vector2 velocity;
         [HideInInspector] public Vector2 MovementVelocity;
-        [HideInInspector] public bool IsGrounded => _isGrounded;
+        public BoxCollider2D Collider2D;
+        public bool IsGrounded => _isGrounded;
         #endregion
 
         #region Internal Variables
@@ -99,5 +101,8 @@ namespace MainGame {
             RB.position += move.normalized * distance;
         }
         #endregion
+        protected virtual void OnDrawGizmos(){
+            
+        }
     }
 }
