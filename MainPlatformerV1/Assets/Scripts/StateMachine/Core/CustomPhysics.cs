@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MainGame {
     public abstract class CustomPhysics : MonoBehaviour {
@@ -12,7 +13,7 @@ namespace MainGame {
         [HideInInspector] public SpriteRenderer SR;
         [HideInInspector] public Vector2 velocity;
         [HideInInspector] public Vector2 MovementVelocity;
-        public BoxCollider2D Collider2D;
+        public new BoxCollider2D collider;
         public bool IsGrounded => _isGrounded;
         #endregion
 

@@ -14,19 +14,16 @@ namespace MainGame {
         public Action<PlayerStateSO> OnStateTransition;
         public Optional<TextMeshProUGUI> stateName;
         
+        [Header("Interaction System")]
+        [SerializeField] private InteractionLogic interactionLogic;
+        
         [Header("GameEvents")] 
         [SerializeField] private PlayerEvent playerInitialized;
         
-        private InteractionHandler interactionHandler;
-
         // public CharacterStat Strength;
 
         #region Built-In Methods
-
-        private void Awake() {
-            interactionHandler = gameObject.AddComponent<InteractionHandler>();
-        }
-
+        
         protected override void OnEnable() {
             base.OnEnable();
             OnStateTransition += TransitionToState;
@@ -55,7 +52,7 @@ namespace MainGame {
             base.Update();
 
             currentState.OnStateUpdate(this);
-            interactionHandler.UpdateInteractable(Collider2D);
+            interactionLogic.UpdateInteractable(this, collider.bounds.center);
         }
 
         #endregion
@@ -75,64 +72,8 @@ namespace MainGame {
 
         private void OnDrawGizmos() {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(Collider2D.bounds.center, 0.5f);
+            Gizmos.DrawWireSphere(collider.bounds.center, 0.5f);
         }
-
-        private class InteractionHandler : MonoBehaviour {
-
-            private PlayerData playerData;
-            private InteractionInputData interactionInputData;
-            private InteractionData interactionData;
-            private void Start() {
-                playerData = Resources.Load<PlayerData>("StateMachine/Player/PlayerData");
-                interactionInputData = Resources.Load<InteractionInputData>("Input/InteractionInputData");
-                interactionData = Resources.Load<InteractionData>("InteractionSystem/InteractionData");
-            }
-
-            public void UpdateInteractable(Collider2D bounds) {
-                CheckForInteractable(bounds);
-                CheckForInteractableInput();
-            }
-            private void CheckForInteractable(Collider2D bounds) {
-                var hitSomething = Helper.Raycast(bounds.bounds.center,
-                    transform.right, playerData.rayDistance, playerData.interactableLayer, out var ray);
-                if (hitSomething) {
-                    var interactable = ray.transform.GetComponent<InteractableBase>();
-                    if (interactable != null) {
-                        if (interactionData.IsEmpty()) {
-                            interactionData.Interactable = interactable;
-                        }
-                        else {
-                            if (!interactionData.IsSameInteractable(interactable)) {
-                                interactionData.Interactable = interactable;
-                            }
-                        }
-                    }
-                }
-                else {
-                    interactionData.ResetData();
-                }
-
-                Debug.DrawRay(bounds.bounds.center, transform.right * playerData.rayDistance,
-                    hitSomething ? Color.green : Color.red);
-            }
-
-            private void CheckForInteractableInput() {
-                if (interactionData.IsEmpty() || !interactionInputData.isInteracting ||
-                    !interactionData.Interactable.IsInteractable) return;
-
-                if (interactionData.Interactable.HoldInteract) {
-                    interactionInputData.holdTimer += Time.deltaTime;
-                    if (!(interactionInputData.holdTimer >= interactionData.Interactable.HoldDuration)) return;
-                    interactionData.Interact();
-                    interactionInputData.isInteracting = false;
-                }
-                else {
-                    interactionData.Interact();
-                    interactionInputData.isInteracting = false;
-                }
-            }
-            
-        }
+        
     }
 }
