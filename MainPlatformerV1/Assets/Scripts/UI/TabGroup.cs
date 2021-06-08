@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 namespace MainGame {
-
     public class TabGroup : MonoBehaviour {
 
         public List<TabButton> tabButtons;
@@ -17,46 +16,46 @@ namespace MainGame {
 
         public List<GameObject> pagesToSwap;
 
-        public void Subscribe(TabButton button){
+        private void Update() {
+        }
+
+        public void Subscribe(TabButton button) {
             tabButtons ??= new List<TabButton>();
             tabButtons.Add(button);
         }
 
-        public void OnTabEnter(TabButton button){
+        public void OnTabEnter(TabButton button) {
             ResetTabs();
             if (selectedTab == null || button != selectedTab) {
                 button.background.color = tabHover;
             }
         }
-        public void OnTabExit(TabButton button){
+
+        public void OnTabExit(TabButton button) {
             ResetTabs();
         }
-        public void OnTabSelected(TabButton button){
-            if (selectedTab != null) 
-                selectedTab.Deselect(() => {
-                    Debug.Log("deselected action");
-                });
-            
+
+        public void OnTabSelected(TabButton button) {
+            if (selectedTab != null)
+                selectedTab.Deselect(() => { Debug.Log("deselected action"); });
+
 
             selectedTab = button;
-            selectedTab.Select(() => {
-                Debug.Log("selected action");
-            });
+            selectedTab.Select(() => { Debug.Log("selected action"); });
 
             ResetTabs();
             button.background.color = tabActive;
             int index = button.transform.GetSiblingIndex();
-            for (int i = 0; i < pagesToSwap.Count; i++) {
+            for (var i = 0; i < pagesToSwap.Count; i++) {
                 pagesToSwap[i].SetActive(i == index);
             }
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public void ResetTabs(){
+        public void ResetTabs() {
             foreach (var button in tabButtons.Where(button => selectedTab == null || button != selectedTab)) {
                 button.background.color = tabIdle;
             }
         }
-
     }
 }

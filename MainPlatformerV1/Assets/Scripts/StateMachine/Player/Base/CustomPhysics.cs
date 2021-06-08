@@ -6,18 +6,20 @@ using UnityEngine.Serialization;
 
 namespace MainGame {
     public abstract class CustomPhysics : MonoBehaviour {
-
         #region Public Variables
+
         [HideInInspector] public Rigidbody2D RB;
         [HideInInspector] public Animator Anim;
         [HideInInspector] public SpriteRenderer SR;
         [HideInInspector] public Vector2 velocity;
         [HideInInspector] public Vector2 MovementVelocity;
-        public new BoxCollider2D collider;
+        [HideInInspector] public new BoxCollider2D collider;
         public bool IsGrounded => _isGrounded;
+
         #endregion
 
         #region Internal Variables
+
         private const float MINGroundNormalY = 0.65f;
         public float gravityModifier = 1f;
 
@@ -30,23 +32,33 @@ namespace MainGame {
 
         private const float MINMoveDistance = 0.001f;
         private const float ShellRadius = 0.01f;
+
         #endregion
 
         #region Unity Callbacks Functions
-        protected virtual void OnEnable(){
+
+        protected virtual void OnEnable() {
             RB = GetComponent<Rigidbody2D>();
             Anim = GetComponent<Animator>();
             SR = GetComponent<SpriteRenderer>();
+            collider = GetComponent<BoxCollider2D>();
         }
-        protected virtual void Start(){
+
+        protected virtual void OnDisable() { }
+
+        protected virtual void Start() {
             _contactFilter.useTriggers = false;
-            _contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); // Use settings from Physics2D to determine what layers to check collisions against
+            _contactFilter.SetLayerMask(
+                Physics2D.GetLayerCollisionMask(gameObject
+                    .layer)); // Use settings from Physics2D to determine what layers to check collisions against
             _contactFilter.useLayerMask = true;
         }
-        protected virtual void Update(){
+
+        protected virtual void Update() {
             MovementVelocity = Vector2.zero;
         }
-        protected virtual void FixedUpdate(){
+
+        protected virtual void FixedUpdate() {
             velocity += Physics2D.gravity * (gravityModifier * Time.deltaTime);
             velocity.x = MovementVelocity.x;
 
@@ -62,10 +74,12 @@ namespace MainGame {
 
             Movement(move, true);
         }
+
         #endregion
 
         #region Physics Logic
-        private void Movement(Vector2 move, bool yMovement){
+
+        private void Movement(Vector2 move, bool yMovement) {
             float distance = move.magnitude;
 
             if (distance > MINMoveDistance) {
@@ -85,6 +99,7 @@ namespace MainGame {
                             currentNormal.x = 0;
                         }
                     }
+
                     float projection = Vector2.Dot(velocity, currentNormal);
                     if (projection < 0)
                         velocity -= projection * currentNormal;
@@ -92,8 +107,10 @@ namespace MainGame {
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
+
             RB.position += move.normalized * distance;
         }
+
         #endregion
     }
 }

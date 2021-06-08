@@ -205,9 +205,9 @@ GameObject:
   m_Component:
   - component: {fileID: 111547753}
   - component: {fileID: 111547752}
+  - component: {fileID: 111547757}
   - component: {fileID: 111547754}
   - component: {fileID: 111547755}
-  - component: {fileID: 111547757}
   m_Layer: 10
   m_Name: GravityOrb
   m_TagString: Untagged
@@ -309,11 +309,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 111547751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb152e791124c4ba953c71cbb794889, type: 3}
+  m_Script: {fileID: 11500000, guid: 73d5994e50c24fba8591a1a893e2841b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdDuration: 3
-  holdInteract: 1
+  requiredDistance: 5
+  holdDuration: 0
+  holdInteract: 0
   multipleUse: 0
   isInteractable: 1
 --- !u!61 &111547757
@@ -25884,7 +25885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1059.0668, y: -76.151306}
+  m_AnchoredPosition: {x: 1059.0668, y: -76.15134}
   m_SizeDelta: {x: 2118.1335, y: 152.30267}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &440937320
@@ -26609,6 +26610,7 @@ MonoBehaviour:
   interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
     type: 2}
   playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  menuInputData: {fileID: 11400000, guid: 1234e9b071dabd04593166827741d3d0, type: 2}
 --- !u!1 &897071492
 GameObject:
   m_ObjectHideFlags: 0
@@ -28009,7 +28011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 207.83997, y: -37.55}
+  m_AnchoredPosition: {x: 207.84, y: -37.55}
   m_SizeDelta: {x: 415.68, y: 75.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1601785561
@@ -28094,10 +28096,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
-  playerListener: {fileID: 11400000, guid: 708ffe724e5fb454094bb7fb70365626, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
   commands:
   - {fileID: 11400000, guid: 26438a1635644983a778a553e608b270, type: 2}
   - {fileID: 11400000, guid: cb54b084ce044899a0f797bab955d345, type: 2}
+  playerListener: {fileID: 11400000, guid: 708ffe724e5fb454094bb7fb70365626, type: 2}
+  menuWindow: {fileID: 211686093}
 --- !u!4 &1637234072
 Transform:
   m_ObjectHideFlags: 0
@@ -28681,15 +28685,14 @@ MonoBehaviour:
   SR: {fileID: 0}
   velocity: {x: 0, y: 0}
   MovementVelocity: {x: 0, y: 0}
-  Collider2D: {fileID: 5292409555548183947}
+  collider: {fileID: 5292409555548183947}
   gravityModifier: 7
-  playerData: {fileID: 11400000, guid: 15d764a02bdad2e408c2b0465c0d3ac6, type: 2}
-  playerInitialized: {fileID: 11400000, guid: 9e068c30a3774a74a8cc9b561a971a78, type: 2}
   currentState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
   remainState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
-  stateName:
+  interactionLogic:
     enabled: 1
-    value: {fileID: 6329653014558514135}
+    value: {fileID: 11400000, guid: 3adf13f8fd2182840af21032831dc7c9, type: 2}
+  playerInitialized: {fileID: 11400000, guid: 9e068c30a3774a74a8cc9b561a971a78, type: 2}
 --- !u!1 &5292409555548183942
 GameObject:
   m_ObjectHideFlags: 0

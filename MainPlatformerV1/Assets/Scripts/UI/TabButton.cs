@@ -8,15 +8,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace MainGame {
-
     [RequireComponent(typeof(Image))]
     public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
-
         public TabGroup tabGroup;
 
         [HideInInspector] public Image background;
 
-        private void Start(){
+        private void Start() {
             background = GetComponent<Image>();
             tabGroup.Subscribe(this);
         }

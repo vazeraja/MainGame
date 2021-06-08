@@ -16,7 +16,7 @@ namespace MainGame {
 		[Header("Interactable Settings")] 
 		[SerializeField] private float requiredDistance;
 		
-		[SerializeField] private float holdDuration;
+		[Space, SerializeField] private float holdDuration;
 		[SerializeField] private bool holdInteract;
 		[SerializeField] private bool multipleUse;
 		[SerializeField] private bool isInteractable;

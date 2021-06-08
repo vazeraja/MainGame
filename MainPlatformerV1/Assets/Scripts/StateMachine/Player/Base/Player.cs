@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MainGame.Utils;
 using TMPro;
 using UnityEngine;
-using NaughtyAttributes;
+using static MainGame.PlayerStateSO;
 
 namespace MainGame {
     public class Player : CustomPhysics {
@@ -11,11 +11,9 @@ namespace MainGame {
         [Header("State Machine")] 
         public PlayerStateSO currentState;
         public PlayerStateSO remainState;
-        public Action<PlayerStateSO> OnStateTransition;
-        public Optional<TextMeshProUGUI> stateName;
-        
+
         [Header("Interaction System")]
-        [SerializeField] private InteractionLogic interactionLogic;
+        [SerializeField] private Optional<InteractionLogic> interactionLogic;
         
         [Header("GameEvents")] 
         [SerializeField] private PlayerEvent playerInitialized;
@@ -27,16 +25,11 @@ namespace MainGame {
         protected override void OnEnable() {
             base.OnEnable();
             OnStateTransition += TransitionToState;
-            OnStateTransition += p => {
-                if (stateName.Enabled) stateName.Value.text = currentState.stateName;
-            };
         }
 
-        private void OnDisable() {
+        protected override void OnDisable() {
+            base.OnDisable();
             OnStateTransition -= TransitionToState;
-            OnStateTransition -= p => {
-                if (stateName.Enabled) stateName.Value.text = currentState.stateName;
-            };
         }
 
         protected override void Start() {
@@ -52,7 +45,8 @@ namespace MainGame {
             base.Update();
 
             currentState.OnStateUpdate(this);
-            interactionLogic.UpdateInteractable(this, collider.bounds.center);
+            if(interactionLogic.Enabled) 
+                interactionLogic.Value.UpdateInteractable(this, collider.bounds.center);
         }
 
         #endregion
@@ -62,18 +56,16 @@ namespace MainGame {
                 return;
 
             currentState.OnStateExit(this);
-            if (currentState.animBoolName.Enabled) Anim.SetBool(currentState.animBoolName.Value, false);
+            if (currentState.animBoolName.Enabled) 
+                Anim.SetBool(currentState.animBoolName.Value, false);
             currentState = nextState;
-            if (currentState.animBoolName.Enabled) Anim.SetBool(currentState.animBoolName.Value, true);
+            if (currentState.animBoolName.Enabled) 
+                Anim.SetBool(currentState.animBoolName.Value, true);
             currentState.OnStateEnter(this);
         }
 
         public void AnimationFinishTrigger() => currentState.AnimationFinishTrigger(); // Used as an Animation Event
-
-        private void OnDrawGizmos() {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(collider.bounds.center, 0.5f);
-        }
+        
         
     }
 }

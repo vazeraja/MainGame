@@ -7,13 +7,17 @@ using UnityEngine.SceneManagement;
 
 namespace MainGame {
     public class GameManager : MonoBehaviour {
-
+        
+        [Header("Input")]
         [SerializeField] private InputReader inputReader = null;
-        [SerializeField] private GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
 
         [Header("Developer Console")]
         [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
-
+        
+        [SerializeField] private GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
+        
+        [SerializeField] private GameObject menuWindow;
+        
         private Player activePlayer;
 
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
@@ -22,26 +26,27 @@ namespace MainGame {
         }
         private void OnEnable(){
             inputReader.OpenDevConsole += OpenDevConsole;
+            inputReader.OpenMenuEvent += OpenMenuWindow;
         }
         private void OnDisable(){
             inputReader.OpenDevConsole -= OpenDevConsole;
+            inputReader.OpenMenuEvent -= OpenMenuWindow;
+        }
+
+        private void Update() {
+            //OpenMenuWindow();
         }
 
         public void RegisterPlayer(Player player){
             activePlayer = player;
             Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
         }
-        
-        public void SpawnPlayer(Scene scene, LoadSceneMode mode){
-            var localToWorldMatrix = transform.localToWorldMatrix;
-            var playerPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/Player"), (localToWorldMatrix * spawnPoint), Quaternion.identity);
-            playerPrefab.name = "Player";
-        }
-        public void DestroyPlayer() => Destroy(activePlayer.gameObject);
 
+        
         // --- Event Listeners --- 
         private void OpenDevConsole() => DeveloperConsoleBehaviour.GetDevConsole(commands, inputReader, "/");
 
+        private void OpenMenuWindow() { menuWindow.SetActive(true); inputReader.EnableMenuInput(); }
     }
 
 }

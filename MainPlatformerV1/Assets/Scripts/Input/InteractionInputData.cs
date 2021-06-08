@@ -2,7 +2,7 @@
 using UnityEngine;
 namespace MainGame {
 
-    [CreateAssetMenu(fileName = "InteractionInputData", menuName = "InteractionSystem/InputData", order = 0)]
+    [CreateAssetMenu(fileName = "InteractionInputData", menuName = "InputData/InteractionInputData", order = 0)]
     public class InteractionInputData : ScriptableObject {
 
         [SerializeField] private InputReader inputReader = null;
