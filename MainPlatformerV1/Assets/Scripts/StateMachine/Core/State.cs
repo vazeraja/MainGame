@@ -5,10 +5,11 @@ using System;
 
 namespace MainGame {
     public abstract class State<T> : ScriptableObject {
-
+        
+        // TODO: Make optional or generic
         public PlayerInputData playerInputData;
         public PlayerData playerData;
-        protected State(PlayerInputData playerInputData, PlayerData playerData){
+        protected State(PlayerInputData playerInputData, PlayerData playerData) {
             this.playerInputData = playerInputData;
             this.playerData = playerData;
         }
