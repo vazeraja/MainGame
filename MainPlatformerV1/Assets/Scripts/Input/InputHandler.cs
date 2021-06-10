@@ -9,24 +9,26 @@ namespace MainGame {
         [Space]
         [SerializeField] private InteractionInputData interactionInputData = default;
         [SerializeField] private PlayerInputData playerInputData = default;
-        [SerializeField] private MenuInputData menuInputData = default;
-        
+
+        private void Awake() {
+            inputReader = Resources.Load<InputReader>("Input/InputReader");
+            interactionInputData = Resources.Load<InteractionInputData>("Input/InteractionInputData");
+            playerInputData = Resources.Load<PlayerInputData>("Input/PlayerInputData");
+        }
+
         private void OnEnable() {
             inputReader.EnableGameplayInput();
             playerInputData.RegisterEvents();
             interactionInputData.RegisterEvents();
-            menuInputData.RegisterEvents();
         }
         private void OnDisable() {
             playerInputData.UnregisterEvents();
             interactionInputData.UnregisterEvents();
-            menuInputData.UnregisterEvents();
         }
 
         private void Start() {
             playerInputData.Reset();
             interactionInputData.Reset();
-            menuInputData.Reset();
         }
     }
 }

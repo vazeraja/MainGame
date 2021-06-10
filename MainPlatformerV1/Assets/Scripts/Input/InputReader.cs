@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MainGame.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -18,7 +19,7 @@ namespace MainGame {
         public event UnityAction<Vector2> DashKeyboardEvent;
 
         // Menu
-        public event UnityAction OpenMenuEvent;
+        public event UnityAction OpenMenuWindow;
 
         // Interaction
         public event UnityAction InteractionStartedEvent;
@@ -31,20 +32,18 @@ namespace MainGame {
         public event UnityAction AdvanceDialogueEvent;
 
         // Menu Input
-        public event UnityAction TabRightButtonEventStarted;
-        public event UnityAction TabRightButtonEventCancelled;
-        public event UnityAction TabLeftButtonEventStarted;
-        public event UnityAction TabLeftButtonEventCancelled;
-        public event UnityAction CloseMenuStartedEvent;
-        public event UnityAction CloseMenuCancelledEvent;
+        public event UnityAction TabRightButtonEvent;
+        public event UnityAction TabLeftButtonEvent;
+        public event UnityAction CloseMenuWindow;
 
-        private GameInput GameInput{ get; set; }
+        private GameInput GameInput { get; set; }
 
         private void OnEnable() {
             if (GameInput == null) {
                 GameInput = new GameInput();
                 GameInput.Gameplay.SetCallbacks(this);
                 GameInput.Dialogues.SetCallbacks(this);
+                GameInput.Menu.SetCallbacks(this);
             }
 
             EnableGameplayInput();
@@ -100,8 +99,8 @@ namespace MainGame {
         }
 
         public void OnMenu(InputAction.CallbackContext context) {
-            if (OpenMenuEvent != null && (context.phase == InputActionPhase.Performed || context.phase == InputActionPhase.Started))
-                OpenMenuEvent?.Invoke();
+            if (OpenMenuWindow != null && context.phase == InputActionPhase.Started)
+                OpenMenuWindow?.Invoke();
         }
 
         #endregion
@@ -118,24 +117,19 @@ namespace MainGame {
         #region Menu Actions
 
         public void OnTabLeft(InputAction.CallbackContext context) {
-            if (TabLeftButtonEventStarted != null && context.phase == InputActionPhase.Started)
-                TabLeftButtonEventStarted?.Invoke();
-            if (TabLeftButtonEventCancelled != null && context.phase == InputActionPhase.Canceled)
-                TabLeftButtonEventCancelled?.Invoke();
+            if (TabLeftButtonEvent != null && context.phase == InputActionPhase.Started) {
+                TabLeftButtonEvent?.Invoke();
+            }
         }
 
         public void OnTabRight(InputAction.CallbackContext context) {
-            if (TabRightButtonEventStarted != null && context.phase == InputActionPhase.Started)
-                TabRightButtonEventStarted?.Invoke();
-            if (TabRightButtonEventCancelled != null && context.phase == InputActionPhase.Canceled)
-                TabRightButtonEventCancelled?.Invoke();
+            if (TabRightButtonEvent != null && context.phase == InputActionPhase.Started)
+                TabRightButtonEvent?.Invoke();
         }
 
         public void OnCloseMenu(InputAction.CallbackContext context) {
-            if (CloseMenuStartedEvent != null && context.phase == InputActionPhase.Started)
-                CloseMenuStartedEvent?.Invoke();
-            if (CloseMenuCancelledEvent != null && context.phase == InputActionPhase.Canceled)
-                CloseMenuCancelledEvent?.Invoke();
+            if (CloseMenuWindow != null && context.phase == InputActionPhase.Started)
+                CloseMenuWindow?.Invoke();
         }
 
         #endregion
@@ -144,24 +138,28 @@ namespace MainGame {
             GameInput.Gameplay.Enable();
             GameInput.Dialogues.Disable();
             GameInput.Menu.Disable();
+            Helper.CustomLog("Gameplay Input Enabled", LogColor.White);
         }
 
         public void EnableDialogueInput() {
             GameInput.Dialogues.Enable();
             GameInput.Gameplay.Disable();
             GameInput.Menu.Disable();
+            Helper.CustomLog("Dialogue Input Enabled", LogColor.White);
         }
 
         public void EnableMenuInput() {
             GameInput.Menu.Enable();
             GameInput.Gameplay.Disable();
             GameInput.Dialogues.Disable();
+            Helper.CustomLog("Menu Input Enabled", LogColor.White);
         }
 
         public void DisableAllInput() {
             GameInput.Gameplay.Disable();
             GameInput.Dialogues.Disable();
             GameInput.Menu.Disable();
+            Helper.CustomLog("All Input disabled", LogColor.None);
         }
     }
 }

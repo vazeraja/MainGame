@@ -1,52 +1,32 @@
 using System;
 using System.Collections.Generic;
-using Cinemachine;
 using MainGame.DeveloperConsole;
+using MainGame.Utils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using static MainGame.DeveloperConsole.DeveloperConsoleBehaviour;
 
 namespace MainGame {
     public class GameManager : MonoBehaviour {
         
-        [Header("Input")]
-        [SerializeField] private InputReader inputReader = null;
-
-        [Header("Developer Console")]
-        [SerializeField] private List<ConsoleCommand> commands = new List<ConsoleCommand>();
-        
+        [Header("Game Events & Listeners")]
         [SerializeField] private GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
         
-        [SerializeField] private GameObject menuWindow;
+        private InputHandler inputHandler;
         
         private Player activePlayer;
-
         private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
-        private void Awake(){
+
+        private void Awake() {
+            inputHandler = gameObject.AddComponent<InputHandler>();
             playerListener.UnityEvent.AddListener(RegisterPlayer);
         }
-        private void OnEnable(){
-            inputReader.OpenDevConsole += OpenDevConsole;
-            inputReader.OpenMenuEvent += OpenMenuWindow;
-        }
-        private void OnDisable(){
-            inputReader.OpenDevConsole -= OpenDevConsole;
-            inputReader.OpenMenuEvent -= OpenMenuWindow;
-        }
 
-        private void Update() {
-            //OpenMenuWindow();
-        }
-
+        // --- Event Listeners --- 
         public void RegisterPlayer(Player player){
             activePlayer = player;
-            Debug.Log("<b><color=white>GameManager: Player Initialized </color></b>");
+            Helper.CustomLog("GameManager: Player Initialized", LogColor.Green);
         }
-
         
-        // --- Event Listeners --- 
-        private void OpenDevConsole() => DeveloperConsoleBehaviour.GetDevConsole(commands, inputReader, "/");
-
-        private void OpenMenuWindow() { menuWindow.SetActive(true); inputReader.EnableMenuInput(); }
     }
 
 }

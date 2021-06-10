@@ -1,4 +1,5 @@
 ﻿using System;
+using MainGame.Utils;
 using UnityEngine;
 
 namespace MainGame {
@@ -30,9 +31,8 @@ namespace MainGame {
             inputReader.DashKeyboardEvent += OnDashKeyboard;
             inputReader.AttackEvent += OnAttackInitiated;
             inputReader.AttackCanceledEvent += OnAttackCanceled;
-
-
-            Debug.Log("<b><color=white>Player: Input Events Registered </color></b>");
+            
+            Helper.CustomLog("Player: Input Events Registered", LogColor.Green);
         }
 
         public void UnregisterEvents() {
@@ -45,7 +45,7 @@ namespace MainGame {
             inputReader.AttackEvent -= OnAttackInitiated;
             inputReader.AttackCanceledEvent -= OnAttackCanceled;
             
-            Debug.Log("<b><color=white>Player: Input Events Unregistered </color></b>");
+            Helper.CustomLog("Player: Input Events Unregistered", LogColor.Green);
         }
 
 
@@ -58,6 +58,7 @@ namespace MainGame {
         private void OnAttackInitiated() => AttackInput = true;
         private void OnAttackCanceled() => AttackInput = false;
         
+        public void EnableGameplayInput() => inputReader.EnableGameplayInput();
 
         public void Reset() {
             movementInput = Vector2.zero;

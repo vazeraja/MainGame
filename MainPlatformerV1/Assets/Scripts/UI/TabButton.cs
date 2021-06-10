@@ -11,10 +11,11 @@ namespace MainGame {
     [RequireComponent(typeof(Image))]
     public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
         public TabGroup tabGroup;
+        public int buttonID;
 
         [HideInInspector] public Image background;
 
-        private void Start() {
+        private void Awake() {
             background = GetComponent<Image>();
             tabGroup.Subscribe(this);
         }

@@ -11,16 +11,7 @@ using UnityEditor.Animations;
 
 
 namespace MainGame.Utils {
-    public enum AnchorPresets {
-        TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight, BottomLeft,
-        BottomCenter, BottomRight, BottomStretch, VertStretchLeft, VertStretchRight, VertStretchCenter, HorStretchTop,
-        HorStretchMiddle, HorStretchBottom, StretchAll
-    }
-
-    public enum PivotPresets {
-        TopLeft, TopCenter, TopRight, MiddleLeft, MiddleCenter, MiddleRight,
-        BottomLeft, BottomCenter, BottomRight,
-    }
+    public enum LogColor{ Red, Blue, Green, White, None }
 
     /// <summary>
     /// Useful functions
@@ -28,6 +19,7 @@ namespace MainGame.Utils {
     public static class Helper {
 
         #region GameObject Extensions
+
         /// <summary>
         /// Returns the first gameabject in children with a specific name.
         /// </summary>
@@ -36,10 +28,10 @@ namespace MainGame.Utils {
         /// <code>
         /// GameObject myobj = gameObject.FindInChildren("myobjectname");
         /// </code>
-        public static GameObject FindInChildren(this GameObject go, string name){
+        public static GameObject FindInChildren(this GameObject go, string name) {
             return (from x in go.GetComponentsInChildren<Transform>()
-                    where Animator.StringToHash(x.gameObject.name) == Animator.StringToHash(name)
-                    select x.gameObject).First();
+                where Animator.StringToHash(x.gameObject.name) == Animator.StringToHash(name)
+                select x.gameObject).First();
         }
 
 
@@ -52,7 +44,7 @@ namespace MainGame.Utils {
         /// gameObject.SetActiveAllChildren<Transform>(false);
         /// </code>
         /// </example>
-        public static void SetActiveAllChildren<T>(this GameObject go, bool state) where T : Component{
+        public static void SetActiveAllChildren<T>(this GameObject go, bool state) where T : Component {
             // go.GetComponentsInChildren<T>().ToList().ForEach(x => x.gameObject.SetActive(state));
             go.GetComponentsInChildren<T>().ForEach(x => x.gameObject.SetActive(false));
             go.SetActive(true);
@@ -68,16 +60,18 @@ namespace MainGame.Utils {
         /// gameObject.DestroyAllChildren<Transform>();
         /// </code>
         /// </example>
-        public static void DestroyAllChildren<T>(this GameObject go) where T : Component{
+        public static void DestroyAllChildren<T>(this GameObject go) where T : Component {
             go.GetComponentsInChildren<T>().ForEach(x => {
                     if (Animator.StringToHash(x.name) != Animator.StringToHash(go.name))
                         UnityEngine.Object.Destroy(x.gameObject);
                 }
             );
         }
+
         #endregion
 
         #region Animator Extensions
+
         /// <summary>
         /// Returns all the state names from an animator as a string array.
         /// </summary>
@@ -89,9 +83,11 @@ namespace MainGame.Utils {
         /// string stateName = myStateNames[0];
         /// </code>
         /// </example>
-        public static AnimatorState[] GetStateNames(Animator animator){
+        public static AnimatorState[] GetStateNames(Animator animator) {
             var controller = animator ? animator.runtimeAnimatorController as AnimatorController : null;
-            return controller == null ? null : controller.layers.SelectMany(l => l.stateMachine.states).Select(s => s.state).ToArray();
+            return controller == null
+                ? null
+                : controller.layers.SelectMany(l => l.stateMachine.states).Select(s => s.state).ToArray();
         }
 
 
@@ -104,7 +100,7 @@ namespace MainGame.Utils {
         /// WIP
         /// </code>
         /// </example>
-        public static bool IsPlayingOnLayer(this Animator animator, int fullPathHash, int layer){
+        public static bool IsPlayingOnLayer(this Animator animator, int fullPathHash, int layer) {
             return animator.GetCurrentAnimatorStateInfo(layer).fullPathHash == fullPathHash;
         }
 
@@ -118,13 +114,15 @@ namespace MainGame.Utils {
         /// WIP
         /// </code>
         /// </example>
-        public static float NormalizedTime(this Animator animator, int layer){
+        public static float NormalizedTime(this Animator animator, int layer) {
             float time = animator.GetCurrentAnimatorStateInfo(layer).normalizedTime;
             return time > 1 ? 1 : time;
         }
+
         #endregion
 
         #region Generic Extensions
+
         /// <summary>
         /// Allows a loop with the item and index. <para />
         /// <example>
@@ -136,7 +134,7 @@ namespace MainGame.Utils {
         /// </code>
         /// </example>
         /// </summary>
-        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> source){
+        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> source) {
             return source.Select((item, index) => (item, index));
         }
 
@@ -151,12 +149,12 @@ namespace MainGame.Utils {
         /// array.ForEach(x => Debug.Log(x));
         /// </code>
         /// </example>
-        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action){
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action) {
             foreach (var item in source)
                 action(item);
         }
 
-        public static void SetAndStretchToParentSize(this RectTransform _mRect, RectTransform _parent){
+        public static void SetAndStretchToParentSize(this RectTransform _mRect, RectTransform _parent) {
             _mRect.anchoredPosition = _parent.position;
             _mRect.anchorMin = new Vector2(1, 0);
             _mRect.anchorMax = new Vector2(0, 1);
@@ -164,8 +162,9 @@ namespace MainGame.Utils {
             _mRect.sizeDelta = _parent.rect.size;
             _mRect.transform.SetParent(_parent);
         }
-        
-        public static bool Raycast(Vector2 origin, Vector2 direction, float distance, LayerMask layer, out RaycastHit2D ray) => 
+
+        public static bool Raycast(Vector2 origin, Vector2 direction, float distance, LayerMask layer,
+            out RaycastHit2D ray) =>
             ray = Physics2D.Raycast(origin, direction, distance, layer);
 
         public static void CallWithDelay(this MonoBehaviour mono, Action method, float delay) {
@@ -176,6 +175,29 @@ namespace MainGame.Utils {
             yield return new WaitForSeconds(delay);
             method();
         }
+
+        public static void CustomLog(string text, LogColor color) {
+            switch (color) {
+                case LogColor.White:
+                    Debug.Log($"<b><color=white>{text}</color></b>");
+                    break;
+                case LogColor.Blue:
+                    Debug.Log($"<b><color=blue>{text}</color></b>");
+                    break;
+                case LogColor.Green:
+                    Debug.Log($"<b><color=green>{text}</color></b>");
+                    break;
+                case LogColor.Red:
+                    Debug.Log($"<b><color=red>{text}</color></b>");
+                    break;
+                case LogColor.None:
+                    Debug.Log($"{text}");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
+            }
+        }
+
         #endregion
 
     }

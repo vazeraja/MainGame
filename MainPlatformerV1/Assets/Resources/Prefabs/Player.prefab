@@ -171,20 +171,14 @@ MonoBehaviour:
   SR: {fileID: 0}
   velocity: {x: 0, y: 0}
   MovementVelocity: {x: 0, y: 0}
+  collider: {fileID: 0}
   gravityModifier: 7
-  inputReader: {fileID: 11400000, guid: c5b262ef41fb5ea43aeb052a744016f1, type: 2}
-  playerData: {fileID: 11400000, guid: 47cb074794fa5394791012ff1ca0e92c, type: 2}
-  onPlayerInitialized: {fileID: 11400000, guid: 6886def80d973894e86ea46db5d1bd73,
-    type: 2}
-  exitEvent: {fileID: 11400000, guid: 7ee996a7734f4b0c8b4eb2c4e63570cb, type: 2}
   currentState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
   remainState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
-  isAnimationFinished: 0
-  MovementInput: {x: 0, y: 0}
-  JumpInput: 0
-  AttackInput: 0
-  DashInput: 0
-  DashKeyboardInput: {x: 0, y: 0}
+  interactionLogic:
+    enabled: 1
+    value: {fileID: 11400000, guid: 3adf13f8fd2182840af21032831dc7c9, type: 2}
+  playerInitialized: {fileID: 11400000, guid: 9e068c30a3774a74a8cc9b561a971a78, type: 2}
 --- !u!1 &5292409556030555189
 GameObject:
   m_ObjectHideFlags: 0

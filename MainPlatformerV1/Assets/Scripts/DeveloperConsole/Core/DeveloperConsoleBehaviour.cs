@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using MainGame.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -28,7 +24,7 @@ namespace MainGame.DeveloperConsole {
 
         #region Developer Console Variables
         private GameObject canvas;
-        private TMP_InputField _inputField;
+        private TMP_InputField inputField;
         private Image inputFieldBackground;
         private TextMeshProUGUI placeholderText;
         private TextMeshProUGUI textComponent;
@@ -37,7 +33,7 @@ namespace MainGame.DeveloperConsole {
 
         public void ProcessCommand(string inputValue){
             DeveloperConsole.ProcessCommand(inputValue);
-            _inputField.text = string.Empty;
+            inputField.text = string.Empty;
             inputReader.EnableGameplayInput();
             Destroy(canvas);
         }
@@ -89,7 +85,7 @@ namespace MainGame.DeveloperConsole {
             rt3.offsetMin = new Vector2(0, 0);
             rt3.offsetMax = new Vector2(3840, 152.6348f);
 
-            _inputField = inputFieldGO.AddComponent<TMP_InputField>();
+            inputField = inputFieldGO.AddComponent<TMP_InputField>();
 
             inputFieldGO.transform.SetParent(consoleBackground.transform);
 
@@ -128,14 +124,14 @@ namespace MainGame.DeveloperConsole {
             SetInputField();
         }
         private void SetInputField(){
-            _inputField.targetGraphic = inputFieldBackground;
-            _inputField.textViewport = textAreaRectTransform;
-            _inputField.textComponent = textComponent;
-            _inputField.placeholder = placeholderText;
-            _inputField.pointSize = 130f;
+            inputField.targetGraphic = inputFieldBackground;
+            inputField.textViewport = textAreaRectTransform;
+            inputField.textComponent = textComponent;
+            inputField.placeholder = placeholderText;
+            inputField.pointSize = 130f;
             
-            _inputField.onEndEdit.AddListener((x) => ProcessCommand(_inputField.text));
-            _inputField.ActivateInputField();
+            inputField.onEndEdit.AddListener((x) => ProcessCommand(inputField.text));
+            inputField.ActivateInputField();
         }
 
     }

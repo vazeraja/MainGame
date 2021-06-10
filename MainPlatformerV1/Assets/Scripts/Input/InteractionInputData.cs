@@ -15,10 +15,8 @@ namespace MainGame {
         public bool isInteracting;
         public float holdTimer;
 
-        // ReSharper disable once ConvertToAutoProperty
-        public bool InteractClicked { get => interactionClicked; set => interactionClicked = value; }
-        // ReSharper disable once ConvertToAutoProperty
-        public bool InteractReleased { get => interactionReleased; set => interactionReleased = value; }
+        private bool InteractClicked { get => interactionClicked; set => interactionClicked = value; }
+        private bool InteractReleased { get => interactionReleased; set => interactionReleased = value; }
 
         public void RegisterEvents(){
             inputReader.InteractionStartedEvent += OnInteractionClicked;
@@ -41,6 +39,8 @@ namespace MainGame {
             isInteracting = false;
             holdTimer = 0;
         }
+
+        public void EnableGameplayInput() => inputReader.EnableGameplayInput();
 
         public void Reset(){
             interactionClicked = false;
