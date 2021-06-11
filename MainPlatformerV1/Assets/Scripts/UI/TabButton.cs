@@ -11,9 +11,11 @@ namespace MainGame {
     [RequireComponent(typeof(Image))]
     public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
         public TabGroup tabGroup;
-        public int buttonID;
-
+        
+        [Space]
         [HideInInspector] public Image background;
+        public TextMeshProUGUI buttonText;
+        public int buttonID;
 
         private void Awake() {
             background = GetComponent<Image>();

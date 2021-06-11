@@ -9,13 +9,18 @@ namespace MainGame {
         
         public List<TabButton> tabButtons;
         
-        [HideInInspector] public TabButton selectedTab;
-        [HideInInspector] public TabButton nextTab;
-        [HideInInspector] public TabButton previousTab;
+        private TabButton selectedTab;
+        private TabButton nextTab;
+        private TabButton previousTab;
 
+        [Space]
         public Color tabIdle = new Color(0.07f, 0.99f, 1f, 0.14f);
         public Color tabHover = new Color(0.22f, 0.44f, 1f);
         public Color tabActive = new Color(1f, 0.51f, 0.15f);
+        
+        [Space]
+        public Color buttonSelectedColor = Color.white;
+        public Color buttonIdleColor = new Color(0.97f, 0.3f, 0.08f);
         
         public List<GameObject> pagesToSwap;
 
@@ -67,16 +72,17 @@ namespace MainGame {
 
             ResetTabs();
             button.background.color = tabActive;
-            int index = button.transform.GetSiblingIndex();
+            button.buttonText.color = buttonSelectedColor;
+            var index = button.transform.GetSiblingIndex();
             for (var i = 0; i < pagesToSwap.Count; i++) {
                 pagesToSwap[i].SetActive(i == index);
             }
         }
 
-        // ReSharper disable once MemberCanBePrivate.Global
-        public void ResetTabs() {
+        private void ResetTabs() {
             foreach (var button in tabButtons.Where(button => selectedTab == null || button != selectedTab)) {
                 button.background.color = tabIdle;
+                button.buttonText.color = buttonIdleColor;
             }
         }
     }
