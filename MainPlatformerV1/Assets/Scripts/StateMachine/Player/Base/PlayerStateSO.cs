@@ -6,7 +6,7 @@ using System;
 
 namespace MainGame {
 
-    [CreateAssetMenu(menuName = "PluggableAI/Player Base State")]
+    [CreateAssetMenu(menuName = "PluggableAI/PlayerBaseState")]
     public class PlayerStateSO : BaseState<Player, PlayerStateSO> {
         public static event Action<PlayerStateSO> OnStateTransition;
         

@@ -10,8 +10,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/AttackState")]
     public class AttackState : State<Player> {
-        public AttackState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
-
+        
         [SerializeField] private InputActionMap comboMap = new InputActionMap();
         private ReadOnlyArray<InputAction> Actions => comboMap.actions;
 

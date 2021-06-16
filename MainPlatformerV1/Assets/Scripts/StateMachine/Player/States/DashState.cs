@@ -9,7 +9,8 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/DashState")]
     public class DashState : State<Player> {
-        public DashState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
+        [SerializeField] private PlayerInputData playerInputData;
+        [SerializeField] private PlayerData playerData;
 
         public bool isAbilityDone;
 

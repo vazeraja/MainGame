@@ -6,8 +6,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/State/IdleState")]
     public class IdleState : State<Player> {
-        public IdleState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData){}
-        
+
         public override void OnEnter(Player player){
         }
 

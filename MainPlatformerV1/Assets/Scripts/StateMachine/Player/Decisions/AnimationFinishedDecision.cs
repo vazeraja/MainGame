@@ -7,8 +7,7 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AnimationFinishedDecision")]
     public class AnimationFinishedDecision : Decision<Player> {
-        public AnimationFinishedDecision(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData) { }
-        
+        [SerializeField] private PlayerData playerData;
         public override bool Decide(Player player){
             return playerData.isAnimationFinished;
         }

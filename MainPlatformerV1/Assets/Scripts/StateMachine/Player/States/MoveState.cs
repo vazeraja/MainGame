@@ -5,7 +5,8 @@ using UnityEngine;
 namespace MainGame {
     [CreateAssetMenu(menuName = "PluggableAI/State/MoveState")]
     public class MoveState : State<Player> {
-        public MoveState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData) { }
+        [SerializeField] private PlayerInputData playerInputData;
+        [SerializeField] private PlayerData playerData;
 
         public override void OnEnter(Player player) { }
 

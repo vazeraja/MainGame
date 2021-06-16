@@ -5,7 +5,8 @@ using UnityEngine;
 namespace MainGame {
     [CreateAssetMenu(menuName = "PluggableAI/State/JumpState")]
     public class JumpState : State<Player> {
-        public JumpState(PlayerInputData playerInputData, PlayerData playerData) : base(playerInputData, playerData) { }
+        [SerializeField] private PlayerInputData playerInputData;
+        [SerializeField] private PlayerData playerData;
 
         private static readonly int XVelocity = Animator.StringToHash("xVelocity");
         private static readonly int YVelocity = Animator.StringToHash("yVelocity");

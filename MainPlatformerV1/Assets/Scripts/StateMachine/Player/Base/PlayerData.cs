@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainGame {
-    [CreateAssetMenu(fileName = "PlayerData", menuName = "Game/Player Data")]
+    [CreateAssetMenu(fileName = "PlayerData", menuName = "PluggableAI/PlayerData")]
     public class PlayerData : ScriptableObject {
 
         [Header("Base Player Info")]

@@ -5,11 +5,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
 namespace MainGame {
-    [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
+    [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
     public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions,
         GameInput.IMenuActions {
         // Gameplay
         public event UnityAction<Vector2> MoveEvent;
+        public event UnityAction<float> FJumpEvent;
         public event UnityAction JumpEvent;
         public event UnityAction JumpCanceledEvent;
         public event UnityAction AttackEvent;
@@ -54,8 +55,10 @@ namespace MainGame {
         #region Gameplay Actions
 
         public void OnJump(InputAction.CallbackContext context) {
-            if (JumpEvent != null && context.phase == InputActionPhase.Performed)
+            if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
                 JumpEvent.Invoke();
+                FJumpEvent?.Invoke(context.ReadValue<float>());
+            }
 
             if (JumpCanceledEvent != null && context.phase == InputActionPhase.Canceled)
                 JumpCanceledEvent.Invoke();
