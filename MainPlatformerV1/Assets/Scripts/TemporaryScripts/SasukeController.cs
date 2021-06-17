@@ -7,42 +7,41 @@ namespace MainGame {
     public class SasukeController : MonoBehaviour {
         
         [Header("Input")] 
-        [SerializeField] private InputReader inputReader;
-        [SerializeField] private PlayerInputData playerInputData;
+        public InputReader inputReader;
+        public PlayerInputData playerInputData;
         
         [Header("State Machine")] 
         public SasukeStateSO currentState;
         public SasukeStateSO remainState;
         
         [Header("Walking")] 
-        [SerializeField] private float maxWalkCos = 0.2f;
-        [SerializeField] private float walkSpeed = 7;
+        public float maxWalkCos = 0.2f;
+        public float walkSpeed = 7;
         
         [Header("Jumping")] 
-        [SerializeField] private float firstJumpSpeed = 8;
-        [SerializeField] private float jumpSpeed = 3;
-        [SerializeField] private float fallSpeed = 12;
-        [SerializeField] private int numberOfJumps = 2;
-        [SerializeField] private AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
-        [SerializeField] private FixedStopwatch jumpStopwatch = new FixedStopwatch();
+        public float firstJumpSpeed = 8;
+        public float jumpSpeed = 3;
+        public float fallSpeed = 12;
+        public int numberOfJumps = 2;
+        public AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
+        public FixedStopwatch jumpStopwatch = new FixedStopwatch();
 
-
+        private int FacingDirection { get; set; }
         public bool IsGrounded => groundContact.HasValue;
         public bool IsTouchingCeiling => ceilingContact.HasValue;
         public bool IsTouchingWall => wallContact.HasValue;
-        
-        public int facingDirection;
         private bool IsJumping => !jumpStopwatch.IsFinished;
         private bool IsFirstJump => jumpsLeft == numberOfJumps - 1;
         private float JumpCompletion => jumpStopwatch.Completion;
+        public Vector2 Velocity => rigidbody2D.velocity;
 
-        private new Rigidbody2D rigidbody2D;
-        private Reanimator reanimator;
+        [HideInInspector] public new Rigidbody2D rigidbody2D;
+        public Reanimator reanimator;
         
-        private ContactFilter2D contactFilter;
-        private ContactPoint2D? groundContact;
-        private ContactPoint2D? ceilingContact;
-        private ContactPoint2D? wallContact;
+        public ContactFilter2D contactFilter;
+        public ContactPoint2D? groundContact;
+        public ContactPoint2D? ceilingContact;
+        public ContactPoint2D? wallContact;
         private readonly ContactPoint2D[] contacts = new ContactPoint2D[16];
         
         private bool wantsToJump;
@@ -66,11 +65,12 @@ namespace MainGame {
             SasukeStateSO.OnStateTransition -= TransitionToState;
         }
         private void Update() {
-            reanimator.Flip = facingDirection < 0;
+            reanimator.Flip = FacingDirection < 0;
         }
         private void FixedUpdate() {
             FindContacts();
             UpdateMovement();
+            UpdateDirection();
         }
 
         private void OnJump(float value) {
@@ -102,11 +102,6 @@ namespace MainGame {
         {
             var previousVelocity = rigidbody2D.velocity;
             var velocityChange = Vector2.zero;
-
-            if (playerInputData.MovementInput.x > 0)
-                facingDirection = 1;
-            else if (playerInputData.MovementInput.x < 0)
-                facingDirection = -1;
 
             if (wantsToJump && IsJumping)
             {
@@ -147,8 +142,7 @@ namespace MainGame {
 
             rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
         }
-
-
+        
         private void FindContacts()
         {
             groundContact = null;
@@ -181,6 +175,12 @@ namespace MainGame {
                     wallProjection = projection;
                 }
             }
+        }
+        private void UpdateDirection() {
+            if (playerInputData.MovementInput.x > 0)
+                FacingDirection = 1;
+            else if (playerInputData.MovementInput.x < 0)
+                FacingDirection = -1;
         }
 
     }

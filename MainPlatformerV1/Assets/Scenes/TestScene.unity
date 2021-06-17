@@ -29647,12 +29647,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9136112486197205328}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
+  root: {fileID: 11400000, guid: 1178d01f08eb03441913aa9cb3e66feb, type: 2}
   renderer: {fileID: 9136112486197205340}
   fps: 12
   temporaryDrivers: []
@@ -29697,7 +29697,7 @@ MonoBehaviour:
   walkSpeed: 7
   firstJumpSpeed: 40
   jumpSpeed: 20
-  fallSpeed: 12
+  fallSpeed: 15
   numberOfJumps: 2
   jumpFallOff:
     serializedVersion: 2
@@ -29726,7 +29726,22 @@ MonoBehaviour:
   jumpStopwatch:
     duration: 0.4
     cooldown: 0
-  facingDirection: 0
+  rigidbody2D: {fileID: 0}
+  reanimator: {fileID: 9136112486197205329}
+  contactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!212 &9136112486197205340
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29792,7 +29807,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.034, y: 1.364}
+  m_Offset: {x: -0.03399998, y: 2.2158597}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -29803,7 +29818,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 2.729}
+  m_Size: {x: 1.7, y: 4.4327197}
   m_EdgeRadius: 0
 --- !u!4 &9136112486197205343
 Transform:
