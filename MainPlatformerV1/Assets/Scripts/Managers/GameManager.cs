@@ -1,47 +1,32 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using MainGame.DeveloperConsole;
+using MainGame.Utils;
 using UnityEngine;
-using UnityEngine.Playables;
+using static MainGame.DeveloperConsole.DeveloperConsoleBehaviour;
 
 namespace MainGame {
-    public class GameManager : Singleton<GameManager>, ISaveable {
-        protected GameManager() {} // (Optional) Prevent non-singleton constructor use.
+    public class GameManager : MonoBehaviour {
+        
+        [Header("Game Events & Listeners")]
+        [SerializeField] private GameEventListenerSO<Player, PlayerEvent, UnityPlayerEvent> playerListener;
+        
+        private InputHandler inputHandler;
+        
+        private Player activePlayer;
+        private readonly Vector3 spawnPoint = new Vector3(-9f, 1f, 0f);
 
-        [SerializeField] private PlayerData playerData = null;
-        public PlayerData PlayerData => playerData;
-
-        private void Start() {
-            LoadJsonData(this);
-        }
-        private void OnApplicationQuit() => SaveJsonData();
-
-        public void SaveJsonData() {
-            SaveData sd = new SaveData();
-            PopulateSaveData(sd);
-
-            if (FileManager.WriteToFile("SaveData.dat", sd.ToJson())) {
-                Debug.Log("Save Successful");
-            }
-
-        }
-        public void PopulateSaveData(SaveData a_Savedata) {
-            a_Savedata.m_Score = playerData.currentScore;
+        private void Awake() {
+            inputHandler = gameObject.AddComponent<InputHandler>();
+            playerListener.UnityEvent.AddListener(RegisterPlayer);
         }
 
-        private static void LoadJsonData(GameManager gameManager) {
-            if (FileManager.LoadFromFile("SaveData.dat", out var json)) {
-                SaveData sd = new SaveData();
-                sd.LoadFromJson(json);
-
-                gameManager.LoadFromSaveData(sd);
-                Debug.Log("Load Complete");
-            }
+        // --- Event Listeners --- 
+        public void RegisterPlayer(Player player){
+            activePlayer = player;
+            Helper.CustomLog("GameManager: Player Initialized", LogColor.Green);
         }
-
-        public void LoadFromSaveData(SaveData a_SaveData) {
-            playerData.currentScore = a_SaveData.m_Score;
-        }
-
+        
     }
 
 }

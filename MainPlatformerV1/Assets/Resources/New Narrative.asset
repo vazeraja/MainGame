@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3b045ba31c4b189ec3fe8db4471315, type: 3}
+  m_Name: New Narrative
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: f92224bb-3a0f-47bc-8fac-fcaef1ba24e0
+    PortName: Next
+    TargetNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+  - BaseNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    PortName: thicc
+    TargetNodeGUID: c001abe6-b4f1-47be-81f5-e5ee5e1e85ee
+  - BaseNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    PortName: long
+    TargetNodeGUID: 09ea0e1c-21d4-4ec2-a6a4-113d0d62b04f
+  - BaseNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    PortName: round
+    TargetNodeGUID: 24f94605-4d9c-4a7a-a5aa-1f65d4658c8d
+  - BaseNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    PortName: 'big '
+    TargetNodeGUID: 8384f96a-e301-48ec-90b5-a5851d27a655
+  - BaseNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    PortName: ass
+    TargetNodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+  - BaseNodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    PortName: cock
+    TargetNodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+  DialogueNodeData:
+  - NodeGUID: c001abe6-b4f1-47be-81f5-e5ee5e1e85ee
+    DialogueText: nice
+    Position: {x: 931, y: 413}
+  - NodeGUID: 09ea0e1c-21d4-4ec2-a6a4-113d0d62b04f
+    DialogueText: nice
+    Position: {x: 931, y: 270}
+  - NodeGUID: 4e7c8a26-0845-41fd-9de6-9be2fa554619
+    DialogueText: cock is nice
+    Position: {x: 592, y: 329}
+  - NodeGUID: 36b0363b-cdc0-429f-ab92-1053957cf432
+    DialogueText: i love ass too
+    Position: {x: 592, y: -6}
+  - NodeGUID: 24f94605-4d9c-4a7a-a5aa-1f65d4658c8d
+    DialogueText: nice
+    Position: {x: 931, y: 87}
+  - NodeGUID: 8384f96a-e301-48ec-90b5-a5851d27a655
+    DialogueText: nice
+    Position: {x: 931, y: -55}
+  - NodeGUID: 4e50edd3-5dbf-403f-aab8-399790eebf7a
+    DialogueText: Pick one option
+    Position: {x: 246, y: 139}
+  ExposedProperties:
+  - PropertyName: Username
+    PropertyValue: Geo
+  - PropertyName: Opponent
+    PropertyValue: Leo
+  CommentBlockData: []

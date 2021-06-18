@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b86634cadfe31b40b957294d96f286f, type: 3}
+  m_Name: AttackState
+  m_EditorClassIdentifier: 
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  playerData: {fileID: 11400000, guid: 15d764a02bdad2e408c2b0465c0d3ac6, type: 2}
+  comboMap:
+    m_Name: Combo Map
+    m_Id: d03b02f7-1323-4c44-9a1c-2a952905c23a
+    m_Asset: {fileID: 0}
+    m_Actions:
+    - m_Name: action1
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: fc3cd176-db42-4d64-ab6b-404417d33c10
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Bindings:
+    - m_Name: 
+      m_Id: e454f4ec-d753-4e80-a966-372215e4b0c1
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: action1
+      m_Flags: 0

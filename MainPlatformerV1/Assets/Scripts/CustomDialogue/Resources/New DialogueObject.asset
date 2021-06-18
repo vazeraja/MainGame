@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c189d2cf9e8cfee4393c3a03fc34e990, type: 3}
+  m_Name: New DialogueObject
+  m_EditorClassIdentifier: 
+  dialogueID: 1
+  preset: 3
+  dialogue:
+  - '<c=(100, 255, 69)><w>Big Chungus yeehaw *2" : wow!</w></c>'
+  - <c=(100,200, 69)><w>NICE COCK!</w></c>
+  responseOptions: []

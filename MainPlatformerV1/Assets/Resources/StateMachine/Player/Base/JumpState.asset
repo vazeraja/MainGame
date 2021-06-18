@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d1f297f1f4bdd4d8f5e5779943bdd9, type: 3}
+  m_Name: JumpState
+  m_EditorClassIdentifier: 
+  stateName: Jump State
+  states:
+  - {fileID: 11400000, guid: 6297b94a6540cea4698dbb001ddfb2b5, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: ffc40dc584392e645859a24954352166, type: 2}
+    trueState: {fileID: 11400000, guid: c5a6642b80590dc40bd297aa6afdd779, type: 2}
+    falseState: {fileID: 11400000, guid: e78bd0f08335edf49b1e26e291e17497, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  playerData: {fileID: 11400000, guid: 15d764a02bdad2e408c2b0465c0d3ac6, type: 2}
+  animBoolName:
+    enabled: 1
+    value: jump

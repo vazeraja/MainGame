@@ -3,20 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineFollowCam
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - MainCamera
   - Water
   - UI
-  - 
-  - 
+  - Menu
+  - GameUI
   - Ground
   - Player
-  - 
-  - 
+  - Interactable
+  - Enemy
   - 
   - 
   - 
@@ -41,9 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 102327815
+    locked: 0
   - name: Platforms
     uniqueID: 1257807099
     locked: 0
   - name: Player
     uniqueID: 377560481
+    locked: 0
+  - name: Game UI
+    uniqueID: 1489207189
+    locked: 0
+  - name: Menu
+    uniqueID: 2394557389
     locked: 0

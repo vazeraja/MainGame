@@ -7,7 +7,10 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/AttackDecision")]
     public class AttackInputDecision : Decision<Player> {
-        public override bool Decide(Player player) => player.AttackInput;
+        [SerializeField] private PlayerInputData playerInputData;
+        public override bool Decide(Player player){
+            return playerInputData.AttackInput;
+        }
 
     }
 }

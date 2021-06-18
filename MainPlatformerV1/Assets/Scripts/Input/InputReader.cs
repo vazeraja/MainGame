@@ -1,150 +1,168 @@
 ﻿using System.Collections.Generic;
+using MainGame.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
 namespace MainGame {
-    [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
-    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions {
-
+    [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
+    public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions,
+        GameInput.IMenuActions {
         // Gameplay
-        public event UnityAction<Vector2> moveEvent;
-        public event UnityAction jumpEvent;
-        public event UnityAction jumpCanceledEvent;
-        public event UnityAction attackEvent;
-        public event UnityAction attackCanceledEvent;
-        public event UnityAction dashEvent;
-        public event UnityAction dashCanceledEvent;
-        public event UnityAction<Vector2> dashKeyboardEvent;
+        public event UnityAction<Vector2> MoveEvent;
+        public event UnityAction<float> FJumpEvent;
+        public event UnityAction JumpEvent;
+        public event UnityAction JumpCanceledEvent;
+        public event UnityAction AttackEvent;
+        public event UnityAction AttackCanceledEvent;
+        public event UnityAction DashEvent;
+        public event UnityAction DashCanceledEvent;
+        public event UnityAction<Vector2> DashKeyboardEvent;
 
-        public event UnityAction interactEvent; // Used to talk, pickup objects, interact with tools like the cooking cauldron
-        public event UnityAction extraActionEvent; // Used to bring up the inventory
-        public event UnityAction pauseEvent;
-        public event UnityAction<Vector2, bool> cameraMoveEvent;
-        public event UnityAction enableMouseControlCameraEvent;
-        public event UnityAction disableMouseControlCameraEvent;
+        // Menu
+        public event UnityAction OpenMenuWindow;
+
+        // Interaction
+        public event UnityAction InteractionStartedEvent;
+        public event UnityAction InteractionCancelledEvent;
+
+        // Developer Console
+        public event UnityAction OpenDevConsole;
 
         // Dialogue
-        public event UnityAction advanceDialogueEvent;
-        public event UnityAction resetDialogueEvent;
-        public event UnityAction onMoveSelectionEvent = delegate { };
+        public event UnityAction AdvanceDialogueEvent;
 
-        private GameInput gameInput;
+        // Menu Input
+        public event UnityAction TabRightButtonEvent;
+        public event UnityAction TabLeftButtonEvent;
+        public event UnityAction CloseMenuWindow;
 
+        private GameInput GameInput { get; set; }
 
         private void OnEnable() {
-            if (gameInput == null) {
-                gameInput = new GameInput();
-                gameInput.Gameplay.SetCallbacks(this);
-                gameInput.Dialogues.SetCallbacks(this);
+            if (GameInput == null) {
+                GameInput = new GameInput();
+                GameInput.Gameplay.SetCallbacks(this);
+                GameInput.Dialogues.SetCallbacks(this);
+                GameInput.Menu.SetCallbacks(this);
             }
 
             EnableGameplayInput();
         }
 
-        private void OnDisable() {
-            DisableAllInput();
-        }
+        private void OnDisable() => DisableAllInput();
 
-        public void OnAttack(InputAction.CallbackContext context) {
-            if (attackEvent != null
-                && context.phase == InputActionPhase.Performed)
-                attackEvent.Invoke();
-
-            if (attackCanceledEvent != null
-                && context.phase == InputActionPhase.Canceled)
-                attackCanceledEvent.Invoke();
-        }
-
-        public void OnDash(InputAction.CallbackContext context) {
-            if (dashEvent != null && context.phase == InputActionPhase.Performed)
-                dashEvent.Invoke();
-
-            if (dashCanceledEvent != null && context.phase == InputActionPhase.Canceled)
-                dashCanceledEvent.Invoke();
-        }
-        public void OnDashDirectionKeyboard(InputAction.CallbackContext context) {
-            if (dashKeyboardEvent != null) {
-                dashKeyboardEvent.Invoke(context.ReadValue<Vector2>());
-            }
-        }
-
-        public void OnExtraAction(InputAction.CallbackContext context) {
-            if (extraActionEvent != null
-                && context.phase == InputActionPhase.Performed)
-                extraActionEvent.Invoke();
-        }
-
-        public void OnInteract(InputAction.CallbackContext context) {
-            if (interactEvent != null
-                && context.phase == InputActionPhase.Performed)
-                interactEvent.Invoke();
-        }
+        #region Gameplay Actions
 
         public void OnJump(InputAction.CallbackContext context) {
-            if (jumpEvent != null
-                && context.phase == InputActionPhase.Performed)
-                jumpEvent.Invoke();
+            if (JumpEvent != null && context.phase == InputActionPhase.Started) {
+                JumpEvent.Invoke();
+                FJumpEvent?.Invoke(context.ReadValue<float>());
+            }
 
-            if (jumpCanceledEvent != null
-                && context.phase == InputActionPhase.Canceled)
-                jumpCanceledEvent.Invoke();
+            if (JumpCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                JumpCanceledEvent.Invoke();
         }
 
         public void OnMove(InputAction.CallbackContext context) {
-            if (moveEvent != null) {
-                moveEvent.Invoke(context.ReadValue<Vector2>());
-            }
+            MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
         }
 
-        public void OnPause(InputAction.CallbackContext context) {
-            if (pauseEvent != null
-                && context.phase == InputActionPhase.Performed)
-                pauseEvent.Invoke();
+        public void OnDash(InputAction.CallbackContext context) {
+            if (DashEvent != null && context.phase == InputActionPhase.Performed)
+                DashEvent.Invoke();
+
+            if (DashCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                DashCanceledEvent.Invoke();
         }
 
-        public void OnRotateCamera(InputAction.CallbackContext context) {
-            if (cameraMoveEvent != null) {
-                cameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
-            }
+        public void OnDashDirectionKeyboard(InputAction.CallbackContext context) {
+            DashKeyboardEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
-        public void OnMouseControlCamera(InputAction.CallbackContext context) {
-            if (context.phase == InputActionPhase.Performed)
-                enableMouseControlCameraEvent?.Invoke();
+        public void OnAttack(InputAction.CallbackContext context) {
+            if (AttackEvent != null && context.phase == InputActionPhase.Performed)
+                AttackEvent.Invoke();
 
-            if (context.phase == InputActionPhase.Canceled)
-                disableMouseControlCameraEvent?.Invoke();
+            if (AttackCanceledEvent != null && context.phase == InputActionPhase.Canceled)
+                AttackCanceledEvent.Invoke();
         }
 
-        private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
-
-        public void OnMoveSelection(InputAction.CallbackContext context) {
-            if (context.phase == InputActionPhase.Performed)
-                onMoveSelectionEvent();
+        public void OnOpenDevConsole(InputAction.CallbackContext context) {
+            if (OpenDevConsole != null && context.phase == InputActionPhase.Performed)
+                OpenDevConsole.Invoke();
         }
+
+        public void OnInteract(InputAction.CallbackContext context) {
+            if (InteractionStartedEvent != null && context.phase == InputActionPhase.Started)
+                InteractionStartedEvent.Invoke();
+
+            if (InteractionCancelledEvent != null && context.phase == InputActionPhase.Canceled)
+                InteractionCancelledEvent.Invoke();
+        }
+
+        public void OnMenu(InputAction.CallbackContext context) {
+            if (OpenMenuWindow != null && context.phase == InputActionPhase.Started)
+                OpenMenuWindow?.Invoke();
+        }
+
+        #endregion
+
+        #region Dialogue Actions
 
         public void OnAdvanceDialogue(InputAction.CallbackContext context) {
             if (context.phase == InputActionPhase.Performed)
-                advanceDialogueEvent?.Invoke();
-            if (context.phase == InputActionPhase.Canceled)
-                resetDialogueEvent?.Invoke();
+                AdvanceDialogueEvent?.Invoke();
+        }
+
+        #endregion
+
+        #region Menu Actions
+
+        public void OnTabLeft(InputAction.CallbackContext context) {
+            if (TabLeftButtonEvent != null && context.phase == InputActionPhase.Started) {
+                TabLeftButtonEvent?.Invoke();
+            }
+        }
+
+        public void OnTabRight(InputAction.CallbackContext context) {
+            if (TabRightButtonEvent != null && context.phase == InputActionPhase.Started)
+                TabRightButtonEvent?.Invoke();
+        }
+
+        public void OnCloseMenu(InputAction.CallbackContext context) {
+            if (CloseMenuWindow != null && context.phase == InputActionPhase.Started)
+                CloseMenuWindow?.Invoke();
+        }
+
+        #endregion
+
+        public void EnableGameplayInput() {
+            GameInput.Gameplay.Enable();
+            GameInput.Dialogues.Disable();
+            GameInput.Menu.Disable();
+            Helper.CustomLog("Gameplay Input Enabled", LogColor.White);
         }
 
         public void EnableDialogueInput() {
-            gameInput.Dialogues.Enable();
-            gameInput.Gameplay.Disable();
+            GameInput.Dialogues.Enable();
+            GameInput.Gameplay.Disable();
+            GameInput.Menu.Disable();
+            Helper.CustomLog("Dialogue Input Enabled", LogColor.White);
         }
 
-        public void EnableGameplayInput() {
-            gameInput.Gameplay.Enable();
-            gameInput.Dialogues.Disable();
+        public void EnableMenuInput() {
+            GameInput.Menu.Enable();
+            GameInput.Gameplay.Disable();
+            GameInput.Dialogues.Disable();
+            Helper.CustomLog("Menu Input Enabled", LogColor.White);
         }
 
         public void DisableAllInput() {
-            gameInput.Gameplay.Disable();
-            gameInput.Dialogues.Disable();
+            GameInput.Gameplay.Disable();
+            GameInput.Dialogues.Disable();
+            GameInput.Menu.Disable();
+            Helper.CustomLog("All Input disabled", LogColor.None);
         }
     }
 }
-

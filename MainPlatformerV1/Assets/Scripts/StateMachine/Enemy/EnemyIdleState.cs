@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace MainGame {
     public class EnemyIdleState : State<Enemy> {
-        public override void LogicUpdate(Enemy type) {
+        public override void LogicUpdate(Enemy type){
             throw new System.NotImplementedException();
         }
 
-        public override void OnEnter(Enemy type) {
+        public override void OnEnter(Enemy type){
             throw new System.NotImplementedException();
         }
 
-        public override void OnExit(Enemy type) {
+        public override void OnExit(Enemy type){
             throw new System.NotImplementedException();
         }
     }

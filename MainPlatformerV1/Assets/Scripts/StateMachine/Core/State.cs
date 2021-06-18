@@ -5,7 +5,7 @@ using System;
 
 namespace MainGame {
     public abstract class State<T> : ScriptableObject {
-
+        
         public abstract void OnEnter(T type);
 
         public abstract void LogicUpdate(T type);

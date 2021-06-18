@@ -6,9 +6,8 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/JumpDecision")]
     public class CheckJumpDecision : Decision<Player> {
-        public override bool Decide(Player player) {
-            return player.JumpInput;
-        }
-        
+        [SerializeField] private PlayerInputData playerInputData;
+
+        public override bool Decide(Player player) => playerInputData.JumpInput;
     }
 }

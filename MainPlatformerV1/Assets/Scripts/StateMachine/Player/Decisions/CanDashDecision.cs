@@ -3,7 +3,8 @@ namespace MainGame {
 
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/DashDecision")]
     public class CanDashDecision : Decision<Player> {
+        [SerializeField] private PlayerInputData playerInputData;
 
-        public override bool Decide(Player player) => player.DashInput;
+        public override bool Decide(Player player) => playerInputData.DashInput;
     }
 }

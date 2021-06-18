@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a1830fed45d04e0289a0006ba8b6bf99
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerInput: {instanceID: 0}
+  - uiCanvas: {instanceID: 0}
+  - inputField: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
