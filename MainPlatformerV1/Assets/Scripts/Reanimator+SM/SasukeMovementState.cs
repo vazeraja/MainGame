@@ -21,7 +21,7 @@ public class SasukeMovementState : State<SasukeController> {
     public override void OnExit(SasukeController sasuke) { }
 
     private void UpdateMovementState(SasukeController sasukeController) {
-        var previousVelocity = sasukeController.rigidbody2D.velocity;
+        var previousVelocity = sasukeController.CollisionInfo.Velocity;
         var velocityChange = Vector2.zero;
 
         if (sasukeController.DesiredDirection.x > 0)
@@ -35,10 +35,10 @@ public class SasukeMovementState : State<SasukeController> {
             currentJumpSpeed *= sasukeController.jumpFallOff.Evaluate(sasukeController.JumpCompletion);
             velocityChange.y = currentJumpSpeed - previousVelocity.y;
 
-            if (sasukeController.ceilingContact.HasValue)
+            if (sasukeController.CollisionInfo.ceilingContact.HasValue)
                 sasukeController.jumpStopwatch.Reset();
         }
-        else if (sasukeController.groundContact.HasValue) {
+        else if (sasukeController.CollisionInfo.groundContact.HasValue) {
             sasukeController.jumpsLeft = sasukeController.numberOfJumps;
             sasukeController.wasOnTheGround = true;
             sasukeController.canDash = true;
@@ -54,14 +54,14 @@ public class SasukeMovementState : State<SasukeController> {
 
         velocityChange.x = (sasukeController.DesiredDirection.x * sasukeController.walkSpeed - previousVelocity.x) / 4;
 
-        if (sasukeController.wallContact.HasValue) {
-            var wallDirection = (int) Mathf.Sign(sasukeController.wallContact.Value.point.x - sasukeController.transform.position.x);
+        if (sasukeController.CollisionInfo.wallContact.HasValue) {
+            var wallDirection = (int) Mathf.Sign(sasukeController.CollisionInfo.wallContact.Value.point.x - sasukeController.transform.position.x);
             var walkDirection = (int) Mathf.Sign(sasukeController.DesiredDirection.x);
 
             if (walkDirection == wallDirection)
                 velocityChange.x = 0;
         }
 
-        sasukeController.rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
+        sasukeController.CollisionInfo.rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
     }
 }

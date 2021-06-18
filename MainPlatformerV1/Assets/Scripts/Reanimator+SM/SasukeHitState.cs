@@ -5,11 +5,11 @@ namespace MainGame {
     public class SasukeHitState : State<SasukeController> {
         public override void OnEnter(SasukeController sasuke) {
             var relativePosition = (Vector2) sasuke.transform.InverseTransformPoint(sasuke.CollisionData.transform.position);
-            var direction = (sasuke.rigidbody2D.centerOfMass - relativePosition).normalized;
+            var direction = (sasuke.CollisionInfo.rigidbody2D.centerOfMass - relativePosition).normalized;
 
             sasuke.hitStopwatch.Split();
-            sasuke.rigidbody2D.AddForce(
-                direction * sasuke.hitForce - sasuke.rigidbody2D.velocity,
+            sasuke.CollisionInfo.rigidbody2D.AddForce(
+                direction * sasuke.hitForce - sasuke.CollisionInfo.Velocity,
                 ForceMode2D.Impulse
             );
         }
@@ -18,10 +18,10 @@ namespace MainGame {
         }
 
         public override void PhysicsUpdate(SasukeController sasuke) {
-            sasuke.FacingDirection = sasuke.rigidbody2D.velocity.x < 0 ? -1 : 1;
+            sasuke.FacingDirection = sasuke.CollisionInfo.rigidbody2D.velocity.x < 0 ? -1 : 1;
 
-            sasuke.rigidbody2D.AddForce(Physics2D.gravity * 4);
-            if (sasuke.hitStopwatch.IsFinished && (sasuke.groundContact.HasValue || sasuke.wallContact.HasValue))
+            sasuke.CollisionInfo.rigidbody2D.AddForce(Physics2D.gravity * 4);
+            if (sasuke.hitStopwatch.IsFinished && (sasuke.CollisionInfo.IsGrounded || sasuke.CollisionInfo.IsTouchingWall))
             {
                 sasuke.hitStopwatch.Split();
                 sasuke.EnterMovementState();

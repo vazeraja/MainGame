@@ -26307,7 +26307,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4337030984175252958, guid: 1e9c17df720c0ba4f90f4102589b69c1,
+  m_Sprite: {fileID: 7524045463543801961, guid: c58414217f3be3b488dffd776120e985,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -26327,7 +26327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626173893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.52, y: 1.12, z: 0}
+  m_LocalPosition: {x: 7.62, y: 2.71, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -26370,8 +26370,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 2.0625, y: 3}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.125, y: 2.5}
     newSize: {x: 2.0625, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -29580,6 +29580,7 @@ GameObject:
   - component: {fileID: 9136112486197205329}
   - component: {fileID: 9136112486197205331}
   - component: {fileID: 9136112486197205332}
+  - component: {fileID: 9136112486197205333}
   m_Layer: 9
   m_Name: Sasuke
   m_TagString: Untagged
@@ -29646,7 +29647,7 @@ MonoBehaviour:
   walkSpeed: 15
   firstJumpSpeed: 40
   jumpSpeed: 25
-  fallSpeed: 15
+  fallSpeed: 25
   numberOfJumps: 2
   jumpFallOff:
     serializedVersion: 2
@@ -29679,11 +29680,10 @@ MonoBehaviour:
   hitStopwatch:
     duration: 0.2
     cooldown: 0.2
-  dashSpeed: 60
+  dashSpeed: 75
   dashStopwatch:
     duration: 0.08
     cooldown: 0.2
-  rigidbody2D: {fileID: 0}
   wantsToJump: 0
   wasOnTheGround: 0
   canDash: 0
@@ -29701,6 +29701,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a6a6978e2e4b428344569e8a1d4df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9136112486197205333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9136112486197205328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6930baa9277489ba351326d703a4d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody2D: {fileID: 0}
 --- !u!212 &9136112486197205340
 SpriteRenderer:
   m_ObjectHideFlags: 0

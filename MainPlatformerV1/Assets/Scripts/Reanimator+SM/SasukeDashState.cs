@@ -13,12 +13,11 @@ namespace MainGame {
         }
 
         public override void PhysicsUpdate(SasukeController sasuke) {
-            sasuke.rigidbody2D.AddForce(
-                new Vector2(sasuke.FacingDirection * sasuke.dashSpeed, 0) - sasuke.rigidbody2D.velocity,
+            sasuke.CollisionInfo.rigidbody2D.AddForce(
+                new Vector2(sasuke.FacingDirection * sasuke.dashSpeed, 0) - sasuke.CollisionInfo.rigidbody2D.velocity,
                 ForceMode2D.Impulse
             );
-            Debug.Log("hfjkdhsj");
-            if (!sasuke.dashStopwatch.IsFinished && !sasuke.wallContact.HasValue) return;
+            if (!sasuke.dashStopwatch.IsFinished && !sasuke.CollisionInfo.IsTouchingWall) return;
             sasuke.dashStopwatch.Split();
             sasuke.EnterMovementState();
             

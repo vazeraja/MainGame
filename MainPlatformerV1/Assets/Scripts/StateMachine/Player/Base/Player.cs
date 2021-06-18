@@ -43,7 +43,7 @@ namespace MainGame {
         protected override void Update() {
             base.Update();
 
-            currentState.OnStateUpdate(this);
+            currentState.OnStateLogicUpdate(this);
             if(interactionLogic.Enabled) 
                 interactionLogic.Value.UpdateInteractable(this, collider.bounds.center);
         }

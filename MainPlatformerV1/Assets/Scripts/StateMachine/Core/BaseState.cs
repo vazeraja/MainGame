@@ -6,7 +6,7 @@ using System;
 namespace MainGame {
     public interface IStateMachine<in T> {
         public void OnStateEnter(T entity);
-        public void OnStateUpdate(T entity);
+        public void OnStateLogicUpdate(T entity);
         public void OnStateExit(T entity);
     }
 
@@ -61,7 +61,7 @@ namespace MainGame {
         public void OnStateEnter(T entity){
             EnterStateEvent?.Invoke(entity);
         }
-        public void OnStateUpdate(T entity){
+        public void OnStateLogicUpdate(T entity){
             UpdateStateEvent?.Invoke(entity);
         }
         public void OnStatePhysicsUpdate(T entity){
