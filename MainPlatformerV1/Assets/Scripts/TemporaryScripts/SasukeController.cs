@@ -4,6 +4,12 @@ using UnityEngine;
 using Utils;
 
 namespace MainGame {
+
+    public enum SasukeState {
+        Movement = 0,
+        Dash = 1,
+        Hit = 2,
+    }
     public class SasukeController : MonoBehaviour {
         
         [Header("Input")] 
@@ -13,67 +19,99 @@ namespace MainGame {
         [Header("State Machine")] 
         public SasukeStateSO currentState;
         public SasukeStateSO remainState;
-        
-        [Header("Walking")] 
-        public float maxWalkCos = 0.2f;
-        public float walkSpeed = 7;
-        
-        [Header("Jumping")] 
-        public float firstJumpSpeed = 8;
-        public float jumpSpeed = 3;
-        public float fallSpeed = 12;
-        public int numberOfJumps = 2;
-        public AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
-        public FixedStopwatch jumpStopwatch = new FixedStopwatch();
 
-        private int FacingDirection { get; set; }
+        [Header("Walking")] 
+        [SerializeField] private float maxWalkCos = 0.5f;
+        [SerializeField] public float walkSpeed = 7;
+
+        [Header("Jumping")] 
+        [SerializeField]
+        public float firstJumpSpeed = 8;
+        [SerializeField] public float jumpSpeed = 3;
+        [SerializeField] public float fallSpeed = 12;
+        [SerializeField] public int numberOfJumps = 2;
+        [SerializeField] public AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
+        [SerializeField] public FixedStopwatch jumpStopwatch = new FixedStopwatch();
+
+        [Header("Getting a whooping")] 
+        public Vector2 hitForce = new Vector2();
+        [SerializeField] private FixedStopwatch hitStopwatch = new FixedStopwatch();
+
+        [Header("Giving a whooping")] 
+        [SerializeField] public float dashSpeed = 12;
+        [SerializeField] public FixedStopwatch dashStopwatch = new FixedStopwatch();
+
+        public SasukeState State { get; set; } = SasukeState.Movement;
+        public Vector2 DesiredDirection { get; private set; }
+        public int FacingDirection { get; set; } = 1;
+
         public bool IsGrounded => groundContact.HasValue;
-        public bool IsTouchingCeiling => ceilingContact.HasValue;
-        public bool IsTouchingWall => wallContact.HasValue;
-        private bool IsJumping => !jumpStopwatch.IsFinished;
-        private bool IsFirstJump => jumpsLeft == numberOfJumps - 1;
-        private float JumpCompletion => jumpStopwatch.Completion;
         public Vector2 Velocity => rigidbody2D.velocity;
+        public float AttackCompletion => dashStopwatch.Completion;
+        public float JumpCompletion => jumpStopwatch.Completion;
+        public bool IsJumping => !jumpStopwatch.IsFinished;
+        public bool IsFirstJump => jumpsLeft == numberOfJumps - 1;
 
         [HideInInspector] public new Rigidbody2D rigidbody2D;
-        public Reanimator reanimator;
-        
-        public ContactFilter2D contactFilter;
+        private ContactFilter2D contactFilter;
         public ContactPoint2D? groundContact;
         public ContactPoint2D? ceilingContact;
         public ContactPoint2D? wallContact;
         private readonly ContactPoint2D[] contacts = new ContactPoint2D[16];
-        
-        private bool wantsToJump;
-        private bool wasOnTheGround;
-        private int jumpsLeft;
-        
-        private void Awake() {
+
+        [HideInInspector] public bool wantsToJump;
+        [HideInInspector] public bool wasOnTheGround;
+        [HideInInspector] public bool canDash;
+        [HideInInspector] public int jumpsLeft;
+        [HideInInspector] public int enemyLayer;
+
+        private void Awake()
+        {
             rigidbody2D = GetComponent<Rigidbody2D>();
-            reanimator = GetComponent<Reanimator>();
             
             contactFilter = new ContactFilter2D();
             contactFilter.SetLayerMask(LayerMask.GetMask("Ground"));
+            enemyLayer = LayerMask.NameToLayer("Enemy");
         }
+
         private void OnEnable() {
+            inputReader.MoveEvent += OnMove;
             inputReader.FJumpEvent += OnJump;
+            inputReader.AttackEvent += OnDash;
+
             SasukeStateSO.OnStateTransition += TransitionToState;
         }
 
         private void OnDisable() {
-            inputReader.FJumpEvent += OnJump;
+            inputReader.MoveEvent -= OnMove;
+            inputReader.FJumpEvent -= OnJump;
+            inputReader.AttackEvent -= OnDash;
+            
             SasukeStateSO.OnStateTransition -= TransitionToState;
         }
-        private void Update() {
-            reanimator.Flip = FacingDirection < 0;
+
+        private void Start() {
+            currentState.OnStateEnter(this);
         }
-        private void FixedUpdate() {
+        private void FixedUpdate()
+        {
             FindContacts();
-            UpdateMovement();
-            UpdateDirection();
+            currentState.OnStateUpdate(this);
+
+            switch (State)
+            {
+                case SasukeState.Hit:
+                    UpdateHitState();
+                    break;
+            }
         }
 
-        private void OnJump(float value) {
+        #region Events
+
+        private void OnMove(Vector2 value) => DesiredDirection = value;
+
+        private void OnJump(float value)
+        {
             wantsToJump = value > 0.5f;
 
             if (wantsToJump)
@@ -81,7 +119,11 @@ namespace MainGame {
             else
                 jumpStopwatch.Reset();
         }
-        
+
+        private void OnDash()
+        {
+            EnterDashState();
+        }
         private void TransitionToState(SasukeStateSO nextState) {
             if (nextState == remainState)
                 return;
@@ -90,59 +132,30 @@ namespace MainGame {
             currentState = nextState;
             currentState.OnStateEnter(this);
         }
+        #endregion
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.layer != enemyLayer) return;
+            EnterHitState(other);
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.layer != enemyLayer || State == SasukeState.Hit) return;
+            EnterHitState(other);
+        }
+
+
         private void RequestJump()
         {
-            if (jumpsLeft <= 0)
+            if (State != SasukeState.Movement || jumpsLeft <= 0)
                 return;
 
             jumpsLeft--;
             jumpStopwatch.Split();
         }
-        private void UpdateMovement()
-        {
-            var previousVelocity = rigidbody2D.velocity;
-            var velocityChange = Vector2.zero;
 
-            if (wantsToJump && IsJumping)
-            {
-                wasOnTheGround = false;
-                float currentJumpSpeed = IsFirstJump ? firstJumpSpeed : jumpSpeed;
-                currentJumpSpeed *= jumpFallOff.Evaluate(JumpCompletion);
-                velocityChange.y = currentJumpSpeed - previousVelocity.y;
-
-                if (ceilingContact.HasValue)
-                    jumpStopwatch.Reset();
-            }
-            else if (groundContact.HasValue)
-            {
-                jumpsLeft = numberOfJumps;
-                wasOnTheGround = true;
-            }
-            else
-            {
-                if (wasOnTheGround)
-                {
-                    jumpsLeft -= 1;
-                    wasOnTheGround = false;
-                }
-
-                velocityChange.y = (-fallSpeed - previousVelocity.y) / 8;
-            }
-
-            velocityChange.x = (playerInputData.MovementInput.x * walkSpeed - previousVelocity.x) / 4;
-
-            if (wallContact.HasValue)
-            {
-                var wallDirection = (int) Mathf.Sign(wallContact.Value.point.x - transform.position.x);
-                var walkDirection = (int) Mathf.Sign(playerInputData.MovementInput.x);
-
-                if (walkDirection == wallDirection)
-                    velocityChange.x = 0;
-            }
-
-            rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
-        }
-        
         private void FindContacts()
         {
             groundContact = null;
@@ -176,13 +189,47 @@ namespace MainGame {
                 }
             }
         }
-        private void UpdateDirection() {
-            if (playerInputData.MovementInput.x > 0)
-                FacingDirection = 1;
-            else if (playerInputData.MovementInput.x < 0)
-                FacingDirection = -1;
+
+        #region States
+
+        private void EnterHitState(Collision2D collision)
+        {
+            if (State != SasukeState.Hit && !hitStopwatch.IsReady) return;
+            State = SasukeState.Hit;
+
+            var relativePosition = (Vector2) transform.InverseTransformPoint(collision.transform.position);
+            var direction = (rigidbody2D.centerOfMass - relativePosition).normalized;
+
+            hitStopwatch.Split();
+            rigidbody2D.AddForce(
+                direction * hitForce - rigidbody2D.velocity,
+                ForceMode2D.Impulse
+            );
         }
 
+        private void UpdateHitState()
+        {
+            FacingDirection = rigidbody2D.velocity.x < 0 ? -1 : 1;
+
+            rigidbody2D.AddForce(Physics2D.gravity * 4);
+            if (hitStopwatch.IsFinished && (groundContact.HasValue || wallContact.HasValue))
+            {
+                hitStopwatch.Split();
+                EnterMovementState();
+            }
+        }
+
+        private void EnterDashState()
+        {
+            if (State != SasukeState.Movement || !dashStopwatch.IsReady || !canDash) 
+                return;
+            State = SasukeState.Dash;
+        }
+
+        public void EnterMovementState() {
+            State = SasukeState.Movement;
+        }
+        
+        #endregion
     }
-    
 }

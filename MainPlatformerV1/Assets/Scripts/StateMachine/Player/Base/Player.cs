@@ -17,7 +17,6 @@ namespace MainGame {
         
         [Header("GameEvents")] 
         [SerializeField] private PlayerEvent playerInitialized;
-        
         // public CharacterStat Strength;
 
         #region Built-In Methods

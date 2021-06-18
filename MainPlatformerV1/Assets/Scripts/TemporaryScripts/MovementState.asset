@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393d174755664436863b415d0fa14839, type: 3}
-  m_Name: SasukeIdleBase
+  m_Script: {fileID: 11500000, guid: 0cf351d7bf8ed6a4e8bfe95ce1b6b04b, type: 3}
+  m_Name: MovementState
   m_EditorClassIdentifier: 
-  stateName: Idle State
-  states: []
-  transitions: []
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}

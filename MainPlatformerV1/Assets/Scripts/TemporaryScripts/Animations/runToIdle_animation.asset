@@ -10,34 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02f1da0b6abdb7d45aa4315eccab639b, type: 3}
-  m_Name: idle_animation
+  m_Name: runToIdle_animation
   m_EditorClassIdentifier: 
   cels:
-  - sprite: {fileID: -2937644175521846342, guid: f31e889de574c78499d5df74639f2b86,
+  - sprite: {fileID: 6171374375413776551, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: -6672705515115128521, guid: f31e889de574c78499d5df74639f2b86,
-      type: 3}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: -672653471037824313, guid: f31e889de574c78499d5df74639f2b86,
-      type: 3}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: -3433722061912466453, guid: f31e889de574c78499d5df74639f2b86,
+      keys:
+      - idleTransition
+      values: 01000000
+  - sprite: {fileID: 7984399840888605053, guid: 7cf92fcfe9147d94e961ea8384f393f7,
       type: 3}
     drivers:
       keys: []
       values: 
   controlDriver:
-    name: 
+    name: temporary
     autoIncrement: 1
     percentageBased: 0
-    guid: 1956d7a4-6745-4fc5-af89-3409b029b382
+    guid: a6777327-8946-4f16-9601-4782a8028344
   drivers:
     keys: []
     values: 

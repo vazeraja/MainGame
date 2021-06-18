@@ -55,7 +55,7 @@ namespace MainGame {
         #region Gameplay Actions
 
         public void OnJump(InputAction.CallbackContext context) {
-            if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
+            if (JumpEvent != null && context.phase == InputActionPhase.Started) {
                 JumpEvent.Invoke();
                 FJumpEvent?.Invoke(context.ReadValue<float>());
             }
