@@ -14,6 +14,10 @@ namespace MainGame {
 
         }
 
+        public override void PhysicsUpdate(Player type) {
+            
+        }
+
         public override void OnExit(Player player){
         }
 

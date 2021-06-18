@@ -12,6 +12,9 @@ public class SasukeMovementState : State<SasukeController> {
     }
 
     public override void LogicUpdate(SasukeController sasuke) {
+    }
+
+    public override void PhysicsUpdate(SasukeController sasuke) {
         UpdateMovementState(sasuke);
     }
 

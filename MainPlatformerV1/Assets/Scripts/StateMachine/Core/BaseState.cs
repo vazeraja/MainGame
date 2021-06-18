@@ -19,14 +19,17 @@ namespace MainGame {
         protected event Action<T> EnterStateEvent;
         protected event Action<T> ExitStateEvent;
         protected event Action<T> UpdateStateEvent;
+        protected event Action<T> PhysicsUpdateStateEvent;
 
-        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, Action<T> updateStateEvent){
+        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, 
+            Action<T> updateStateEvent, Action<T> physicsUpdateStateEvent){
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
             this.EnterStateEvent = enterStateEvent;
             this.ExitStateEvent = exitStateEvent;
             this.UpdateStateEvent = updateStateEvent;
+            this.PhysicsUpdateStateEvent = physicsUpdateStateEvent;
         }
 
         protected virtual void OnEnable(){
@@ -34,6 +37,7 @@ namespace MainGame {
                 EnterStateEvent += state.OnEnter;
                 UpdateStateEvent += state.LogicUpdate;
                 ExitStateEvent += state.OnExit;
+                PhysicsUpdateStateEvent += state.PhysicsUpdate;
             }
 
             UpdateStateEvent += CheckTransitions;
@@ -44,6 +48,7 @@ namespace MainGame {
                 EnterStateEvent -= state.OnEnter;
                 UpdateStateEvent -= state.LogicUpdate;
                 ExitStateEvent -= state.OnExit;
+                PhysicsUpdateStateEvent += state.PhysicsUpdate;
             }
 
             UpdateStateEvent -= CheckTransitions;
@@ -58,6 +63,9 @@ namespace MainGame {
         }
         public void OnStateUpdate(T entity){
             UpdateStateEvent?.Invoke(entity);
+        }
+        public void OnStatePhysicsUpdate(T entity){
+            PhysicsUpdateStateEvent?.Invoke(entity);
         }
         public void OnStateExit(T entity){
             ExitStateEvent?.Invoke(entity);

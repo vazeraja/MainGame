@@ -29673,17 +29673,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   jumpStopwatch:
-    _timestamp: 0
     duration: 0.4
     cooldown: 0
-  bounceBackStrength: {x: 50, y: 12}
+  hitForce: {x: 25, y: 20}
   hitStopwatch:
-    _timestamp: 0
     duration: 0.2
     cooldown: 0.2
   dashSpeed: 60
   dashStopwatch:
-    _timestamp: 0
     duration: 0.08
     cooldown: 0.2
   rigidbody2D: {fileID: 0}

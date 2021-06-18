@@ -42,6 +42,10 @@ namespace MainGame {
                 CheckDashTime();
             }
         }
+
+        public override void PhysicsUpdate(Player type) {
+        }
+
         public override void OnExit(Player player){
             player.Anim.SetBool(DashX, false);
         }

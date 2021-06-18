@@ -9,6 +9,7 @@ namespace MainGame {
         public abstract void OnEnter(T type);
 
         public abstract void LogicUpdate(T type);
+        public abstract void PhysicsUpdate(T type);
 
         public abstract void OnExit(T type);
 

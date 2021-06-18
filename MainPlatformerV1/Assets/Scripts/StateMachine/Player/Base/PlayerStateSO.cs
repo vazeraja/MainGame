@@ -14,12 +14,15 @@ namespace MainGame {
         
         [Space] 
         public Optional<string> animBoolName;
-        
+
         public PlayerStateSO(string stateName, State<Player>[] states, Transition<Player, PlayerStateSO>[] transitions,
-            Action<Player> enterStateEvent, Action<Player> exitStateEvent, Action<Player> updateStateEvent, string animBoolName, PlayerData playerData) : base(stateName, states, transitions, enterStateEvent, exitStateEvent, updateStateEvent){
-            this.playerData = playerData;
+            Action<Player> enterStateEvent, Action<Player> exitStateEvent, Action<Player> updateStateEvent,
+            Action<Player> physicsUpdateStateEvent, PlayerData playerData, string animBoolName) : base(stateName, states, transitions,
+            enterStateEvent, exitStateEvent, updateStateEvent, physicsUpdateStateEvent) {
             this.animBoolName.Value = animBoolName;
+            this.playerData = playerData;
         }
+        
 
         public void Refresh() => playerData.Reset();
         

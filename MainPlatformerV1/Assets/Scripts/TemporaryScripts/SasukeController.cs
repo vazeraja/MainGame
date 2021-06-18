@@ -34,12 +34,13 @@ namespace MainGame {
         [SerializeField] public FixedStopwatch jumpStopwatch = new FixedStopwatch();
 
         [Header("Getting a whooping")] 
-        public Vector2 hitForce = new Vector2();
-        [SerializeField] private FixedStopwatch hitStopwatch = new FixedStopwatch();
+        public Vector2 hitForce;
+        public FixedStopwatch hitStopwatch = new FixedStopwatch();
+        public Collision2D CollisionData;
 
         [Header("Giving a whooping")] 
-        [SerializeField] public float dashSpeed = 12;
-        [SerializeField] public FixedStopwatch dashStopwatch = new FixedStopwatch();
+        public float dashSpeed = 12;
+        public FixedStopwatch dashStopwatch = new FixedStopwatch();
 
         public SasukeState State { get; set; } = SasukeState.Movement;
         public Vector2 DesiredDirection { get; private set; }
@@ -93,17 +94,15 @@ namespace MainGame {
         private void Start() {
             currentState.OnStateEnter(this);
         }
+
+        private void Update() {
+            currentState.OnStateUpdate(this);
+        }
+
         private void FixedUpdate()
         {
             FindContacts();
-            currentState.OnStateUpdate(this);
-
-            switch (State)
-            {
-                case SasukeState.Hit:
-                    UpdateHitState();
-                    break;
-            }
+            currentState.OnStatePhysicsUpdate(this);
         }
 
         #region Events
@@ -137,13 +136,15 @@ namespace MainGame {
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.layer != enemyLayer) return;
-            EnterHitState(other);
+            CollisionData = other;
+            EnterHitState();
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
             if (other.gameObject.layer != enemyLayer || State == SasukeState.Hit) return;
-            EnterHitState(other);
+            CollisionData = other;
+            EnterHitState();
         }
 
 
@@ -192,31 +193,10 @@ namespace MainGame {
 
         #region States
 
-        private void EnterHitState(Collision2D collision)
+        private void EnterHitState()
         {
             if (State != SasukeState.Hit && !hitStopwatch.IsReady) return;
             State = SasukeState.Hit;
-
-            var relativePosition = (Vector2) transform.InverseTransformPoint(collision.transform.position);
-            var direction = (rigidbody2D.centerOfMass - relativePosition).normalized;
-
-            hitStopwatch.Split();
-            rigidbody2D.AddForce(
-                direction * hitForce - rigidbody2D.velocity,
-                ForceMode2D.Impulse
-            );
-        }
-
-        private void UpdateHitState()
-        {
-            FacingDirection = rigidbody2D.velocity.x < 0 ? -1 : 1;
-
-            rigidbody2D.AddForce(Physics2D.gravity * 4);
-            if (hitStopwatch.IsFinished && (groundContact.HasValue || wallContact.HasValue))
-            {
-                hitStopwatch.Split();
-                EnterMovementState();
-            }
         }
 
         private void EnterDashState()

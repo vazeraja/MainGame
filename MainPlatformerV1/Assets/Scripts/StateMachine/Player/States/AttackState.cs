@@ -46,6 +46,10 @@ namespace MainGame {
                 player.Anim.SetBool(buttonPresses >= 3 ? Combo : NoCombo, true);
         }
 
+        public override void PhysicsUpdate(Player type) {
+            
+        }
+
         public override void OnExit(Player player){
             // Debug.Log("Button Presses: " + buttonPresses);
 

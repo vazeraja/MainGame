@@ -15,6 +15,9 @@ namespace MainGame {
             CheckIfShouldFlip(player);
         }
 
+        public override void PhysicsUpdate(Player type) {
+        }
+
         public override void OnExit(Player player) { }
 
         private void Move(Player player) {

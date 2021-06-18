@@ -9,7 +9,7 @@ namespace Utils {
         public bool IsReady => Elapsed > cooldown;
         public float Completion => Mathf.Clamp01(Elapsed / duration);
 
-        public float _timestamp;
+        private float _timestamp;
         [SerializeField] private float duration;
         [SerializeField] private float cooldown;
         public float Elapsed => Time.fixedTime - _timestamp;
