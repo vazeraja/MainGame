@@ -13,8 +13,8 @@ namespace MainGame {
     public abstract class BaseState<T, U> : ScriptableObject, IStateMachine<T> {
         // U is BaseState_SO
         [SerializeField] public string stateName;
-        [SerializeField] protected State<T>[] states;
-        [SerializeField] protected Transition<T, U>[] transitions;
+        [SerializeField] public State<T>[] states;
+        [SerializeField] public Transition<T, U>[] transitions;
 
         protected event Action<T> EnterStateEvent;
         protected event Action<T> ExitStateEvent;
@@ -26,10 +26,10 @@ namespace MainGame {
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
-            this.EnterStateEvent = enterStateEvent;
-            this.ExitStateEvent = exitStateEvent;
-            this.UpdateStateEvent = updateStateEvent;
-            this.PhysicsUpdateStateEvent = physicsUpdateStateEvent;
+            EnterStateEvent = enterStateEvent;
+            ExitStateEvent = exitStateEvent;
+            UpdateStateEvent = updateStateEvent;
+            PhysicsUpdateStateEvent = physicsUpdateStateEvent;
         }
 
         protected virtual void OnEnable(){

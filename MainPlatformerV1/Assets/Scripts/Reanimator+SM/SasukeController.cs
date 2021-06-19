@@ -1,6 +1,4 @@
-﻿using System;
-using Aarthificial.Reanimation;
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 namespace MainGame {
