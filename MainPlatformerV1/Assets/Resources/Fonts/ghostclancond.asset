@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: ghostclancond
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 133354593
   material: {fileID: 6107260640837986815}
-  materialHashCode: 0
+  materialHashCode: 1626897697
   m_Version: 1.1.0
   m_SourceFontFileGUID: aa0b9a5f0172e4e4c81f2a7774185acd
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: aa0b9a5f0172e4e4c81f2a7774185acd,

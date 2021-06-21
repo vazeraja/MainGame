@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393d174755664436863b415d0fa14839, type: 3}
   m_Name: HitBase
   m_EditorClassIdentifier: 
-  stateName: 
+  stateName: Hit State
   states:
   - {fileID: 11400000, guid: 8aeab206fac25ef42afdfb72f3576b69, type: 2}
   transitions:

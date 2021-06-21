@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393d174755664436863b415d0fa14839, type: 3}
   m_Name: DashBase
   m_EditorClassIdentifier: 
-  stateName: 
+  stateName: Dash State
   states:
   - {fileID: 11400000, guid: 92553d274da4dec4fae07869a17a086e, type: 2}
   transitions:

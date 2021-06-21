@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class ExtendedEditorWindow : EditorWindow {
     
+    // protected SerializedObject serializedObject;
+    // protected SerializedProperty currentProperty;
+    //
+    // private string selectedPropertyPath;
+    // protected SerializedProperty selectedProperty;
+    
     protected void DrawProperties(SerializedProperty prop, bool drawChildren) {
         string lastPropPath = string.Empty;
 
         foreach (SerializedProperty p in prop) {
-            if (p.isArray && p.propertyType == SerializedPropertyType.Generic) {
+            if ((p.isArray || p.isExpanded) && (p.propertyType == SerializedPropertyType.Generic || p.propertyType == SerializedPropertyType.ObjectReference)) {
                 EditorGUILayout.BeginHorizontal();
                 p.isExpanded = EditorGUILayout.Foldout(p.isExpanded, p.displayName);
                 EditorGUILayout.EndHorizontal();;
@@ -26,5 +32,26 @@ public class ExtendedEditorWindow : EditorWindow {
             }
         }
     }
+
+    // protected void DrawSidebar(SerializedProperty prop) {
+    //     foreach (SerializedProperty p in prop) {
+    //         if (GUILayout.Button("Transition")) {
+    //             selectedPropertyPath = p.propertyPath;
+    //         }
+    //
+    //         if (!string.IsNullOrEmpty(selectedPropertyPath)) {
+    //             selectedProperty = serializedObject.FindProperty(selectedPropertyPath);
+    //         }
+    //     }
+    // }
+    //
+    // protected void DrawField(string propName, bool relative) {
+    //     if (relative && currentProperty != null) {
+    //         EditorGUILayout.PropertyField(currentProperty.FindPropertyRelative(propName), true);
+    //     }
+    //     else if(serializedObject != null) {
+    //         EditorGUILayout.PropertyField(serializedObject.FindProperty(propName), true);
+    //     }
+    // }
 
 }

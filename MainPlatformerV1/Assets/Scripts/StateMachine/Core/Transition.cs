@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityEngine.Events;
+using UnityEngine;
 
 namespace MainGame {
     
@@ -7,12 +7,9 @@ namespace MainGame {
 
     [Serializable]
     public class Transition<T, U> : TransitionBase {
-        public Decision<T> decision;
-        public U trueState;
-        public U falseState;
-
-        public bool enabled;
-
+        [SerializeField] public Decision<T> decision;
+        [SerializeField] public U trueState;
+        [SerializeField] public U falseState;
     }
 
 }

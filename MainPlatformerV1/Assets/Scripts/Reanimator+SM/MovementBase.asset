@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393d174755664436863b415d0fa14839, type: 3}
   m_Name: MovementBase
   m_EditorClassIdentifier: 
-  stateName: Movement
+  stateName: Movement State
   states:
   - {fileID: 11400000, guid: cff7a77f1d675214584e48885c156718, type: 2}
   transitions:

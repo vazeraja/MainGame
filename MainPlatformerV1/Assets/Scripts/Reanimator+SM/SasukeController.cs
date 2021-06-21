@@ -63,7 +63,7 @@ namespace MainGame {
             inputReader.MoveEvent += OnMove;
             inputReader.FJumpEvent += OnJump;
             inputReader.AttackEvent += OnDash;
-
+            
             SasukeStateSO.OnStateTransition += TransitionToState;
         }
 

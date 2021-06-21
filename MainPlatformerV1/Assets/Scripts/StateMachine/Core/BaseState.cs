@@ -4,25 +4,24 @@ using UnityEngine;
 using System;
 
 namespace MainGame {
-    public interface IStateMachine<in T> {
-        public void OnStateEnter(T entity);
-        public void OnStateLogicUpdate(T entity);
-        public void OnStateExit(T entity);
-    }
 
-    public abstract class BaseState<T, U> : ScriptableObject, IStateMachine<T> {
-        // U is BaseState_SO
+    public class StateMachine : ScriptableObject { }
+    
+    public abstract class BaseState<T, U> : StateMachine {
+
+
         [SerializeField] public string stateName;
         [SerializeField] public State<T>[] states;
         [SerializeField] public Transition<T, U>[] transitions;
-
+        
         protected event Action<T> EnterStateEvent;
         protected event Action<T> ExitStateEvent;
         protected event Action<T> UpdateStateEvent;
         protected event Action<T> PhysicsUpdateStateEvent;
 
-        protected BaseState(string stateName, State<T>[] states, Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent, 
-            Action<T> updateStateEvent, Action<T> physicsUpdateStateEvent){
+        protected BaseState(string stateName, State<T>[] states, 
+            Transition<T, U>[] transitions, Action<T> enterStateEvent, Action<T> exitStateEvent,
+            Action<T> updateStateEvent, Action<T> physicsUpdateStateEvent) {
             this.stateName = stateName;
             this.states = states;
             this.transitions = transitions;
@@ -32,7 +31,7 @@ namespace MainGame {
             PhysicsUpdateStateEvent = physicsUpdateStateEvent;
         }
 
-        protected virtual void OnEnable(){
+        protected virtual void OnEnable() {
             foreach (var state in states) {
                 EnterStateEvent += state.OnEnter;
                 UpdateStateEvent += state.LogicUpdate;
@@ -43,7 +42,8 @@ namespace MainGame {
             UpdateStateEvent += CheckTransitions;
             ExitStateEvent += ResetAnimationFinished;
         }
-        protected virtual void OnDisable(){
+
+        protected virtual void OnDisable() {
             foreach (var state in states) {
                 EnterStateEvent -= state.OnEnter;
                 UpdateStateEvent -= state.LogicUpdate;
@@ -58,16 +58,19 @@ namespace MainGame {
         protected abstract void CheckTransitions(T entity);
         protected abstract void ResetAnimationFinished(T entity);
 
-        public void OnStateEnter(T entity){
+        public void OnStateEnter(T entity) {
             EnterStateEvent?.Invoke(entity);
         }
-        public void OnStateLogicUpdate(T entity){
+
+        public void OnStateLogicUpdate(T entity) {
             UpdateStateEvent?.Invoke(entity);
         }
-        public void OnStatePhysicsUpdate(T entity){
+
+        public void OnStatePhysicsUpdate(T entity) {
             PhysicsUpdateStateEvent?.Invoke(entity);
         }
-        public void OnStateExit(T entity){
+
+        public void OnStateExit(T entity) {
             ExitStateEvent?.Invoke(entity);
         }
     }

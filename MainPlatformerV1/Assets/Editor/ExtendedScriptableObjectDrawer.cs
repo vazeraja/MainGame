@@ -15,7 +15,8 @@ using UnityEditor;
 /// Also provides a button to create a new ScriptableObject if property is null.
 /// todo: enable custom editors for scriptable objects
 /// </summary>
-[CustomPropertyDrawer(typeof(ScriptableObject), true)]
+
+//[CustomPropertyDrawer(typeof(ScriptableObject), true)]
 public class ExtendedScriptableObjectDrawer : PropertyDrawer {
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label){

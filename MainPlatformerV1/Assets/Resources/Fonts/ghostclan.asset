@@ -55,9 +55,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: ghostclan
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 1470005319
   material: {fileID: -8370796166225642425}
-  materialHashCode: 0
+  materialHashCode: -1938170361
   m_Version: 1.1.0
   m_SourceFontFileGUID: 9d4b2d430faa343498b536d8237258fa
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 9d4b2d430faa343498b536d8237258fa,
