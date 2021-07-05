@@ -152,25 +152,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_LightVolumeOpacity: 0
+  m_LightVolumeIntensity: 0
+  m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000fb9cf84aa11d8116957fc358cd0bba8e
   m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 0
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
   m_ShadowIntensity: 0
+  m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0
+  m_Vertices:
+  - position: {x: 0, y: 0, z: 0}
+    color: {r: 0, g: 0, b: 0, a: 0}
+    uv: {x: 0, y: 0}
+  m_Triangles: 0000
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 1
-  m_PointLightDistance: 3
-  m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -316,6 +329,7 @@ TilemapRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -26277,6 +26291,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -29440,11 +29455,11 @@ GameObject:
   - component: {fileID: 9136112486197205340}
   - component: {fileID: 9136112486197205341}
   - component: {fileID: 9136112486197205330}
-  - component: {fileID: 9136112486197205333}
   - component: {fileID: 9136112486197205329}
+  - component: {fileID: 9136112486197205334}
   - component: {fileID: 9136112486197205332}
   - component: {fileID: 9136112486197205331}
-  - component: {fileID: 9136112486197205334}
+  - component: {fileID: 9136112486197205333}
   m_Layer: 9
   m_Name: Player_Sasuke
   m_TagString: Untagged
@@ -29504,11 +29519,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
-  currentState: {fileID: 11400000, guid: 79e68b312e6840f4e99263b3dbdf5af3, type: 2}
-  remainState: {fileID: 11400000, guid: 5f47b096685f97447b5f43c2b8d1a0ef, type: 2}
   walkSpeed: 15
   firstJumpSpeed: 50
-  jumpSpeed: 25
+  secondJumpSpeed: 25
   fallSpeed: 25
   numberOfJumps: 2
   jumpFallOff:
@@ -29548,8 +29561,8 @@ MonoBehaviour:
     cooldown: 0.2
   wantsToJump: 0
   wasOnTheGround: 0
-  canDash: 0
   jumpsLeft: 0
+  canDash: 0
   enemyLayer: 0
 --- !u!114 &9136112486197205332
 MonoBehaviour:
@@ -29572,10 +29585,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9136112486197205328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6930baa9277489ba351326d703a4d1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 810fe5f69e8342ab864899404ed9b7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody2D: {fileID: 0}
+  stateMachine: {fileID: 0}
 --- !u!114 &9136112486197205334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29585,10 +29598,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9136112486197205328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67591279a9fe4c42b41084d7e3bdecc3, type: 3}
+  m_Script: {fileID: 11500000, guid: e71144378de70e744ad3b67c85449d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  states: []
+  rigidbody2D: {fileID: 0}
 --- !u!212 &9136112486197205340
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29600,6 +29613,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomPropertyDrawer(typeof(State<>))]
+[CustomPropertyDrawer(typeof(State))]
 public class PluggableStatePropertyDrawer : PropertyDrawer {
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
         return EditorGUI.GetPropertyHeight(property);

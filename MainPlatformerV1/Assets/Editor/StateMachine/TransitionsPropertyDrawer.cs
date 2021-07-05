@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace MainGame {
-    [CustomPropertyDrawer(typeof(Transition<,>))]
+    [CustomPropertyDrawer(typeof(Transition))]
     public class TransitionsPropertyDrawer : PropertyDrawer {
         private static class Styles {
             public static readonly GUIContent RemoveIcon = EditorGUIUtility.IconContent("d_tab_next");

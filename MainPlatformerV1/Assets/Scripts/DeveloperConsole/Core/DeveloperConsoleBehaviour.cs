@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MainGame.Utils;
+using ThunderNut.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

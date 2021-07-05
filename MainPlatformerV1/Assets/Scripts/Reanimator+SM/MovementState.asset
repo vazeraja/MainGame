@@ -9,7 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf351d7bf8ed6a4e8bfe95ce1b6b04b, type: 3}
+  m_Script: {fileID: 11500000, guid: 393d174755664436863b415d0fa14839, type: 3}
   m_Name: MovementState
   m_EditorClassIdentifier: 
-  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  stateName: 
+  guid: 
+  position: {x: 0, y: 0}
+  stateMachine: {fileID: 0}
+  player: {fileID: 0}
+  children: []
+  transitions:
+  - {fileID: 11400000, guid: 80c16fb5bbbdc364ea5fe3e6ec3a0aaf, type: 2}
+  - {fileID: 11400000, guid: f4a31c753dfcdc34096930559e2b31f4, type: 2}

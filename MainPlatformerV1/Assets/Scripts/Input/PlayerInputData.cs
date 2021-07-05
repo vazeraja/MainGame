@@ -1,5 +1,4 @@
-﻿using System;
-using MainGame.Utils;
+﻿using ThunderNut.Extensions;
 using UnityEngine;
 
 namespace MainGame {

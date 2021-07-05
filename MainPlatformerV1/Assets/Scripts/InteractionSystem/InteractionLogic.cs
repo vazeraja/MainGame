@@ -1,5 +1,4 @@
-﻿using MainGame.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MainGame {
     [CreateAssetMenu(fileName = "InteractionLogic", menuName = "InteractionSystem/InteractionLogic", order = 0)]

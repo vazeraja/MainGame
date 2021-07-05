@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MainGame {
-    public abstract class Decision<T> : ScriptableObject {
-        public abstract bool Decide(T type);
-    }
+public abstract class Decision : ScriptableObject {
+
+    [HideInInspector] public SasukeController player;
+    
+    public abstract bool Decide();
 }

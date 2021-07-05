@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MainGame.Utils;
+﻿using ThunderNut.Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
