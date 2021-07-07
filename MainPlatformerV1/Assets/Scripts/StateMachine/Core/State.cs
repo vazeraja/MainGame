@@ -30,10 +30,6 @@ public abstract class State : ScriptableObject, IState {
     public void AddTransition(Transition transition) {
         transitions.Add(transition);
     }
-    public void AddTransition(Transition transition, out Transition newTransition) {
-        newTransition = transition;
-        transitions.Add(transition);
-    }
     public void RemoveTransition(Transition transition) {
         transitions.Add(transition);
     }

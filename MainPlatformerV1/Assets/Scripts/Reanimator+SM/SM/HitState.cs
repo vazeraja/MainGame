@@ -2,7 +2,7 @@
 
 
 [CreateAssetMenu(menuName = "PluggableAI/SasukeHitState")]
-public class SasukeHitState : ActionState {
+public class HitState : ActionState {
     public override void Enter() {
         var relativePosition =
             (Vector2) player.transform.InverseTransformPoint(player.collisionData.transform.position);

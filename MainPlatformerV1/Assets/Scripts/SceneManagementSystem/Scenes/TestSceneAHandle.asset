@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4586a00b74a91b2d409e1f4436a6c, type: 3}
+  m_Name: TestSceneAHandle
+  m_EditorClassIdentifier: 
+  scene: {fileID: 102900000, guid: a14e52efb4f96f14ba314834fe47f665, type: 3}
+  CharactersList:
+  - Left Portal
+  - Right Portal
+  passageElements:
+  - CharacterID: 0
+    sceneHandle: {fileID: 0}
+    DialogueText: 
+  - CharacterID: 1
+    sceneHandle: {fileID: 0}
+    DialogueText: 

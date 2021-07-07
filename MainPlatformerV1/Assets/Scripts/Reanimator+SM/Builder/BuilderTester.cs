@@ -10,15 +10,13 @@ public class BuilderTester : MonoBehaviour {
         stateMachine = Builder.RuntimeStateMachine
             .WithState(ScriptableObject.CreateInstance<MovementState>(), out var movementState)
             .WithState(ScriptableObject.CreateInstance<DashState>(), out var dashState)
-            .WithState(ScriptableObject.CreateInstance<SasukeHitState>(), out var hitState)
+            .WithState(ScriptableObject.CreateInstance<HitState>(), out var hitState)
             .WithState(ScriptableObject.CreateInstance<RemainState>(), out var remainState)
-            .WithTransition(ScriptableObject.CreateInstance<Transition>(),
-                ScriptableObject.CreateInstance<EnterMovementStateDecision>(), movementState, remainState,
+            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterMovementStateDecision>(), movementState, remainState,
                 new[] {dashState, hitState})
-            .WithTransition(ScriptableObject.CreateInstance<Transition>(),
-                ScriptableObject.CreateInstance<EnterDashStateDecision>(), dashState, remainState, movementState)
-            .WithTransition(ScriptableObject.CreateInstance<Transition>(),
-                ScriptableObject.CreateInstance<EnterHitStateDecision>(), hitState, remainState,
+            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterDashStateDecision>(), dashState, remainState, 
+                new[] {movementState})
+            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterHitStateDecision>(), hitState, remainState,
                 new[] {movementState, dashState})
             .SetCurrentState(movementState)
             .SetRemainState(remainState);

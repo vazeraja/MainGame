@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MainGame {
 
-    [CreateAssetMenu(fileName = "DialogueObject", menuName = "ScriptableObjects/DialogueObject", order = 0)]
+    [CreateAssetMenu(fileName = "DialogueObject", menuName = "Dialogue/DialogueObject", order = 0)]
     public class DialogueObject : ScriptableObject {
         public string dialogueID;
         public DialoguePresets.PresetTypes preset = default;

@@ -43,21 +43,16 @@ public class RuntimeStateMachine : ScriptableObject {
         currentState.Enter();
         OnStateTransition?.Invoke();
     }
-
-    public void AddState(State state) => states.Add(state);
-    public void RemoveState(State state) => states.Remove(state);
-    public void AddDecision(Decision decision) => decisions.Add(decision);
-    public void RemoveDecision(Decision decision) => decisions.Remove(decision);
-
+    
     #region Editor
     #if UNITY_EDITOR
     public State CreateState(Type type) {
-        State state = ScriptableObject.CreateInstance(type) as State;
+        State state = CreateInstance(type) as State;
         
         // ReSharper disable once PossibleNullReferenceException
         state.name = type.Name;
         state.guid = GUID.Generate().ToString();
-        AddState(state);
+        states.Add(state);
         
         AssetDatabase.AddObjectToAsset(state, this);
         AssetDatabase.SaveAssets();
@@ -65,7 +60,7 @@ public class RuntimeStateMachine : ScriptableObject {
         return state;
     }
     public void DeleteState(State state) {
-        RemoveState(state);
+        states.Remove(state);
         
         AssetDatabase.RemoveObjectFromAsset(state);
         AssetDatabase.SaveAssets();

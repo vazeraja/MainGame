@@ -1,9 +1,7 @@
-﻿using System;
-using MainGame;
-using ThunderNut.Extensions;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Utils;
 
 
@@ -16,7 +14,7 @@ public enum SasukeState {
 public class SasukeController : MonoBehaviour {
     [Header("Input")] 
     [SerializeField] private InputReader inputReader;
-
+    
     #region Variables
 
     [Header("Walking")] 

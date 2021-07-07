@@ -9,12 +9,12 @@ public interface ITransition {
     List<State> GetStates();
 }
 
-[CreateAssetMenu(menuName = "PluggableAI/Transition")]
-public class Transition : ScriptableObject, ITransition {
+[System.Serializable]
+public class Transition : ITransition {
     
-    public Decision decision;
-    public State trueState;
-    public State falseState;
+    [SerializeField] private Decision decision;
+    [SerializeField] private State trueState;
+    [SerializeField] private State falseState;
 
     public void SetDecision(Decision d) {
         decision = d;
