@@ -12,13 +12,11 @@ namespace ThunderNut.SceneManagement {
     {
         // You would only store an index to the according character
         // Since I don't have your Characters type for now lets reference them via the Dialogue.CharactersList
-        public int CharacterID;
+        public int sceneTag;
 
         public SceneHandle sceneHandle;
         
-        // By using the attribute [TextArea] this creates a nice multi-line text are field
-        // You could further configure it with a min and max line size if you want: [TextArea(minLines, maxLines)]
-        [TextArea] public string DialogueText;
+        public int sceneHandleTags;
     }
 
     [CreateAssetMenu(fileName = "SceneHandle", menuName = "World Graph/Scene Handle")]
@@ -26,9 +24,11 @@ namespace ThunderNut.SceneManagement {
 
         public SceneAsset scene;
         
-        public string[] CharactersList;
+        public string[] sceneTags;
         public List<PassageElement> passageElements;
-
+        
+        
+        
         public void AddPassageData() {
             ScenePassage data = CreateInstance<ScenePassage>();
 

@@ -1,4 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using Aarthificial.Reanimation.Cels;
+using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -8,23 +13,21 @@ namespace ThunderNut.SceneManagement {
     public class SceneHandleEditor : Editor
     {
         // This will be the serialized clone property of SceneHandle.CharacterList
-        private SerializedProperty CharactersList;
+        private SerializedProperty SceneTagsProperty;
 
         // This will be the serialized clone property of SceneHandle.DialogueItems
-        private SerializedProperty DialogueItems;
+        private SerializedProperty PassageElementsProperty;
         
         // This will be the serialized clone property of SceneHandle.scene
         private SerializedProperty sceneProp;
         
-        // This is a little bonus from my side!
-        // These Lists are extremely more powerful then the default presentation of lists!
-        // you can/have to implement completely custom behavior of how to display and edit 
+        // You have to implement completely custom behavior of how to display and edit 
         // the list elements
         private ReorderableList charactersList;
         private ReorderableList passageElementsList;
 
         // Reference to the actual Dialogue instance this Inspector belongs to
-        private SceneHandle dialogue;
+        private SceneHandle sceneHandle;
 
         // class field for storing available options
         private GUIContent[] availableOptions;
@@ -33,31 +36,31 @@ namespace ThunderNut.SceneManagement {
         private void OnEnable()
         {
             // Get the target as the type you are actually using
-            dialogue = (SceneHandle) target;
+            sceneHandle = (SceneHandle) target;
 
             // Link in serialized fields to their according SerializedProperties
-            CharactersList = serializedObject.FindProperty(nameof(SceneHandle.CharactersList));
-            DialogueItems = serializedObject.FindProperty(nameof(SceneHandle.passageElements));
+            SceneTagsProperty = serializedObject.FindProperty(nameof(SceneHandle.sceneTags));
+            PassageElementsProperty = serializedObject.FindProperty(nameof(SceneHandle.passageElements));
 
             // Setup and configure the charactersList we will use to display the content of the CharactersList 
             // in a nicer way
-            charactersList = new ReorderableList(serializedObject, CharactersList)
+            charactersList = new ReorderableList(serializedObject, SceneTagsProperty)
             {
                 displayAdd = true,
                 displayRemove = true,
                 draggable = false, // for now disable reorder feature since we later go by index!
 
                 // As the header we simply want to see the usual display name of the CharactersList
-                drawHeaderCallback = rect => EditorGUI.LabelField(rect, CharactersList.displayName),
+                drawHeaderCallback = rect => EditorGUI.LabelField(rect, SceneTagsProperty.displayName),
 
                 // How shall elements be displayed
                 drawElementCallback = (rect, index, focused, active) =>
                 {
                     // get the current element's SerializedProperty
-                    var element = CharactersList.GetArrayElementAtIndex(index);
+                    var element = SceneTagsProperty.GetArrayElementAtIndex(index);
 
                     // Get all characters as string[]
-                    var availableIDs = dialogue.CharactersList;
+                    var availableIDs = sceneHandle.sceneTags;
 
                     // store the original GUI.color
                     var color = GUI.color;
@@ -90,8 +93,8 @@ namespace ThunderNut.SceneManagement {
                 // in this case e.g. dependent whether a HelpBox is displayed or not
                 elementHeightCallback = index =>
                 {
-                    var element = CharactersList.GetArrayElementAtIndex(index);
-                    var availableIDs = dialogue.CharactersList;
+                    var element = SceneTagsProperty.GetArrayElementAtIndex(index);
+                    var availableIDs = sceneHandle.sceneTags;
 
                     var height = EditorGUI.GetPropertyHeight(element);
 
@@ -119,40 +122,41 @@ namespace ThunderNut.SceneManagement {
 
             // Setup and configure the dialogItemsList we will use to display the content of the DialogueItems 
             // in a nicer way
-            passageElementsList = new ReorderableList(serializedObject, DialogueItems)
+            passageElementsList = new ReorderableList(serializedObject, PassageElementsProperty)
             {
                 displayAdd = true,
                 displayRemove = true,
                 draggable = true, // for the dialogue items we can allow re-ordering
 
                 // As the header we simply want to see the usual display name of the DialogueItems
-                drawHeaderCallback = rect => EditorGUI.LabelField(rect, DialogueItems.displayName),
+                drawHeaderCallback = rect => EditorGUI.LabelField(rect, PassageElementsProperty.displayName),
 
                 // How shall elements be displayed
                 drawElementCallback = (rect, index, focused, active) =>
                 {
                     // get the current element's SerializedProperty
-                    var element = DialogueItems.GetArrayElementAtIndex(index);
+                    var element = PassageElementsProperty.GetArrayElementAtIndex(index);
 
                     // Get the nested property fields of the DialogueElement class
-                    var character = element.FindPropertyRelative(nameof(PassageElement.CharacterID));
-                    var text = element.FindPropertyRelative(nameof(PassageElement.DialogueText));
+                    var sceneTag = element.FindPropertyRelative(nameof(PassageElement.sceneTag));
                     var handle = element.FindPropertyRelative(nameof(PassageElement.sceneHandle));
-                    
-                    var popUpHeight = EditorGUI.GetPropertyHeight(character);
+                    var handleTags = element.FindPropertyRelative(nameof(PassageElement.sceneHandleTags));
+
+                    var popUpHeight = EditorGUI.GetPropertyHeight(sceneTag);
 
                     // store the original GUI.color
                     var color = GUI.color;
 
                     // if the value is invalid tint the next field red
-                    if(character.intValue < 0) GUI.color = Color.red;
+                    if(sceneTag.intValue < 0) GUI.color = Color.red;
 
                     // Draw the Popup so you can select from the existing character names
-                    character.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight),
-                        new GUIContent(sceneProp.displayName), character.intValue, availableOptions);
+                    sceneTag.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight),
+                        new GUIContent(sceneHandle.scene != null ? sceneHandle.scene.name : sceneTag.displayName), sceneTag.intValue, availableOptions);
                     
-                    rect.y += popUpHeight;
+                    // reset the GUI.color
                     GUI.color = color;
+                    rect.y += popUpHeight;
                     
                     var handleHeight = EditorGUI.GetPropertyHeight(handle);
                     EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, handleHeight), handle, new GUIContent("Target Scene"));
@@ -164,8 +168,16 @@ namespace ThunderNut.SceneManagement {
                     // Draw the text field
                     // since we use a PropertyField it will automatically recognize that this field is tagged [TextArea]
                     // and will choose the correct drawer accordingly
-                    var textHeight = EditorGUI.GetPropertyHeight(text);
-                    EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, textHeight), text);
+                    // var textHeight = EditorGUI.GetPropertyHeight(handleTags);
+                    // EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, textHeight), handleTags);
+
+                    if (handle.objectReferenceValue == null) return;
+                    var handleOptions = sceneHandle.passageElements[index]?.sceneHandle.sceneTags.Select(item => new GUIContent(item)).ToArray();
+                    EditorGUI.BeginDisabledGroup(sceneHandle.passageElements[index] == null);
+                    handleTags.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight),
+                        new GUIContent("Passage"), handleTags.intValue, handleOptions);
+                    EditorGUI.EndDisabledGroup();
+
                 },
 
                 // Get the correct display height of elements in the list
@@ -173,12 +185,12 @@ namespace ThunderNut.SceneManagement {
                 // in this case e.g. we add an additional line as a little spacing between elements
                 elementHeightCallback = index =>
                 {
-                    var element = DialogueItems.GetArrayElementAtIndex(index);
+                    var element = PassageElementsProperty.GetArrayElementAtIndex(index);
 
-                    var character = element.FindPropertyRelative(nameof(PassageElement.CharacterID));
-                    var text = element.FindPropertyRelative(nameof(PassageElement.DialogueText));
+                    var sceneTag = element.FindPropertyRelative(nameof(PassageElement.sceneTag));
+                    var handle = element.FindPropertyRelative(nameof(PassageElement.sceneHandle));
 
-                    return EditorGUI.GetPropertyHeight(character) + EditorGUI.GetPropertyHeight(text) + EditorGUIUtility.singleLineHeight;
+                    return EditorGUI.GetPropertyHeight(sceneTag) + EditorGUI.GetPropertyHeight(handle) + EditorGUIUtility.singleLineHeight;
                 },
 
                 // Overwrite what shall be done when an element is added via the +
@@ -190,18 +202,17 @@ namespace ThunderNut.SceneManagement {
                     list.serializedProperty.arraySize++;
 
                     var newElement = list.serializedProperty.GetArrayElementAtIndex(list.serializedProperty.arraySize - 1);
-                    var character = newElement.FindPropertyRelative(nameof(PassageElement.CharacterID));
-                    var text = newElement.FindPropertyRelative(nameof(PassageElement.DialogueText));
+                    var sceneTag = newElement.FindPropertyRelative(nameof(PassageElement.sceneTag));
                     var handle = newElement.FindPropertyRelative(nameof(PassageElement.sceneHandle));
+                    var text = newElement.FindPropertyRelative(nameof(PassageElement.sceneHandleTags));
 
-                    character.intValue = -1;
-                    text.stringValue = "";
+                    sceneTag.intValue = -1;
                 }
             };
 
             // Get the existing character names ONCE as GuiContent[]
             // Later only update this if the charcterList was changed
-            availableOptions = dialogue.CharactersList.Select(item => new GUIContent(item)).ToArray();
+            availableOptions = sceneHandle.sceneTags.Select(item => new GUIContent(item)).ToArray();
         }
 
         public override void OnInspectorGUI()
@@ -223,7 +234,7 @@ namespace ThunderNut.SceneManagement {
                 serializedObject.ApplyModifiedProperties();
 
                 // Update the existing character names as GuiContent[]
-                availableOptions = dialogue.CharactersList.Select(item => new GUIContent(item)).ToArray();
+                availableOptions = sceneHandle.sceneTags.Select(item => new GUIContent(item)).ToArray();
             }
 
             passageElementsList.DoLayoutList();
@@ -240,5 +251,24 @@ namespace ThunderNut.SceneManagement {
 
             EditorGUILayout.Space();
         }
+        
+        [MenuItem("Assets/Create/World Graph/Scene Handle (From Scene)", false, 400)]
+        private static void CreateFromScene()
+        {
+            var trailingNumbersRegex = new Regex(@"(\d+$)");
+            
+            var scene = Selection.activeObject as SceneAsset;
+
+            var asset = CreateInstance<SceneHandle>();
+            asset.scene = scene;
+            string baseName = trailingNumbersRegex.Replace(scene != null ? scene.name : string.Empty, "");
+            asset.name = baseName + "Handle";
+
+            string assetPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(scene));
+            AssetDatabase.CreateAsset(asset, Path.Combine(assetPath ?? Application.dataPath, asset.name + ".asset"));
+            AssetDatabase.SaveAssets();
+        }
+        [MenuItem("Assets/Create/World Graph/Scene Handle (From Scene)", true, 400)]
+        private static bool CreateFromSceneValidation() => Selection.activeObject as SceneAsset;
     }
 }
