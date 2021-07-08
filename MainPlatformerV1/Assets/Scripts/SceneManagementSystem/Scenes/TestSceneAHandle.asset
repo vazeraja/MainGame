@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TestSceneAHandle
   m_EditorClassIdentifier: 
   scene: {fileID: 102900000, guid: a14e52efb4f96f14ba314834fe47f665, type: 3}
-  sceneTags:
-  - Left Portal
-  - Right Portal
   passageElements:
   - sceneTag: 0
-    sceneHandle: {fileID: 11400000, guid: 625e794dcbbfb944e92014055edb8833, type: 2}
-    sceneHandleTags: 2
+    sceneHandle: {fileID: 0}
+    sceneHandleTags: 0
+  sceneTags:
+  - Right Portal
+  - Left Portal
+  scenePassages: []

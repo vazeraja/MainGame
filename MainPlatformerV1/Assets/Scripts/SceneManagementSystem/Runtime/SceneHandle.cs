@@ -7,11 +7,9 @@ using UnityEngine;
 
 namespace ThunderNut.SceneManagement {
     
-    [Serializable] //needed to make ScriptableObject out of this class
+    [Serializable]
     public class PassageElement
     {
-        // You would only store an index to the according character
-        // Since I don't have your Characters type for now lets reference them via the Dialogue.CharactersList
         public int sceneTag;
 
         public SceneHandle sceneHandle;
@@ -23,21 +21,23 @@ namespace ThunderNut.SceneManagement {
     public class SceneHandle : ScriptableObject {
 
         public SceneAsset scene;
-        
-        public string[] sceneTags;
         public List<PassageElement> passageElements;
+        [HideInInspector] public string[] sceneTags;
         
-        
-        
-        public void AddPassageData() {
-            ScenePassage data = CreateInstance<ScenePassage>();
+        [HideInInspector] public List<ScenePassage> scenePassages;
 
-            AssetDatabase.AddObjectToAsset(data, this);
-            EditorUtility.SetDirty(this);
+        public void AddPassage(SceneHandle sceneHandle) {
+            ScenePassage data = CreateInstance<ScenePassage>();
+            
+            scenePassages.Add(data);
+            
+            AssetDatabase.AddObjectToAsset(data, sceneHandle);
+            EditorUtility.SetDirty(sceneHandle);
             AssetDatabase.SaveAssets();
         }
 
         public void DeletePassage(ScenePassage data) {
+
             AssetDatabase.RemoveObjectFromAsset(data);
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();

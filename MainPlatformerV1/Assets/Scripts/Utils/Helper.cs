@@ -175,6 +175,9 @@ namespace ThunderNut.Extensions {
             yield return new WaitForSeconds(delay);
             method();
         }
+        public static string WithColour(this string text, Color colour) {
+            return $"<color=#{ColorUtility.ToHtmlStringRGB(colour)}>{text}</color>";
+        }
 
         public static void CustomLog(string text, LogColor color) {
             switch (color) {

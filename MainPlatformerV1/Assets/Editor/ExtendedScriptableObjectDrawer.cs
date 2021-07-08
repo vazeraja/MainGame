@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using ThunderNut.SceneManagement;
 using UnityEngine;
 using UnityEditor;
 
@@ -16,7 +17,7 @@ using UnityEditor;
 /// todo: enable custom editors for scriptable objects
 /// </summary>
 
-//[CustomPropertyDrawer(typeof(ScriptableObject), true)]
+//[CustomPropertyDrawer(typeof(SceneHandle), false)]
 public class ExtendedScriptableObjectDrawer : PropertyDrawer {
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label){

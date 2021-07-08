@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: TestSceneBHandle
   m_EditorClassIdentifier: 
   scene: {fileID: 102900000, guid: 0258fd939bf6d414085579941e868bd6, type: 3}
+  passageElements: []
   sceneTags:
   - A
   - B
-  - C
-  passageElements:
-  - sceneTag: 0
-    sceneHandle: {fileID: 11400000, guid: 926722243045bb243853846b8eb4e932, type: 2}
-    sceneHandleTags: 0
+  scenePassages: []
