@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using MainGame;
+using ThunderNut.SceneManagement;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
 public class BuilderTester : MonoBehaviour {
     public RuntimeStateMachine stateMachine;
+
+    public SceneHandle sceneHandle;
 
     private void Awake() {
         stateMachine = Builder.RuntimeStateMachine

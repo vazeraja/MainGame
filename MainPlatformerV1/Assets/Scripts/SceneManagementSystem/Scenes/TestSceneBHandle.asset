@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e4586a00b74a91b2d409e1f4436a6c, type: 3}
   m_Name: TestSceneBHandle
   m_EditorClassIdentifier: 
-  scene: {fileID: 102900000, guid: 0258fd939bf6d414085579941e868bd6, type: 3}
-  passageElements: []
+  scene: {fileID: 102900000, guid: 11d3f2886a01f724bb55dda7a2f8c0a6, type: 3}
   sceneTags:
-  - A
-  - B
-  scenePassages: []
+  - Left Portal
+  - Right Portal
+  passageElements:
+  - sceneTag: 0
+    sceneHandle: {fileID: 11400000, guid: 926722243045bb243853846b8eb4e932, type: 2}
+    sceneHandleTags: 1
