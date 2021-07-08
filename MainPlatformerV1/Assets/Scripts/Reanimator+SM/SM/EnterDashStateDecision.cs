@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnterDashStateDecision : Decision
 {
     public override bool Decide() {
-        return player.State == SasukeState.Dash;
+        return Player.State == SasukeState.Dash;
     }
 }
 

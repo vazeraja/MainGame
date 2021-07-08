@@ -43,7 +43,7 @@ public class StateMachine : MonoBehaviour, IStateMachine {
 
     public void Bind(SasukeController player) {
         states.ForEach(state => state.player = player);
-        decisions.ForEach(decision => decision.player = player);
+        decisions.ForEach(decision => decision.Player = player);
         states.ForEach(state => state.stateMachine = this);
     }
 }

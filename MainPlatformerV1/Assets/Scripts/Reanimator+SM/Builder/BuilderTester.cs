@@ -8,15 +8,15 @@ public class BuilderTester : MonoBehaviour {
 
     private void Awake() {
         stateMachine = Builder.RuntimeStateMachine
-            .WithState(ScriptableObject.CreateInstance<MovementState>(), out var movementState)
-            .WithState(ScriptableObject.CreateInstance<DashState>(), out var dashState)
-            .WithState(ScriptableObject.CreateInstance<HitState>(), out var hitState)
-            .WithState(ScriptableObject.CreateInstance<RemainState>(), out var remainState)
-            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterMovementStateDecision>(), movementState, remainState,
+            .WithState(new MovementState(), out var movementState)
+            .WithState(new DashState(), out var dashState)
+            .WithState(new HitState(), out var hitState)
+            .WithState(new RemainState(), out var remainState)
+            .WithTransition(new EnterMovementStateDecision(), movementState, remainState,
                 new[] {dashState, hitState})
-            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterDashStateDecision>(), dashState, remainState, 
+            .WithTransition(new EnterDashStateDecision(), dashState, remainState,
                 new[] {movementState})
-            .WithTransition(new Transition(), ScriptableObject.CreateInstance<EnterHitStateDecision>(), hitState, remainState,
+            .WithTransition(new EnterHitStateDecision(), hitState, remainState,
                 new[] {movementState, dashState})
             .SetCurrentState(movementState)
             .SetRemainState(remainState);

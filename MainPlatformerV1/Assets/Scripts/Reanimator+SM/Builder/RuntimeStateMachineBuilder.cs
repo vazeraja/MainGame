@@ -36,11 +36,10 @@ public class RuntimeStateMachineBuilder {
 
         return this;
     }
-    public RuntimeStateMachineBuilder WithTransition(Transition transition, Decision decision, State trueState,
+    public RuntimeStateMachineBuilder WithTransition(Decision decision, State trueState,
         State falseState, IEnumerable<State> statesToAdd) {
-        
-        transition.SetDecision(decision);
-        transition.SetStates(trueState, falseState);
+
+        var transition = new Transition(decision, trueState, falseState);
         
         statesToAdd.ForEach(x => x.AddTransition(transition));
         decisions.Add(decision);

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Decision : ScriptableObject {
+[System.Serializable]
+public abstract class Decision : IDecision {
 
-    [HideInInspector] public SasukeController player;
+    [HideInInspector] public SasukeController Player;
     
     public abstract bool Decide();
 }

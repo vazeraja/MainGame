@@ -11,10 +11,19 @@ public interface ITransition {
 
 [System.Serializable]
 public class Transition : ITransition {
-    
     [SerializeField] private Decision decision;
     [SerializeField] private State trueState;
     [SerializeField] private State falseState;
+
+
+    public Transition() {
+    }
+
+    public Transition(Decision d, State t, State f) {
+        this.decision = d;
+        this.trueState = t;
+        this.falseState = f;
+    }
 
     public void SetDecision(Decision d) {
         decision = d;

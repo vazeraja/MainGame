@@ -5,23 +5,23 @@ using System;
 using JetBrains.Annotations;
 
 
-public abstract class ActionState : State { }
+public abstract class ActionState : State {
+}
 
-public abstract class State : ScriptableObject, IState {
-
+[System.Serializable]
+public abstract class State : IState {
     [HideInInspector] public string stateName;
     [HideInInspector] public string guid;
     [HideInInspector] public Vector2 position;
-    
+
     public StateMachine stateMachine;
     public SasukeController player;
 
-    [Space(25)]
-    public List<State> children = new List<State>();
+    [Space(25)] public List<State> children = new List<State>();
     public List<Transition> transitions = new List<Transition>();
-    
+
     public event Action<State> CheckTransitions;
-    
+
     public abstract void Enter();
     public abstract void Update();
     public abstract void FixedUpdate();
@@ -30,10 +30,11 @@ public abstract class State : ScriptableObject, IState {
     public void AddTransition(Transition transition) {
         transitions.Add(transition);
     }
+
     public void RemoveTransition(Transition transition) {
         transitions.Add(transition);
     }
-    
+
     public void CheckStateTransitions() {
         foreach (var t in transitions) {
             bool decisionSucceeded = t.GetDecision().Decide();
