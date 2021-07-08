@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 namespace ThunderNut.SceneManagement {
     [CustomEditor(typeof(SceneHandle))]
@@ -114,7 +115,8 @@ namespace ThunderNut.SceneManagement {
                     // This adds the new element but copies all values of the select or last element in the list
                     list.serializedProperty.arraySize++;
 
-                    var newElement = list.serializedProperty.GetArrayElementAtIndex(list.serializedProperty.arraySize - 1);
+                    var newElement =
+                        list.serializedProperty.GetArrayElementAtIndex(list.serializedProperty.arraySize - 1);
                     newElement.stringValue = "";
                 }
             };
@@ -162,6 +164,7 @@ namespace ThunderNut.SceneManagement {
                     if (handle.objectReferenceValue == null) {
                         GUI.color = Color.red;
                     }
+
                     EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, handleHeight), handle,
                         new GUIContent("Target Scene"));
 
@@ -172,13 +175,17 @@ namespace ThunderNut.SceneManagement {
                     // Draw the text field
                     // since we use a PropertyField it will automatically recognize that this field is tagged [TextArea]
                     // and will choose the correct drawer accordingly
-                    var textHeight = EditorGUI.GetPropertyHeight(subHandleTags);
-                    EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, textHeight), subHandleTags);
+                    // var textHeight = EditorGUI.GetPropertyHeight(handleTags);
+                    // EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width, textHeight), handleTags);
 
-                    // var handleOptions = sceneHandle.passageElements[index].sceneHandle.sceneTags.Select(item => new GUIContent(item)).ToArray();
+                    // var handleOptions = sceneHandle
+                    //     .passageElements[index]
+                    //     .sceneHandle
+                    //     .sceneTags
+                    //     .Select(item => new GUIContent(item)).ToArray();
                     
-                    // handleTags.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight),
-                        // new GUIContent("Passage"), handleTags.intValue, new GUIContent[] { });
+                    handleTags.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight),
+                        new GUIContent("Passage"), handleTags.intValue, new GUIContent[] {} );
                 },
 
                 // Get the correct display height of elements in the list

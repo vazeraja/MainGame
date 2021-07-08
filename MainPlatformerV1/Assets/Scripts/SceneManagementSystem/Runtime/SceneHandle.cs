@@ -4,6 +4,7 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 namespace ThunderNut.SceneManagement {
     
@@ -11,9 +12,7 @@ namespace ThunderNut.SceneManagement {
     public class PassageElement
     {
         public int sceneTag;
-
         public SceneHandle sceneHandle;
-        
         public int sceneHandleTags;
     }
 

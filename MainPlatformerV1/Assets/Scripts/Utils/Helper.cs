@@ -170,11 +170,11 @@ namespace ThunderNut.Extensions {
         public static void CallWithDelay(this MonoBehaviour mono, Action method, float delay) {
             mono.StartCoroutine(CallWithDelayRoutine(method, delay));
         }
-
         private static IEnumerator CallWithDelayRoutine(Action method, float delay) {
             yield return new WaitForSeconds(delay);
             method();
         }
+        
         public static string WithColour(this string text, Color colour) {
             return $"<color=#{ColorUtility.ToHtmlStringRGB(colour)}>{text}</color>";
         }

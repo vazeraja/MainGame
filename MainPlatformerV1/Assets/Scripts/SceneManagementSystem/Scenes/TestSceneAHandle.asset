@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: {fileID: 102900000, guid: a14e52efb4f96f14ba314834fe47f665, type: 3}
   passageElements:
+  - sceneTag: 1
+    sceneHandle: {fileID: 0}
+    sceneHandleTags: 0
   - sceneTag: 0
     sceneHandle: {fileID: 0}
     sceneHandleTags: 0
