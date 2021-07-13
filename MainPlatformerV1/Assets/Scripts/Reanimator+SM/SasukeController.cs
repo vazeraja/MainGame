@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Utils;
 
 
@@ -39,13 +37,13 @@ public class SasukeController : MonoBehaviour {
 
     #endregion
 
-    public RuntimeStateMachine StateMachine { get; private set; }
+    private RuntimeStateMachine stateMachine;
     public CollisionDetection CollisionDetection { get; private set; }
     public SasukeState State { get; set; } = SasukeState.Movement;
     public Vector2 DesiredDirection { get; private set; }
     public int FacingDirection { get; set; } = 1;
 
-    public float AttackCompletion => dashStopwatch.Completion;
+    public float DashCompletion => dashStopwatch.Completion;
     public float JumpCompletion => jumpStopwatch.Completion;
     public bool IsJumping => !jumpStopwatch.IsFinished;
     public bool IsFirstJump => jumpsLeft == numberOfJumps - 1;
@@ -59,10 +57,25 @@ public class SasukeController : MonoBehaviour {
 
     private void Awake() {
         CollisionDetection = GetComponent<CollisionDetection>();
+        
+        stateMachine = Builder.RuntimeStateMachine
+            .WithState(new MovementState(), out var movementState)
+            .WithState(new DashState(), out var dashState)
+            .WithState(new HitState(), out var hitState)
+            .WithState(new RemainState(), out var remainState)
+            .WithTransition(new Transition(), new EnterMovementStateDecision(), movementState, remainState,
+                new[] {dashState, hitState})
+            .WithTransition(new Transition(), new EnterDashStateDecision(), dashState, remainState, 
+                new[] {movementState})
+            .WithTransition(new Transition(), new EnterHitStateDecision(), hitState, remainState,
+                new[] {movementState, dashState})
+            .SetCurrentState(movementState)
+            .SetRemainState(remainState);
     }
 
     private void Start() {
         enemyLayer = LayerMask.NameToLayer($"Enemy");
+        stateMachine.Bind(this);
     }
 
     private void OnEnable() {
@@ -75,6 +88,15 @@ public class SasukeController : MonoBehaviour {
         inputReader.MoveEvent -= OnMove;
         inputReader.FJumpEvent -= OnJump;
         inputReader.AttackEvent -= OnDash;
+        
+        // stateMachine.DisableTransitions();
+    }
+    private void Update() {
+        stateMachine.Update();
+    }
+
+    private void FixedUpdate() {
+        stateMachine.FixedUpdate();
     }
 
     #region Events

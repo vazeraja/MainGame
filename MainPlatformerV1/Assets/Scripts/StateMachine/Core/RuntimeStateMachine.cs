@@ -1,8 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-#endif
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -43,47 +39,6 @@ public class RuntimeStateMachine : ScriptableObject {
         currentState.Enter();
         OnStateTransition?.Invoke();
     }
-    
-    #region Editor
-    #if UNITY_EDITOR
-    public State CreateState(Type type) {
-        State state = CreateInstance(type) as State;
-        
-        // ReSharper disable once PossibleNullReferenceException
-        state.name = type.Name;
-        state.guid = GUID.Generate().ToString();
-        states.Add(state);
-        
-        AssetDatabase.AddObjectToAsset(state, this);
-        AssetDatabase.SaveAssets();
-        
-        return state;
-    }
-    public void DeleteState(State state) {
-        states.Remove(state);
-        
-        AssetDatabase.RemoveObjectFromAsset(state);
-        AssetDatabase.SaveAssets();
-    }
-
-    public void AddChild(State parent, State child) {
-        ActionState state = parent as ActionState;
-        if (state) state.children.Add(child);
-    }
-    public void RemoveChild(State parent, State child) {
-        ActionState state = parent as ActionState;
-        if (state) state.children.Remove(child);
-    }
-    public List<State> GetChildren(State parent) {
-        List<State> children = new List<State>();
-        
-        ActionState state = parent as ActionState;
-        return state ? state.children : children;
-    }
-    
-    #endif
-    #endregion
-
     public void Bind(SasukeController player) {
         states.ForEach(state => state.player = player);
         decisions.ForEach(decision => decision.player = player);

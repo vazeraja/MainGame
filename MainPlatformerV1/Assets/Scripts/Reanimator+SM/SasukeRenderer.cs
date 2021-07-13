@@ -55,7 +55,7 @@ public class SasukeRenderer : MonoBehaviour {
         reanimator.Set(Drivers.JumpDirection, velocity.y > 0);
         reanimator.Set(Drivers.ShouldFlip, controller.IsJumping && !controller.IsFirstJump);
         reanimator.Set(Drivers.FlipCompletion, controller.JumpCompletion);
-        reanimator.Set(Drivers.AttackCompletion, controller.AttackCompletion);
+        reanimator.Set(Drivers.AttackCompletion, controller.DashCompletion);
         reanimator.Set(Drivers.HitDirection, hitDirection);
 
         bool didLandInThisFrame = reanimator.WillChange(Drivers.IsGrounded, true);

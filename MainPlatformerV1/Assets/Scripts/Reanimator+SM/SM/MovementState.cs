@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "PluggableAI/SasukeMovementState")]
-public class MovementState : ActionState {
+public class MovementState : State {
     
     public override void Enter() {
         player.State = SasukeState.Movement;

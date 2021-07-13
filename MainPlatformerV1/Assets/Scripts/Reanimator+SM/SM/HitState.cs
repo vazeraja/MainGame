@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "PluggableAI/SasukeHitState")]
-public class HitState : ActionState {
+public class HitState : State {
     public override void Enter() {
         var relativePosition =
             (Vector2) player.transform.InverseTransformPoint(player.collisionData.transform.position);

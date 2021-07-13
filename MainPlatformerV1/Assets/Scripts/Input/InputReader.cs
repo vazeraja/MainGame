@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions,
-    GameInput.IMenuActions {
+public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IMenuActions {
+    
     // Gameplay
     public event UnityAction<Vector2> MoveEvent;
     public event UnityAction<float> FJumpEvent;
@@ -16,9 +16,6 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event UnityAction DashEvent;
     public event UnityAction DashCanceledEvent;
     public event UnityAction<Vector2> DashKeyboardEvent;
-
-    // Menu
-    public event UnityAction OpenMenuWindow;
 
     // Interaction
     public event UnityAction InteractionStartedEvent;
@@ -31,6 +28,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event UnityAction AdvanceDialogueEvent;
 
     // Menu Input
+    public event UnityAction OpenMenuWindow;
     public event UnityAction TabRightButtonEvent;
     public event UnityAction TabLeftButtonEvent;
     public event UnityAction CloseMenuWindow;
@@ -139,27 +137,23 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         GameInput.Gameplay.Enable();
         GameInput.Dialogues.Disable();
         GameInput.Menu.Disable();
-        Helper.CustomLog("Gameplay Input Enabled", LogColor.White);
     }
 
     public void EnableDialogueInput() {
         GameInput.Dialogues.Enable();
         GameInput.Gameplay.Disable();
         GameInput.Menu.Disable();
-        Helper.CustomLog("Dialogue Input Enabled", LogColor.White);
     }
 
     public void EnableMenuInput() {
         GameInput.Menu.Enable();
         GameInput.Gameplay.Disable();
         GameInput.Dialogues.Disable();
-        Helper.CustomLog("Menu Input Enabled", LogColor.White);
     }
 
     public void DisableAllInput() {
         GameInput.Gameplay.Disable();
         GameInput.Dialogues.Disable();
         GameInput.Menu.Disable();
-        Helper.CustomLog("All Input disabled", LogColor.None);
     }
 }

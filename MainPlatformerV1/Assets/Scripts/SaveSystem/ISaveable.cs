@@ -1,11 +1,5 @@
-﻿
-namespace MainGame {
+﻿public interface ISaveable {
+    object CaptureState();
 
-    public interface ISaveable {
-
-        object CaptureState();
-
-        void RestoreState(object state);
-
-    }
+    void RestoreState(object state);
 }

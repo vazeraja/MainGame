@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5612792004504331092}
   - component: {fileID: 5612792004504331093}
   - component: {fileID: 5612792004504331098}
-  - component: {fileID: 5612792004504331097}
   - component: {fileID: 5612792004504331102}
+  - component: {fileID: 5612792004504331097}
   - component: {fileID: 5612792004504331100}
   - component: {fileID: 5612792004504331099}
   - component: {fileID: 5612792004504331101}
@@ -138,6 +138,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &5612792004504331102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612792004504331096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71144378de70e744ad3b67c85449d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody2D: {fileID: 0}
 --- !u!114 &5612792004504331097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,19 +169,6 @@ MonoBehaviour:
   temporaryDrivers:
   - temporary
   - idleTransition
---- !u!114 &5612792004504331102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5612792004504331096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71144378de70e744ad3b67c85449d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbody2D: {fileID: 0}
 --- !u!114 &5612792004504331100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,5 +251,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810fe5f69e8342ab864899404ed9b7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateMachine: {fileID: 0}
-  sceneHandle: {fileID: 0}
+  sceneHandle: {fileID: 11400000, guid: 926722243045bb243853846b8eb4e932, type: 2}

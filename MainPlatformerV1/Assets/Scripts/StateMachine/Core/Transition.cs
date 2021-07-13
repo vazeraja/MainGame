@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ public interface ITransition {
     List<State> GetStates();
 }
 
-[System.Serializable]
+[Serializable]
 public class Transition : ITransition {
     
     [SerializeField] private Decision decision;

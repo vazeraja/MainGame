@@ -4,10 +4,10 @@ using UnityEngine;
 using System;
 using JetBrains.Annotations;
 
-
 public abstract class ActionState : State { }
 
-public abstract class State : ScriptableObject, IState {
+[Serializable]
+public abstract class State : IState {
 
     [HideInInspector] public string stateName;
     [HideInInspector] public string guid;

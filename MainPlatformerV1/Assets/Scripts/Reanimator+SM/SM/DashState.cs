@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "PluggableAI/SasukeDashState")]
-public class DashState : ActionState {
+public class DashState : State {
     public override void Enter() {
         player.dashStopwatch.Split();
         player.canDash = false;

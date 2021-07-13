@@ -23,7 +23,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""103cf56a-d357-491a-8559-592da00641cc"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone"",
+                    ""processors"": """",
                     ""interactions"": """"
                 },
                 {
@@ -143,7 +143,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""name"": ""Keyboard WASD"",
                     ""id"": ""f8b893c4-85c2-492d-89ab-41f8d1520def"",
                     ""path"": ""2DVector"",
-                    ""interactions"": ""Press(pressPoint=0.1,behavior=2)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ThunderNut.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,10 +13,12 @@ public class MainMenu : MonoBehaviour {
 
     private readonly List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
+    [SerializeField] private SceneHandle sceneHandle;
+
     public void StartGame(){
         HideMenu();
         ShowLoadingScreen();
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("SceneA"));
+        // scenesToLoad.Add(SceneManager.LoadSceneAsync($"{sceneHandle.scene.name}", LoadSceneMode.Additive));
         // scenesToLoad.Add(SceneManager.LoadSceneAsync("SceneB"));
         StartCoroutine(LoadingScreen());
     }

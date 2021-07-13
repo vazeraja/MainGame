@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f1da0b6abdb7d45aa4315eccab639b, type: 3}
+  m_Name: kakashi_chidori_animation
+  m_EditorClassIdentifier: 
+  cels:
+  - sprite: {fileID: -5877293075003991473, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -8583050868722014153, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6854990334445812543, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -3733837796638412964, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 5051321779420766972, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 5297360802857468348, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6153424535970784418, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -2844704013839117229, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 4233737001403673175, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 8927115421597117283, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -8698850201191214689, guid: ca3fa115f24e17147993d5c9c948cf99,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  controlDriver:
+    name: 
+    autoIncrement: 1
+    percentageBased: 0
+    guid: 3e1bb868-170b-4484-b833-df2ad87b1235
+  drivers:
+    keys: []
+    values: 
