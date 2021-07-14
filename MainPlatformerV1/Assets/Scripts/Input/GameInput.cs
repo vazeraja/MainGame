@@ -32,7 +32,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""id"": ""d603fc26-b424-4cff-a593-71ee48e3d0ef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Attack"",
@@ -264,7 +264,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""645ba428-0631-4e32-b9b0-eaac5d9ed36d"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
                     ""action"": ""Jump"",

@@ -17,8 +17,7 @@ namespace ThunderNut.StateMachine {
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 position;
 
-        public StateMachine stateMachine;
-        public SasukeController player;
+        public object agent;
 
         [Space(25)] public List<State> children = new List<State>();
         public List<Transition> transitions = new List<Transition>();
@@ -30,6 +29,10 @@ namespace ThunderNut.StateMachine {
         public abstract void FixedUpdate();
         public abstract void Exit();
 
+        public void BindAgent<T>(object type) where T : class {
+            agent = type as T;
+        }
+        
         public void AddTransition(Transition transition) {
             transitions.Add(transition);
         }

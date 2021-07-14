@@ -9,7 +9,10 @@ namespace ThunderNut.StateMachine {
     [Serializable]
     public abstract class Decision : IDecision {
 
-        [HideInInspector] public SasukeController player;
+        public object agent;
         public abstract bool Decide();
+        public void BindAgent<T>(object type) where T : class {
+            agent = type as T;
+        }
     }
 }

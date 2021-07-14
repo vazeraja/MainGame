@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Name: root_movement_ground
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: ec45693578592d54e83bc1b44cda3711, type: 2}
+  - {fileID: 11400000, guid: a598e9a5335eaa642aab4d29cbb36520, type: 2}
+  controlDriver:
+    name: isMoving
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 7054e958-3df3-4874-aa3d-fef6dcf9358b
+  drivers:
+    keys: []
+    values: 

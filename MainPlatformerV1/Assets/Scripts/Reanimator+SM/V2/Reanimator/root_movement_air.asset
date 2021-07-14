@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Name: root_movement_air
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: dcd5686e1ca6a044f8a80c57c1fcec1c, type: 2}
+  - {fileID: 11400000, guid: 519a5dc9e0614e24c971bccd056a2e00, type: 2}
+  controlDriver:
+    name: shouldFlip
+    autoIncrement: 0
+    percentageBased: 0
+    guid: ec72b880-48d7-470d-8145-a4ba6822ed84
+  drivers:
+    keys:
+    - idleTransition
+    values: 02000000

@@ -48,9 +48,9 @@ namespace ThunderNut.StateMachine {
             OnStateTransition?.Invoke();
         }
 
-        public void Bind(SasukeController player) {
-            states.ForEach(state => state.player = player);
-            decisions.ForEach(decision => decision.player = player);
+        public void Bind<T>(object type) where T : class {
+            states.ForEach(state => state.BindAgent<T>(type));
+            decisions.ForEach(decision => decision.BindAgent<T>(type));
         }
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be19956832124e7fa78f325c15e8f32f, type: 3}
+  m_Name: override
+  m_EditorClassIdentifier: 
+  next: {fileID: 11400000, guid: 5174f7945d3f8f34dac9116cdafc0eb2, type: 2}
+  overrides:
+  - fromNode: {fileID: 11400000, guid: 10030facd881a1a4d80c44ae060e4b8c, type: 2}
+    toNode: {fileID: 11400000, guid: 62e160978b5cd0d4689fbcddf419cf7f, type: 2}
+  - fromNode: {fileID: 11400000, guid: a598e9a5335eaa642aab4d29cbb36520, type: 2}
+    toNode: {fileID: 11400000, guid: 4388e3235d7ba384785fe9b92c943a25, type: 2}
+  - fromNode: {fileID: 11400000, guid: b399fa1e065de114d9b21ed8384f4a7e, type: 2}
+    toNode: {fileID: 11400000, guid: 44bbefca4f7305c40925df4b8fb08389, type: 2}
