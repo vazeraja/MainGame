@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using ThunderNut.StateMachine;
 
 public class DashState : State {
     public override void Enter() {

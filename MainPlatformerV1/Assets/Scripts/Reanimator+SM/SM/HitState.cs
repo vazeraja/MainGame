@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using ThunderNut.StateMachine;
 
 public class HitState : State {
     public override void Enter() {

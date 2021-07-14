@@ -37061,11 +37061,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5612792004504331092, guid: 04622e88d008ecd42bc040a414aad771,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5612792004504331095, guid: 04622e88d008ecd42bc040a414aad771,
         type: 3}
       propertyPath: m_RootOrder
@@ -37126,8 +37121,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Sasuke
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5612792004504331101, guid: 04622e88d008ecd42bc040a414aad771, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04622e88d008ecd42bc040a414aad771, type: 3}
 --- !u!1 &1814105900
 GameObject:

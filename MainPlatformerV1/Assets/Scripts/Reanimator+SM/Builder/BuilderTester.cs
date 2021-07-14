@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using ThunderNut.SceneManagement;
+﻿using ThunderNut.SceneManagement;
+using ThunderNut.StateMachine;
 using UnityEngine;
 
 public class BuilderTester : MonoBehaviour {
     
     private RuntimeStateMachine stateMachine;
-
-    public SceneHandle sceneHandle;
 
     private void Awake() {
         stateMachine = Builder.RuntimeStateMachine

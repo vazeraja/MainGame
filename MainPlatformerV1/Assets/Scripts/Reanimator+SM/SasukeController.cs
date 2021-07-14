@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
-
+using ThunderNut.StateMachine;
 
 public enum SasukeState {
     Movement = 0,
