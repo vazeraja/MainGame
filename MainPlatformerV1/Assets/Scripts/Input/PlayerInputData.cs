@@ -12,7 +12,6 @@ public class PlayerInputData : ScriptableObject {
     [SerializeField] private bool jumpInput;
     [SerializeField] private bool attackInput = false;
     [SerializeField] private bool dashInput = false;
-    [SerializeField] private Vector2 dashKeyboardInput;
 
     // Properties
     public Vector2 MovementInput {
@@ -35,11 +34,6 @@ public class PlayerInputData : ScriptableObject {
         set => dashInput = value;
     }
 
-    public Vector2 DashKeyboardInput {
-        get => dashKeyboardInput;
-        set => dashKeyboardInput = value;
-    }
-
 
     public void RegisterEvents() {
         try {
@@ -48,7 +42,6 @@ public class PlayerInputData : ScriptableObject {
             inputReader.JumpCanceledEvent += OnJumpCanceled;
             inputReader.DashEvent += OnDashInitiated;
             inputReader.DashCanceledEvent += OnDashCancelled;
-            inputReader.DashKeyboardEvent += OnDashKeyboard;
             inputReader.AttackEvent += OnAttackInitiated;
             inputReader.AttackCanceledEvent += OnAttackCanceled;
         }
@@ -64,7 +57,6 @@ public class PlayerInputData : ScriptableObject {
             inputReader.JumpCanceledEvent -= OnJumpCanceled;
             inputReader.DashEvent -= OnDashInitiated;
             inputReader.DashCanceledEvent -= OnDashCancelled;
-            inputReader.DashKeyboardEvent -= OnDashKeyboard;
             inputReader.AttackEvent -= OnAttackInitiated;
             inputReader.AttackCanceledEvent -= OnAttackCanceled;
         }
@@ -79,7 +71,6 @@ public class PlayerInputData : ScriptableObject {
     private void OnJumpCanceled() => JumpInput = false;
     private void OnDashInitiated() => DashInput = true;
     private void OnDashCancelled() => DashInput = false;
-    private void OnDashKeyboard(Vector2 input) => DashKeyboardInput = input;
     private void OnAttackInitiated() => AttackInput = true;
     private void OnAttackCanceled() => AttackInput = false;
 
@@ -90,6 +81,5 @@ public class PlayerInputData : ScriptableObject {
         jumpInput = false;
         attackInput = false;
         dashInput = false;
-        dashKeyboardInput = Vector2.zero;
     }
 }

@@ -38,14 +38,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "DashDirectionKeyboard",
-                    "type": "Value",
-                    "id": "1e2208d7-7a21-42ca-af73-7523cbc05a4c",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "OpenDevConsole",
                     "type": "Button",
                     "id": "dcbcb6e6-cb56-481d-af2f-ea3ad19e8adf",
@@ -65,6 +57,14 @@
                     "name": "Menu",
                     "type": "Button",
                     "id": "fc990194-8a7f-423c-bfd1-948bed9062a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Hat",
+                    "type": "Button",
+                    "id": "ae340359-eca5-4eca-af79-ff9cbeb7a937",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -303,61 +303,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "7d4d2bd5-ba26-4c74-b14b-a5e4c23bca58",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DashDirectionKeyboard",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "3317c7af-d535-4f26-bed7-03e9eec8feab",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "DashDirectionKeyboard",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "0753cb37-994e-4d36-8ccf-69771929a60b",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "DashDirectionKeyboard",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "d764ad38-9487-4b27-8f3e-da4b1ae111cb",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "DashDirectionKeyboard",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "da16ed23-611a-4397-ae55-df23ad90a6d7",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "DashDirectionKeyboard",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "0f9c921c-c737-4827-8e9f-1f595bb92124",
                     "path": "<Keyboard>/3",
@@ -387,6 +332,17 @@
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2783a939-ac4d-4800-9131-ba298be29fce",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardOrGamepad",
+                    "action": "Hat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

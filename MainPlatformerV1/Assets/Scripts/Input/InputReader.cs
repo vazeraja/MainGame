@@ -15,7 +15,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event UnityAction AttackCanceledEvent;
     public event UnityAction DashEvent;
     public event UnityAction DashCanceledEvent;
-    public event UnityAction<Vector2> DashKeyboardEvent;
+    public event UnityAction HatEvent;
 
     // Interaction
     public event UnityAction InteractionStartedEvent;
@@ -72,8 +72,9 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
             DashCanceledEvent.Invoke();
     }
 
-    public void OnDashDirectionKeyboard(InputAction.CallbackContext context) {
-        DashKeyboardEvent?.Invoke(context.ReadValue<Vector2>());
+    public void OnHat(InputAction.CallbackContext context) {
+        if (HatEvent != null && context.phase == InputActionPhase.Started)
+            HatEvent?.Invoke();
     }
 
     public void OnAttack(InputAction.CallbackContext context) {

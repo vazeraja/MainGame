@@ -51,14 +51,6 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""DashDirectionKeyboard"",
-                    ""type"": ""Value"",
-                    ""id"": ""1e2208d7-7a21-42ca-af73-7523cbc05a4c"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""OpenDevConsole"",
                     ""type"": ""Button"",
                     ""id"": ""dcbcb6e6-cb56-481d-af2f-ea3ad19e8adf"",
@@ -78,6 +70,14 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""fc990194-8a7f-423c-bfd1-948bed9062a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Hat"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae340359-eca5-4eca-af79-ff9cbeb7a937"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -316,61 +316,6 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""7d4d2bd5-ba26-4c74-b14b-a5e4c23bca58"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashDirectionKeyboard"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""3317c7af-d535-4f26-bed7-03e9eec8feab"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""DashDirectionKeyboard"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""0753cb37-994e-4d36-8ccf-69771929a60b"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""DashDirectionKeyboard"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""d764ad38-9487-4b27-8f3e-da4b1ae111cb"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""DashDirectionKeyboard"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""da16ed23-611a-4397-ae55-df23ad90a6d7"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""DashDirectionKeyboard"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""0f9c921c-c737-4827-8e9f-1f595bb92124"",
                     ""path"": ""<Keyboard>/3"",
@@ -400,6 +345,17 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2783a939-ac4d-4800-9131-ba298be29fce"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardOrGamepad"",
+                    ""action"": ""Hat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -545,10 +501,10 @@ public class @GameInput : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_Gameplay_DashDirectionKeyboard = m_Gameplay.FindAction("DashDirectionKeyboard", throwIfNotFound: true);
         m_Gameplay_OpenDevConsole = m_Gameplay.FindAction("OpenDevConsole", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
+        m_Gameplay_Hat = m_Gameplay.FindAction("Hat", throwIfNotFound: true);
         // Dialogues
         m_Dialogues = asset.FindActionMap("Dialogues", throwIfNotFound: true);
         m_Dialogues_AdvanceDialogue = m_Dialogues.FindAction("AdvanceDialogue", throwIfNotFound: true);
@@ -610,10 +566,10 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Attack;
     private readonly InputAction m_Gameplay_Dash;
-    private readonly InputAction m_Gameplay_DashDirectionKeyboard;
     private readonly InputAction m_Gameplay_OpenDevConsole;
     private readonly InputAction m_Gameplay_Interact;
     private readonly InputAction m_Gameplay_Menu;
+    private readonly InputAction m_Gameplay_Hat;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -622,10 +578,10 @@ public class @GameInput : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
-        public InputAction @DashDirectionKeyboard => m_Wrapper.m_Gameplay_DashDirectionKeyboard;
         public InputAction @OpenDevConsole => m_Wrapper.m_Gameplay_OpenDevConsole;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputAction @Menu => m_Wrapper.m_Gameplay_Menu;
+        public InputAction @Hat => m_Wrapper.m_Gameplay_Hat;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -647,9 +603,6 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
-                @DashDirectionKeyboard.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDashDirectionKeyboard;
-                @DashDirectionKeyboard.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDashDirectionKeyboard;
-                @DashDirectionKeyboard.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDashDirectionKeyboard;
                 @OpenDevConsole.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
                 @OpenDevConsole.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
                 @OpenDevConsole.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnOpenDevConsole;
@@ -659,6 +612,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Menu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenu;
+                @Hat.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHat;
+                @Hat.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHat;
+                @Hat.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHat;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -675,9 +631,6 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @DashDirectionKeyboard.started += instance.OnDashDirectionKeyboard;
-                @DashDirectionKeyboard.performed += instance.OnDashDirectionKeyboard;
-                @DashDirectionKeyboard.canceled += instance.OnDashDirectionKeyboard;
                 @OpenDevConsole.started += instance.OnOpenDevConsole;
                 @OpenDevConsole.performed += instance.OnOpenDevConsole;
                 @OpenDevConsole.canceled += instance.OnOpenDevConsole;
@@ -687,6 +640,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
+                @Hat.started += instance.OnHat;
+                @Hat.performed += instance.OnHat;
+                @Hat.canceled += instance.OnHat;
             }
         }
     }
@@ -788,10 +744,10 @@ public class @GameInput : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnDashDirectionKeyboard(InputAction.CallbackContext context);
         void OnOpenDevConsole(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
+        void OnHat(InputAction.CallbackContext context);
     }
     public interface IDialoguesActions
     {
