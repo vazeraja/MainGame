@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils {
+namespace TN.Common {
     [Serializable]
     public class FixedStopwatch
     {

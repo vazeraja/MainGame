@@ -24,6 +24,7 @@ namespace Jeff
         [SerializeField] private List<AudioClip> hitSounds = new List<AudioClip>();
 
         private Reanimator _reanimator;
+        private CollisionDetection collisions;
         private AudioSource _audioSource;
         private JeffController _controller;
 
@@ -33,6 +34,7 @@ namespace Jeff
         private void Awake()
         {
             _reanimator = GetComponent<Reanimator>();
+            collisions = GetComponent<CollisionDetection>();
             _controller = GetComponent<JeffController>();
             _audioSource = GetComponent<AudioSource>();
         }
@@ -70,7 +72,7 @@ namespace Jeff
             
             _reanimator.Flip = _controller.FacingDirection < 0;
             _reanimator.Set(Drivers.State, (int) _controller.State);
-            _reanimator.Set(Drivers.IsGrounded, _controller.IsGrounded);
+            _reanimator.Set(Drivers.IsGrounded, collisions.IsGrounded);
             _reanimator.Set(Drivers.IsMoving, isMoving);
             _reanimator.Set(Drivers.JumpDirection, velocity.y > 0);
             _reanimator.Set(Drivers.ShouldFlip, _controller.IsJumping && !_controller.IsFirstJump);

@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: runNJump_animation
   m_EditorClassIdentifier: 
   cels:
-  - sprite: {fileID: 3298105886585063087, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+  - sprite: {fileID: 6612509912714155400, guid: 7cf92fcfe9147d94e961ea8384f393f7,
       type: 3}
     drivers:
       keys:
       - run
       values: 02000000
+  - sprite: {fileID: 5560605583954493893, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
     name: jumpDirection
     autoIncrement: 0

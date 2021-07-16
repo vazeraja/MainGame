@@ -1,19 +1,18 @@
 using System;
+using MainGame;
+using TN.Common;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Utils;
 
 namespace Jeff
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class JeffController : MonoBehaviour {
-        // [SerializeField] private InputReader inputReader;
+        [SerializeField] private InputReader inputReader;
         
         public event Action HatTriggered;
         public event Action HitStateEntered;
 
-        [Header("Walking")] 
-        [SerializeField] private float maxWalkCos = 0.5f;
+        [Header("Walking")]
         [SerializeField] private float walkSpeed = 7;
 
         [Header("Jumping")] 
@@ -32,71 +31,63 @@ namespace Jeff
         [SerializeField] private float attackSpeed = 12;
         [SerializeField] private FixedStopwatch attackStopwatch = new FixedStopwatch();
 
+        private CollisionDetection collisions;
         public JeffState State { get; private set; } = JeffState.Movement;
         public Vector2 DesiredDirection { get; private set; }
         public int FacingDirection { get; private set; } = 1;
 
-        public bool IsGrounded => _groundContact.HasValue;
-        public Vector2 Velocity => _rigidbody2D.velocity;
+        public Rigidbody2D RB => collisions.rigidbody2D;
+        
+        public Vector2 Velocity => collisions.rigidbody2D.velocity;
         public float AttackCompletion => attackStopwatch.Completion;
         public float JumpCompletion => jumpStopwatch.Completion;
         public bool IsJumping => !jumpStopwatch.IsFinished;
         public bool IsFirstJump => _jumpsLeft == numberOfJumps - 1;
-
-        private Rigidbody2D _rigidbody2D;
-        private ContactFilter2D _contactFilter;
-        private ContactPoint2D? _groundContact;
-        private ContactPoint2D? _ceilingContact;
-        private ContactPoint2D? _wallContact;
-        private readonly ContactPoint2D[] _contacts = new ContactPoint2D[16];
-
+        
         private bool _wantsToJump;
         private bool _wasOnTheGround;
         private bool _canAttack;
         private int _jumpsLeft;
         private int _enemyLayer;
 
-        private void Awake()
-        {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+        private void Awake() {
+            collisions = GetComponent<CollisionDetection>();
             _enemyLayer = LayerMask.NameToLayer("Enemy");
-            _contactFilter = new ContactFilter2D();
-            _contactFilter.SetLayerMask(LayerMask.GetMask("Ground"));
         }
 
         private void OnEnable() {
-            //inputReader.MoveEvent += OnMove;
+            inputReader.MoveEvent += OnMove;
+            inputReader.FJumpEvent += OnJump;
+            inputReader.AttackEvent += OnAttack;
+            inputReader.HatEvent += OnHat;
+        }
+
+        private void OnDisable() {
+            inputReader.MoveEvent -= OnMove;
+            inputReader.FJumpEvent -= OnJump;
+            inputReader.AttackEvent -= OnAttack;
+            inputReader.HatEvent -= OnHat;
         }
 
         #region Events
 
-        public void OnMove(InputValue value) {
-            DesiredDirection = value.Get<Vector2>();
-        }
+        private void OnMove(Vector2 value) => DesiredDirection = value;
 
-        public void OnJump(InputValue value)
-        {
-            _wantsToJump = value.Get<float>() > 0.5f;
-
+        private void OnJump(float value) {
+            _wantsToJump = value > 0.5f;
+            
             if (_wantsToJump)
                 RequestJump();
             else
                 jumpStopwatch.Reset();
         }
 
-        public void OnAttack(InputValue value)
-        {
-            EnterAttackState();
-        }
-
-        public void OnHat(InputValue value)
-        {
-            HatTriggered?.Invoke();
-        }
+        private void OnAttack() => EnterAttackState();
+        private void OnHat() => HatTriggered?.Invoke();
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.layer != _enemyLayer) return;
+            if (other.gameObject.layer != _enemyLayer ) return;
             EnterHitState(other);
         }
 
@@ -117,44 +108,8 @@ namespace Jeff
             jumpStopwatch.Split();
         }
 
-        private void FindContacts()
-        {
-            _groundContact = null;
-            _ceilingContact = null;
-            _wallContact = null;
-
-            float groundProjection = maxWalkCos;
-            float wallProjection = maxWalkCos;
-            float ceilingProjection = -maxWalkCos;
-
-            int numberOfContacts = _rigidbody2D.GetContacts(_contactFilter, _contacts);
-            for (var i = 0; i < numberOfContacts; i++)
-            {
-                var contact = _contacts[i];
-                float projection = Vector2.Dot(Vector2.up, contact.normal);
-
-                if (projection > groundProjection)
-                {
-                    _groundContact = contact;
-                    groundProjection = projection;
-                }
-                else if (projection < ceilingProjection)
-                {
-                    _ceilingContact = contact;
-                    ceilingProjection = projection;
-                }
-                else if (projection <= wallProjection)
-                {
-                    _wallContact = contact;
-                    wallProjection = projection;
-                }
-            }
-        }
-
         private void FixedUpdate()
         {
-            FindContacts();
-
             switch (State)
             {
                 case JeffState.Movement:
@@ -178,21 +133,21 @@ namespace Jeff
             HitStateEntered?.Invoke();
 
             var relativePosition = (Vector2) transform.InverseTransformPoint(collision.transform.position);
-            var direction = (_rigidbody2D.centerOfMass - relativePosition).normalized;
+            var direction = (RB.centerOfMass - relativePosition).normalized;
 
             hitStopwatch.Split();
-            _rigidbody2D.AddForce(
-                direction * bounceBackStrength - _rigidbody2D.velocity,
+            RB.AddForce(
+                direction * bounceBackStrength - RB.velocity,
                 ForceMode2D.Impulse
             );
         }
 
         private void UpdateHitState()
         {
-            FacingDirection = _rigidbody2D.velocity.x < 0 ? -1 : 1;
+            FacingDirection = RB.velocity.x < 0 ? -1 : 1;
 
-            _rigidbody2D.AddForce(Physics2D.gravity * 4);
-            if (hitStopwatch.IsFinished && (_groundContact.HasValue || _wallContact.HasValue))
+            RB.AddForce(Physics2D.gravity * 4);
+            if (hitStopwatch.IsFinished && (collisions.IsGrounded || collisions.IsTouchingWall))
             {
                 hitStopwatch.Split();
                 EnterMovementState();
@@ -210,11 +165,11 @@ namespace Jeff
 
         private void UpdateAttackState()
         {
-            _rigidbody2D.AddForce(
-                new Vector2(FacingDirection * attackSpeed, 0) - _rigidbody2D.velocity,
+            RB.AddForce(
+                new Vector2(FacingDirection * attackSpeed, 0) - RB.velocity,
                 ForceMode2D.Impulse
             );
-            if (attackStopwatch.IsFinished || _wallContact.HasValue)
+            if (attackStopwatch.IsFinished || collisions.IsTouchingWall)
             {
                 attackStopwatch.Split();
                 EnterMovementState();
@@ -228,7 +183,7 @@ namespace Jeff
 
         private void UpdateMovementState()
         {
-            var previousVelocity = _rigidbody2D.velocity;
+            var previousVelocity = RB.velocity;
             var velocityChange = Vector2.zero;
 
             if (DesiredDirection.x > 0)
@@ -243,10 +198,10 @@ namespace Jeff
                 currentJumpSpeed *= jumpFallOff.Evaluate(JumpCompletion);
                 velocityChange.y = currentJumpSpeed - previousVelocity.y;
 
-                if (_ceilingContact.HasValue)
+                if (collisions.IsTouchingCeiling)
                     jumpStopwatch.Reset();
             }
-            else if (_groundContact.HasValue)
+            else if (collisions.IsGrounded)
             {
                 _jumpsLeft = numberOfJumps;
                 _wasOnTheGround = true;
@@ -265,16 +220,16 @@ namespace Jeff
 
             velocityChange.x = (DesiredDirection.x * walkSpeed - previousVelocity.x) / 4;
 
-            if (_wallContact.HasValue)
+            if (collisions.wallContact.HasValue)
             {
-                var wallDirection = (int) Mathf.Sign(_wallContact.Value.point.x - transform.position.x);
+                var wallDirection = (int) Mathf.Sign(collisions.wallContact.Value.point.x - transform.position.x);
                 var walkDirection = (int) Mathf.Sign(DesiredDirection.x);
 
                 if (walkDirection == wallDirection)
                     velocityChange.x = 0;
             }
 
-            _rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
+            RB.AddForce(velocityChange, ForceMode2D.Impulse);
         }
 
         #endregion

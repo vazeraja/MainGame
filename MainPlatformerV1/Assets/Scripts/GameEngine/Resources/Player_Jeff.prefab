@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4394115326287272550}
   - component: {fileID: 4394115326287272549}
   - component: {fileID: 4394115326287272548}
-  - component: {fileID: 4394115326287272545}
+  - component: {fileID: 7641142601319301497}
   - component: {fileID: 4394115326287272475}
   - component: {fileID: 4394115326287272474}
   - component: {fileID: 4394115326287272473}
@@ -23,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4394115326287272551
 Transform:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4394115326287272545
+--- !u!114 &7641142601319301497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,28 +146,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4394115326287272472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: e71144378de70e744ad3b67c85449d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 47a7bd10b734b954e95d4dbf166f5578,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: KeyboardOrGamepad
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  rigidbody2D: {fileID: 0}
 --- !u!114 &4394115326287272475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,9 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25fa7c74aa00a2439b3b69a316a5885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkCos: 0.5
+  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
   walkSpeed: 20
-  firstJumpSpeed: 25
+  firstJumpSpeed: 50
   jumpSpeed: 30
   fallSpeed: 20
   numberOfJumps: 2
@@ -255,7 +237,7 @@ MonoBehaviour:
   jumpStopwatch:
     duration: 0.4
     cooldown: 0
-  bounceBackStrength: {x: 8, y: 12}
+  bounceBackStrength: {x: 30, y: 25}
   hitStopwatch:
     duration: 0.2
     cooldown: 0.2

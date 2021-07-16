@@ -13,6 +13,8 @@ namespace MainGame {
 
 	public class InteractableBase : MonoBehaviour, IInteractable {
 
+		public static LayerMask CameraBounds => LayerMask.NameToLayer("CameraBounds");
+
 		[Header("Interactable Settings")] 
 		[SerializeField] private float requiredDistance;
 		

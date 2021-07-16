@@ -53,9 +53,10 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public void OnJump(InputAction.CallbackContext context) {
         if (JumpEvent != null && context.phase == InputActionPhase.Started) {
             JumpEvent.Invoke();
+        }
+        if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
             FJumpEvent?.Invoke(context.ReadValue<float>());
         }
-
         if (JumpCanceledEvent != null && context.phase == InputActionPhase.Canceled)
             JumpCanceledEvent.Invoke();
     }
