@@ -2,9 +2,14 @@ using UnityEngine;
 
 
 public class InputManager : MonoBehaviour {
-    [Space, SerializeField] private InputReader inputReader;
+    
+    public string description;
+    
+    [Space]
+    [SerializeField] private InputReader inputReader;
 
-    [Space, SerializeField] private PlayerInputData playerInputData;
+    [Space]
+    [SerializeField] private PlayerInputData playerInputData;
     [SerializeField] private InteractionInputData interactionInputData;
 
     private void OnEnable() {
@@ -22,4 +27,6 @@ public class InputManager : MonoBehaviour {
         playerInputData.Reset();
         interactionInputData.Reset();
     }
+
+    public InputReader GetInputReader() => inputReader;
 }

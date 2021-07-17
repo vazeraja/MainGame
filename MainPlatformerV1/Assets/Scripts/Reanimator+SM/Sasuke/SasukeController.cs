@@ -2,6 +2,7 @@
 using UnityEngine.Serialization;
 using ThunderNut.StateMachine;
 using TN.Common;
+using TN.GameEngine;
 
 public enum SasukeState {
     Movement = 0,
@@ -11,17 +12,15 @@ public enum SasukeState {
 
 public class SasukeController : MonoBehaviour {
     [Header("Input")] 
-    [SerializeField] private InputReader inputReader;
-    
-    #region Variables
+    public InputReader inputReader;
 
     [Header("Walking")] 
     public float walkSpeed = 7;
 
     [Header("Jumping")] 
-    public float firstJumpSpeed = 8;
-    [FormerlySerializedAs("jumpSpeed")] public float secondJumpSpeed = 3;
-    public float fallSpeed = 12;
+    public float firstJumpSpeed;
+    public float secondJumpSpeed;
+    public float fallSpeed;
     public int numberOfJumps = 2;
     public AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
     public FixedStopwatch jumpStopwatch = new FixedStopwatch();
@@ -35,8 +34,7 @@ public class SasukeController : MonoBehaviour {
     public float dashSpeed = 12;
     public FixedStopwatch dashStopwatch = new FixedStopwatch();
 
-    #endregion
-
+    //private App app;
     private RuntimeStateMachine stateMachine;
     public CollisionDetection CollisionDetection { get; private set; }
     public SasukeState State { get; set; } = SasukeState.Movement;
@@ -56,8 +54,10 @@ public class SasukeController : MonoBehaviour {
     [HideInInspector] public int enemyLayer;
 
     private void Awake() {
-        CollisionDetection = GetComponent<CollisionDetection>();
+        // inputReader = App.InputManager.GetInputReader();
         
+        CollisionDetection = GetComponent<CollisionDetection>();
+
         stateMachine = Builder.RuntimeStateMachine
             .WithState(new MovementState(), out var movementState)
             .WithState(new DashState(), out var dashState)
@@ -72,12 +72,6 @@ public class SasukeController : MonoBehaviour {
             .SetCurrentState(movementState)
             .SetRemainState(remainState);
     }
-
-    private void Start() {
-        enemyLayer = LayerMask.NameToLayer($"Enemy");
-        stateMachine.Bind<SasukeController>(this);
-    }
-
     private void OnEnable() {
         inputReader.MoveEvent += OnMove;
         inputReader.FJumpEvent += OnJump;
@@ -89,6 +83,12 @@ public class SasukeController : MonoBehaviour {
         inputReader.FJumpEvent -= OnJump;
         inputReader.AttackEvent -= OnDash;
     }
+    
+    private void Start() {
+        enemyLayer = LayerMask.NameToLayer($"Enemy");
+        stateMachine.Bind<SasukeController>(this);
+    }
+    
     private void Update() {
         stateMachine.Update();
     }

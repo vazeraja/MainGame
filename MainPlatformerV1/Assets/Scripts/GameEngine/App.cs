@@ -1,9 +1,14 @@
 ﻿using System;
+using ThunderNut.StateMachine;
 using UnityEngine;
 
-namespace ThunderNut.GameEngine {
+namespace TN.GameEngine {
     
-    public class App {
+    public static class App {
+        
+        // public GameModeManager GameModeManager;
+        // public SaveManager SaveManager;
+        // public InputManager InputManager;
     
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Bootstrap() {
@@ -15,5 +20,17 @@ namespace ThunderNut.GameEngine {
             
             UnityEngine.Object.DontDestroyOnLoad(app);
         }
+
+        // public static App CreateApp() {
+        //     var appPrefab = GameObject.FindGameObjectWithTag("App");
+// 
+        //     App app = new App {
+        //         GameModeManager = appPrefab.GetComponent<GameModeManager>(),
+        //         SaveManager = appPrefab.GetComponent<SaveManager>(),
+        //         InputManager = appPrefab.GetComponent<InputManager>()
+        //     };
+        //     
+        //     return app;
+        // }
     }
 }

@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 541352263806388502}
-  - component: {fileID: 8236932154707329597}
   - component: {fileID: -9182624418269127005}
+  - component: {fileID: 608684834374121228}
+  - component: {fileID: 8236932154707329597}
   m_Layer: 0
   m_Name: App
-  m_TagString: Untagged
+  m_TagString: App
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,22 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8236932154707329597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541352263806388501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42cca617f8a2bd741a70ea9165ac0a52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
-  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
-  interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
-    type: 2}
 --- !u!114 &-9182624418269127005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,4 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d9bc4f6d8b4f27a6df49faac4fff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &608684834374121228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541352263806388501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2047fdd5874ec3963c50eb61057de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8236932154707329597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541352263806388501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42cca617f8a2bd741a70ea9165ac0a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Initializes Input Reader and Input SO's
   inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
+  playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
+  interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
+    type: 2}

@@ -71,7 +71,7 @@ namespace ThunderNut.StateMachine {
             return this;
         }
 
-        private RuntimeStateMachine Build() {
+        public RuntimeStateMachine Build() {
             var newStateMachine = ScriptableObject.CreateInstance<RuntimeStateMachine>();
 
             if (states != null) {
@@ -88,10 +88,6 @@ namespace ThunderNut.StateMachine {
             newStateMachine.EnableTransitions();
 
             return newStateMachine;
-        }
-
-        public static implicit operator RuntimeStateMachine(RuntimeStateMachineBuilder builder) {
-            return builder.Build();
         }
     }
 }

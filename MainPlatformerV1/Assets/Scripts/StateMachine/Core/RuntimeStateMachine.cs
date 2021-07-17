@@ -52,5 +52,9 @@ namespace ThunderNut.StateMachine {
             states.ForEach(state => state.BindAgent<T>(type));
             decisions.ForEach(decision => decision.BindAgent<T>(type));
         }
+        
+        public static implicit operator RuntimeStateMachine(RuntimeStateMachineBuilder builder) {
+            return builder.Build();
+        }
     }
 }

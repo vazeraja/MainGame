@@ -3,8 +3,7 @@ using ThunderNut.Extensions;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerInputData", menuName = "InputData/PlayerInputData")]
-public class PlayerInputData : ScriptableObject {
-    [SerializeField] private InputReader inputReader = null;
+public class PlayerInputData : ScriptableObject { [SerializeField] private InputReader inputReader = null;
 
     [Header("Game Input")] [Space] [SerializeField]
     private Vector2 movementInput;
