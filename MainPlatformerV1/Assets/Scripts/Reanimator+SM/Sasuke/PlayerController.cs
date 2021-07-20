@@ -14,8 +14,8 @@ public enum SasukeState {
 public class PlayerController : MonoBehaviour, ISaveable {
     
     [Header("Input")] 
-    public InputReader inputReader;
-
+    public InputProvider inputProvider;
+    
     [Header("Walking")] 
     public float walkSpeed = 7;
 
@@ -35,8 +35,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     [Header("Giving a whooping")] 
     public float dashSpeed = 12;
     public FixedStopwatch dashStopwatch = new FixedStopwatch();
-
-    //private App app;
+    
     private RuntimeStateMachine stateMachine;
     public CollisionDetection CollisionDetection { get; set; }
     public Vector2 MovementDirection { get; set; }
@@ -59,7 +58,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     private void Awake() {
         CollisionDetection = GetComponent<CollisionDetection>();
 
-        stateMachine = Builder.RuntimeStateMachine
+        RuntimeStateMachine stateMachine = Builder.RuntimeStateMachine
             .WithState(new MovementState(), out var movementState)
             .WithState(new DashState(), out var dashState)
             .WithState(new HitState(), out var hitState)
@@ -74,17 +73,17 @@ public class PlayerController : MonoBehaviour, ISaveable {
             .SetRemainState(remainState);
     }
     private void OnEnable() {
-        inputReader.MoveEvent += OnMove;
-        inputReader.FJumpEvent += OnJump;
-        inputReader.AttackEvent += OnDash;
-        inputReader.CrouchEvent += OnCrouch;
+        inputProvider.MoveEvent += OnMove;
+        inputProvider.JumpEvent += OnJump;
+        inputProvider.DashEvent += OnDash;
+        inputProvider.CrouchEvent += OnCrouch;
     }
 
     private void OnDisable() {
-        inputReader.MoveEvent -= OnMove;
-        inputReader.FJumpEvent -= OnJump;
-        inputReader.AttackEvent -= OnDash;
-        inputReader.CrouchEvent -= OnCrouch;
+        inputProvider.MoveEvent -= OnMove;
+        inputProvider.JumpEvent -= OnJump;
+        inputProvider.CrouchEvent -= OnCrouch;
+        inputProvider.DashEvent -= OnDash;
     }
     
     private void Start() {
@@ -94,6 +93,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     }
 
     private void Update() {
+        Debug.Log(inputProvider.GetState().movementDirection);
         stateMachine.Update();
     } 
 
@@ -109,20 +109,23 @@ public class PlayerController : MonoBehaviour, ISaveable {
 
     private void OnJump(float value) {
         wantsToJump = value > 0.5f;
+        HandleJump();
 
-        if (wantsToJump) {
-            if (State != SasukeState.Movement || jumpsLeft <= 0)
-                return;
+        void HandleJump() {
+            if (wantsToJump) {
+                if (State != SasukeState.Movement || jumpsLeft <= 0)
+                    return;
 
-            jumpsLeft--;
-            jumpStopwatch.Split();
-        }
-        else {
-            jumpStopwatch.Reset();
+                jumpsLeft--;
+                jumpStopwatch.Split();
+            }
+            else {
+                jumpStopwatch.Reset();
+            }
         }
     }
 
-    private void OnDash() => EnterDashState();
+    private void OnDash(float value) => EnterDashState();
 
     private void OnCrouch(float value) {
         IsCrouching = value > 0.5f;

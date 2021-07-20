@@ -7,7 +7,7 @@ namespace Jeff
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class JeffController : MonoBehaviour {
-        [SerializeField] private InputReader inputReader;
+        [SerializeField] private InputProvider inputProvider;
         
         public event Action HatTriggered;
         public event Action HitStateEntered;
@@ -56,17 +56,17 @@ namespace Jeff
         }
 
         private void OnEnable() {
-            inputReader.MoveEvent += OnMove;
-            inputReader.FJumpEvent += OnJump;
-            inputReader.AttackEvent += OnAttack;
-            inputReader.HatEvent += OnHat;
+            inputProvider.MoveEvent += OnMove;
+            inputProvider.JumpEvent += OnJump;
+            inputProvider.DashEvent += OnAttack;
+            inputProvider.HatEvent += OnHat;
         }
 
         private void OnDisable() {
-            inputReader.MoveEvent -= OnMove;
-            inputReader.FJumpEvent -= OnJump;
-            inputReader.AttackEvent -= OnAttack;
-            inputReader.HatEvent -= OnHat;
+            inputProvider.MoveEvent -= OnMove;
+            inputProvider.JumpEvent -= OnJump;
+            inputProvider.DashEvent -= OnAttack;
+            inputProvider.HatEvent -= OnHat;
         }
 
         #region Events
@@ -82,7 +82,7 @@ namespace Jeff
                 jumpStopwatch.Reset();
         }
 
-        private void OnAttack() => EnterAttackState();
+        private void OnAttack(float value) => EnterAttackState();
         private void OnHat() => HatTriggered?.Invoke();
 
         private void OnCollisionEnter2D(Collision2D other)

@@ -14,7 +14,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
         [HideInInspector] public DialogueObject dialogue;
         [HideInInspector] public int index = 0;
         [HideInInspector] public DialogueType dialogueType = default;
-        [HideInInspector] public InputReader inputReader = default;
+        [HideInInspector] public InputProvider InputProvider = default;
         private SpriteLetterSystem SPL;
 
 
@@ -33,15 +33,15 @@ namespace MainGame.Timeline.CustomDialogueTrack {
 
                 director.playableGraph.GetRootPlayable(0).SetSpeed(1d);
 
-                inputReader.AdvanceDialogueEvent += AdvanceDialogue;
-                inputReader.AdvanceDialogueEvent += SkipDialogue;
+                InputProvider.AdvanceDialogueEvent += AdvanceDialogue;
+                InputProvider.AdvanceDialogueEvent += SkipDialogue;
 
                 SPL = playerData as SpriteLetterSystem;
 
                 if (SPL is {}) {
                     SPL.dialogueBoxRT.gameObject.SetActive(true);
 
-                    inputReader.EnableDialogueInput();
+                    InputProvider.EnableDialogueInput();
 
                     try {
                         switch (dialogueType) {
@@ -81,9 +81,9 @@ namespace MainGame.Timeline.CustomDialogueTrack {
         }
 
         public override void OnGraphStop(Playable playable){
-            inputReader.EnableGameplayInput();
-            inputReader.AdvanceDialogueEvent -= AdvanceDialogue;
-            inputReader.AdvanceDialogueEvent -= SkipDialogue;
+            InputProvider.EnableGameplayInput();
+            InputProvider.AdvanceDialogueEvent -= AdvanceDialogue;
+            InputProvider.AdvanceDialogueEvent -= SkipDialogue;
             if (SPL is {})
                 SPL.dialogueBoxRT.gameObject.SetActive(false);
         }

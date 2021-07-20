@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public class UIManager : MonoBehaviour {
-    [Header("Input")] [SerializeField] private InputReader inputReader = null;
+    [Header("Input")] [SerializeField] private InputProvider inputProvider = null;
 
     [Space, Header("Developer Console")] [SerializeField]
     private List<ConsoleCommand> commands = new List<ConsoleCommand>();
@@ -25,29 +25,29 @@ public class UIManager : MonoBehaviour {
     }
 
     private void OnEnable() {
-        inputReader.OpenDevConsole += OpenDevConsole;
+        inputProvider.OpenDevConsole += OpenDevConsole;
 
-        inputReader.OpenMenuWindow += OpenMenuWindow;
-        inputReader.TabRightButtonEvent += OnTabRightButton;
-        inputReader.TabLeftButtonEvent += OnTabLeftButton;
-        inputReader.CloseMenuWindow += CloseMenuWindow;
+        inputProvider.OpenMenuWindow += OpenMenuWindow;
+        inputProvider.TabRightButtonEvent += OnTabRightButton;
+        inputProvider.TabLeftButtonEvent += OnTabLeftButton;
+        inputProvider.CloseMenuWindow += CloseMenuWindow;
     }
 
     private void OnDisable() {
-        inputReader.OpenDevConsole -= OpenDevConsole;
+        inputProvider.OpenDevConsole -= OpenDevConsole;
 
-        inputReader.OpenMenuWindow -= OpenMenuWindow;
-        inputReader.TabRightButtonEvent -= OnTabRightButton;
-        inputReader.TabLeftButtonEvent -= OnTabLeftButton;
-        inputReader.CloseMenuWindow -= CloseMenuWindow;
+        inputProvider.OpenMenuWindow -= OpenMenuWindow;
+        inputProvider.TabRightButtonEvent -= OnTabRightButton;
+        inputProvider.TabLeftButtonEvent -= OnTabLeftButton;
+        inputProvider.CloseMenuWindow -= CloseMenuWindow;
     }
 
     // --- Event Listeners --- // 
-    private void OpenDevConsole() => DeveloperConsoleBehaviour.GetDevConsole(commands, inputReader, "/");
+    private void OpenDevConsole() => DeveloperConsoleBehaviour.GetDevConsole(commands, inputProvider, "/");
 
     private void OpenMenuWindow() {
         menu.SetActive(true);
-        inputReader.EnableMenuInput();
+        inputProvider.EnableMenuInput();
     }
 
     private void OnTabRightButton() {
@@ -60,6 +60,6 @@ public class UIManager : MonoBehaviour {
 
     private void CloseMenuWindow() {
         menu.SetActive(false);
-        inputReader.EnableGameplayInput();
+        inputProvider.EnableGameplayInput();
     }
 }

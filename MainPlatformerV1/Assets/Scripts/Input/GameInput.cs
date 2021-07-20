@@ -43,7 +43,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""65a85ccc-c121-43d5-b6c9-83674e675ddc"",
                     ""expectedControlType"": ""Button"",
@@ -278,7 +278,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""Attack"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -289,7 +289,7 @@ public class @GameInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardOrGamepad"",
-                    ""action"": ""Attack"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -489,7 +489,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
-        m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
+        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_Hat = m_Gameplay.FindAction("Hat", throwIfNotFound: true);
         m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
@@ -554,7 +554,7 @@ public class @GameInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Crouch;
-    private readonly InputAction m_Gameplay_Attack;
+    private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_Interact;
     private readonly InputAction m_Gameplay_Hat;
     private readonly InputAction m_Gameplay_Menu;
@@ -566,7 +566,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
-        public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
+        public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputAction @Hat => m_Wrapper.m_Gameplay_Hat;
         public InputAction @Menu => m_Wrapper.m_Gameplay_Menu;
@@ -589,9 +589,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Crouch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
-                @Attack.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAttack;
+                @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
@@ -617,9 +617,9 @@ public class @GameInput : IInputActionCollection, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
@@ -732,7 +732,7 @@ public class @GameInput : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnHat(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);

@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: Initializes Input Reader and Input SO's
-  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
+  inputProvider: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
   playerInputData: {fileID: 11400000, guid: dd2979e10cb86834b965aa77d4766200, type: 2}
   interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
     type: 2}

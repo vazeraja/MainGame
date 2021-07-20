@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ea0c9aa0f44037808a30aba8fe17b0, type: 3}
-  m_Name: MenuInputData
+  m_Script: {fileID: 11500000, guid: 3a189bb168d8d90478a09ea08c2f3d72, type: 3}
+  m_Name: DefaultObject
   m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: bb823d7e6813e36429f5976f561d9bfa, type: 2}
-  tabRightPressed: 0
-  tabRightReleased: 0
-  tabLeftPressed: 0
-  tabLeftReleased: 0
+  m_AddressableAssetSettingsGuid: 58591ca17b3b48d4fb16b340d99a7b16

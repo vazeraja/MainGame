@@ -12,7 +12,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
         public bool hasToPause;
         public int index;
         public DialogueBehaviour.DialogueType dialogueType;
-        public InputReader inputReader;
+        public InputProvider inputProvider;
 
         public ClipCaps clipCaps => ClipCaps.All;
 
@@ -24,7 +24,7 @@ namespace MainGame.Timeline.CustomDialogueTrack {
             dialogueBehaviour.hasToPause = hasToPause;
             dialogueBehaviour.index = index;
             dialogueBehaviour.dialogueType = dialogueType;
-            dialogueBehaviour.inputReader = inputReader;
+            dialogueBehaviour.InputProvider = inputProvider;
 
             return playable;
         }

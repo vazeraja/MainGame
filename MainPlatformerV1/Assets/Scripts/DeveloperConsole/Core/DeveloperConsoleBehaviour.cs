@@ -8,15 +8,15 @@ using UnityEngine.UI;
 namespace MainGame.DeveloperConsole {
     public class DeveloperConsoleBehaviour : RuntimeSingleton<DeveloperConsoleBehaviour> {
         
-        public static void GetDevConsole(IEnumerable<ConsoleCommand> com, InputReader input, string slash){
+        public static void GetDevConsole(IEnumerable<ConsoleCommand> com, InputProvider input, string slash){
             Instance.commands.AddRange(com);
-            Instance.inputReader = input;
+            Instance.inputProvider = input;
             Instance.prefix = slash;
             Instance.CreateDevConsole();
         }
 
         private string prefix = string.Empty;
-        private InputReader inputReader = null;
+        private InputProvider inputProvider = null;
         private readonly List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
         private DeveloperConsole developerConsole;
@@ -34,14 +34,14 @@ namespace MainGame.DeveloperConsole {
         public void ProcessCommand(string inputValue){
             DeveloperConsole.ProcessCommand(inputValue);
             inputField.text = string.Empty;
-            inputReader.EnableGameplayInput();
+            inputProvider.EnableGameplayInput();
             Destroy(canvas);
         }
 
         private void CreateDevConsole(){
             if (canvas != null) return;
             
-            inputReader.DisableAllInput();
+            inputProvider.DisableAllInput();
 
             canvas = new GameObject("DeveloperConsoleCanvas");
             var developerConsoleCanvas = canvas.AddComponent<Canvas>();

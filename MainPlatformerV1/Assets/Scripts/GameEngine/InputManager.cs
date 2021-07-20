@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour {
     public string description;
     
     [Space]
-    [SerializeField] private InputReader inputReader;
+    [SerializeField] private InputProvider inputProvider;
 
     [Space]
     [SerializeField] private PlayerInputData playerInputData;
@@ -17,5 +17,5 @@ public class InputManager : MonoBehaviour {
         interactionInputData.Reset();
     }
 
-    public InputReader GetInputReader() => inputReader;
+    public InputProvider GetInputReader() => inputProvider;
 }

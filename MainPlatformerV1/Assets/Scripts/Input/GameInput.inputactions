@@ -30,7 +30,7 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
-                    "name": "Attack",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "65a85ccc-c121-43d5-b6c9-83674e675ddc",
                     "expectedControlType": "Button",
@@ -265,7 +265,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
-                    "action": "Attack",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -276,7 +276,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
-                    "action": "Attack",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

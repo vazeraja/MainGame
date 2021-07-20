@@ -3,42 +3,42 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
 public struct InputState {
-    
+    public Vector2 movementDirection;
+    public bool isCrouching;
 }
 public interface IInputProvider {
-    public event UnityAction OnJump;
+    //public event UnityAction jump;
     public InputState GetState();
 }
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IMenuActions{
+public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IMenuActions{
     
-    // Gameplay
+    // Player
     public event UnityAction<Vector2> MoveEvent;
-    public event UnityAction<float> FJumpEvent;
+    public event UnityAction<float> JumpEvent;
     public event UnityAction<float> CrouchEvent;
-    public event UnityAction AttackEvent;
-    public event UnityAction AttackCanceledEvent;
-    public event UnityAction DashEvent;
-    public event UnityAction DashCanceledEvent;
-    public event UnityAction HatEvent;
+    public event UnityAction<float> DashEvent;
 
-    // Interaction
+    private Vector2 movementDirection;
+    private bool isCrouching;
+
+    #region Other
     public event UnityAction InteractionStartedEvent;
     public event UnityAction InteractionCancelledEvent;
-
-    // Developer Console
+    public event UnityAction HatEvent;
     public event UnityAction OpenDevConsole;
-
-    // Dialogue
     public event UnityAction AdvanceDialogueEvent;
-
-    // Menu Input
+    #endregion
+    
+    #region Menu Events
     public event UnityAction OpenMenuWindow;
     public event UnityAction TabRightButtonEvent;
     public event UnityAction TabLeftButtonEvent;
     public event UnityAction CloseMenuWindow;
 
+    #endregion
+    
     private GameInput GameInput { get; set; }
 
     private void OnEnable() {
@@ -58,6 +58,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public void OnMove(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
+        movementDirection = context.ReadValue<Vector2>();
     }
     
     public void OnCrouch(InputAction.CallbackContext context) {
@@ -66,17 +67,13 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         }
     }
     public void OnJump(InputAction.CallbackContext context) {
-        if (FJumpEvent != null && context.phase == InputActionPhase.Performed) {
-            FJumpEvent?.Invoke(context.ReadValue<float>());
+        if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
+            JumpEvent?.Invoke(context.ReadValue<float>());
         }
     }
-
     public void OnDash(InputAction.CallbackContext context) {
         if (DashEvent != null && context.phase == InputActionPhase.Performed)
-            DashEvent.Invoke();
-
-        if (DashCanceledEvent != null && context.phase == InputActionPhase.Canceled)
-            DashCanceledEvent.Invoke();
+            DashEvent.Invoke(context.ReadValue<float>());
     }
 
     public void OnHat(InputAction.CallbackContext context) {
@@ -84,13 +81,6 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
             HatEvent?.Invoke();
     }
 
-    public void OnAttack(InputAction.CallbackContext context) {
-        if (AttackEvent != null && context.phase == InputActionPhase.Performed)
-            AttackEvent.Invoke();
-
-        if (AttackCanceledEvent != null && context.phase == InputActionPhase.Canceled)
-            AttackCanceledEvent.Invoke();
-    }
 
     public void OnOpenDevConsole(InputAction.CallbackContext context) {
         if (OpenDevConsole != null && context.phase == InputActionPhase.Performed)
@@ -164,5 +154,9 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         GameInput.Dialogues.Disable();
         GameInput.Menu.Disable();
     }
-    
+    public InputState GetState() {
+        return new InputState {
+            movementDirection = movementDirection
+        };
+    }
 }

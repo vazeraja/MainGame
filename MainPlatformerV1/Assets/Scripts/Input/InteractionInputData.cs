@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractionInputData", menuName = "InputData/InteractionInputData", order = 0)]
 public class InteractionInputData : ScriptableObject {
-    [SerializeField] private InputReader inputReader = null;
+    [SerializeField] private InputProvider inputProvider = null;
 
     [Space] [SerializeField] private bool interactionClicked;
     [SerializeField] private bool interactionReleased;
@@ -22,13 +22,13 @@ public class InteractionInputData : ScriptableObject {
     }
 
     public void OnEnable() {
-        inputReader.InteractionStartedEvent += OnInteractionClicked;
-        inputReader.InteractionCancelledEvent += OnInteractionReleased;
+        inputProvider.InteractionStartedEvent += OnInteractionClicked;
+        inputProvider.InteractionCancelledEvent += OnInteractionReleased;
     }
 
     public void OnDisable() {
-        inputReader.InteractionStartedEvent -= OnInteractionClicked;
-        inputReader.InteractionCancelledEvent -= OnInteractionReleased;
+        inputProvider.InteractionStartedEvent -= OnInteractionClicked;
+        inputProvider.InteractionCancelledEvent -= OnInteractionReleased;
     }
 
     private void OnInteractionClicked() {
@@ -45,7 +45,7 @@ public class InteractionInputData : ScriptableObject {
         holdTimer = 0;
     }
 
-    public void EnableGameplayInput() => inputReader.EnableGameplayInput();
+    public void EnableGameplayInput() => inputProvider.EnableGameplayInput();
 
     public void Reset() {
         interactionClicked = false;
