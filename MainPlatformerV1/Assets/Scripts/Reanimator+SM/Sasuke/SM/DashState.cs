@@ -3,7 +3,7 @@ using ThunderNut.StateMachine;
 
 public class DashState : State {
     
-    public SasukeController player => agent as SasukeController;
+    public PlayerController player => agent as PlayerController;
 
     public override void Enter() {
         player.dashStopwatch.Split();

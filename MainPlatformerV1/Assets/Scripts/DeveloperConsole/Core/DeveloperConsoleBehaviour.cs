@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ThunderNut.Extensions;
 using TMPro;
+using TN.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 

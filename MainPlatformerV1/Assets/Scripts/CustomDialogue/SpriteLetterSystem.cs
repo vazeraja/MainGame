@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using ThunderNut.Extensions;
+using TN.Extensions;
 
 
 namespace MainGame {

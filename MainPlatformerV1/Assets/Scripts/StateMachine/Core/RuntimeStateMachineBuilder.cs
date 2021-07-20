@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ThunderNut.Extensions;
+using TN.Extensions;
 using UnityEngine;
 
 namespace ThunderNut.StateMachine {

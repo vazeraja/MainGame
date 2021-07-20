@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementState : State {
     
-    public SasukeController player => agent as SasukeController;
+    public PlayerController player => agent as PlayerController;
     
     public override void Enter() {
         player.State = SasukeState.Movement;
@@ -24,9 +24,9 @@ public class MovementState : State {
         var previousVelocity = player.CollisionDetection.Velocity;
         var velocityChange = Vector2.zero;
 
-        if (player.DesiredDirection.x > 0)
+        if (player.MovementDirection.x > 0)
             player.FacingDirection = 1;
-        else if (player.DesiredDirection.x < 0)
+        else if (player.MovementDirection.x < 0)
             player.FacingDirection = -1;
 
         if (player.wantsToJump && player.IsJumping) {
@@ -54,12 +54,12 @@ public class MovementState : State {
             velocityChange.y = (-player.fallSpeed - previousVelocity.y) / 8;
         }
 
-        velocityChange.x = (player.DesiredDirection.x * player.walkSpeed - previousVelocity.x) / 4;
+        velocityChange.x = (player.MovementDirection.x * player.walkSpeed - previousVelocity.x) / 4;
 
         if (player.CollisionDetection.wallContact.HasValue) {
             var wallDirection = (int) Mathf.Sign(player.CollisionDetection.wallContact.Value.point.x -
                                                  player.transform.position.x);
-            var walkDirection = (int) Mathf.Sign(player.DesiredDirection.x);
+            var walkDirection = (int) Mathf.Sign(player.MovementDirection.x);
 
             if (walkDirection == wallDirection)
                 velocityChange.x = 0;

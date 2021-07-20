@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineFollowCam
+  - App
   layers:
   - Default
   - TransparentFX
@@ -12,8 +13,8 @@ TagManager:
   - MainCamera
   - Water
   - UI
-  - Menu
-  - GameUI
+  - App
+  - 
   - Ground
   - Player
   - Interactable

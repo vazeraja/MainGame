@@ -2,7 +2,7 @@
 using ThunderNut.StateMachine;
 
 public class HitState : State {
-    public SasukeController player => agent as SasukeController;
+    public PlayerController player => agent as PlayerController;
 
     public override void Enter() {
         var relativePosition =

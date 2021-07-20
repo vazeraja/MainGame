@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 
 
-namespace ThunderNut.Extensions {
+namespace TN.Extensions {
     public enum LogColor{ Red, Blue, Green, White, None }
 
     /// <summary>

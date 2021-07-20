@@ -22,25 +22,17 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "fc0dd22a-63a3-421c-b514-5b6bc1e9f912",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
                     "name": "Attack",
                     "type": "Button",
                     "id": "65a85ccc-c121-43d5-b6c9-83674e675ddc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "86a2519c-f018-4f88-a865-147dfedd5a3e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "OpenDevConsole",
-                    "type": "Button",
-                    "id": "dcbcb6e6-cb56-481d-af2f-ea3ad19e8adf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -54,6 +46,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Hat",
+                    "type": "Button",
+                    "id": "ae340359-eca5-4eca-af79-ff9cbeb7a937",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Menu",
                     "type": "Button",
                     "id": "fc990194-8a7f-423c-bfd1-948bed9062a9",
@@ -62,9 +62,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Hat",
+                    "name": "OpenDevConsole",
                     "type": "Button",
-                    "id": "ae340359-eca5-4eca-af79-ff9cbeb7a937",
+                    "id": "dcbcb6e6-cb56-481d-af2f-ea3ad19e8adf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -282,45 +282,34 @@
                 },
                 {
                     "name": "",
-                    "id": "08e210ce-12bd-4bf7-b50e-24be22fb3f0b",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a1b8ecce-183f-47e4-ba4e-4ff466341eb9",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0f9c921c-c737-4827-8e9f-1f595bb92124",
-                    "path": "<Keyboard>/3",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "KeyboardOrGamepad",
-                    "action": "OpenDevConsole",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "241b2433-c327-4497-987d-7d53b8e0d21f",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2783a939-ac4d-4800-9131-ba298be29fce",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardOrGamepad",
+                    "action": "Hat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee7c830c-3050-49e5-a64e-1e9a2722af5a",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardOrGamepad",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -337,12 +326,12 @@
                 },
                 {
                     "name": "",
-                    "id": "2783a939-ac4d-4800-9131-ba298be29fce",
-                    "path": "<Keyboard>/h",
-                    "interactions": "",
+                    "id": "0f9c921c-c737-4827-8e9f-1f595bb92124",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardOrGamepad",
-                    "action": "Hat",
+                    "action": "OpenDevConsole",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

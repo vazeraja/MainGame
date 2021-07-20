@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour {
 
     public GameObject menu;
-    public GameObject loadingInterface;
-    public Image loadingProgressBar;
+    // public GameObject loadingInterface;
+    // public Image loadingProgressBar;
 
     private readonly List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
@@ -17,26 +17,25 @@ public class MainMenu : MonoBehaviour {
 
     public void StartGame(){
         HideMenu();
-        ShowLoadingScreen();
-        // scenesToLoad.Add(SceneManager.LoadSceneAsync($"{sceneHandle.scene.name}", LoadSceneMode.Additive));
-        // scenesToLoad.Add(SceneManager.LoadSceneAsync("SceneB"));
-        StartCoroutine(LoadingScreen());
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(sceneHandle.scene.sceneIndex, LoadSceneMode.Additive));
+        //ShowLoadingScreen();
+        //StartCoroutine(LoadingScreen());
     }
     public void HideMenu() => menu.SetActive(false);
 
-    public void ShowLoadingScreen(){
-        loadingInterface.SetActive(true);
-    }
-    private IEnumerator LoadingScreen(){
-        float totalProgress = 0;
-        foreach (var asyncOperation in scenesToLoad) {
-            while (!asyncOperation.isDone) {
-                totalProgress += asyncOperation.progress;
-                loadingProgressBar.fillAmount = totalProgress / scenesToLoad.Count;
-                yield return null;
-            }
-        }
-    }
+    // public void ShowLoadingScreen(){
+    //     loadingInterface.SetActive(true);
+    // }
+    // private IEnumerator LoadingScreen(){
+    //     float totalProgress = 0;
+    //     foreach (var asyncOperation in scenesToLoad) {
+    //         while (!asyncOperation.isDone) {
+    //             totalProgress += asyncOperation.progress;
+    //             loadingProgressBar.fillAmount = totalProgress / scenesToLoad.Count;
+    //             yield return null;
+    //         }
+    //     }
+    // }
 
     public void ExitGame() => Application.Quit();
 

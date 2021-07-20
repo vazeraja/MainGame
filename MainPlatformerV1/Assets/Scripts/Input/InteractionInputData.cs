@@ -21,12 +21,12 @@ public class InteractionInputData : ScriptableObject {
         set => interactionReleased = value;
     }
 
-    public void RegisterEvents() {
+    public void OnEnable() {
         inputReader.InteractionStartedEvent += OnInteractionClicked;
         inputReader.InteractionCancelledEvent += OnInteractionReleased;
     }
 
-    public void UnregisterEvents() {
+    public void OnDisable() {
         inputReader.InteractionStartedEvent -= OnInteractionClicked;
         inputReader.InteractionCancelledEvent -= OnInteractionReleased;
     }

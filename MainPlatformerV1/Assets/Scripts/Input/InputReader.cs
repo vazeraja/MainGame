@@ -1,16 +1,22 @@
-﻿using ThunderNut.Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
+public struct InputState {
+    
+}
+public interface IInputProvider {
+    public event UnityAction OnJump;
+    public InputState GetState();
+}
+
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IMenuActions {
+public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IDialoguesActions, GameInput.IMenuActions{
     
     // Gameplay
     public event UnityAction<Vector2> MoveEvent;
     public event UnityAction<float> FJumpEvent;
-    public event UnityAction JumpEvent;
-    public event UnityAction JumpCanceledEvent;
+    public event UnityAction<float> CrouchEvent;
     public event UnityAction AttackEvent;
     public event UnityAction AttackCanceledEvent;
     public event UnityAction DashEvent;
@@ -50,19 +56,19 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     #region Gameplay Actions
 
-    public void OnJump(InputAction.CallbackContext context) {
-        if (JumpEvent != null && context.phase == InputActionPhase.Started) {
-            JumpEvent.Invoke();
-        }
-        if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
-            FJumpEvent?.Invoke(context.ReadValue<float>());
-        }
-        if (JumpCanceledEvent != null && context.phase == InputActionPhase.Canceled)
-            JumpCanceledEvent.Invoke();
-    }
-
     public void OnMove(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
+    }
+    
+    public void OnCrouch(InputAction.CallbackContext context) {
+        if (CrouchEvent != null && context.phase == InputActionPhase.Performed) {
+            CrouchEvent?.Invoke(context.ReadValue<float>());
+        }
+    }
+    public void OnJump(InputAction.CallbackContext context) {
+        if (FJumpEvent != null && context.phase == InputActionPhase.Performed) {
+            FJumpEvent?.Invoke(context.ReadValue<float>());
+        }
     }
 
     public void OnDash(InputAction.CallbackContext context) {
@@ -158,4 +164,5 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         GameInput.Dialogues.Disable();
         GameInput.Menu.Disable();
     }
+    
 }

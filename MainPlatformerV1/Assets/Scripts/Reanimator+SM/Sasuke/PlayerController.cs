@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 using ThunderNut.StateMachine;
 using TN.Common;
@@ -10,7 +11,8 @@ public enum SasukeState {
     Hit = 2,
 }
 
-public class SasukeController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, ISaveable {
+    
     [Header("Input")] 
     public InputReader inputReader;
 
@@ -36,10 +38,11 @@ public class SasukeController : MonoBehaviour {
 
     //private App app;
     private RuntimeStateMachine stateMachine;
-    public CollisionDetection CollisionDetection { get; private set; }
-    public SasukeState State { get; set; } = SasukeState.Movement;
-    public Vector2 DesiredDirection { get; private set; }
+    public CollisionDetection CollisionDetection { get; set; }
+    public Vector2 MovementDirection { get; set; }
+    public bool IsCrouching { get; set; }
     public int FacingDirection { get; set; } = 1;
+    public SasukeState State { get; set; } = SasukeState.Movement;
 
     public float DashCompletion => dashStopwatch.Completion;
     public float JumpCompletion => jumpStopwatch.Completion;
@@ -54,8 +57,6 @@ public class SasukeController : MonoBehaviour {
     [HideInInspector] public int enemyLayer;
 
     private void Awake() {
-        // inputReader = App.InputManager.GetInputReader();
-        
         CollisionDetection = GetComponent<CollisionDetection>();
 
         stateMachine = Builder.RuntimeStateMachine
@@ -76,30 +77,35 @@ public class SasukeController : MonoBehaviour {
         inputReader.MoveEvent += OnMove;
         inputReader.FJumpEvent += OnJump;
         inputReader.AttackEvent += OnDash;
+        inputReader.CrouchEvent += OnCrouch;
     }
 
     private void OnDisable() {
         inputReader.MoveEvent -= OnMove;
         inputReader.FJumpEvent -= OnJump;
         inputReader.AttackEvent -= OnDash;
+        inputReader.CrouchEvent -= OnCrouch;
     }
     
     private void Start() {
+        JsonSaveService.LoadJsonData(new[] {this});
         enemyLayer = LayerMask.NameToLayer($"Enemy");
-        stateMachine.Bind<SasukeController>(this);
-    }
-    
-    private void Update() {
-        stateMachine.Update();
+        stateMachine.Bind<PlayerController>(this);
     }
 
-    private void FixedUpdate() {
-        stateMachine.FixedUpdate();
+    private void Update() {
+        stateMachine.Update();
+    } 
+
+    private void FixedUpdate() => stateMachine.FixedUpdate();
+
+    private void OnApplicationQuit() {
+        JsonSaveService.SaveJsonData(new []{this});
     }
 
     #region Events
 
-    private void OnMove(Vector2 value) => DesiredDirection = value;
+    private void OnMove(Vector2 value) => MovementDirection = value;
 
     private void OnJump(float value) {
         wantsToJump = value > 0.5f;
@@ -117,6 +123,10 @@ public class SasukeController : MonoBehaviour {
     }
 
     private void OnDash() => EnterDashState();
+
+    private void OnCrouch(float value) {
+        IsCrouching = value > 0.5f;
+    }
 
     #endregion
 
@@ -142,6 +152,7 @@ public class SasukeController : MonoBehaviour {
     private void EnterDashState() {
         if (State != SasukeState.Movement || !dashStopwatch.IsReady || !canDash) return;
         State = SasukeState.Dash;
+        
     }
 
     public void EnterMovementState() {
@@ -149,4 +160,12 @@ public class SasukeController : MonoBehaviour {
     }
 
     #endregion
+
+    public void PopulateSaveData(SaveData saveData) {
+        saveData.profile.location = transform.position;
+    }
+
+    public void LoadFromSaveData(SaveData saveData) {
+        transform.position = saveData.profile.location;
+    }
 }

@@ -15,14 +15,14 @@ public class SasukeRenderer : MonoBehaviour {
     }
 
     private Reanimator reanimator;
-    private SasukeController controller;
+    private PlayerController controller;
     private CollisionDetection collisionDetection;
 
     private bool _isRed;
 
     private void Awake() {
         reanimator = GetComponent<Reanimator>();
-        controller = GetComponent<SasukeController>();
+        controller = GetComponent<PlayerController>();
         collisionDetection = GetComponent<CollisionDetection>();
     }
 
@@ -36,7 +36,7 @@ public class SasukeRenderer : MonoBehaviour {
 
     private void Update() {
         var velocity = collisionDetection.Velocity;
-        bool isMoving = Mathf.Abs(controller.DesiredDirection.x) > 0 && Mathf.Abs(velocity.x) > 0.01f;
+        bool isMoving = Mathf.Abs(controller.MovementDirection.x) > 0 && Mathf.Abs(velocity.x) > 0.01f;
 
         int hitDirection;
         float speed = velocity.magnitude;

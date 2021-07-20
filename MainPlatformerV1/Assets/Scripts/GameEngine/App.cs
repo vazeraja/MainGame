@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace TN.GameEngine {
     
-    public static class App {
+    public class App {
         
-        // public GameModeManager GameModeManager;
-        // public SaveManager SaveManager;
-        // public InputManager InputManager;
+        public static JsonSaveService SaveService => new JsonSaveService();
+        
+        public GameModeManager GameModeManager;
+        public SaveManager SaveManager;
+        public InputManager InputManager;
     
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Bootstrap() {
@@ -21,16 +23,16 @@ namespace TN.GameEngine {
             UnityEngine.Object.DontDestroyOnLoad(app);
         }
 
-        // public static App CreateApp() {
-        //     var appPrefab = GameObject.FindGameObjectWithTag("App");
-// 
-        //     App app = new App {
-        //         GameModeManager = appPrefab.GetComponent<GameModeManager>(),
-        //         SaveManager = appPrefab.GetComponent<SaveManager>(),
-        //         InputManager = appPrefab.GetComponent<InputManager>()
-        //     };
-        //     
-        //     return app;
-        // }
+        public static App CreateApp() {
+            var appPrefab = GameObject.FindGameObjectWithTag("App");
+        
+            App app = new App {
+                GameModeManager = appPrefab.GetComponent<GameModeManager>(),
+                SaveManager = appPrefab.GetComponent<SaveManager>(),
+                InputManager = appPrefab.GetComponent<InputManager>()
+            };
+            
+            return app;
+        }
     }
 }
