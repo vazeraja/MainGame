@@ -38,8 +38,9 @@ namespace ThunderNut.StateMachine {
             return this;
         }
 
-        public RuntimeStateMachineBuilder WithTransition(Transition transition, Decision decision, State trueState,
-            State falseState, IEnumerable<State> statesToAdd) {
+        public RuntimeStateMachineBuilder WithTransition(Decision decision, State trueState, State falseState, IEnumerable<State> statesToAdd)
+        {
+            var transition = new Transition();
 
             transition.SetDecision(decision);
             transition.SetStates(trueState, falseState);
@@ -71,7 +72,7 @@ namespace ThunderNut.StateMachine {
             return this;
         }
 
-        public RuntimeStateMachine Build() {
+        public RuntimeStateMachine Build<T>(object type) where T : class {
             var newStateMachine = ScriptableObject.CreateInstance<RuntimeStateMachine>();
 
             if (states != null) {
@@ -84,6 +85,9 @@ namespace ThunderNut.StateMachine {
 
             newStateMachine.currentState = currentState;
             newStateMachine.remainState = remainState;
+
+            newStateMachine.states.ForEach(state => state.BindAgent<T>(type));
+            newStateMachine.decisions.ForEach(decision => decision.BindAgent<T>(type));
 
             newStateMachine.EnableTransitions();
 

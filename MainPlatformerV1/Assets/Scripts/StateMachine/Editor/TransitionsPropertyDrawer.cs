@@ -19,7 +19,9 @@ namespace ThunderNut.StateMachine.Editor {
             EditorGUI.BeginProperty(position, label, property);
 
             var decision = property.FindPropertyRelative("decision");
+            
             var trueState = property.FindPropertyRelative("trueState");
+            
             var falseState = property.FindPropertyRelative("falseState");
 
             float width = (position.width - 20) / 2;

@@ -56,16 +56,16 @@ namespace Jeff
         }
 
         private void OnEnable() {
-            inputProvider.MoveEvent += OnMove;
-            inputProvider.JumpEvent += OnJump;
-            inputProvider.DashEvent += OnAttack;
+            // inputProvider.MoveEvent += OnMove;
+            inputProvider.onJump += OnJump;
+            inputProvider.onDash += OnAttack;
             inputProvider.HatEvent += OnHat;
         }
 
         private void OnDisable() {
-            inputProvider.MoveEvent -= OnMove;
-            inputProvider.JumpEvent -= OnJump;
-            inputProvider.DashEvent -= OnAttack;
+            // inputProvider.MoveEvent -= OnMove;
+            inputProvider.onJump -= OnJump;
+            inputProvider.onDash -= OnAttack;
             inputProvider.HatEvent -= OnHat;
         }
 

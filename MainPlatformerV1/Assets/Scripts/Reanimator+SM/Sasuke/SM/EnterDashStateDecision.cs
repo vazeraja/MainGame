@@ -5,7 +5,7 @@ public class EnterDashStateDecision : Decision
     public PlayerController player => agent as PlayerController;
 
     public override bool Decide() {
-        return player.State == SasukeState.Dash;
+        return player.State == AnimState.Dash;
     }
 }
 

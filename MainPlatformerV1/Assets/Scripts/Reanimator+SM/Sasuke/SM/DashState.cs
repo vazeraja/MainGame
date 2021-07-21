@@ -14,11 +14,11 @@ public class DashState : State {
     }
 
     public override void FixedUpdate() {
-        player.CollisionDetection.rigidbody2D.AddForce(
-            new Vector2(player.FacingDirection * player.dashSpeed, 0) - player.CollisionDetection.rigidbody2D.velocity,
+        player.collisionDetection.rigidbody2D.AddForce(
+            new Vector2(player.FacingDirection * player.dashSpeed, 0) - player.collisionDetection.rigidbody2D.velocity,
             ForceMode2D.Impulse
         );
-        if (!player.dashStopwatch.IsFinished && !player.CollisionDetection.IsTouchingWall) return;
+        if (!player.dashStopwatch.IsFinished && !player.collisionDetection.IsTouchingWall) return;
         player.dashStopwatch.Split();
         player.EnterMovementState();
     }

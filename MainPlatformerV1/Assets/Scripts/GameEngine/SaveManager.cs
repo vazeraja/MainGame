@@ -7,13 +7,12 @@ public class SaveManager : MonoBehaviour {
     private readonly IChain chainCalc2 = new SubtractNumbers();
     private readonly IChain chainCalc3 = new MultiplyNumbers();
 
-    private Numbers request = new Numbers(4, 2, "mult");
+    private readonly Numbers request = new Numbers(4, 2, "mult");
     
     private void Start() {
         chainCalc1.SetNextChain(chainCalc2);
         chainCalc2.SetNextChain(chainCalc3);
-        
-        // chainCalc1.Calculate(request);
+        //chainCalc1.Calculate(request);
     }
 }
 

@@ -2,27 +2,16 @@
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public struct InputState {
-    public Vector2 movementDirection;
-    public bool isCrouching;
-}
-
-public interface IInputProvider {
-    //public event UnityAction jump;
-    public InputState GetState();
-}
-
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
 public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGameplayActions, GameInput.IDialoguesActions,
     GameInput.IMenuActions {
-    // Player
-    public event UnityAction<Vector2> MoveEvent;
-    public event UnityAction<float> JumpEvent;
-    public event UnityAction<float> CrouchEvent;
-    public event UnityAction<float> DashEvent;
 
     private Vector2 movementDirection;
     private bool isCrouching;
+    public event UnityAction<float> onJump;
+    
+    public event UnityAction<float> onDash;
+
 
     #region Other
 
@@ -34,7 +23,7 @@ public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGamepl
 
     #endregion
 
-    #region Menu Events
+    #region Menu UnityActions
 
     public event UnityAction OpenMenuWindow;
     public event UnityAction TabRightButtonEvent;
@@ -61,31 +50,38 @@ public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGamepl
 
     #region Gameplay Actions
 
+
+    public InputState GetState() =>
+        new InputState {
+            movementDirection = movementDirection,
+            isCrouching = isCrouching
+        };
+
+    public static implicit operator InputState(InputProvider provider) => provider.GetState();
+
     public void OnMove(InputAction.CallbackContext context)
     {
-        MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
         movementDirection = context.ReadValue<Vector2>();
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (CrouchEvent != null && context.phase == InputActionPhase.Performed) {
-            CrouchEvent?.Invoke(context.ReadValue<float>());
+        if (context.phase == InputActionPhase.Performed) {
             isCrouching = context.ReadValue<float>() > 0.5f;
         }
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (JumpEvent != null && context.phase == InputActionPhase.Performed) {
-            JumpEvent?.Invoke(context.ReadValue<float>());
+        if (context.phase == InputActionPhase.Performed) {
+            onJump?.Invoke(context.ReadValue<float>());
         }
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (DashEvent != null && context.phase == InputActionPhase.Performed)
-            DashEvent.Invoke(context.ReadValue<float>());
+        if (context.phase == InputActionPhase.Performed)
+            onDash?.Invoke(context.ReadValue<float>());
     }
 
     public void OnHat(InputAction.CallbackContext context)
@@ -180,17 +176,5 @@ public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGamepl
         GameInput.Menu.Disable();
     }
     #endregion
-
-    public InputState GetState()
-    {
-        return new InputState {
-            movementDirection = movementDirection,
-            isCrouching = isCrouching,
-        };
-    }
-
-    public static implicit operator InputState(InputProvider provider)
-    {
-        return provider.GetState();
-    }
+    
 }

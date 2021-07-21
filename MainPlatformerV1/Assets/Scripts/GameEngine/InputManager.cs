@@ -9,11 +9,9 @@ public class InputManager : MonoBehaviour {
     [SerializeField] private InputProvider inputProvider;
 
     [Space]
-    [SerializeField] private PlayerInputData playerInputData;
     [SerializeField] private InteractionInputData interactionInputData;
 
     private void Start() {
-        playerInputData.Reset();
         interactionInputData.Reset();
     }
 

@@ -3,25 +3,28 @@ using UnityEngine;
 
 
 public class MovementState : State {
-    
     public PlayerController player => agent as PlayerController;
-    
-    public override void Enter() {
-        player.State = SasukeState.Movement;
+
+    public override void Enter()
+    {
+        player.State = AnimState.Movement;
     }
 
-    public override void Update() { }
+    public override void Update()
+    { }
 
-    public override void FixedUpdate() {
+    public override void FixedUpdate()
+    {
         UpdateMovementState();
     }
 
-    public override void Exit() {
-    }
-    
+    public override void Exit()
+    { }
 
-    private void UpdateMovementState() {
-        var previousVelocity = player.CollisionDetection.Velocity;
+
+    private void UpdateMovementState()
+    {
+        var previousVelocity = player.collisionDetection.Velocity;
         var velocityChange = Vector2.zero;
 
         if (player.MovementDirection.x > 0)
@@ -37,10 +40,10 @@ public class MovementState : State {
             currentJumpSpeed *= player.jumpFallOff.Evaluate(player.JumpCompletion);
             velocityChange.y = currentJumpSpeed - previousVelocity.y;
 
-            if (player.CollisionDetection.ceilingContact.HasValue)
+            if (player.collisionDetection.ceilingContact.HasValue)
                 player.jumpStopwatch.Reset();
         }
-        else if (player.CollisionDetection.groundContact.HasValue) {
+        else if (player.collisionDetection.groundContact.HasValue) {
             player.jumpsLeft = player.numberOfJumps;
             player.wasOnTheGround = true;
             player.canDash = true;
@@ -54,10 +57,12 @@ public class MovementState : State {
             velocityChange.y = (-player.fallSpeed - previousVelocity.y) / 8;
         }
 
-        velocityChange.x = (player.MovementDirection.x * player.walkSpeed - previousVelocity.x) / 4;
+        velocityChange.x = player.IsCrouching
+            ? (player.MovementDirection.x * player.crouchSpeed - previousVelocity.x) / 4
+            : (player.MovementDirection.x * player.walkSpeed - previousVelocity.x) / 4;
 
-        if (player.CollisionDetection.wallContact.HasValue) {
-            var wallDirection = (int) Mathf.Sign(player.CollisionDetection.wallContact.Value.point.x -
+        if (player.collisionDetection.wallContact.HasValue) {
+            var wallDirection = (int) Mathf.Sign(player.collisionDetection.wallContact.Value.point.x -
                                                  player.transform.position.x);
             var walkDirection = (int) Mathf.Sign(player.MovementDirection.x);
 
@@ -65,6 +70,6 @@ public class MovementState : State {
                 velocityChange.x = 0;
         }
 
-        player.CollisionDetection.rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
+        player.collisionDetection.rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
     }
 }
