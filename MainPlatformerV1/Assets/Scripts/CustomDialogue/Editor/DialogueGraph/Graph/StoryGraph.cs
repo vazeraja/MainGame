@@ -15,7 +15,7 @@ namespace MainGame.DialogueGraph {
         private StoryGraphView _graphView;
         private DialogueContainer _dialogueContainer;
 
-        [MenuItem("Graph/Narrative Graph")]
+        [MenuItem("Dialogue Graph/Dialogue Graph")]
         public static void CreateGraphViewWindow(){
             var window = GetWindow<StoryGraph>();
             window.titleContent = new GUIContent("Narrative Graph");

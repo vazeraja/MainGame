@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
   m_Name: root_movement_air_jump
   m_EditorClassIdentifier: 
   nodes:
@@ -19,7 +19,7 @@ MonoBehaviour:
     name: isMoving
     autoIncrement: 0
     percentageBased: 0
-    guid: f6f44a11-7cf1-4997-bd49-00e6990f2dfd
+    guid: 13f87e0d-32f9-4e18-ae7d-f7e9791913f4
   drivers:
     keys: []
     values: 

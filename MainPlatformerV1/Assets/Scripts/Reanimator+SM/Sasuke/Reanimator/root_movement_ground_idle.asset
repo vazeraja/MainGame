@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
   m_Name: root_movement_ground_idle
   m_EditorClassIdentifier: 
   nodes:
@@ -20,7 +20,7 @@ MonoBehaviour:
     name: idleTransition
     autoIncrement: 0
     percentageBased: 0
-    guid: 2637c4f2-a5c1-4d62-b79c-8c46c8908ac6
+    guid: da436deb-b2f2-4779-b572-a3d39816a981
   drivers:
     keys: []
     values: 

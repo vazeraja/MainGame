@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
   m_Name: root_movement
   m_EditorClassIdentifier: 
   nodes:
@@ -19,7 +19,7 @@ MonoBehaviour:
     name: isGrounded
     autoIncrement: 0
     percentageBased: 0
-    guid: 275d96f4-fc1b-4311-9a61-26b44d4b9ca7
+    guid: abcfe88e-2210-43d2-9566-b7e1791d7deb
   drivers:
     keys: []
     values: 

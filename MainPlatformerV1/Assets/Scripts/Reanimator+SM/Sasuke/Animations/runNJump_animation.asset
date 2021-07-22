@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f1da0b6abdb7d45aa4315eccab639b, type: 3}
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
   m_Name: runNJump_animation
   m_EditorClassIdentifier: 
   cels:

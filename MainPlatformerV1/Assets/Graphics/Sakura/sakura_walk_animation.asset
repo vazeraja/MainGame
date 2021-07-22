@@ -45,7 +45,7 @@ MonoBehaviour:
       values: 
   controlDriver:
     name: 
-    autoIncrement: 0
+    autoIncrement: 1
     percentageBased: 0
     guid: dc77b08a-5582-4e1d-b3a1-61cfdbc2bd7f
   drivers:
