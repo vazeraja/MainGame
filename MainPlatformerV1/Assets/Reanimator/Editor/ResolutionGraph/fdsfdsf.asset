@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2747235114205188259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
+  m_Name: SwitchNode
+  m_EditorClassIdentifier: 
+  guid: fc481c4d159ab514ea85dabc4eff82ca
+  position: {x: 0, y: 0}
+  nodes: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: b25c65b1-a1a4-41c2-bc04-87a426c1c2f7
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &-756264862548599023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
+  m_Name: SwitchNode
+  m_EditorClassIdentifier: 
+  guid: b6e420cf745089a47b7b8a3e30330122
+  position: {x: 92.56, y: 134}
+  nodes:
+  - {fileID: 44023187491890225}
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 9014c16d-2f40-49d3-b285-95033ac04587
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
+  m_Name: fdsfdsf
+  m_EditorClassIdentifier: 
+  root: {fileID: 0}
+  nodes:
+  - {fileID: -756264862548599023}
+  - {fileID: 5019327240913591380}
+  - {fileID: 44023187491890225}
+  - {fileID: -2747235114205188259}
+--- !u!114 &44023187491890225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: 8d23f25b270d88843b49069f5dac891e
+  position: {x: 366, y: 134}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: f2d026a1-9a65-495d-8363-cd3adf1bd454
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &5019327240913591380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
+  m_Name: SwitchNode
+  m_EditorClassIdentifier: 
+  guid: fa6431ae7bebc454f94c366bcf26cf22
+  position: {x: 132, y: -23}
+  nodes:
+  - {fileID: 44023187491890225}
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 2878aee6-28ec-4727-bb49-203118ae2bc9
+  drivers:
+    keys: []
+    values: 

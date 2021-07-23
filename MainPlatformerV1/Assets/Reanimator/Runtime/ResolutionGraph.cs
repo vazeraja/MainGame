@@ -9,7 +9,7 @@ using UnityEditor;
 
 namespace Aarthificial.Reanimation {
     
-    [CreateAssetMenu(menuName = "ReanimatorGraph")]
+    [CreateAssetMenu(fileName = "ReanimatorGraph")]
     public class ResolutionGraph : ScriptableObject {
         
         public ReanimatorNode root;
@@ -40,24 +40,24 @@ namespace Aarthificial.Reanimation {
 
         public void AddChild(ReanimatorNode parent, ReanimatorNode child)
         {
-            SwitchNode switchNode = parent as SwitchNode;
-            if (switchNode) {
-                switchNode.nodes.Add(child);
-            }
             OverrideNode overrideNode = parent as OverrideNode;
             if (overrideNode) {
                 overrideNode.next = child;
             }
+            SwitchNode switchNode = parent as SwitchNode;
+            if (switchNode) {
+                switchNode.nodes.Add(child);
+            }
         }
         public void RemoveChild(ReanimatorNode parent, ReanimatorNode child)
         {
-            SwitchNode switchNode = parent as SwitchNode;
-            if (switchNode) {
-                switchNode.nodes.Remove(child);
-            }
             OverrideNode overrideNode = parent as OverrideNode;
             if (overrideNode) {
                 overrideNode.next = null;
+            }
+            SwitchNode switchNode = parent as SwitchNode;
+            if (switchNode) {
+                switchNode.nodes.Remove(child);
             }
         }
         public List<ReanimatorNode> GetChildren(ReanimatorNode parent)

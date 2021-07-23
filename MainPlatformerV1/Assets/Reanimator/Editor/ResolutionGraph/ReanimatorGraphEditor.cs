@@ -15,7 +15,7 @@ public class ReanimatorGraphEditor : EditorWindow
     {
         ReanimatorGraphEditor wnd = GetWindow<ReanimatorGraphEditor>();
         wnd.titleContent = new GUIContent("ReanimatorGraph");
-        wnd.minSize = new Vector2(1200, 800);
+        wnd.minSize = new Vector2(1200, 500);
     }
 
     private ReanimatorGraphView graphView;
