@@ -17,14 +17,7 @@ public class ReanimatorGraphEditor : EditorWindow
         wnd.titleContent = new GUIContent("ReanimatorGraph");
         wnd.minSize = new Vector2(1200, 800);
     }
-    
-    [OnOpenAsset]
-    public static bool OpOpenAsset(int instanceId, int line) {
-        if (!(Selection.activeObject is ResolutionGraph)) return false;
-        ShowWindow();
-        return true;
-    }
-    
+
     private ReanimatorGraphView graphView;
     private InspectorView inspectorView;
 

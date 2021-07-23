@@ -26,7 +26,7 @@ public sealed class ReanimatorNodeDisplay : UnityEditor.Experimental.GraphView.N
     {
         switch (node.GetType().Name) {
             case ReanimatorNodeTypes.SimpleAnimationNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
+                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
                 break;
             case ReanimatorNodeTypes.SwitchNode:
                 input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
@@ -35,7 +35,7 @@ public sealed class ReanimatorNodeDisplay : UnityEditor.Experimental.GraphView.N
                 input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
                 break;
             case ReanimatorNodeTypes.MirroredAnimationNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
+                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
                 break;
         }
 
