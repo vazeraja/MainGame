@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Aarthificial.Reanimation.Nodes
 {
     [CreateAssetMenu(fileName = "switch", menuName = "Reanimator/Switch", order = 400)]
-    public class SwitchNode : ReanimatorNode
+    public class SwitchNode : ReanimatorNode, IReanimatorGraphNode
     {
         public List<ReanimatorNode> nodes;
         public ControlDriver controlDriver = new ControlDriver();

@@ -18,26 +18,22 @@ public sealed class ReanimatorNodeDisplay : UnityEditor.Experimental.GraphView.N
         style.left = node.position.x;
         style.top = node.position.y;
 
-        CreateInputPorts();
-        CreateOutputPorts();
+        //CreateInputPorts();
+        //CreateOutputPorts();
     }
 
     private void CreateInputPorts()
     {
-        switch (node.GetType().Name) {
-            case ReanimatorNodeTypes.SimpleAnimationNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-                break;
-            case ReanimatorNodeTypes.SwitchNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
-                break;
-            case ReanimatorNodeTypes.OverrideNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
-                break;
-            case ReanimatorNodeTypes.MirroredAnimationNode:
-                input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-                break;
+        if (node.GetType().Name == ReanimatorNodeTypes.SimpleAnimationNode) {
+            input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(float));
         }
+        else if (node.GetType().Name == ReanimatorNodeTypes.SwitchNode) {
+            input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(float));
+        }
+        else if (node.GetType().Name == ReanimatorNodeTypes.OverrideNode) {
+            input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(float));
+        }
+        else if (node.GetType().Name == ReanimatorNodeTypes.MirroredAnimationNode) { }
 
         if (input == null) return;
         input.portName = "";
@@ -45,19 +41,17 @@ public sealed class ReanimatorNodeDisplay : UnityEditor.Experimental.GraphView.N
     }
     private void CreateOutputPorts()
     {
-        switch (node.GetType().Name) {
-            case ReanimatorNodeTypes.SimpleAnimationNode:
-                break;
-            case ReanimatorNodeTypes.SwitchNode:
-                output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));
-                break;
-            case ReanimatorNodeTypes.OverrideNode:
-                output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-                break;
-            case ReanimatorNodeTypes.MirroredAnimationNode:
-                break;
+        if (node.GetType().Name == ReanimatorNodeTypes.SimpleAnimationNode) {
+            output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(float));
         }
-        
+        else if (node.GetType().Name == ReanimatorNodeTypes.SwitchNode) {
+            output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(float));
+        }
+        else if (node.GetType().Name == ReanimatorNodeTypes.OverrideNode) {
+            output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(float));
+        }
+        else if (node.GetType().Name == ReanimatorNodeTypes.MirroredAnimationNode) { }
+
         if (output == null) return;
         output.portName = "";
         outputContainer.Add(output);

@@ -2,6 +2,7 @@
 
 namespace Aarthificial.Reanimation.Nodes
 {
+    public interface IReanimatorGraphNode { }
     public abstract class ReanimatorNode : ScriptableObject {
         
         public string guid;

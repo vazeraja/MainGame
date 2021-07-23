@@ -44,16 +44,15 @@ public class ReanimatorGraphView : GraphView {
         
         graph.nodes.ForEach(CreateNodeDisplay);
         
-        graph.nodes.ForEach(n => {
-            var children = graph.GetChildren(n);
-            children.ForEach(c => {
-                var parent = FindNodeByGuid(n);
-                var child = FindNodeByGuid(n);
-
-                var edge = parent.output.ConnectTo(child.input);
-                AddElement(edge);
-            });
-        });
+        // graph.nodes.ForEach(n => {
+        //     var children = graph.GetChildren(n);
+        //     children.ForEach(c => {
+        //         var parent = FindNodeByGuid(n);
+        //         var child = FindNodeByGuid(n);
+        //         var edge = parent.output.ConnectTo(child.input);
+        //         AddElement(edge);
+        //     });
+        // });
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) =>
@@ -69,14 +68,14 @@ public class ReanimatorGraphView : GraphView {
             if (e is Edge edge) {
                 ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
                 ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay;
-                graph.RemoveChild(parent?.node, child?.node);
+                graph.RemoveChild(parent.node, child.node);
             }
         });
 
         graphViewChange.edgesToCreate?.ForEach(edge => {
             ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
             ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay;
-            graph.AddChild(parent?.node, child?.node);
+            graph.AddChild(parent.node, child.node);
         });
 
         return graphViewChange;
@@ -85,17 +84,13 @@ public class ReanimatorGraphView : GraphView {
     public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
     {
         {
-            var types = TypeCache.GetTypesDerivedFrom<ReanimatorNode>();
-
-            foreach (var type in types.Where(type =>
-                type.Name == ReanimatorNodeTypes.SimpleAnimationNode ||
-                type.Name == ReanimatorNodeTypes.SwitchNode ||
-                type.Name == ReanimatorNodeTypes.OverrideNode ||
-                type.Name == ReanimatorNodeTypes.MirroredAnimationNode)) {
-                evt.menu.AppendAction($"{type.Name}", (a) => {
-                    CreateNode(type);
-                });
-            }
+          var types = TypeCache.GetTypesDerivedFrom<IReanimatorGraphNode>();
+          foreach (var type in types) {
+              evt.menu.AppendAction($"{type.Name}", (a) => {
+                  Debug.Log(type.Name);
+                  // CreateNode(type);
+              });
+          }
         }
     }
 

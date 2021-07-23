@@ -5,6 +5,8 @@ using Aarthificial.Reanimation.Nodes;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine.Rendering.UI;
+
 #endif
 
 namespace Aarthificial.Reanimation {
@@ -22,7 +24,7 @@ namespace Aarthificial.Reanimation {
             ReanimatorNode node = ScriptableObject.CreateInstance(type) as ReanimatorNode;
             
             // ReSharper disable once PossibleNullReferenceException
-            node.name = type.Name;
+            node.name = type.Name + nodes.Count;
             node.guid = GUID.Generate().ToString();
             nodes.Add(node);
             
@@ -71,7 +73,17 @@ namespace Aarthificial.Reanimation {
             
             SwitchNode switchNode = parent as SwitchNode;
             if (switchNode) {
-                return switchNode.nodes.ToList();
+                return switchNode.nodes;
+            }
+            
+            SimpleAnimationNode simpleAnimation = parent as SimpleAnimationNode;
+            if (simpleAnimation) {
+                return children;
+            }
+            
+            MirroredAnimationNode MirroredAnimationNode = parent as MirroredAnimationNode;
+            if (MirroredAnimationNode) {
+                return children;
             }
 
             return children;
