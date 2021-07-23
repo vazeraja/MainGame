@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Aarthificial.Reanimation.Nodes;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -34,6 +36,45 @@ namespace Aarthificial.Reanimation {
             nodes.Remove(node);
             AssetDatabase.RemoveObjectFromAsset(node);
             AssetDatabase.SaveAssets();
+        }
+
+        public void AddChild(ReanimatorNode parent, ReanimatorNode child)
+        {
+            SwitchNode switchNode = parent as SwitchNode;
+            if (switchNode) {
+                ((IList)switchNode.nodes).Add(child);
+            }
+            OverrideNode overrideNode = parent as OverrideNode;
+            if (overrideNode) {
+                overrideNode.next = child;
+            }
+        }
+        public void RemoveChild(ReanimatorNode parent, ReanimatorNode child)
+        {
+            SwitchNode switchNode = parent as SwitchNode;
+            if (switchNode) {
+                ((IList)switchNode.nodes).Remove(child);
+            }
+            OverrideNode overrideNode = parent as OverrideNode;
+            if (overrideNode) {
+                overrideNode.next = null;
+            }
+        }
+        public List<ReanimatorNode> GetChildren(ReanimatorNode parent)
+        {
+            List<ReanimatorNode> children = new List<ReanimatorNode>();
+
+            OverrideNode overrideNode = parent as OverrideNode;
+            if (overrideNode && overrideNode.next != null) {
+                children.Add(overrideNode.next);
+            }
+            
+            SwitchNode switchNode = parent as SwitchNode;
+            if (switchNode) {
+                return switchNode.nodes.ToList();
+            }
+
+            return children;
         }
             
             

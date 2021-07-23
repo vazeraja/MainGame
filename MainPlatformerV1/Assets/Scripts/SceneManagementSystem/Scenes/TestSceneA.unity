@@ -186,11 +186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 561e389717fc9a149a48b8c14a6f911c, type: 2}
-  renderer: {fileID: 0}
-  fps: 5
-  temporaryDrivers: []
-  _clock: 0
 --- !u!114 &87621031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34198,11 +34193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 342b5ec65f427f04292b55c46596d441, type: 2}
-  renderer: {fileID: 548504838}
-  fps: 8
-  temporaryDrivers: []
-  _clock: 0
 --- !u!61 &548504837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -35732,11 +35722,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 342b5ec65f427f04292b55c46596d441, type: 2}
-  renderer: {fileID: 1048548405}
-  fps: 8
-  temporaryDrivers: []
-  _clock: 0
 --- !u!61 &1048548404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36954,11 +36939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 342b5ec65f427f04292b55c46596d441, type: 2}
-  renderer: {fileID: 1388836333}
-  fps: 8
-  temporaryDrivers: []
-  _clock: 0
 --- !u!61 &1388836332
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -37523,11 +37503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: a0fe7a15980dd7f49b1ce76b61cee80d, type: 2}
-  renderer: {fileID: 1569780563}
-  fps: 6
-  temporaryDrivers: []
-  _clock: 0
 --- !u!50 &1569780561
 Rigidbody2D:
   serializedVersion: 4
@@ -37810,11 +37785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 342b5ec65f427f04292b55c46596d441, type: 2}
-  renderer: {fileID: 1592342676}
-  fps: 8
-  temporaryDrivers: []
-  _clock: 0
 --- !u!61 &1592342675
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38893,11 +38863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 11400000, guid: 342b5ec65f427f04292b55c46596d441, type: 2}
-  renderer: {fileID: 1987996573}
-  fps: 8
-  temporaryDrivers: []
-  _clock: 0
 --- !u!61 &1987996572
 BoxCollider2D:
   m_ObjectHideFlags: 0

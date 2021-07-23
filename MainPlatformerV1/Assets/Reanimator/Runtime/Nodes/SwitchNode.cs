@@ -1,4 +1,6 @@
-﻿using Aarthificial.Reanimation.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Aarthificial.Reanimation.Common;
 using UnityEngine;
 
 namespace Aarthificial.Reanimation.Nodes
@@ -6,9 +8,10 @@ namespace Aarthificial.Reanimation.Nodes
     [CreateAssetMenu(fileName = "switch", menuName = "Reanimator/Switch", order = 400)]
     public class SwitchNode : ReanimatorNode
     {
-        [SerializeField] protected ReanimatorNode[] nodes;
-        [SerializeField] protected ControlDriver controlDriver = new ControlDriver();
-        [SerializeField] protected DriverDictionary drivers = new DriverDictionary();
+        public ReanimatorNode[] nodes;
+        public ControlDriver controlDriver = new ControlDriver();
+        public DriverDictionary drivers = new DriverDictionary();
+        
 
         public override TerminationNode Resolve(IReadOnlyReanimatorState previousState, ReanimatorState nextState)
         {
