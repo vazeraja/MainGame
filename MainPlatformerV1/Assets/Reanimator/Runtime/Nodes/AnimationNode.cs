@@ -2,15 +2,10 @@
 using Aarthificial.Reanimation.Common;
 using UnityEngine;
 
-namespace Aarthificial.Reanimation.Nodes
-{
-    public class AnimationNode<TCel> : TerminationNode
-        where TCel : ICel
-    {
-        public static TNode Create<TNode>(
-            ControlDriver driver = null,
-            TCel[] cels = null
-        ) where TNode : AnimationNode<TCel>
+namespace Aarthificial.Reanimation.Nodes {
+    public class AnimationNode<TCel> : TerminationNode where TCel : ICel {
+        public static TNode Create<TNode>(ControlDriver driver = null, TCel[] cels = null)
+            where TNode : AnimationNode<TCel>
         {
             var instance = CreateInstance<TNode>();
 

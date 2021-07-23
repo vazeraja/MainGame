@@ -159,10 +159,10 @@ namespace MainGame.DialogueGraph {
             textField.RegisterValueChangedCallback(evt => generatedPort.portName = evt.newValue);
             generatedPort.contentContainer.Add(new Label("  "));
             generatedPort.contentContainer.Add(textField);
-            var deleteButton = new Button(() => RemovePort(nodeCache, generatedPort)) {
-                text = "X"
-            };
+            
+            var deleteButton = new Button(() => RemovePort(nodeCache, generatedPort)) {text = "X"};
             generatedPort.contentContainer.Add(deleteButton);
+            
             generatedPort.portName = outputPortName;
             nodeCache.outputContainer.Add(generatedPort);
             nodeCache.RefreshPorts();
