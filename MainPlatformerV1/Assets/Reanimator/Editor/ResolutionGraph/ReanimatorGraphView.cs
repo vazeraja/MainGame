@@ -65,18 +65,18 @@ public class ReanimatorGraphView : GraphView {
                 graph.DeleteNode(nodeDisplay.node);
             }
 
-            if (e is Edge edge) {
-                ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
-                ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay;
-                graph.RemoveChild(parent.node, child.node);
-            }
+            //if (e is Edge edge) {
+            //    ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
+            //    ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay; 
+            //    graph.RemoveChild(parent.node, child.node);
+            //}
         });
 
-        graphViewChange.edgesToCreate?.ForEach(edge => {
-            ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
-            ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay;
-            graph.AddChild(parent.node, child.node);
-        });
+        //graphViewChange.edgesToCreate?.ForEach(edge => {
+        //    ReanimatorNodeDisplay parent = edge.output.node as ReanimatorNodeDisplay;
+        //    ReanimatorNodeDisplay child = edge.input.node as ReanimatorNodeDisplay;
+        //    graph.AddChild(parent.node, child.node);
+        //});
 
         return graphViewChange;
     }
