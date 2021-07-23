@@ -8,7 +8,7 @@ namespace Aarthificial.Reanimation.Nodes
     [CreateAssetMenu(fileName = "switch", menuName = "Reanimator/Switch", order = 400)]
     public class SwitchNode : ReanimatorNode
     {
-        public ReanimatorNode[] nodes;
+        public List<ReanimatorNode> nodes;
         public ControlDriver controlDriver = new ControlDriver();
         public DriverDictionary drivers = new DriverDictionary();
         
@@ -17,7 +17,7 @@ namespace Aarthificial.Reanimation.Nodes
         {
             AddTrace(nextState);
             nextState.Merge(drivers);
-            return nodes[controlDriver.ResolveDriver(previousState, nextState, nodes.Length)]
+            return nodes[controlDriver.ResolveDriver(previousState, nextState, nodes.Count)]
                 .Resolve(previousState, nextState);
         }
     }

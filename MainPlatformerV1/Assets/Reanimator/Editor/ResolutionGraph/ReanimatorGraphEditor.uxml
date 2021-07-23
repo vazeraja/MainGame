@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="ReanimatorGraphEditor.uss" />
+    <uie:Toolbar>
+        <uie:ToolbarMenu display-tooltip-when-elided="true" text="Assets" />
+    </uie:Toolbar>
+    <TheKiwiCoder.SplitView fixed-pane-initial-dimension="1000">
+        <ui:VisualElement name="left-panel">
+            <ui:Label text="Resolution Graph" display-tooltip-when-elided="true" enable-rich-text="true" />
+            <ReanimatorGraphView focusable="true" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="right-panel">
+            <ui:Label text="Inspector" display-tooltip-when-elided="true" />
+            <TheKiwiCoder.InspectorView style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </TheKiwiCoder.SplitView>
+</ui:UXML>

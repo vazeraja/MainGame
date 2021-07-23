@@ -42,7 +42,7 @@ namespace Aarthificial.Reanimation {
         {
             SwitchNode switchNode = parent as SwitchNode;
             if (switchNode) {
-                ((IList)switchNode.nodes).Add(child);
+                switchNode.nodes.Add(child);
             }
             OverrideNode overrideNode = parent as OverrideNode;
             if (overrideNode) {
@@ -53,7 +53,7 @@ namespace Aarthificial.Reanimation {
         {
             SwitchNode switchNode = parent as SwitchNode;
             if (switchNode) {
-                ((IList)switchNode.nodes).Remove(child);
+                switchNode.nodes.Remove(child);
             }
             OverrideNode overrideNode = parent as OverrideNode;
             if (overrideNode) {

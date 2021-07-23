@@ -28,9 +28,11 @@ public class ReanimatorGraphView : GraphView {
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraph.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
         styleSheets.Add(styleSheet);
     }
+
+    ReanimatorNodeDisplay FindNodeByGuid(ReanimatorNode node) => GetNodeByGuid(node.guid) as ReanimatorNodeDisplay;
 
     public void PopulateView(ResolutionGraph graph)
     {
@@ -41,6 +43,17 @@ public class ReanimatorGraphView : GraphView {
         graphViewChanged += OnGraphViewChanged;
         
         graph.nodes.ForEach(CreateNodeDisplay);
+        
+        graph.nodes.ForEach(n => {
+            var children = graph.GetChildren(n);
+            children.ForEach(c => {
+                var parent = FindNodeByGuid(n);
+                var child = FindNodeByGuid(n);
+
+                var edge = parent.output.ConnectTo(child.input);
+                AddElement(edge);
+            });
+        });
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) =>
