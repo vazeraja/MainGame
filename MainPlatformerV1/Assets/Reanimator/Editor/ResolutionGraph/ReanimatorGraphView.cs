@@ -11,9 +11,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
         
-        public Action<ReanimatorGraphNode> OnNodeSelected;
-        private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
         private ResolutionGraph graph;
+        private ReanimatorSearchWindowProvider searchWindowProvider;
+        private ReanimatorGraphEditor editorWindow;
+        
+        public Action<ReanimatorGraphNode> OnNodeSelected;
+        
+        private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
+        public readonly Vector2 DefaultCommentBlockSize = new Vector2(300, 200);
 
         public ReanimatorGraphView()
         {
@@ -25,26 +30,46 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
-            
-            Undo.undoRedoPerformed += OnUndoRedo;
+
+            Undo.undoRedoPerformed += () => {
+                PopulateView(graph, editorWindow);
+                AssetDatabase.SaveAssets();
+            };
         }
-
-        private void OnUndoRedo()
-        {
-            PopulateView(graph);
-            AssetDatabase.SaveAssets();
+        
+        public void AddSearchWindow(ReanimatorGraphEditor editorWindow){
+            searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
+            searchWindowProvider.Initialize(editorWindow, this);
+            nodeCreationRequest = context =>
+                SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
         }
-
-        public ReanimatorGraphNode FindNodeByGuid(ReanimatorNode node) => GetNodeByGuid(node.guid) as ReanimatorGraphNode;
-
-        public void PopulateView(ResolutionGraph graph)
+        
+        public Group CreateCommentBlock(Rect rect, CommentBlockData commentBlockData = null){
+            commentBlockData ??= new CommentBlockData();
+            var group = new Group {
+                autoUpdateGeometry = true,
+                title = commentBlockData.Title
+            };
+            AddElement(group);
+            group.SetPosition(rect);
+            return group;
+        }
+        
+        public void PopulateView(ResolutionGraph graph, ReanimatorGraphEditor editorWindow)
         {
             this.graph = graph;
+            this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements.ToList());
             graphViewChanged += OnGraphViewChanged;
             
+            AddSearchWindow(editorWindow);
+            LoadResolutionGraph();
+        }
+
+        private void LoadResolutionGraph()
+        {
             if (graph.nodes.Count == 0) {
                 graph.root = graph.CreateNode(typeof(GraphRootNode)) as GraphRootNode;
                 EditorUtility.SetDirty(graph);
@@ -56,13 +81,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graph.nodes.ForEach(n => {
                 var children = graph.GetChildren(n);
                 children.ForEach(c => {
-                    var parent = FindNodeByGuid(n);
-                    var child = FindNodeByGuid(c);
-
-                   
-                        var edge = parent.output.ConnectTo(child.input);
-                        AddElement(edge);
                     
+                    // Returns node by its guid
+                    // Cast it back ReanimatorGraphNode
+                    var parent = GetNodeByGuid(n.guid) as ReanimatorGraphNode;
+                    var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
+                    
+                    var edge = parent?.output.ConnectTo(child?.input);
+                    AddElement(edge);
                 });
             });
         }
@@ -97,27 +123,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             return graphViewChange;
         }
 
-        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+        public void CreateNode(Type type, Vector2 nodePosition)
         {
-            Vector2 nodePosition = this.ChangeCoordinatesTo(contentViewContainer, evt.localMousePosition);
-            {
-                evt.menu.AppendAction($"[Reanimator]/SimpleAnimationNode", (a) => {
-                    var node = graph.CreateNode(typeof(SimpleAnimationNode));
-                    node.position = nodePosition;
-                    CreateGraphNode(node);
-                });
-                evt.menu.AppendAction($"[Reanimator]/SwitchNode", (a) => {
-                    var node = graph.CreateNode(typeof(SwitchNode));
-                    node.position = nodePosition;
-                    CreateGraphNode(node);
-                });
-                evt.menu.AppendAction($"[Reanimator]/OverrideNode", (a) => {
-                    var node = graph.CreateNode(typeof(OverrideNode));
-                    node.position = nodePosition;
-                    CreateGraphNode(node);
-                });
-                
-            }
+            var node = graph.CreateNode(type);
+            node.position = nodePosition;
+            CreateGraphNode(node);
         }
 
         private void CreateGraphNode(ReanimatorNode node)

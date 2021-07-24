@@ -130,10 +130,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.graph = newGraph;
 
             if (Application.isPlaying) {
-                graphView.PopulateView(graph);
+                graphView.PopulateView(graph, this);
             }
             else {
-                graphView.PopulateView(graph);
+                graphView.PopulateView(graph, this);
             }
 
             EditorApplication.delayCall += () => {
