@@ -35,6 +35,7 @@ namespace Aarthificial.Reanimation.Editor.Nodes
                 )
                 .Select(sprite => new SimpleCel(sprite))
                 .ToArray();
+            
 
             var asset = SimpleAnimationNode.Create<SimpleAnimationNode>(
                 cels: cels

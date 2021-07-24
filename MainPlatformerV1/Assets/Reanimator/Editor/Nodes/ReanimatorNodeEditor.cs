@@ -22,6 +22,7 @@ namespace Aarthificial.Reanimation.Editor.Nodes
 
             serializedObject.ApplyModifiedProperties();
         }
+        
 
         protected void DrawCustomProperties()
         {

@@ -1,16 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
     <Style src="ReanimatorGraphEditor.uss" />
-    <uie:Toolbar>
+    <uie:Toolbar style="background-color: rgb(59, 79, 92);">
         <uie:ToolbarMenu display-tooltip-when-elided="true" text="Assets" />
     </uie:Toolbar>
-    <Aarthificial.Reanimation.Editor.ResolutionGraph.SplitView fixed-pane-initial-dimension="1000">
+    <Aarthificial.Reanimation.ResolutionGraph.Editor.SplitView orientation="Horizontal" fixed-pane-initial-dimension="800">
         <ui:VisualElement name="left">
-            <ui:Label text="Resolution Graph" display-tooltip-when-elided="true" style="background-color: rgba(32, 32, 32, 255);" />
-            <Aarthificial.Reanimation.Editor.ResolutionGraph.ReanimatorGraphView focusable="true" style="flex-grow: 1;" />
+            <ui:Label text="Resolution Graph" display-tooltip-when-elided="true" style="background-color: rgb(12, 58, 62);" />
+            <Aarthificial.Reanimation.ResolutionGraph.Editor.ReanimatorGraphView focusable="true" style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="right">
-            <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgba(32, 32, 32, 255);" />
-            <Aarthificial.Reanimation.Editor.ResolutionGraph.InspectorView style="flex-grow: 1;" />
+            <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgb(12, 58, 62);" />
+            <Aarthificial.Reanimation.ResolutionGraph.Editor.InspectorView style="flex-grow: 2;" />
         </ui:VisualElement>
-    </Aarthificial.Reanimation.Editor.ResolutionGraph.SplitView>
+    </Aarthificial.Reanimation.ResolutionGraph.Editor.SplitView>
 </ui:UXML>

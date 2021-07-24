@@ -1,22 +1,24 @@
-﻿using UnityEngine.UIElements;
+﻿using Aarthificial.Reanimation.Nodes;
+using UnityEngine.UIElements;
 using UnityEditor;
 
-namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
+namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class InspectorView : VisualElement {
         public new class UxmlFactory : UxmlFactory<InspectorView, VisualElement.UxmlTraits> { }
 
         UnityEditor.Editor editor;
 
-        public InspectorView() {
+        public InspectorView()
+        { }
 
-        }
-
-        internal void UpdateSelection(ReanimatorGraphNode graphNodeView) {
+        internal void UpdateSelection(ReanimatorGraphNode graphNode)
+        {
             Clear();
 
             UnityEngine.Object.DestroyImmediate(editor);
 
-            editor = UnityEditor.Editor.CreateEditor(graphNodeView.node);
+            editor = UnityEditor.Editor.CreateEditor(graphNode.node);
+
             IMGUIContainer container = new IMGUIContainer(() => {
                 if (editor && editor.target) {
                     editor.OnInspectorGUI();

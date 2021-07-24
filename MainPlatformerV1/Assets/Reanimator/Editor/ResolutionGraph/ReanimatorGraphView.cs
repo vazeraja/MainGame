@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Aarthificial.Reanimation.Editor.ResolutionGraph;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -11,7 +10,8 @@ using UnityEngine.UIElements;
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
-
+        
+        public Action<ReanimatorGraphNode> OnNodeSelected;
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
         private ResolutionGraph graph;
 
@@ -25,6 +25,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
+
+            // if (!nodes.Any()) {
+            //     var rootNode = new ReanimatorGraphNode(graph.CreateNode(typeof(GraphRootNode)));
+            //     
+            //     rootNode.capabilities &= ~Capabilities.Movable;
+            //     rootNode.capabilities &= ~Capabilities.Deletable;
+            //     
+            //     AddElement(rootNode);
+            // }
 
             Undo.undoRedoPerformed += OnUndoRedo;
         }
@@ -45,10 +54,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             DeleteElements(graphElements.ToList());
             graphViewChanged += OnGraphViewChanged;
 
-            graph.nodes.ForEach(node => { AddElement(new ReanimatorGraphNode(node)); });
+            graph.nodes.ForEach(CreateGraphNode);
 
             graph.nodes.ForEach(n => {
-                var children = ResolutionGraph.GetChildren(n);
+                var children = graph.GetChildren(n);
                 children.ForEach(c => {
                     var parent = FindNodeByGuid(n);
                     var child = FindNodeByGuid(c);
@@ -98,18 +107,21 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     evt.menu.AppendAction($"[Reanimator]/{type.Name}", (a) => {
                         var node = graph.CreateNode(type);
                         node.position = nodePosition;
-                        AddElement(new ReanimatorGraphNode(node));
+                        CreateGraphNode(node);
                     });
                 }
             }
         }
 
-        public void UpdateNodeStates()
+        private void CreateGraphNode(ReanimatorNode node)
         {
-            nodes.ForEach(n => {
-                ReanimatorGraphNode view = n as ReanimatorGraphNode;
-                //view.UpdateState();
-            });
+            var graphNode = new ReanimatorGraphNode(node) {
+                OnNodeSelected = OnNodeSelected
+            };
+            graphNode.OnSelected();
+            
+            
+            AddElement(graphNode);
         }
     }
 }

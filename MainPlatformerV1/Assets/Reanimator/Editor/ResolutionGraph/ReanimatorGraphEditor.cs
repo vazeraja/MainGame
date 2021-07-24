@@ -15,7 +15,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             ReanimatorGraphEditor wnd = GetWindow<ReanimatorGraphEditor>();
             wnd.titleContent = new GUIContent("ReanimatorGraph");
-            wnd.minSize = new Vector2(1200, 500);
+            wnd.minSize = new Vector2(1200, 800);
         }
         
         [OnOpenAsset]
@@ -55,10 +55,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     break;
             }
         }
-        private void OnInspectorUpdate() {
-            graphView?.UpdateNodeStates();        
-        }
-        
+
         public void CreateGUI()
         {
             root = rootVisualElement;
@@ -72,6 +69,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graphView = root.Q<ReanimatorGraphView>();
             inspectorView = root.Q<InspectorView>();
 
+            graphView.OnNodeSelected = OnNodeSelectionChanged;
 
             // root.RegisterCallback<MouseDownEvent>(evt => { });
             //
@@ -89,12 +87,18 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             //
             //     objs.ForEach(x => Debug.Log(x.GetType().Name));
             // });
+            
 
             if (graph == null) {
                 OnSelectionChange();
             } else {
                 SelectTree(graph);
             }
+        }
+
+        private void OnNodeSelectionChanged(ReanimatorGraphNode node)
+        {
+            inspectorView.UpdateSelection(node);
         }
 
         private void OnSelectionChange()

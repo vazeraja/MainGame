@@ -33,7 +33,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             
             Undo.RegisterCreatedObjectUndo(node, "Resolution Tree (CreateNode)");
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
             return node;
         }
 
@@ -55,6 +54,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
                 overrideNode.next = child;
                 EditorUtility.SetDirty(overrideNode);
             }
+            if (parent is GraphRootNode rootNode) {
+                Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
+                root = child;
+                EditorUtility.SetDirty(rootNode);
+            }
 
             if (parent is SwitchNode switchNode) {
                 Undo.RecordObject(switchNode, "Resolution Tree (AddChild)");
@@ -69,6 +73,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
                 overrideNode.next = null;
                 EditorUtility.SetDirty(overrideNode);
             }
+
+            if (parent is GraphRootNode rootNode) {
+                Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
+                root = null;
+                EditorUtility.SetDirty(rootNode);
+            }
             if (parent is SwitchNode switchNode) {
                 Undo.RecordObject(switchNode, "Resolution Tree (AddChild)");
                 switchNode.nodes.Remove(child);
@@ -76,19 +86,21 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             }
         }
         #endif
-        public static List<ReanimatorNode> GetChildren(ReanimatorNode parent)
+        public List<ReanimatorNode> GetChildren(ReanimatorNode parent)
         {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
 
-            if (parent is SwitchNode switchNode) {
-                return switchNode.nodes;
+            if (parent is GraphRootNode rootNode && root != null) {
+                children.Add(root);
             }
             if (parent is OverrideNode overrideNode && overrideNode.next != null) {
                 children.Add(overrideNode.next);
             }
+            if (parent is SwitchNode switchNode) {
+                return switchNode.nodes;
+            }
             return children;
         }
-        
         
     }
 }

@@ -1,12 +1,16 @@
-﻿using Aarthificial.Reanimation.Nodes;
+﻿using System;
+using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
-namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
-    public class ReanimatorGraphNode : UnityEditor.Experimental.GraphView.Node {
+namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
+    public sealed class ReanimatorGraphNode : Node {
+        
         public readonly ReanimatorNode node;
+
+        public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
@@ -36,11 +40,13 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
                     break;
                 case SwitchNode _:
                     input = new NodePort(Direction.Input, Port.Capacity.Single);
-                    input.portName = "SwitchNode";
+                    input.portName = "";
                     break;
                 case OverrideNode _:
                     input = new NodePort(Direction.Input, Port.Capacity.Single);
-                    input.portName = "OverrideNode";
+                    input.portName = "";
+                    break;
+                case GraphRootNode _:
                     break;
             }
 
@@ -51,14 +57,18 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
 
         private void CreateOutputPorts()
         {
-            if (node is SimpleAnimationNode) {
-                
-            }
-            else if (node is SwitchNode) {
-                output = new NodePort(Direction.Output, Port.Capacity.Multi);
-            }
-            else if (node is OverrideNode) {
-                output = new NodePort(Direction.Output, Port.Capacity.Single);
+            switch (node) {
+                case SimpleAnimationNode _:
+                    break;
+                case SwitchNode _:
+                    output = new NodePort(Direction.Output, Port.Capacity.Multi);
+                    break;
+                case OverrideNode _:
+                    output = new NodePort(Direction.Output, Port.Capacity.Single);
+                    break;
+                case GraphRootNode _:
+                    output = new NodePort(Direction.Output, Port.Capacity.Single);
+                    break;
             }
 
             if (output != null) {
@@ -70,10 +80,16 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
         public override void SetPosition(Rect newPos)
         {
             base.SetPosition(newPos);
-            Undo.RecordObject(node, "Resolution Tree (Set Position)");
+            Undo.RecordObject(node, "ResolutionGraph (Set Position)");
             node.position.x = newPos.xMin;
             node.position.y = newPos.yMin;
             EditorUtility.SetDirty(node);
+        }
+
+        public override void OnSelected()
+        {
+            base.OnSelected();
+            OnNodeSelected?.Invoke(this);
         }
     }
 }
