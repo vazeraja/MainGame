@@ -57,6 +57,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             if (parent is GraphRootNode rootNode) {
                 Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
                 root = child;
+                rootNode.root = child;
                 EditorUtility.SetDirty(rootNode);
             }
 
@@ -77,6 +78,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             if (parent is GraphRootNode rootNode) {
                 Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
                 root = null;
+                rootNode.root = null;
                 EditorUtility.SetDirty(rootNode);
             }
             if (parent is SwitchNode switchNode) {

@@ -25,16 +25,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
-
-            // if (!nodes.Any()) {
-            //     var rootNode = new ReanimatorGraphNode(graph.CreateNode(typeof(GraphRootNode)));
-            //     
-            //     rootNode.capabilities &= ~Capabilities.Movable;
-            //     rootNode.capabilities &= ~Capabilities.Deletable;
-            //     
-            //     AddElement(rootNode);
-            // }
-
+            
             Undo.undoRedoPerformed += OnUndoRedo;
         }
 
@@ -53,7 +44,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements.ToList());
             graphViewChanged += OnGraphViewChanged;
-
+            
+            if (graph.nodes.Count == 0) {
+                graph.root = graph.CreateNode(typeof(GraphRootNode)) as GraphRootNode;
+                EditorUtility.SetDirty(graph);
+                AssetDatabase.SaveAssets();
+            }
+                        
             graph.nodes.ForEach(CreateGraphNode);
 
             graph.nodes.ForEach(n => {
@@ -62,8 +59,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     var parent = FindNodeByGuid(n);
                     var child = FindNodeByGuid(c);
 
-                    var edge = parent.output.ConnectTo(child.input);
-                    AddElement(edge);
+                    var rootGraphNode = parent.node as GraphRootNode;
+                    if (!rootGraphNode) {
+                        var edge = parent.output.ConnectTo(child.input);
+                        AddElement(edge);
+                    }
                 });
             });
         }
@@ -102,25 +102,39 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             Vector2 nodePosition = this.ChangeCoordinatesTo(contentViewContainer, evt.localMousePosition);
             {
-                var types = TypeCache.GetTypesDerivedFrom<IReanimatorGraphNode>();
-                foreach (var type in types) {
-                    evt.menu.AppendAction($"[Reanimator]/{type.Name}", (a) => {
-                        var node = graph.CreateNode(type);
-                        node.position = nodePosition;
-                        CreateGraphNode(node);
-                    });
-                }
+                evt.menu.AppendAction($"[Reanimator]/SimpleAnimationNode", (a) => {
+                    var node = graph.CreateNode(typeof(SimpleAnimationNode));
+                    node.position = nodePosition;
+                    CreateGraphNode(node);
+                });
+                evt.menu.AppendAction($"[Reanimator]/SwitchNode", (a) => {
+                    var node = graph.CreateNode(typeof(SwitchNode));
+                    node.position = nodePosition;
+                    CreateGraphNode(node);
+                });
+                evt.menu.AppendAction($"[Reanimator]/OverrideNode", (a) => {
+                    var node = graph.CreateNode(typeof(OverrideNode));
+                    node.position = nodePosition;
+                    CreateGraphNode(node);
+                });
+                
             }
         }
 
         private void CreateGraphNode(ReanimatorNode node)
         {
+            var rootGraphNode = node as GraphRootNode;
+
             var graphNode = new ReanimatorGraphNode(node) {
                 OnNodeSelected = OnNodeSelected
             };
+            
+            if (rootGraphNode) {
+                graphNode.capabilities &= ~Capabilities.Movable;
+                graphNode.capabilities &= ~Capabilities.Deletable;
+            }
+            
             graphNode.OnSelected();
-            
-            
             AddElement(graphNode);
         }
     }
