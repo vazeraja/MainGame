@@ -8,7 +8,7 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
+namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphEditor : EditorWindow {
         [MenuItem("Reanimator/Resolution Graph")]
         public static void ShowWindow()
@@ -20,7 +20,7 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
         
         [OnOpenAsset]
         public static bool OnOpenAsset(int instanceId, int line) {
-            if (Selection.activeObject is Reanimation.ResolutionGraph) {
+            if (Selection.activeObject is ResolutionGraph) {
                 ShowWindow();
                 return true;
             }
@@ -28,7 +28,7 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
         }
 
         private VisualElement root;
-        private Reanimation.ResolutionGraph graph;
+        private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
         private InspectorView inspectorView;
 
@@ -100,7 +100,7 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
         private void OnSelectionChange()
         {
             EditorApplication.delayCall += () => {
-                Reanimation.ResolutionGraph graph = Selection.activeObject as Reanimation.ResolutionGraph;
+                ResolutionGraph graph = Selection.activeObject as ResolutionGraph;
                 if (!graph) {
                     if (Selection.activeGameObject) {
                         Reanimator reanimator = Selection.activeGameObject.GetComponent<Reanimator>();
@@ -113,7 +113,7 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
                 SelectTree(graph);
             };
         }
-        private void SelectTree(Reanimation.ResolutionGraph newGraph) {
+        private void SelectTree(ResolutionGraph newGraph) {
 
             if (graphView == null) {
                 return;

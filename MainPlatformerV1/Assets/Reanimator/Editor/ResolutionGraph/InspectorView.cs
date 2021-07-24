@@ -11,12 +11,12 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
 
         }
 
-        internal void UpdateSelection(ReanimatorNodeDisplay nodeView) {
+        internal void UpdateSelection(ReanimatorGraphNode graphNodeView) {
             Clear();
 
             UnityEngine.Object.DestroyImmediate(editor);
 
-            editor = UnityEditor.Editor.CreateEditor(nodeView.node);
+            editor = UnityEditor.Editor.CreateEditor(graphNodeView.node);
             IMGUIContainer container = new IMGUIContainer(() => {
                 if (editor && editor.target) {
                     editor.OnInspectorGUI();

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Aarthificial.Reanimation {
+namespace Aarthificial.Reanimation.ResolutionGraph {
     
     [CreateAssetMenu(fileName = "ReanimatorGraph")]
     public class ResolutionGraph : ScriptableObject {
@@ -33,6 +33,7 @@ namespace Aarthificial.Reanimation {
             
             Undo.RegisterCreatedObjectUndo(node, "Resolution Tree (CreateNode)");
             AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
             return node;
         }
 
@@ -79,15 +80,12 @@ namespace Aarthificial.Reanimation {
         {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
 
-
-            if (parent is OverrideNode overrideNode && overrideNode.next != null) {
-                children.Add(overrideNode.next);
-            }
-
             if (parent is SwitchNode switchNode) {
                 return switchNode.nodes;
             }
-
+            if (parent is OverrideNode overrideNode && overrideNode.next != null) {
+                children.Add(overrideNode.next);
+            }
             return children;
         }
         

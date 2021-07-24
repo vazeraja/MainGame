@@ -5,15 +5,15 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
 namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
-    public class ReanimatorNodeDisplay : UnityEditor.Experimental.GraphView.Node {
-        public ReanimatorNode node;
+    public class ReanimatorGraphNode : UnityEditor.Experimental.GraphView.Node {
+        public readonly ReanimatorNode node;
 
         public Port input;
         public Port output;
 
-        public ReanimatorNodeDisplay() { }
+        public ReanimatorGraphNode() { }
 
-        public ReanimatorNodeDisplay(ReanimatorNode node)
+        public ReanimatorGraphNode(ReanimatorNode node)
         {
             this.node = node;
             this.node.name = node.GetType().Name;
@@ -23,24 +23,28 @@ namespace Aarthificial.Reanimation.Editor.ResolutionGraph {
             style.left = node.position.x;
             style.top = node.position.y;
 
-            // CreateInputPorts();
-            // CreateOutputPorts();
+            CreateInputPorts();
+            CreateOutputPorts();
         }
 
         private void CreateInputPorts()
         {
-            if (node is SimpleAnimationNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
-            }
-            else if (node is SwitchNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
-            }
-            else if (node is OverrideNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
+            switch (node) {
+                case SimpleAnimationNode _:
+                    input = new NodePort(Direction.Input, Port.Capacity.Single);
+                    input.portName = "";
+                    break;
+                case SwitchNode _:
+                    input = new NodePort(Direction.Input, Port.Capacity.Single);
+                    input.portName = "SwitchNode";
+                    break;
+                case OverrideNode _:
+                    input = new NodePort(Direction.Input, Port.Capacity.Single);
+                    input.portName = "OverrideNode";
+                    break;
             }
 
             if (input != null) {
-                input.portName = "";
                 inputContainer.Add(input);
             }
         }

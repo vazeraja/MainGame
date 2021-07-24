@@ -8,7 +8,7 @@ namespace Aarthificial.Reanimation.Nodes
     [CreateAssetMenu(fileName = "switch", menuName = "Reanimator/Switch", order = 400)]
     public class SwitchNode : ReanimatorNode, IReanimatorGraphNode
     {
-        public List<ReanimatorNode> nodes;
+        public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
         public ControlDriver controlDriver = new ControlDriver();
         public DriverDictionary drivers = new DriverDictionary();
         

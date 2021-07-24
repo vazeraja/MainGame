@@ -44,7 +44,7 @@ namespace Aarthificial.Reanimation
             set => _previousState.Set(ReanimatorState.FlipDriver, value);
         }
 
-        public ResolutionGraph graph;
+        public ResolutionGraph.ResolutionGraph graph;
 
         /// <summary>
         /// Root of the graph being used to resolve cels.
