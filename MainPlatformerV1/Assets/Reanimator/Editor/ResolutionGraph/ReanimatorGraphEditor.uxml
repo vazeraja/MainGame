@@ -10,7 +10,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="right">
             <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgb(12, 58, 62);" />
-            <Aarthificial.Reanimation.ResolutionGraph.Editor.InspectorView style="flex-grow: 2;" />
+            <Aarthificial.Reanimation.ResolutionGraph.Editor.InspectorView style="flex-grow: 1;" />
         </ui:VisualElement>
     </Aarthificial.Reanimation.ResolutionGraph.Editor.SplitView>
 </ui:UXML>

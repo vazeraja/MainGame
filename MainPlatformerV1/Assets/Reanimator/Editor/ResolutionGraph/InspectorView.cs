@@ -9,7 +9,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         UnityEditor.Editor editor;
 
         public InspectorView()
-        { }
+        {
+            
+        }
 
         internal void UpdateSelection(ReanimatorGraphNode graphNode)
         {

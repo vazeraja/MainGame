@@ -1,43 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7157749667705728844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a8efb919fd4b40916a8ff1c06c20b3, type: 3}
-  m_Name: GraphRootNode
-  m_EditorClassIdentifier: 
-  guid: 48daf10304fd8f044a6a01d5060b10fa
-  position: {x: 0, y: 0}
-  root: {fileID: 3212351798070248937}
---- !u!114 &-5248582857270517386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 11e1053dcae34a44bb3377eab2bb189e
-  position: {x: 636.8025, y: 104.02253}
-  cels: []
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: 8043752b-3e0d-4594-80b0-cebd3f47cd35
-  drivers:
-    keys: []
-    values: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,13 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ReanimatorGraph
   m_EditorClassIdentifier: 
-  root: {fileID: 3212351798070248937}
+  root: {fileID: 6058036534366557042}
   nodes:
-  - {fileID: -7157749667705728844}
-  - {fileID: 3212351798070248937}
-  - {fileID: 2622414871388731815}
-  - {fileID: -5248582857270517386}
---- !u!114 &2622414871388731815
+  - {fileID: 3876367563445566367}
+  - {fileID: 6058036534366557042}
+--- !u!114 &3876367563445566367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a8efb919fd4b40916a8ff1c06c20b3, type: 3}
+  m_Name: GraphRootNode
+  m_EditorClassIdentifier: 
+  guid: a0ade619bfc833b4486154e1026dcfc8
+  position: {x: 0, y: 0}
+  root: {fileID: 6058036534366557042}
+--- !u!114 &6058036534366557042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,39 +43,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
-  guid: be25e3dddc6525543b20d7ab751b8a5a
-  position: {x: 636.8025, y: 0.022529602}
-  cels: []
+  guid: 5e926cd3320908947904d7b164689723
+  position: {x: 196, y: 0}
+  cels:
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 0}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
     name: 
     autoIncrement: 0
     percentageBased: 0
-    guid: 2f533fa0-46cb-4ea4-80ef-5ddfa9850238
-  drivers:
-    keys: []
-    values: 
---- !u!114 &3212351798070248937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
-  m_Name: SwitchNode
-  m_EditorClassIdentifier: 
-  guid: c1075f692d170144aacbf742887efbfc
-  position: {x: 230.80252, y: 0.022529602}
-  nodes:
-  - {fileID: 2622414871388731815}
-  - {fileID: -5248582857270517386}
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: 32c6566e-80c3-483a-8d07-742156055ed5
+    guid: 4f1acfc3-6c11-44b0-ac18-893da94f13b4
   drivers:
     keys: []
     values: 

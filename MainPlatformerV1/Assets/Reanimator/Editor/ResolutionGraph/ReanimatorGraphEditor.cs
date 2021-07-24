@@ -68,6 +68,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             graphView = root.Q<ReanimatorGraphView>();
             inspectorView = root.Q<InspectorView>();
+            
+            inspectorView.contentContainer.Add(new ScrollView());
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
 

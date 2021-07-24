@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
   m_Name: idle_animation
   m_EditorClassIdentifier: 
+  guid: 
+  position: {x: 0, y: 0}
   cels:
   - sprite: {fileID: -2937644175521846342, guid: f31e889de574c78499d5df74639f2b86,
       type: 3}

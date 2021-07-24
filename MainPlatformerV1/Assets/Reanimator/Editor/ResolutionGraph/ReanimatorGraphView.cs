@@ -4,6 +4,7 @@ using System.Linq;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -121,6 +122,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             });
 
             return graphViewChange;
+            
         }
 
         public void CreateNode(Type type, Vector2 nodePosition)
@@ -132,13 +134,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateGraphNode(ReanimatorNode node)
         {
-            var rootGraphNode = node as GraphRootNode;
-
             var graphNode = new ReanimatorGraphNode(node) {
                 OnNodeSelected = OnNodeSelected
             };
-            
-            if (rootGraphNode) {
+
+            if (node is GraphRootNode rootNode) {
                 graphNode.capabilities &= ~Capabilities.Movable;
                 graphNode.capabilities &= ~Capabilities.Deletable;
             }
