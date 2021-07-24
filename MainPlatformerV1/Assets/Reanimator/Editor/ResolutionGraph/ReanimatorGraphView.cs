@@ -59,11 +59,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     var parent = FindNodeByGuid(n);
                     var child = FindNodeByGuid(c);
 
-                    var rootGraphNode = parent.node as GraphRootNode;
-                    if (!rootGraphNode) {
+                   
                         var edge = parent.output.ConnectTo(child.input);
                         AddElement(edge);
-                    }
+                    
                 });
             });
         }

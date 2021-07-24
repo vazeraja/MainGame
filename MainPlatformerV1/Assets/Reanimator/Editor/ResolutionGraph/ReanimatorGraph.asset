@@ -31,6 +31,30 @@ MonoBehaviour:
   nodes:
   - {fileID: -7157749667705728844}
   - {fileID: 3212351798070248937}
+  - {fileID: 2622414871388731815}
+--- !u!114 &2622414871388731815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: be25e3dddc6525543b20d7ab751b8a5a
+  position: {x: 551, y: 7}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 2f533fa0-46cb-4ea4-80ef-5ddfa9850238
+  drivers:
+    keys: []
+    values: 
 --- !u!114 &3212351798070248937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,7 +68,7 @@ MonoBehaviour:
   m_Name: SwitchNode
   m_EditorClassIdentifier: 
   guid: c1075f692d170144aacbf742887efbfc
-  position: {x: 237, y: -25}
+  position: {x: 228, y: 14}
   nodes: []
   controlDriver:
     name: 
