@@ -18,13 +18,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             ReanimatorGraphEditor wnd = GetWindow<ReanimatorGraphEditor>();
             wnd.titleContent = new GUIContent("ReanimatorGraph");
         }
-        
+
         [OnOpenAsset]
-        public static bool OnOpenAsset(int instanceId, int line) {
+        public static bool OnOpenAsset(int instanceId, int line)
+        {
             if (Selection.activeObject is ResolutionGraph) {
                 ShowWindow();
                 return true;
             }
+
             return false;
         }
 
@@ -33,63 +35,44 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ReanimatorGraphView graphView;
         private InspectorCustomControl inspectorCustomControl;
         
-        private readonly List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
-
-        private void OnEnable() {
+        private void OnEnable()
+        {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
-
-        private void OnInspectorUpdate()
-        {
-            if (!draggedNodes.Any()) return;
-            foreach (var node in draggedNodes) {
-                switch (node) {
-                    case SimpleAnimationNode simpleAnimationNode: {
-                        var cels = simpleAnimationNode.sprites;
-                        graphView.CreateSimpleAnimationNode(node.GetType(), cels);
-                        break;
-                    }
-                    case SwitchNode switchNode: {
-                        graphView.CreateNode(switchNode.GetType(), new Vector2());
-                        break;
-                    }
-                    case OverrideNode overrideNode: {
-                        graphView.CreateNode(overrideNode.GetType(), new Vector2());
-                        break;
-                    }
-                }
-            }
-            draggedNodes.Clear();
-        }
-
         public void CreateGUI()
         {
             root = rootVisualElement;
 
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
+                    "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
             visualTree.CloneTree(root);
 
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
+                    "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
             root.styleSheets.Add(styleSheet);
 
             graphView = root.Q<ReanimatorGraphView>();
             inspectorCustomControl = root.Q<InspectorCustomControl>();
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
-            graphView.RegisterCallback<DragExitedEvent>(evt => { GetDraggedObjects(); });
+            graphView.RegisterCallback<DragExitedEvent>(evt => { CreateDragAndDropNodes(); });
 
             if (graph == null) {
                 OnSelectionChange();
-            } else {
+            }
+            else {
                 SelectTree(graph);
             }
         }
-        private void OnPlayModeStateChanged(PlayModeStateChange obj) {
+
+        private void OnPlayModeStateChanged(PlayModeStateChange obj)
+        {
             switch (obj) {
                 case PlayModeStateChange.EnteredEditMode:
                     OnSelectionChange();
@@ -111,16 +94,43 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inspectorCustomControl.UpdateSelection(node);
         }
 
-        private void GetDraggedObjects()
+        private void CreateDragAndDropNodes()
         {
             if (DragAndDrop.objectReferences == null) return;
-            
+
             var references = DragAndDrop.objectReferences;
+            List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
             foreach (var reference in references) {
-                if (reference is ReanimatorNode scriptableObject) {
-                    draggedNodes.Add(scriptableObject);
-                } 
+                if (reference is ReanimatorNode reanimatorNode) {
+                    draggedNodes.Add(reanimatorNode);
+
+                    foreach (var node in draggedNodes) {
+                        switch (node) {
+                            case SimpleAnimationNode simpleAnimationNode: {
+                                var cels = simpleAnimationNode.sprites;
+                                EditorApplication.delayCall += () => {
+                                    graphView.CreateSimpleAnimationNode(node.GetType(), cels);
+                                };
+                                break;
+                            }
+                            case SwitchNode switchNode: {
+                                EditorApplication.delayCall += () => {
+                                    
+                                    
+                                    graphView.CreateNode(switchNode.GetType(), new Vector2());
+                                };
+                                break;
+                            }
+                            case OverrideNode overrideNode: {
+                                EditorApplication.delayCall += delegate {
+                                    graphView.CreateNode(overrideNode.GetType(), new Vector2());
+                                };
+                                break;
+                            }
+                        }
+                    }
+                }
                 else {
                     EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
                     break;
@@ -144,8 +154,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 SelectTree(graph);
             };
         }
-        private void SelectTree(ResolutionGraph newGraph) {
 
+        private void SelectTree(ResolutionGraph newGraph)
+        {
             if (graphView == null) {
                 return;
             }
@@ -163,9 +174,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 graphView.PopulateView(graph, this);
             }
 
-            EditorApplication.delayCall += () => {
-                graphView.FrameAll();
-            };
+            EditorApplication.delayCall += () => { graphView.FrameAll(); };
         }
     }
 }

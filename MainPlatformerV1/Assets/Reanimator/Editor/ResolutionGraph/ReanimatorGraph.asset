@@ -13,11 +13,41 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: dd3dfa470ee98b94da63fe786a52078a
-  position: {x: 0, y: 0}
-  cels: []
+  position: {x: 206, y: 0}
+  cels:
+  - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -8898711724394727108, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 1419535152013476003, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -874605140446810071, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 4496215235596873431, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 5915515978982725832, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
     name: 
-    autoIncrement: 0
+    autoIncrement: 1
     percentageBased: 0
     guid: ad3f7f3b-754a-470c-9a04-7cb1a6840d0e
   drivers:
@@ -35,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ReanimatorGraph
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
+  root: {fileID: -8594969290917723979}
   nodes:
   - {fileID: 3876367563445566367}
   - {fileID: -8594969290917723979}
@@ -53,4 +83,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a0ade619bfc833b4486154e1026dcfc8
   position: {x: 0, y: 0}
-  root: {fileID: 0}
+  root: {fileID: -8594969290917723979}
