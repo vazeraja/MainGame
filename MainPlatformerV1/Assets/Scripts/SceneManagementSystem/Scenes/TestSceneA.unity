@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80723acd13094c4ba8ec3f8b49c96e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 0}
+  graph: {fileID: 11400000, guid: 753eebd8646737745a42498f1f79e94c, type: 2}
   root: {fileID: 0}
   renderer: {fileID: 0}
   fps: 12
@@ -39305,7 +39305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80723acd13094c4ba8ec3f8b49c96e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 11400000, guid: 699feb5c2c420e94e8353d82d7c80a1f, type: 2}
+  graph: {fileID: 0}
   root: {fileID: 11400000, guid: 5174f7945d3f8f34dac9116cdafc0eb2, type: 2}
   renderer: {fileID: 8544018097327659948}
   fps: 8

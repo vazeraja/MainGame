@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Aarthificial.Reanimation.Cels;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -19,7 +20,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public Action<ReanimatorGraphNode> OnNodeSelected;
         
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
-        public readonly Vector2 DefaultCommentBlockSize = new Vector2(300, 200);
+        public readonly Vector2 BlockSize = new Vector2(300, 200);
 
         public ReanimatorGraphView()
         {
@@ -132,9 +133,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateGraphNode(node);
         }
 
-        public void CreateSimpleAnimationNode(Type type)
+        public void CreateSimpleAnimationNode(Type type, IEnumerable<SimpleCel> simpleCels)
         {
-            SimpleAnimationNode node = graph.CreateNode(type) as SimpleAnimationNode;
+            if (!(graph.CreateNode(type) is SimpleAnimationNode node)) return;
+            node.sprites = simpleCels;
             CreateGraphNode(node);
         }
 

@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3822930438845209891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: 8b47c3cbf311f7546b23d590185beb00
+  position: {x: 193, y: 0}
+  cels:
+  - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -8898711724394727108, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 1419535152013476003, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -874605140446810071, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 4496215235596873431, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 5915515978982725832, guid: d907cee78eda0484e9ed0c704dd5ac50,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  controlDriver:
+    name: 
+    autoIncrement: 1
+    percentageBased: 0
+    guid: d031af72-d7d5-4284-825b-cdee3d88c40b
+  drivers:
+    keys: []
+    values: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,12 +65,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ReanimatorGraph
   m_EditorClassIdentifier: 
-  root: {fileID: 5285223890486581646}
+  root: {fileID: -3822930438845209891}
   nodes:
   - {fileID: 3876367563445566367}
-  - {fileID: 5285223890486581646}
-  - {fileID: 5930353162918734316}
-  - {fileID: 7453057097314231390}
+  - {fileID: -3822930438845209891}
 --- !u!114 &3876367563445566367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,73 +83,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a0ade619bfc833b4486154e1026dcfc8
   position: {x: 0, y: 0}
-  root: {fileID: 5285223890486581646}
---- !u!114 &5285223890486581646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 825bc1c0d0d85d548abf16c4025b4dbd
-  position: {x: 192, y: 0}
-  cels: []
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: 128419c6-1ca4-43cb-a736-55836bfa2979
-  drivers:
-    keys: []
-    values: 
---- !u!114 &5930353162918734316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 65aaa04e9ee4b21459263e32fee104eb
-  position: {x: 0, y: 0}
-  cels: []
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: f61bfade-f6a8-43fe-8dba-31b57cc44196
-  drivers:
-    keys: []
-    values: 
---- !u!114 &7453057097314231390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 19d1937015210f540914df7d315b8d15
-  position: {x: 0, y: 0}
-  cels: []
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: 049cdbb4-9bca-47e7-b981-2028a6b73d1d
-  drivers:
-    keys: []
-    values: 
+  root: {fileID: -3822930438845209891}

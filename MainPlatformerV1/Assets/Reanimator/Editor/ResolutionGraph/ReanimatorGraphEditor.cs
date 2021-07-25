@@ -17,7 +17,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             ReanimatorGraphEditor wnd = GetWindow<ReanimatorGraphEditor>();
             wnd.titleContent = new GUIContent("ReanimatorGraph");
-            wnd.minSize = new Vector2(1200, 800);
         }
         
         [OnOpenAsset]
@@ -47,19 +46,25 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void OnInspectorUpdate()
         {
-            if (draggedNodes.Any()) {
-                draggedNodes.ForEach(node => {
-                    if (node is SimpleAnimationNode simpleAnimationNode) {
+            if (!draggedNodes.Any()) return;
+            foreach (var node in draggedNodes) {
+                switch (node) {
+                    case SimpleAnimationNode simpleAnimationNode: {
                         var cels = simpleAnimationNode.sprites;
-                        cels.ForEach(sprite => {
-                            Debug.Log(sprite.Sprite.name);
-                        });
+                        graphView.CreateSimpleAnimationNode(node.GetType(), cels);
+                        break;
                     }
-                    graphView.CreateNode(node.GetType(), new Vector2());
-                    
-                });
-                draggedNodes.Clear();
+                    case SwitchNode switchNode: {
+                        graphView.CreateNode(switchNode.GetType(), new Vector2());
+                        break;
+                    }
+                    case OverrideNode overrideNode: {
+                        graphView.CreateNode(overrideNode.GetType(), new Vector2());
+                        break;
+                    }
+                }
             }
+            draggedNodes.Clear();
         }
 
         public void CreateGUI()
