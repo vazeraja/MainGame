@@ -33,7 +33,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ReanimatorGraphView graphView;
         private InspectorCustomControl inspectorCustomControl;
         
-        private List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
+        private readonly List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
         private void OnEnable() {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -81,21 +81,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inspectorCustomControl = root.Q<InspectorCustomControl>();
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
-            graphView.RegisterCallback<DragExitedEvent>(evt => {
-                if (DragAndDrop.objectReferences == null) return;
-            
-                var references = DragAndDrop.objectReferences;
-
-                foreach (var reference in references) {
-                    if (reference is ReanimatorNode scriptableObject) {
-                        draggedNodes.Add(scriptableObject);
-                    } 
-                    else {
-                        EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
-                        break;
-                    }
-                }
-            });
+            graphView.RegisterCallback<DragExitedEvent>(evt => { GetDraggedObjects(); });
 
             if (graph == null) {
                 OnSelectionChange();
@@ -123,6 +109,23 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private void OnNodeSelectionChanged(ReanimatorGraphNode node)
         {
             inspectorCustomControl.UpdateSelection(node);
+        }
+
+        private void GetDraggedObjects()
+        {
+            if (DragAndDrop.objectReferences == null) return;
+            
+            var references = DragAndDrop.objectReferences;
+
+            foreach (var reference in references) {
+                if (reference is ReanimatorNode scriptableObject) {
+                    draggedNodes.Add(scriptableObject);
+                } 
+                else {
+                    EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
+                    break;
+                }
+            }
         }
 
         private void OnSelectionChange()

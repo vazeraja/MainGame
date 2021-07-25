@@ -16,7 +16,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
         
         #if UNITY_EDITOR
-        public ReanimatorNode CreateNode(System.Type type)
+        public ReanimatorNode CreateSubAsset(System.Type type)
         {
             ReanimatorNode node = ScriptableObject.CreateInstance(type) as ReanimatorNode;
             
@@ -24,24 +24,23 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             node.name = type.Name;
             node.guid = GUID.Generate().ToString();
             
-            Undo.RecordObject(this, "Resolution Tree (CreateNode)");
+            Undo.RecordObject(this, "Resolution Tree");
             nodes.Add(node);
-            
             if (!Application.isPlaying) {
                 AssetDatabase.AddObjectToAsset(node, this);
             }
+            Undo.RegisterCreatedObjectUndo(node, "Resolution Tree");
             
-            Undo.RegisterCreatedObjectUndo(node, "Resolution Tree (CreateNode)");
             AssetDatabase.SaveAssets();
             return node;
         }
 
-        public void DeleteNode(ReanimatorNode node)
+        public void DeleteSubAsset(ReanimatorNode node)
         {
             Undo.RecordObject(this, "Resolution Tree (DeleteNode)");
             nodes.Remove(node);
-            
             Undo.DestroyObjectImmediate(node);
+            
             AssetDatabase.SaveAssets();
         }
         

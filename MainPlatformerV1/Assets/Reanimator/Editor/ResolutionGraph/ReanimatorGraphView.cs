@@ -73,7 +73,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private void LoadResolutionGraph()
         {
             if (graph.nodes.Count == 0) {
-                graph.root = graph.CreateNode(typeof(GraphRootNode)) as GraphRootNode;
+                graph.root = graph.CreateSubAsset(typeof(GraphRootNode)) as GraphRootNode;
                 EditorUtility.SetDirty(graph);
                 AssetDatabase.SaveAssets();
             }
@@ -84,8 +84,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 var children = graph.GetChildren(n);
                 children.ForEach(c => {
                     
-                    // Returns node by its guid
-                    // Cast it back ReanimatorGraphNode
+                    // Returns node by its guid and cast it back to a ReanimatorGraphNode
                     var parent = GetNodeByGuid(n.guid) as ReanimatorGraphNode;
                     var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
                     
@@ -105,13 +104,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
             graphViewChange.elementsToRemove?.ForEach(elem => {
-                if (elem is ReanimatorGraphNode nodeDisplay) {
-                    graph.DeleteNode(nodeDisplay.node);
-                }
-                else if (elem is Edge edge) {
-                    ReanimatorGraphNode parent = edge.output.node as ReanimatorGraphNode;
-                    ReanimatorGraphNode child = edge.input.node as ReanimatorGraphNode;
-                    graph.RemoveChild(parent?.node, child?.node);
+                switch (elem) {
+                    case ReanimatorGraphNode nodeDisplay:
+                        graph.DeleteSubAsset(nodeDisplay.node);
+                        break;
+                    case Edge edge: {
+                        ReanimatorGraphNode parent = edge.output.node as ReanimatorGraphNode;
+                        ReanimatorGraphNode child = edge.input.node as ReanimatorGraphNode;
+                        graph.RemoveChild(parent?.node, child?.node);
+                        break;
+                    }
                 }
             });
 
@@ -128,14 +130,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         public void CreateNode(Type type, Vector2 nodePosition)
         {
-            var node = graph.CreateNode(type);
+            var node = graph.CreateSubAsset(type);
             node.position = nodePosition;
             CreateGraphNode(node);
         }
 
         public void CreateSimpleAnimationNode(Type type, IEnumerable<SimpleCel> simpleCels)
         {
-            if (!(graph.CreateNode(type) is SimpleAnimationNode node)) return;
+            if (!(graph.CreateSubAsset(type) is SimpleAnimationNode node)) return;
             node.sprites = simpleCels;
             CreateGraphNode(node);
         }
