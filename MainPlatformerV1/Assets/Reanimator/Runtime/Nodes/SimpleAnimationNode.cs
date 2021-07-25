@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aarthificial.Reanimation.Cels;
+using Aarthificial.Reanimation.Common;
 using UnityEngine;
 
 namespace Aarthificial.Reanimation.Nodes
@@ -11,6 +12,15 @@ namespace Aarthificial.Reanimation.Nodes
         public IEnumerable<SimpleCel> sprites { 
             get => cels;
             set => cels = value as SimpleCel[];
+        }
+        public ControlDriver ControlDriver {
+            get => controlDriver;
+            set => controlDriver = value;
+        }
+
+        public DriverDictionary Drivers {
+            get => drivers;
+            set => drivers = value;
         }
     }
 }

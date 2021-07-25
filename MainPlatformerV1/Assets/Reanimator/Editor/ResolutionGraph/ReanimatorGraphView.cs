@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aarthificial.Reanimation.Cels;
+using Aarthificial.Reanimation.Common;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -135,11 +136,41 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateGraphNode(node);
         }
 
-        public void CreateSimpleAnimationNode(Type type, IEnumerable<SimpleCel> simpleCels)
+        public void CreateSimpleAnimationNode(Type type, IEnumerable<SimpleCel> simpleCels, ControlDriver controlDriver, DriverDictionary driverDictionary)
         {
             if (!(graph.CreateSubAsset(type) is SimpleAnimationNode node)) return;
             node.sprites = simpleCels;
+            node.ControlDriver = controlDriver;
+            node.Drivers = driverDictionary;
             CreateGraphNode(node);
+        }
+        public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
+        {
+            if (!(graph.CreateSubAsset(type) is SwitchNode switchNode)) return;
+            switchNode.nodes = reanimatorNodes;
+            
+            CreateGraphNode(switchNode);
+
+            foreach (var node in switchNode.nodes) {
+                switch (node) {
+                    case SwitchNode innerSwitch: {
+                        var innerSwitchNodes = innerSwitch.nodes;
+                        EditorApplication.delayCall += () => {
+                            CreateSwitchNode(innerSwitch.GetType(), innerSwitchNodes);
+                        };
+                        break;
+                    }
+                    case SimpleAnimationNode simpleAnimationNode: {
+                        var cels = simpleAnimationNode.sprites;
+                        var controlDriver = simpleAnimationNode.ControlDriver;
+                        var drivers = simpleAnimationNode.Drivers;
+                        EditorApplication.delayCall += () => {
+                            CreateSimpleAnimationNode(node.GetType(), cels, controlDriver, drivers);
+                        };
+                        break;
+                    }
+                }
+            }
         }
 
         private void CreateGraphNode(ReanimatorNode node)

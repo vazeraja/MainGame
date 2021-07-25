@@ -109,16 +109,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                         switch (node) {
                             case SimpleAnimationNode simpleAnimationNode: {
                                 var cels = simpleAnimationNode.sprites;
+                                var controlDriver = simpleAnimationNode.ControlDriver;
+                                var drivers = simpleAnimationNode.Drivers;
                                 EditorApplication.delayCall += () => {
-                                    graphView.CreateSimpleAnimationNode(node.GetType(), cels);
+                                    graphView.CreateSimpleAnimationNode(node.GetType(), cels, controlDriver, drivers);
                                 };
                                 break;
                             }
                             case SwitchNode switchNode: {
                                 EditorApplication.delayCall += () => {
-                                    
-                                    
-                                    graphView.CreateNode(switchNode.GetType(), new Vector2());
+                                    var nodes = switchNode.nodes;
+                                    graphView.CreateSwitchNode(switchNode.GetType(), nodes);
                                 };
                                 break;
                             }
