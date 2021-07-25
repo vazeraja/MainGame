@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace Aarthificial.Reanimation.ResolutionGraph {
     
-    [CreateAssetMenu(fileName = "ReanimatorGraph")]
+    [CreateAssetMenu(fileName = "ResolutionGraph", menuName = "Reanimator/ResolutionGraph", order = 400)]
     public class ResolutionGraph : ScriptableObject {
         
         public ReanimatorNode root;

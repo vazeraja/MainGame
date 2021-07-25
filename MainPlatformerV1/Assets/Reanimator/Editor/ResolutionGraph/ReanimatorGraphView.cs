@@ -15,7 +15,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
-        
+
         public Action<ReanimatorGraphNode> OnNodeSelected;
         
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
@@ -129,6 +129,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             var node = graph.CreateNode(type);
             node.position = nodePosition;
+            CreateGraphNode(node);
+        }
+
+        public void CreateSimpleAnimationNode(Type type)
+        {
+            SimpleAnimationNode node = graph.CreateNode(type) as SimpleAnimationNode;
             CreateGraphNode(node);
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Aarthificial.Reanimation;
 using Aarthificial.Reanimation.Nodes;
 using TheKiwiCoder;
@@ -32,6 +33,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
         private InspectorCustomControl inspectorCustomControl;
+        
+        private List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
         private void OnEnable() {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -42,18 +45,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
 
-        private void OnPlayModeStateChanged(PlayModeStateChange obj) {
-            switch (obj) {
-                case PlayModeStateChange.EnteredEditMode:
-                    OnSelectionChange();
-                    break;
-                case PlayModeStateChange.ExitingEditMode:
-                    break;
-                case PlayModeStateChange.EnteredPlayMode:
-                    OnSelectionChange();
-                    break;
-                case PlayModeStateChange.ExitingPlayMode:
-                    break;
+        private void OnInspectorUpdate()
+        {
+            if (draggedNodes.Any()) {
+                draggedNodes.ForEach(node => {
+                    if (node is SimpleAnimationNode simpleAnimationNode) {
+                        var cels = simpleAnimationNode.sprites;
+                        cels.ForEach(sprite => {
+                            Debug.Log(sprite.Sprite.name);
+                        });
+                    }
+                    graphView.CreateNode(node.GetType(), new Vector2());
+                    
+                });
+                draggedNodes.Clear();
             }
         }
 
@@ -69,39 +74,44 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             graphView = root.Q<ReanimatorGraphView>();
             inspectorCustomControl = root.Q<InspectorCustomControl>();
-            
-            inspectorCustomControl.contentContainer.Add(new ScrollView());
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
-
-            graphView.RegisterCallback<MouseDownEvent>(evt => { });
             graphView.RegisterCallback<DragExitedEvent>(evt => {
-                List<ReanimatorNode> objs = new List<ReanimatorNode>();
-                DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-            
                 if (DragAndDrop.objectReferences == null) return;
             
                 var references = DragAndDrop.objectReferences;
 
                 foreach (var reference in references) {
                     if (reference is ReanimatorNode scriptableObject) {
-                        objs.Add(scriptableObject);
-                    }
+                        draggedNodes.Add(scriptableObject);
+                    } 
                     else {
                         EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
                         break;
                     }
                 }
-                
-                Vector2 nodePosition = graphView.ChangeCoordinatesTo(graphView.contentViewContainer, evt.localMousePosition);
-                objs.ForEach(node => graphView.CreateNode(node.GetType(), nodePosition ));
             });
-            
 
             if (graph == null) {
                 OnSelectionChange();
             } else {
                 SelectTree(graph);
+            }
+        }
+        private void OnPlayModeStateChanged(PlayModeStateChange obj) {
+            switch (obj) {
+                case PlayModeStateChange.EnteredEditMode:
+                    OnSelectionChange();
+                    break;
+                case PlayModeStateChange.ExitingEditMode:
+                    break;
+                case PlayModeStateChange.EnteredPlayMode:
+                    OnSelectionChange();
+                    break;
+                case PlayModeStateChange.ExitingPlayMode:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(obj), obj, null);
             }
         }
 

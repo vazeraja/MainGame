@@ -10,6 +10,8 @@ namespace Aarthificial.Reanimation.Cels
         [SerializeField] protected Sprite sprite;
         [SerializeField] protected DriverDictionary drivers = new DriverDictionary();
 
+        public Sprite Sprite => sprite;
+
         public SimpleCel()
         {
         }
