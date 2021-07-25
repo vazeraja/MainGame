@@ -4,47 +4,47 @@ using Aarthificial.Reanimation.Nodes;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+
 #endif
 
 namespace Aarthificial.Reanimation.ResolutionGraph {
-    
     [CreateAssetMenu(fileName = "ResolutionGraph", menuName = "Reanimator/ResolutionGraph", order = 400)]
     public class ResolutionGraph : ScriptableObject {
-        
         public ReanimatorNode root;
 
         public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
-        
+
         #if UNITY_EDITOR
-        public ReanimatorNode CreateSubAsset(System.Type type)
+        public ReanimatorNode CreateSubAsset(Type type, string assetName = null)
         {
             ReanimatorNode node = ScriptableObject.CreateInstance(type) as ReanimatorNode;
-            
+
             // ReSharper disable once PossibleNullReferenceException
-            node.name = type.Name;
+            node.name = string.IsNullOrEmpty(assetName) ? type.Name : assetName;
             node.guid = GUID.Generate().ToString();
-            
+
             Undo.RecordObject(this, "Resolution Tree");
             nodes.Add(node);
             if (!Application.isPlaying) {
                 AssetDatabase.AddObjectToAsset(node, this);
             }
+
             Undo.RegisterCreatedObjectUndo(node, "Resolution Tree");
-            
+
             AssetDatabase.SaveAssets();
             return node;
         }
 
         public void DeleteSubAsset(ReanimatorNode node)
         {
-            Undo.RecordObject(this, "Resolution Tree (DeleteNode)");
+            Undo.RecordObject(this, "Resolution Tree");
             nodes.Remove(node);
             Undo.DestroyObjectImmediate(node);
-            
+
             AssetDatabase.SaveAssets();
         }
-        
-        
+
+
         public void AddChild(ReanimatorNode parent, ReanimatorNode child)
         {
             switch (parent) {
@@ -66,6 +66,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
                     break;
             }
         }
+
         public void RemoveChild(ReanimatorNode parent, ReanimatorNode child)
         {
             switch (parent) {
@@ -105,6 +106,5 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
 
             return children;
         }
-        
     }
 }

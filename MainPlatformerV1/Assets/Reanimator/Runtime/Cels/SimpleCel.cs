@@ -8,7 +8,7 @@ namespace Aarthificial.Reanimation.Cels
     public class SimpleCel : ICel
     {
         [SerializeField] protected Sprite sprite;
-        [SerializeField] protected DriverDictionary drivers = new DriverDictionary();
+        [SerializeField] public DriverDictionary drivers = new DriverDictionary();
 
         public SimpleCel()
         {

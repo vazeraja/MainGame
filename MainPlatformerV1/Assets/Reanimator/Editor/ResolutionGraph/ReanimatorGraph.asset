@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: dd3dfa470ee98b94da63fe786a52078a
-  position: {x: 206, y: 0}
+  position: {x: 250, y: 38.5}
   cels:
   - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,
       type: 3}

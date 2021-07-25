@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
   m_Name: run_animation
   m_EditorClassIdentifier: 
+  guid: 
+  position: {x: 0, y: 0}
   cels:
   - sprite: {fileID: -3434879642533976785, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
@@ -21,8 +23,9 @@ MonoBehaviour:
   - sprite: {fileID: -6900529643414002696, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:
-      keys: []
-      values: 
+      keys:
+      - driver1
+      values: 00000000
   - sprite: {fileID: 8494806145318214075, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:
@@ -36,8 +39,9 @@ MonoBehaviour:
   - sprite: {fileID: -622354641076717811, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:
-      keys: []
-      values: 
+      keys:
+      - driver1
+      values: 00000000
   - sprite: {fileID: 6171374375413776551, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:

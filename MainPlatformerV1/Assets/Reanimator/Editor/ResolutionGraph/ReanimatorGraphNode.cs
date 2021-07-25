@@ -20,7 +20,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public ReanimatorGraphNode(ReanimatorNode node)
         {
             this.node = node;
-            this.node.name = node.GetType().Name;
+            //this.node.name = node.GetType().Name;
             title = node.name.Replace("(Clone)", "").Replace("Node", "");
             viewDataKey = node.guid;
 

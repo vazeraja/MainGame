@@ -105,30 +105,30 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 if (reference is ReanimatorNode reanimatorNode) {
                     draggedNodes.Add(reanimatorNode);
 
-                    foreach (var node in draggedNodes) {
+                    foreach (ReanimatorNode node in draggedNodes) {
                         switch (node) {
                             case SimpleAnimationNode simpleAnimationNode: {
                                 var cels = simpleAnimationNode.sprites;
                                 var controlDriver = simpleAnimationNode.ControlDriver;
                                 var drivers = simpleAnimationNode.Drivers;
                                 EditorApplication.delayCall += () => {
-                                    graphView.CreateSimpleAnimationNode(node.GetType(), cels, controlDriver, drivers);
+                                    graphView.CreateSimpleAnimationNode(node, cels, controlDriver, drivers);
                                 };
                                 break;
                             }
-                            case SwitchNode switchNode: {
-                                EditorApplication.delayCall += () => {
-                                    var nodes = switchNode.nodes;
-                                    graphView.CreateSwitchNode(switchNode.GetType(), nodes);
-                                };
-                                break;
-                            }
-                            case OverrideNode overrideNode: {
-                                EditorApplication.delayCall += delegate {
-                                    graphView.CreateNode(overrideNode.GetType(), new Vector2());
-                                };
-                                break;
-                            }
+                            // case SwitchNode switchNode: {
+                            //     EditorApplication.delayCall += () => {
+                            //         var nodes = switchNode.nodes;
+                            //         graphView.CreateSwitchNode(switchNode.GetType(), nodes);
+                            //     };
+                            //     break;
+                            // }
+                            // case OverrideNode overrideNode: {
+                            //     EditorApplication.delayCall += delegate {
+                            //         graphView.CreateNode(overrideNode.GetType(), new Vector2());
+                            //     };
+                            //     break;
+                            // }
                         }
                     }
                 }
@@ -169,10 +169,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.graph = newGraph;
 
             if (Application.isPlaying) {
-                graphView.PopulateView(graph, this);
+                graphView.Initialize(graph, this);
             }
             else {
-                graphView.PopulateView(graph, this);
+                graphView.Initialize(graph, this);
             }
 
             EditorApplication.delayCall += () => { graphView.FrameAll(); };
