@@ -40,8 +40,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         {
             Undo.RecordObject(this, "Resolution Tree (DeleteNode)");
             nodes.Remove(node);
-
-            //AssetDatabase.RemoveObjectFromAsset(node);
+            
             Undo.DestroyObjectImmediate(node);
             AssetDatabase.SaveAssets();
         }
@@ -49,42 +48,44 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         
         public void AddChild(ReanimatorNode parent, ReanimatorNode child)
         {
-            if (parent is OverrideNode overrideNode) {
-                Undo.RecordObject(overrideNode, "Resolution Tree (AddChild)");
-                overrideNode.next = child;
-                EditorUtility.SetDirty(overrideNode);
-            }
-            if (parent is GraphRootNode rootNode) {
-                Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
-                root = child;
-                rootNode.root = child;
-                EditorUtility.SetDirty(rootNode);
-            }
-
-            if (parent is SwitchNode switchNode) {
-                Undo.RecordObject(switchNode, "Resolution Tree (AddChild)");
-                switchNode.nodes.Add(child);
-                EditorUtility.SetDirty(switchNode);
+            switch (parent) {
+                case GraphRootNode rootNode:
+                    Undo.RecordObject(rootNode, "Resolution Tree");
+                    root = child;
+                    rootNode.root = child;
+                    EditorUtility.SetDirty(rootNode);
+                    break;
+                case OverrideNode overrideNode:
+                    Undo.RecordObject(overrideNode, "Resolution Tree");
+                    overrideNode.next = child;
+                    EditorUtility.SetDirty(overrideNode);
+                    break;
+                case SwitchNode switchNode:
+                    Undo.RecordObject(switchNode, "Resolution Tree");
+                    switchNode.nodes.Add(child);
+                    EditorUtility.SetDirty(switchNode);
+                    break;
             }
         }
         public void RemoveChild(ReanimatorNode parent, ReanimatorNode child)
         {
-            if (parent is OverrideNode overrideNode) {
-                Undo.RecordObject(overrideNode, "Resolution Tree (AddChild)");
-                overrideNode.next = null;
-                EditorUtility.SetDirty(overrideNode);
-            }
-
-            if (parent is GraphRootNode rootNode) {
-                Undo.RecordObject(rootNode, "Resolution Tree (AddChild)");
-                root = null;
-                rootNode.root = null;
-                EditorUtility.SetDirty(rootNode);
-            }
-            if (parent is SwitchNode switchNode) {
-                Undo.RecordObject(switchNode, "Resolution Tree (AddChild)");
-                switchNode.nodes.Remove(child);
-                EditorUtility.SetDirty(switchNode);
+            switch (parent) {
+                case GraphRootNode rootNode:
+                    Undo.RecordObject(rootNode, "Resolution Tree");
+                    root = null;
+                    rootNode.root = null;
+                    EditorUtility.SetDirty(rootNode);
+                    break;
+                case OverrideNode overrideNode:
+                    Undo.RecordObject(overrideNode, "Resolution Tree");
+                    overrideNode.next = null;
+                    EditorUtility.SetDirty(overrideNode);
+                    break;
+                case SwitchNode switchNode:
+                    Undo.RecordObject(switchNode, "Resolution Tree");
+                    switchNode.nodes.Remove(child);
+                    EditorUtility.SetDirty(switchNode);
+                    break;
             }
         }
         #endif
@@ -92,15 +93,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
 
-            if (parent is GraphRootNode rootNode && root != null) {
-                children.Add(root);
+            switch (parent) {
+                case GraphRootNode rootNode when root != null:
+                    children.Add(root);
+                    break;
+                case OverrideNode overrideNode when overrideNode.next != null:
+                    children.Add(overrideNode.next);
+                    break;
+                case SwitchNode switchNode:
+                    return switchNode.nodes;
             }
-            if (parent is OverrideNode overrideNode && overrideNode.next != null) {
-                children.Add(overrideNode.next);
-            }
-            if (parent is SwitchNode switchNode) {
-                return switchNode.nodes;
-            }
+
             return children;
         }
         
