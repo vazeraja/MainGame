@@ -12,10 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ReanimatorGraph
   m_EditorClassIdentifier: 
-  root: {fileID: 6058036534366557042}
+  root: {fileID: 0}
   nodes:
   - {fileID: 3876367563445566367}
-  - {fileID: 6058036534366557042}
+  - {fileID: 176334422212116988}
+--- !u!114 &176334422212116988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: f743b57a7f50fb240a55592de3131ce4
+  position: {x: 0, y: 0}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 39d6a870-14de-4b9b-aec2-50517d5e802a
+  drivers:
+    keys: []
+    values: 
 --- !u!114 &3876367563445566367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,51 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a0ade619bfc833b4486154e1026dcfc8
   position: {x: 0, y: 0}
-  root: {fileID: 6058036534366557042}
---- !u!114 &6058036534366557042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 5e926cd3320908947904d7b164689723
-  position: {x: 196, y: 0}
-  cels:
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  - sprite: {fileID: 0}
-    drivers:
-      keys: []
-      values: 
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: 4f1acfc3-6c11-44b0-ac18-893da94f13b4
-  drivers:
-    keys: []
-    values: 
+  root: {fileID: 0}

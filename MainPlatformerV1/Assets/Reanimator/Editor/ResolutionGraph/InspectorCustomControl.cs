@@ -3,22 +3,15 @@ using UnityEngine.UIElements;
 using UnityEditor;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
-    public class InspectorView : VisualElement {
-        public new class UxmlFactory : UxmlFactory<InspectorView, VisualElement.UxmlTraits> { }
+    public class InspectorCustomControl : ScrollView {
+        public new class UxmlFactory : UxmlFactory<InspectorCustomControl, ScrollView.UxmlTraits> { }
 
         UnityEditor.Editor editor;
 
-        public InspectorView()
-        {
-            
-        }
-
-        internal void UpdateSelection(ReanimatorGraphNode graphNode)
+        public void UpdateSelection(ReanimatorGraphNode graphNode)
         {
             Clear();
-
             UnityEngine.Object.DestroyImmediate(editor);
-
             editor = UnityEditor.Editor.CreateEditor(graphNode.node);
 
             IMGUIContainer container = new IMGUIContainer(() => {
@@ -26,6 +19,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     editor.OnInspectorGUI();
                 }
             });
+
             Add(container);
         }
     }

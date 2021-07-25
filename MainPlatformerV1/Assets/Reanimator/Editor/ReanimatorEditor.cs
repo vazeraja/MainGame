@@ -35,7 +35,7 @@ namespace Aarthificial.Reanimation.Editor
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(_graph);
-            //EditorGUILayout.PropertyField(_root);
+            EditorGUILayout.PropertyField(_root);
             EditorGUILayout.PropertyField(_renderer);
             EditorGUILayout.PropertyField(_fps);
             EditorGUILayout.PropertyField(_temporary);

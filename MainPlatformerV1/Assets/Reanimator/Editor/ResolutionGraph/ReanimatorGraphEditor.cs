@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Aarthificial.Reanimation;
+using Aarthificial.Reanimation.Nodes;
 using TheKiwiCoder;
 using TN.Extensions;
 using UnityEditor;
@@ -30,7 +31,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private VisualElement root;
         private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
-        private InspectorView inspectorView;
+        private InspectorCustomControl inspectorCustomControl;
 
         private void OnEnable() {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -67,28 +68,34 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             root.styleSheets.Add(styleSheet);
 
             graphView = root.Q<ReanimatorGraphView>();
-            inspectorView = root.Q<InspectorView>();
+            inspectorCustomControl = root.Q<InspectorCustomControl>();
             
-            inspectorView.contentContainer.Add(new ScrollView());
+            inspectorCustomControl.contentContainer.Add(new ScrollView());
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
 
-            // root.RegisterCallback<MouseDownEvent>(evt => { });
-            //
-            // root.RegisterCallback<DragExitedEvent>(evt => {
-            //     List<ScriptableObject> objs = new List<ScriptableObject>();
-            //     DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-            //
-            //     if (DragAndDrop.objectReferences == null) return;
-            //
-            //     var refs = DragAndDrop.objectReferences;
-            //     refs.ForEach(obj => {
-            //         if (obj is ScriptableObject scriptableObject)
-            //             objs.Add(scriptableObject);
-            //     });
-            //
-            //     objs.ForEach(x => Debug.Log(x.GetType().Name));
-            // });
+            graphView.RegisterCallback<MouseDownEvent>(evt => { });
+            graphView.RegisterCallback<DragExitedEvent>(evt => {
+                List<ReanimatorNode> objs = new List<ReanimatorNode>();
+                DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+            
+                if (DragAndDrop.objectReferences == null) return;
+            
+                var references = DragAndDrop.objectReferences;
+
+                foreach (var reference in references) {
+                    if (reference is ReanimatorNode scriptableObject) {
+                        objs.Add(scriptableObject);
+                    }
+                    else {
+                        EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
+                        break;
+                    }
+                }
+                
+                Vector2 nodePosition = graphView.ChangeCoordinatesTo(graphView.contentViewContainer, evt.localMousePosition);
+                objs.ForEach(node => graphView.CreateNode(node.GetType(), nodePosition ));
+            });
             
 
             if (graph == null) {
@@ -100,7 +107,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void OnNodeSelectionChanged(ReanimatorGraphNode node)
         {
-            inspectorView.UpdateSelection(node);
+            inspectorCustomControl.UpdateSelection(node);
         }
 
         private void OnSelectionChange()
