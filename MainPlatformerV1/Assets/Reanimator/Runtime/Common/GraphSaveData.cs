@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Aarthificial.Reanimation.ResolutionGraph.Editor;
+using MainGame.DialogueGraph;
 using UnityEngine;
 
 namespace Aarthificial.Reanimation.ResolutionGraph {
@@ -13,12 +15,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
     public class ReanimatorNodeData {
         public string NodeGUID;
         public Vector2 Position;
-    }
-    [Serializable]
-    public class GroupBlock {
-        public List<string> ChildNodes = new List<string>();
-        public Vector2 Position;
-        public string Title = "Group Block";
     }
     
     public class GraphSaveData : ScriptableObject {

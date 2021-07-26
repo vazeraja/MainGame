@@ -58,6 +58,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inspectorCustomControl = root.Q<InspectorCustomControl>();
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
+            graphView.RegisterCallback<MouseDownEvent>(evt => { SelectTree(graph); });
             graphView.RegisterCallback<DragExitedEvent>(evt => { CreateDragAndDropNodes(); });
 
             if (graph == null) {
