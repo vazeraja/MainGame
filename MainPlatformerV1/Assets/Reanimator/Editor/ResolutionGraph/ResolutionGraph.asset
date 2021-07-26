@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SwitchNode
   m_EditorClassIdentifier: 
   guid: 10adcc2006994af458acc5533f2c5cb2
-  position: {x: 158, y: -28}
-  nodes: []
+  position: {x: 159, y: -16}
+  nodes:
+  - {fileID: -7166886400709504307}
   controlDriver:
     name: 
     autoIncrement: 0
@@ -36,7 +37,7 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: 130cecbbd26d69146af152db057f1b54
-  position: {x: 0, y: 0}
+  position: {x: 347, y: -20}
   cels: []
   controlDriver:
     name: 
