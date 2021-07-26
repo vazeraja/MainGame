@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Aarthificial.Reanimation.Nodes;
 using TN.Extensions;
-using UnityEditor;
 using UnityEditor.Experimental.GraphView;
-using UnityEngine;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGroup : Group {
         private GroupBlock block;
-        private ReanimatorGraphView graphView;
-
-        public List<Group> CommentBlocks =>
-            graphView.graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
+        private readonly ReanimatorGraphView graphView;
 
         public ReanimatorGroup(ReanimatorGraphView graphView, GroupBlock block)
         {
@@ -21,13 +17,19 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             title = block.Title;
         }
 
+        protected override void OnGroupRenamed(string oldName, string newName)
+        {
+            graphView.SaveToGraphSaveData();
+        }
+
+        public override void OnUnselected()
+        {
+            graphView.SaveToGraphSaveData();
+        }
+
         protected override void OnElementsAdded(IEnumerable<GraphElement> elements)
         {
-            elements?.ForEach(x => {
-                if (x is ReanimatorGraphNode) {
-                    Debug.Log("fdsf");
-                }
-            });
+            graphView.SaveToGraphSaveData();
         }
     }
 }

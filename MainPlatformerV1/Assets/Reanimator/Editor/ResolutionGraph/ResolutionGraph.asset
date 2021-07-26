@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4402557032195714943
+--- !u!114 &-9168082691442986294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,21 +9,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
-  m_Name: SwitchNode
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
-  guid: e9e7ff25386a654449827e8253fdb4fc
-  position: {x: 246, y: -77}
-  nodes:
-  - {fileID: 3289953045636381478}
+  guid: 5ff2b257129963941baac66e02b4ed78
+  position: {x: 505, y: -90}
+  cels: []
   controlDriver:
     name: 
     autoIncrement: 0
     percentageBased: 0
-    guid: 1c36ca1f-636f-489c-b698-a907981de9cd
+    guid: e82dcde9-c340-4be6-b2c0-70958ec10828
   drivers:
     keys: []
     values: 
+--- !u!114 &-5340358813727039868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: 110f63d49990f0b48bdbc1a6e1860cb2
+  position: {x: 0, y: 0}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 74e3935c-1aab-4c65-8a97-b4442f5834dd
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &-2116423598185871518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a8efb919fd4b40916a8ff1c06c20b3, type: 3}
+  m_Name: GraphRootNode
+  m_EditorClassIdentifier: 
+  guid: 9a390bc4e56cd2642b92b821f16eb4eb
+  position: {x: 0, y: 0}
+  root: {fileID: 303909634945530839}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,12 +73,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ResolutionGraph
   m_EditorClassIdentifier: 
-  root: {fileID: -4402557032195714943}
+  root: {fileID: 303909634945530839}
   nodes:
-  - {fileID: 7481534325894722413}
-  - {fileID: 3289953045636381478}
-  - {fileID: -4402557032195714943}
---- !u!114 &3289953045636381478
+  - {fileID: -2116423598185871518}
+  - {fileID: 303909634945530839}
+  - {fileID: -9168082691442986294}
+  - {fileID: -5340358813727039868}
+  SaveData:
+    CommentBlockData:
+    - ChildNodes:
+      - 5ff2b257129963941baac66e02b4ed78
+      Position: {x: 480, y: -149}
+      Title: Movement
+    - ChildNodes: []
+      Position: {x: 480, y: 44}
+      Title: Idle
+--- !u!114 &303909634945530839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,45 +97,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
+  m_Name: SwitchNode
   m_EditorClassIdentifier: 
-  guid: 877990d6e2429e44f9cbcd630554863a
-  position: {x: 487, y: 0}
-  cels: []
+  guid: e157f33e98efc074daed15b20eca75ba
+  position: {x: 135, y: 0}
+  nodes:
+  - {fileID: -9168082691442986294}
   controlDriver:
     name: 
     autoIncrement: 0
     percentageBased: 0
-    guid: 988eef67-831a-429c-89bf-5077dbc6039c
+    guid: 61b98f12-1fa8-4b16-aa02-68ca5b5ad702
   drivers:
     keys: []
     values: 
---- !u!114 &6573871917923503771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fb036fac87458396002941cbf32762, type: 3}
-  m_Name: GraphSaveData
-  m_EditorClassIdentifier: 
-  groupBlocks: []
---- !u!114 &7481534325894722413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a8efb919fd4b40916a8ff1c06c20b3, type: 3}
-  m_Name: GraphRootNode
-  m_EditorClassIdentifier: 
-  guid: 4c1c2fdbd3e2f9c4589cd0c5121ade45
-  position: {x: 0, y: 0}
-  root: {fileID: -4402557032195714943}

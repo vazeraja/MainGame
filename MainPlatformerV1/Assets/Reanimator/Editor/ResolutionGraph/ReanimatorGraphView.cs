@@ -14,7 +14,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
 
-        private ResolutionGraph graph;
+        public ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
 
@@ -42,6 +42,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 Initialize(graph, editorWindow);
                 AssetDatabase.SaveAssets();
             };
+            
+            
         }
 
         public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow)
@@ -50,16 +52,45 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(graphElements);
+            DeleteElements(GraphNodes);
+            DeleteElements(GraphEdges);
+            DeleteElements(CommentBlocks);
             graphViewChanged += OnGraphViewChanged;
-
-            LoadResolutionGraph();
+            
             AddSearchWindow(editorWindow);
+            LoadGraph();
         }
-        
 
-        private void LoadResolutionGraph()
+        public void SaveToGraphSaveData()
         {
+            var saveData = new SaveData();
+
+            foreach (var block in CommentBlocks) {
+                var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode)
+                    .Cast<ReanimatorGraphNode>()
+                    .Select(x => x.node.guid)
+                    .ToList();
+
+                saveData.CommentBlockData.Add(new GroupBlock() {
+                    ChildNodes = childNodes,
+                    Title = block.title,
+                    Position = block.GetPosition().position
+                });
+            }
+
+            if (graph.SaveData == null) {
+                graph.SaveData = new SaveData();
+                EditorUtility.SetDirty(graph);
+            }
+            else {
+                graph.SaveData.CommentBlockData = saveData.CommentBlockData;
+                EditorUtility.SetDirty(graph);
+            }
+        }
+
+        private void LoadGraph()
+        {
+            // Create root node if graph is empty
             if (graph.nodes.Count == 0) {
                 graph.root = graph.CreateSubAsset(typeof(GraphRootNode)) as GraphRootNode;
                 EditorUtility.SetDirty(graph);
@@ -70,21 +101,30 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graph.nodes.ForEach(CreateGraphNode);
 
             // Create all connections based on the children of the nodes in the graph
-            graph.nodes.ForEach(n => {
-                var children = graph.GetChildren(n);
+            graph.nodes.ForEach(p => {
+                var children = graph.GetChildren(p);
                 children.ForEach(c => {
                     // Returns node by its guid and cast it back to a ReanimatorGraphNode
-                    var parent = GetNodeByGuid(n.guid) as ReanimatorGraphNode;
+                    var parent = GetNodeByGuid(p.guid) as ReanimatorGraphNode;
                     var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
 
-                    if (parent?.node is GraphRootNode node) 
+                    if (parent?.node is GraphRootNode node && child?.node == null)
                         return;
-                    
+
                     var edge = parent?.output.ConnectTo(child?.input);
                     AddElement(edge);
                 });
             });
+            
+            // Load all comment blocks and contained nodes
+            foreach (var commentBlockData in graph.SaveData.CommentBlockData) {
+                var block = CreateCommentBlock(new Rect(commentBlockData.Position, BlockSize),
+                    commentBlockData);
+                block.AddElements(GraphNodes.Where(x => commentBlockData.ChildNodes.Contains(x.node.guid)));
+                
+            }
         }
+
         public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
         {
             searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
@@ -97,20 +137,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             groupBlock ??= new GroupBlock();
             var group = new ReanimatorGroup(this, groupBlock);
-
             AddElement(group);
             group.SetPosition(rect);
-
             return group;
         }
 
 
-        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
-        {
-            return ports.ToList().Where(endPort =>
-                endPort.direction != startPort.direction &&
-                endPort.node != startPort.node).ToList();
-        }
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) => ports.ToList()
+            .Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
@@ -145,8 +179,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateGraphNode(node);
         }
 
-        public void CreateSimpleAnimationNode(ReanimatorNode node, IEnumerable<SimpleCel> simpleCels,
-            ControlDriver controlDriver, DriverDictionary driverDictionary)
+        public void CreateSimpleAnimationNode(
+            ReanimatorNode node,
+            IEnumerable<SimpleCel> simpleCels,
+            ControlDriver controlDriver,
+            DriverDictionary driverDictionary)
         {
             if (!(graph.CreateSubAsset(node.GetType()) is SimpleAnimationNode simpleAnimationNode)) return;
             var nodeSprites = simpleCels as SimpleCel[] ?? simpleCels.ToArray();
@@ -155,6 +192,21 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             simpleAnimationNode.Drivers = driverDictionary;
 
             CreateGraphNode(simpleAnimationNode);
+        }
+
+        private void CreateGraphNode(ReanimatorNode node)
+        {
+            var graphNode = new ReanimatorGraphNode(node) {
+                OnNodeSelected = OnNodeSelected
+            };
+
+            if (node is GraphRootNode rootNode) {
+                graphNode.capabilities &= ~Capabilities.Movable;
+                graphNode.capabilities &= ~Capabilities.Deletable;
+            }
+
+            graphNode.OnSelected();
+            AddElement(graphNode);
         }
 
         // public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
@@ -186,22 +238,5 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         //         }
         //     }
         // }
-
-        private void CreateGraphNode(ReanimatorNode node)
-        {
-            var graphNode = new ReanimatorGraphNode(node) {
-                title = node.name,
-                OnNodeSelected = OnNodeSelected
-            };
-
-            if (node is GraphRootNode rootNode) {
-                graphNode.EntryPoint = true;
-                graphNode.capabilities &= ~Capabilities.Movable;
-                graphNode.capabilities &= ~Capabilities.Deletable;
-            }
-
-            graphNode.OnSelected();
-            AddElement(graphNode);
-        }
     }
 }
