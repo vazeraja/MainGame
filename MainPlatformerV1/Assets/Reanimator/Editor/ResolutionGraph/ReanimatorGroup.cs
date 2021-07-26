@@ -20,5 +20,46 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             title = block.Title;
         }
 
+        // protected override void OnElementsAdded(IEnumerable<GraphElement> elements)
+        // {
+        //     SaveCommentBlocks();
+        // }
+        //
+        // protected override void OnElementsRemoved(IEnumerable<GraphElement> elements)
+        // {
+        //     SaveCommentBlocks();
+        // }
+        //
+        // protected override void OnGroupRenamed(string oldName, string newName)
+        // {
+        //     SaveCommentBlocks();
+        // }
+        //
+        // private void SaveCommentBlocks()
+        // {
+        //     var graphSaveData = ScriptableObject.CreateInstance<GraphSaveData>();
+        //
+        //     foreach (var block in CommentBlocks) {
+        //         var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode)
+        //             .Cast<ReanimatorGraphNode>()
+        //             .Select(x => x.node.guid)
+        //             .ToList();
+        //         graphSaveData.groupBlocks.Add(new GroupBlock {
+        //             ChildNodes = childNodes,
+        //             Title = block.title,
+        //             Position = block.GetPosition().position
+        //         });
+        //     }
+        //
+        //     if (graphView.graph.graphSaveData == null) {
+        //         graphView.graph.CreateGraphSaveData(graphSaveData);
+        //     }
+        //     else {
+        //         graphView.graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
+        //         
+        //     }
+        //
+        //     Debug.Log("Saving Comment Blocks");
+        // }
     }
 }

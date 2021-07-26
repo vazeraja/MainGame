@@ -57,55 +57,66 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             LoadResolutionGraph();
             AddSearchWindow(editorWindow);
         }
-        public void SaveGraph(){
-            var graphSaveData = ScriptableObject.CreateInstance<GraphSaveData>();
-            if (!SaveNodes(graphSaveData)) return;
-            SaveCommentBlocks(graphSaveData);
 
-            if (graph.graphSaveData == null) {
-                graph.CreateGraphSaveData(graphSaveData);
-            }
-            else {
-                graph.graphSaveData.NodeLinks = graphSaveData.NodeLinks;
-                graph.graphSaveData.ReanimatorNodeData = graphSaveData.ReanimatorNodeData;
-                graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
-                EditorUtility.SetDirty(graph);
-            }
+        #region Save
 
-            AssetDatabase.SaveAssets();
-        }
-        private bool SaveNodes(GraphSaveData graphSaveData){
-            if (!GraphEdges.Any()) return false;
-            var connectedSockets = GraphEdges.Where(x => x.input.node != null).ToArray();
-            foreach (var t in connectedSockets) {
-                var outputNode = t.output.node as ReanimatorGraphNode;
-                var inputNode = t.input.node as ReanimatorGraphNode;
-                graphSaveData.NodeLinks.Add(new NodeLinkData {
-                    BaseNodeGUID = outputNode?.guid,
-                    TargetNodeGUID = inputNode?.guid
-                });
-            }
-
-            foreach (var node in GraphNodes.Where(node => !node.EntryPoint))
-                graphSaveData.ReanimatorNodeData.Add(new ReanimatorNodeData {
-                    NodeGUID = node.guid,
-                    Position = node.GetPosition().position
-                });
-
-            return true;
-        }
-        private void SaveCommentBlocks(GraphSaveData dialogueContainer){
-            foreach (var block in CommentBlocks) {
-                var nodes = block.containedElements.Where(x => x is DialogueNode).Cast<DialogueNode>().Select(x => x.GUID)
-                    .ToList();
-
-                dialogueContainer.CommentBlockData.Add(new CommentBlockData {
-                    ChildNodes = nodes,
-                    Title = block.title,
-                    Position = block.GetPosition().position
-                });
-            }
-        }
+        // public void SaveGraph()
+        // {
+        //     var graphSaveData = ScriptableObject.CreateInstance<GraphSaveData>();
+        //     if (!SaveNodes(graphSaveData)) return;
+        //     SaveCommentBlocks(graphSaveData);
+        //
+        //     if (graph.graphSaveData == null) {
+        //         graph.CreateGraphSaveData(graphSaveData);
+        //     }
+        //     else {
+        //         graph.graphSaveData.NodeLinks = graphSaveData.NodeLinks;
+        //         graph.graphSaveData.ReanimatorNodeData = graphSaveData.ReanimatorNodeData;
+        //         graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
+        //         EditorUtility.SetDirty(graph);
+        //     }
+        //
+        //     AssetDatabase.SaveAssets();
+        // }
+        //
+        // private bool SaveNodes(GraphSaveData graphSaveData)
+        // {
+        //     if (!GraphEdges.Any()) return false;
+        //     var connectedSockets = GraphEdges.Where(x => x.input.node != null).ToArray();
+        //     foreach (var t in connectedSockets) {
+        //         var outputNode = t.output.node as ReanimatorGraphNode;
+        //         var inputNode = t.input.node as ReanimatorGraphNode;
+        //         graphSaveData.NodeLinks.Add(new NodeLinkData {
+        //             BaseNodeGUID = outputNode?.guid,
+        //             TargetNodeGUID = inputNode?.guid
+        //         });
+        //     }
+        //
+        //     foreach (var node in GraphNodes.Where(node => !node.EntryPoint))
+        //         graphSaveData.ReanimatorNodeData.Add(new ReanimatorNodeData {
+        //             NodeGUID = node.guid,
+        //             Position = node.GetPosition().position
+        //         });
+        //
+        //     return true;
+        // }
+        //
+        // private void SaveCommentBlocks(GraphSaveData graphSaveData)
+        // {
+        //     foreach (var block in CommentBlocks) {
+        //         var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode)
+        //             .Cast<ReanimatorGraphNode>()
+        //             .Select(x => x.guid)
+        //             .ToList();
+        //
+        //         graphSaveData.groupBlocks.Add(new GroupBlock() {
+        //             ChildNodes = childNodes,
+        //             Title = block.title,
+        //             Position = block.GetPosition().position
+        //         });
+        //     }
+        // }
+        #endregion
         private void LoadResolutionGraph()
         {
             if (graph.nodes.Count == 0) {
@@ -129,7 +140,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     AddElement(edge);
                 });
             });
+            
+
+            // foreach (var commentBlockData in graph.graphSaveData.groupBlocks) {
+            //     var block = CreateCommentBlock(new Rect(commentBlockData.Position, BlockSize),
+            //         commentBlockData);
+            //     block.AddElements(GraphNodes.Where(x => commentBlockData.ChildNodes.Contains(x.guid)));
+            // }
         }
+
         public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
         {
             searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
@@ -178,6 +197,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 ReanimatorGraphNode child = edge.input.node as ReanimatorGraphNode;
 
                 graph.AddChild(parent?.node, child?.node);
+                //SaveGraph();
             });
 
             return graphViewChange;
