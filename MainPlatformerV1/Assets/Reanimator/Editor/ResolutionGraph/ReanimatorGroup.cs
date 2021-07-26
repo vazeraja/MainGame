@@ -3,6 +3,7 @@ using System.Linq;
 using Aarthificial.Reanimation.Nodes;
 using TN.Extensions;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGroup : Group {
@@ -18,11 +19,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         }
 
         protected override void OnGroupRenamed(string oldName, string newName)
-        {
-            graphView.SaveToGraphSaveData();
-        }
-
-        public override void OnUnselected()
         {
             graphView.SaveToGraphSaveData();
         }

@@ -66,16 +66,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             var saveData = new SaveData();
 
             foreach (var block in CommentBlocks) {
-                var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode)
+                var childNodes = block.containedElements
+                    .Where(x => x is ReanimatorGraphNode)
                     .Cast<ReanimatorGraphNode>()
                     .Select(x => x.node.guid)
                     .ToList();
 
-                saveData.CommentBlockData.Add(new GroupBlock() {
-                    ChildNodes = childNodes,
-                    Title = block.title,
-                    Position = block.GetPosition().position
-                });
+               saveData.CommentBlockData.Add(new GroupBlock() {
+                   ChildNodes = childNodes,
+                   Title = block.title,
+                   Position = block.GetPosition().position
+               });
             }
 
             if (graph.SaveData == null) {

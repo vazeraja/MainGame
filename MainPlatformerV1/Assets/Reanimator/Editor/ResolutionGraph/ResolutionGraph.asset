@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: 5ff2b257129963941baac66e02b4ed78
-  position: {x: 505, y: -90}
+  position: {x: 468, y: -77}
   cels: []
   controlDriver:
-    name: 
+    name: block1
     autoIncrement: 0
     percentageBased: 0
     guid: e82dcde9-c340-4be6-b2c0-70958ec10828
   drivers:
     keys: []
     values: 
---- !u!114 &-5340358813727039868
+--- !u!114 &-8442221634795607258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,14 +35,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
-  guid: 110f63d49990f0b48bdbc1a6e1860cb2
-  position: {x: 0, y: 0}
+  guid: 68f90fbc62bd8d94a870a55e0c3a51e1
+  position: {x: 468, y: 153}
   cels: []
   controlDriver:
-    name: 
+    name: block2
     autoIncrement: 0
     percentageBased: 0
-    guid: 74e3935c-1aab-4c65-8a97-b4442f5834dd
+    guid: 79581fdf-6a0d-414d-9f1f-77b9efea7afd
   drivers:
     keys: []
     values: 
@@ -78,16 +78,17 @@ MonoBehaviour:
   - {fileID: -2116423598185871518}
   - {fileID: 303909634945530839}
   - {fileID: -9168082691442986294}
-  - {fileID: -5340358813727039868}
+  - {fileID: -8442221634795607258}
   SaveData:
     CommentBlockData:
     - ChildNodes:
+      - 68f90fbc62bd8d94a870a55e0c3a51e1
+      Position: {x: 443, y: 94}
+      Title: 2
+    - ChildNodes:
       - 5ff2b257129963941baac66e02b4ed78
-      Position: {x: 480, y: -149}
-      Title: Movement
-    - ChildNodes: []
-      Position: {x: 480, y: 44}
-      Title: Idle
+      Position: {x: 443, y: -136}
+      Title: 1
 --- !u!114 &303909634945530839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
   position: {x: 135, y: 0}
   nodes:
   - {fileID: -9168082691442986294}
+  - {fileID: -8442221634795607258}
   controlDriver:
     name: 
     autoIncrement: 0
