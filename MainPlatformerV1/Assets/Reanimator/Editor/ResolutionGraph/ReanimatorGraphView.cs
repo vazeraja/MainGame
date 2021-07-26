@@ -13,7 +13,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
 
-        public ResolutionGraph graph;
+        private ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
 
@@ -49,9 +49,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(GraphNodes);
-            DeleteElements(GraphEdges);
-            DeleteElements(CommentBlocks);
+            DeleteElements(graphElements);
             graphViewChanged += OnGraphViewChanged;
 
             LoadResolutionGraph();
@@ -183,40 +181,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         //     }
         // }
 
-        // public void SaveCommentBlocks()
-        // {
-        //     var graphSaveData = new GraphSaveData();
-        //     SaveCommentBlocks(graphSaveData);
-        //     
-        //     
-        //     graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
-        //     Debug.Log("Saving Comment Blocks");
-        // }
-        //
-        // private void SaveCommentBlocks(GraphSaveData graphSaveData)
-        // {
-        //     foreach (var block in CommentBlocks) {
-        //         var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode).Cast<ReanimatorGraphNode>()
-        //             .Select(x => x.node.guid)
-        //             .ToList();
-        //
-        //         graphSaveData.groupBlocks.Add(new GroupBlock {
-        //             ChildNodes = childNodes,
-        //             Title = block.title,
-        //             Position = block.GetPosition().position
-        //         });
-        //     }
-        // }
-
         private void CreateGraphNode(ReanimatorNode node)
         {
             var graphNode = new ReanimatorGraphNode(node) {
                 title = node.name,
-                EntryPoint = true,
                 OnNodeSelected = OnNodeSelected
             };
 
             if (node is GraphRootNode rootNode) {
+                graphNode.EntryPoint = true;
                 graphNode.capabilities &= ~Capabilities.Movable;
                 graphNode.capabilities &= ~Capabilities.Deletable;
             }
