@@ -22,19 +22,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         [OnOpenAsset]
         public static bool OnOpenAsset(int instanceId, int line)
         {
-            if (Selection.activeObject is ResolutionGraph) {
-                ShowWindow();
-                return true;
-            }
-
-            return false;
+            if (!(Selection.activeObject is ResolutionGraph)) return false;
+            ShowWindow();
+            return true;
         }
 
-        private VisualElement root;
         private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
         private InspectorCustomControl inspectorCustomControl;
-        
+
         private void OnEnable()
         {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -45,22 +41,24 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
+
         public void CreateGUI()
         {
-            root = rootVisualElement;
+            VisualElement root = rootVisualElement;
 
             var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
-                    "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
+                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
             visualTree.CloneTree(root);
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
-                    "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
+                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
             root.styleSheets.Add(styleSheet);
 
             graphView = root.Q<ReanimatorGraphView>();
             inspectorCustomControl = root.Q<InspectorCustomControl>();
 
             graphView.OnNodeSelected = OnNodeSelectionChanged;
+            graphView.RegisterCallback<MouseDownEvent>(evt => { SelectTree(graph); });
             graphView.RegisterCallback<DragExitedEvent>(evt => { CreateDragAndDropNodes(); });
 
             if (graph == null) {
@@ -147,7 +145,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     if (Selection.activeGameObject) {
                         Reanimator reanimator = Selection.activeGameObject.GetComponent<Reanimator>();
                         if (reanimator) {
-                            graph = reanimator.graph;
+                            //graph = reanimator.graph;
                         }
                     }
                 }

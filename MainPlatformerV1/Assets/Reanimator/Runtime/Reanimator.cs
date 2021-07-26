@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Aarthificial.Reanimation.Nodes;
+using MainGame;
+using TN.Extensions;
 using UnityEngine;
 
-namespace Aarthificial.Reanimation
-{
+namespace Aarthificial.Reanimation.ResolutionGraph {
     public delegate void ReanimatorListener();
 
-    public class Reanimator : MonoBehaviour
-    {
+    public class Reanimator : MonoBehaviour {
         /// <summary>
         /// Event triggered each time the graph is resolved.
         /// 
@@ -39,12 +40,14 @@ namespace Aarthificial.Reanimation
         /// <summary>
         /// Shortcut for setting the <see cref="ReanimatorState.FlipDriver"/>
         /// </summary>
-        public bool Flip
-        {
+        public bool Flip {
             set => _previousState.Set(ReanimatorState.FlipDriver, value);
         }
-
-        public ResolutionGraph.ResolutionGraph graph;
+        
+        /// <summary>
+        /// Graph which contains the root and all the corresponding nodes and cels
+        /// </summary>
+        public Optional<ResolutionGraph> graph;
 
         /// <summary>
         /// Root of the graph being used to resolve cels.
@@ -52,15 +55,14 @@ namespace Aarthificial.Reanimation
         [Tooltip("Root of the graph being used to resolve cels.")]
         public ReanimatorNode root;
 
-        [Tooltip("SpriteRenderer being used to display the animation.")] 
-        [SerializeField]
+        [Tooltip("SpriteRenderer being used to display the animation.")] [SerializeField]
         private new SpriteRenderer renderer;
 
-        [Tooltip("Framerate of the displayed animation.")] 
-        [SerializeField]
+        [Tooltip("Framerate of the displayed animation.")] [SerializeField]
         private int fps = 12;
 
-        [Tooltip("Drivers marked as temporary are removed from the state if they were not set during the previous resolution.")]
+        [Tooltip(
+            "Drivers marked as temporary are removed from the state if they were not set during the previous resolution.")]
         [SerializeField]
         private string[] temporaryDrivers = new string[0];
 
@@ -77,8 +79,9 @@ namespace Aarthificial.Reanimation
             if (renderer == null)
                 renderer = GetComponent<SpriteRenderer>();
 
-            if (graph != null) {
-                root = graph.root;
+            if (graph.Enabled) {
+                graph.Value = graph.Value.GetCopy();
+                root = graph.Value.root;
             }
         }
 
@@ -96,8 +99,7 @@ namespace Aarthificial.Reanimation
         {
             _clock += Time.deltaTime;
             float secondsPerFrame = 1 / (float) fps;
-            while (_clock >= secondsPerFrame)
-            {
+            while (_clock >= secondsPerFrame) {
                 _clock -= secondsPerFrame;
                 UpdateFrame();
             }
@@ -110,30 +112,33 @@ namespace Aarthificial.Reanimation
             _previousState.Merge(_nextState);
             _nextState.Clear();
 
-#if UNITY_EDITOR
-            try
-            {
+            #if UNITY_EDITOR
+            try {
                 root
                     .Resolve(_previousState, _nextState)
                     .ResolveCel(_previousState, _nextState)
                     .ApplyToRenderer(_previousState, _nextState, renderer);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 Debug.LogException(e, _nextState.LastTracedNode);
             }
-#else
+            #else
             root
                 .Resolve(_previousState, _nextState)
                 .ResolveCel(_previousState, _nextState)
                 .ApplyToRenderer(_previousState, _nextState, renderer);
-#endif
+            #endif
 
             foreach (var listener in _listeners)
                 if (_nextState.Contains(listener.Key))
                     listener.Value.Invoke();
 
             Ticked?.Invoke();
+            
+            // Display current path of resolution process
+            // if (graph != null) {
+            //     _nextState._trace.ForEach(Debug.Log);
+            // }
         }
 
         /// <summary>

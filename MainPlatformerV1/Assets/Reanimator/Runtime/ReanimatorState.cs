@@ -106,7 +106,7 @@ namespace Aarthificial.Reanimation
         }
 
 #if UNITY_EDITOR
-        private readonly List<ReanimatorNode> _trace = new List<ReanimatorNode>();
+        public readonly List<ReanimatorNode> _trace = new List<ReanimatorNode>();
         public ReanimatorNode LastTracedNode => _trace[_trace.Count - 1];
 
         public void AddTrace(ReanimatorNode value)

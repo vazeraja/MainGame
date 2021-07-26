@@ -6,7 +6,6 @@ using Aarthificial.Reanimation.Common;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,9 +13,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
 
-        private ResolutionGraph graph;
+        public ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
+
+        private List<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
+        private List<Edge> GraphEdges => edges.ToList();
+        private List<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
 
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
@@ -46,33 +49,63 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(graphElements.ToList());
+            DeleteElements(GraphNodes);
+            DeleteElements(GraphEdges);
+            DeleteElements(CommentBlocks);
             graphViewChanged += OnGraphViewChanged;
 
-            AddSearchWindow(editorWindow);
             LoadResolutionGraph();
+            AddSearchWindow(editorWindow);
         }
+        public void SaveGraph(){
+            var graphSaveData = ScriptableObject.CreateInstance<GraphSaveData>();
+            if (!SaveNodes(graphSaveData)) return;
+            SaveCommentBlocks(graphSaveData);
 
-        public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
-        {
-            searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
-            searchWindowProvider.Initialize(editorWindow, this);
-            nodeCreationRequest = context =>
-                SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
+            if (graph.graphSaveData == null) {
+                graph.CreateGraphSaveData(graphSaveData);
+            }
+            else {
+                graph.graphSaveData.NodeLinks = graphSaveData.NodeLinks;
+                graph.graphSaveData.ReanimatorNodeData = graphSaveData.ReanimatorNodeData;
+                graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
+                EditorUtility.SetDirty(graph);
+            }
+
+            AssetDatabase.SaveAssets();
         }
+        private bool SaveNodes(GraphSaveData graphSaveData){
+            if (!GraphEdges.Any()) return false;
+            var connectedSockets = GraphEdges.Where(x => x.input.node != null).ToArray();
+            foreach (var t in connectedSockets) {
+                var outputNode = t.output.node as ReanimatorGraphNode;
+                var inputNode = t.input.node as ReanimatorGraphNode;
+                graphSaveData.NodeLinks.Add(new NodeLinkData {
+                    BaseNodeGUID = outputNode?.guid,
+                    TargetNodeGUID = inputNode?.guid
+                });
+            }
 
-        public Group CreateCommentBlock(Rect rect, CommentBlockData commentBlockData = null)
-        {
-            commentBlockData ??= new CommentBlockData();
-            var group = new Group {
-                autoUpdateGeometry = true,
-                title = commentBlockData.Title
-            };
-            AddElement(group);
-            group.SetPosition(rect);
-            return group;
+            foreach (var node in GraphNodes.Where(node => !node.EntryPoint))
+                graphSaveData.ReanimatorNodeData.Add(new ReanimatorNodeData {
+                    NodeGUID = node.guid,
+                    Position = node.GetPosition().position
+                });
+
+            return true;
         }
+        private void SaveCommentBlocks(GraphSaveData dialogueContainer){
+            foreach (var block in CommentBlocks) {
+                var nodes = block.containedElements.Where(x => x is DialogueNode).Cast<DialogueNode>().Select(x => x.GUID)
+                    .ToList();
 
+                dialogueContainer.CommentBlockData.Add(new CommentBlockData {
+                    ChildNodes = nodes,
+                    Title = block.title,
+                    Position = block.GetPosition().position
+                });
+            }
+        }
         private void LoadResolutionGraph()
         {
             if (graph.nodes.Count == 0) {
@@ -81,8 +114,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 AssetDatabase.SaveAssets();
             }
 
+            // Create every graph node from the nodes in the graph
             graph.nodes.ForEach(CreateGraphNode);
 
+            // Create all connections based on the children of the nodes in the graph
             graph.nodes.ForEach(n => {
                 var children = graph.GetChildren(n);
                 children.ForEach(c => {
@@ -95,6 +130,25 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 });
             });
         }
+        public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
+        {
+            searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
+            searchWindowProvider.Initialize(editorWindow, this);
+            nodeCreationRequest = context =>
+                SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
+        }
+
+        public ReanimatorGroup CreateCommentBlock(Rect rect, GroupBlock groupBlock = null)
+        {
+            groupBlock ??= new GroupBlock();
+            var group = new ReanimatorGroup(this, groupBlock);
+
+            AddElement(group);
+            group.SetPosition(rect);
+
+            return group;
+        }
+
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
@@ -136,7 +190,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateGraphNode(node);
         }
 
-        public void CreateSimpleAnimationNode(ReanimatorNode node, IEnumerable<SimpleCel> simpleCels, ControlDriver controlDriver, DriverDictionary driverDictionary)
+        public void CreateSimpleAnimationNode(ReanimatorNode node, IEnumerable<SimpleCel> simpleCels,
+            ControlDriver controlDriver, DriverDictionary driverDictionary)
         {
             if (!(graph.CreateSubAsset(node.GetType()) is SimpleAnimationNode simpleAnimationNode)) return;
             var nodeSprites = simpleCels as SimpleCel[] ?? simpleCels.ToArray();
@@ -177,10 +232,36 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         //     }
         // }
 
+        // public void SaveCommentBlocks()
+        // {
+        //     var graphSaveData = new GraphSaveData();
+        //     SaveCommentBlocks(graphSaveData);
+        //     
+        //     
+        //     graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
+        //     Debug.Log("Saving Comment Blocks");
+        // }
+        //
+        // private void SaveCommentBlocks(GraphSaveData graphSaveData)
+        // {
+        //     foreach (var block in CommentBlocks) {
+        //         var childNodes = block.containedElements.Where(x => x is ReanimatorGraphNode).Cast<ReanimatorGraphNode>()
+        //             .Select(x => x.node.guid)
+        //             .ToList();
+        //
+        //         graphSaveData.groupBlocks.Add(new GroupBlock {
+        //             ChildNodes = childNodes,
+        //             Title = block.title,
+        //             Position = block.GetPosition().position
+        //         });
+        //     }
+        // }
+
         private void CreateGraphNode(ReanimatorNode node)
         {
             var graphNode = new ReanimatorGraphNode(node) {
                 title = node.name,
+                EntryPoint = true,
                 OnNodeSelected = OnNodeSelected
             };
 

@@ -4,7 +4,6 @@ using Aarthificial.Reanimation.Nodes;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 
 namespace Aarthificial.Reanimation.ResolutionGraph {
@@ -13,7 +12,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public ReanimatorNode root;
 
         public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
+        public GraphSaveData graphSaveData;
+        private List<ReanimatorNode> currentTrace = new List<ReanimatorNode>();
 
+        
+        #region Editor
         #if UNITY_EDITOR
         public ReanimatorNode CreateSubAsset(Type type, string assetName = null)
         {
@@ -33,6 +36,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
 
             AssetDatabase.SaveAssets();
             return node;
+        }
+
+        public void CreateGraphSaveData(GraphSaveData graphSaveData)
+        {
+            graphSaveData.name = "GraphSaveData";
+            this.graphSaveData = graphSaveData;
+            if (!Application.isPlaying) {
+                AssetDatabase.AddObjectToAsset(graphSaveData, this);
+            }
+            
+            AssetDatabase.SaveAssets();
         }
 
         public void DeleteSubAsset(ReanimatorNode node)
@@ -89,6 +103,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             }
         }
         #endif
+        #endregion
+        
         public List<ReanimatorNode> GetChildren(ReanimatorNode parent)
         {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
@@ -105,6 +121,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             }
 
             return children;
+        }
+
+        public ResolutionGraph GetCopy()
+        {
+            ResolutionGraph graph = Instantiate(this);
+            graph.root = graph.root.Copy();
+            return graph;
         }
     }
 }

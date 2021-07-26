@@ -16,5 +16,10 @@ namespace Aarthificial.Reanimation.Nodes
             nextState.AddTrace(this);
 #endif
         }
+
+        public virtual ReanimatorNode Copy()
+        {
+            return Instantiate(this);
+        }
     }
 }

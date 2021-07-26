@@ -8,5 +8,11 @@ namespace Aarthificial.Reanimation.Nodes {
         {
             return null;
         }
+        public override ReanimatorNode Copy()
+        {
+            GraphRootNode node = Instantiate(this);
+            node.root = root.Copy();
+            return node;
+        }
     }
 }

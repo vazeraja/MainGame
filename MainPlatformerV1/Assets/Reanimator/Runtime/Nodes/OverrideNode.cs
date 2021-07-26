@@ -43,5 +43,11 @@ namespace Aarthificial.Reanimation.Nodes
 #endif
             return overrideNode;
         }
+        public override ReanimatorNode Copy()
+        {
+            OverrideNode node = Instantiate(this);
+            node.next = next.Copy();
+            return node;
+        }
     }
 }

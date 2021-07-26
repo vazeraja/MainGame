@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Aarthificial.Reanimation;
+using Aarthificial.Reanimation.ResolutionGraph;
 using UnityEngine;
 
 namespace Jeff

@@ -20,5 +20,12 @@ namespace Aarthificial.Reanimation.Nodes
             return nodes[controlDriver.ResolveDriver(previousState, nextState, nodes.Count)]
                 .Resolve(previousState, nextState);
         }
+
+        public override ReanimatorNode Copy()
+        {
+            SwitchNode node = Instantiate(this);
+            node.nodes = nodes.ConvertAll(c => c.Copy());
+            return node;
+        }
     }
 }

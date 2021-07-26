@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
+  m_Name: ResolutionGraph
+  m_EditorClassIdentifier: 
+  root: {fileID: 0}
+  nodes:
+  - {fileID: 7481534325894722413}
+  - {fileID: 4005843799840943020}
+  graphSaveData: {fileID: 6573871917923503771}
+--- !u!114 &4005843799840943020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: 9fe30af25cabc9d4ea69b8792e9016b3
+  position: {x: 207, y: -168}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: e89d3cf6-4383-4bfd-aa68-f809d52d78f9
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &6573871917923503771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fb036fac87458396002941cbf32762, type: 3}
+  m_Name: GraphSaveData
+  m_EditorClassIdentifier: 
+  groupBlocks: []
+--- !u!114 &7481534325894722413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a8efb919fd4b40916a8ff1c06c20b3, type: 3}
+  m_Name: GraphRootNode
+  m_EditorClassIdentifier: 
+  guid: 4c1c2fdbd3e2f9c4589cd0c5121ade45
+  position: {x: 0, y: 0}
+  root: {fileID: 0}

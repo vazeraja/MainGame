@@ -8,9 +8,11 @@ using UnityEngine.UIElements;
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
+        public Action<ReanimatorGraphNode> OnNodeSelected;
         public readonly ReanimatorNode node;
 
-        public Action<ReanimatorGraphNode> OnNodeSelected;
+        public string guid;
+        public bool EntryPoint = false;
 
         public Port input;
         public Port output;
@@ -20,9 +22,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public ReanimatorGraphNode(ReanimatorNode node)
         {
             this.node = node;
-            //this.node.name = node.GetType().Name;
+            this.node.name = node.GetType().Name;
             title = node.name.Replace("(Clone)", "").Replace("Node", "");
             viewDataKey = node.guid;
+            guid = GUID.Generate().ToString();
 
             style.left = node.position.x;
             style.top = node.position.y;
