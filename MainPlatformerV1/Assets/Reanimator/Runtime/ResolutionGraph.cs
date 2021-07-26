@@ -12,7 +12,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public ReanimatorNode root;
 
         public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
-        public GraphSaveData graphSaveData;
         private List<ReanimatorNode> currentTrace = new List<ReanimatorNode>();
 
         
@@ -40,13 +39,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
 
         public void CreateGraphSaveData(GraphSaveData graphSaveData)
         {
-            graphSaveData.name = "GraphSaveData";
-            this.graphSaveData = graphSaveData;
-            if (!Application.isPlaying) {
-                AssetDatabase.AddObjectToAsset(graphSaveData, this);
-            }
-            
-            AssetDatabase.SaveAssets();
         }
 
         public void DeleteSubAsset(ReanimatorNode node)

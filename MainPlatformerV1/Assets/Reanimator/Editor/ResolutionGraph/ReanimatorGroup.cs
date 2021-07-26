@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TN.Extensions;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -20,5 +21,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             title = block.Title;
         }
 
+        protected override void OnElementsAdded(IEnumerable<GraphElement> elements)
+        {
+            elements?.ForEach(x => {
+                if (x is ReanimatorGraphNode) {
+                    Debug.Log("fdsf");
+                }
+            });
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Aarthificial.Reanimation.Cels;
 using Aarthificial.Reanimation.Common;
 using Aarthificial.Reanimation.Nodes;
+using TN.Extensions;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             LoadResolutionGraph();
             AddSearchWindow(editorWindow);
         }
+        
+
         private void LoadResolutionGraph()
         {
             if (graph.nodes.Count == 0) {
@@ -74,6 +77,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     var parent = GetNodeByGuid(n.guid) as ReanimatorGraphNode;
                     var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
 
+                    if (parent?.node is GraphRootNode node) 
+                        return;
+                    
                     var edge = parent?.output.ConnectTo(child?.input);
                     AddElement(edge);
                 });
