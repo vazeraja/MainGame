@@ -57,55 +57,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             LoadResolutionGraph();
             AddSearchWindow(editorWindow);
         }
-        public void SaveGraph(){
-            var graphSaveData = ScriptableObject.CreateInstance<GraphSaveData>();
-            if (!SaveNodes(graphSaveData)) return;
-            SaveCommentBlocks(graphSaveData);
-
-            if (graph.graphSaveData == null) {
-                graph.CreateGraphSaveData(graphSaveData);
-            }
-            else {
-                graph.graphSaveData.NodeLinks = graphSaveData.NodeLinks;
-                graph.graphSaveData.ReanimatorNodeData = graphSaveData.ReanimatorNodeData;
-                graph.graphSaveData.groupBlocks = graphSaveData.groupBlocks;
-                EditorUtility.SetDirty(graph);
-            }
-
-            AssetDatabase.SaveAssets();
-        }
-        private bool SaveNodes(GraphSaveData graphSaveData){
-            if (!GraphEdges.Any()) return false;
-            var connectedSockets = GraphEdges.Where(x => x.input.node != null).ToArray();
-            foreach (var t in connectedSockets) {
-                var outputNode = t.output.node as ReanimatorGraphNode;
-                var inputNode = t.input.node as ReanimatorGraphNode;
-                graphSaveData.NodeLinks.Add(new NodeLinkData {
-                    BaseNodeGUID = outputNode?.guid,
-                    TargetNodeGUID = inputNode?.guid
-                });
-            }
-
-            foreach (var node in GraphNodes.Where(node => !node.EntryPoint))
-                graphSaveData.ReanimatorNodeData.Add(new ReanimatorNodeData {
-                    NodeGUID = node.guid,
-                    Position = node.GetPosition().position
-                });
-
-            return true;
-        }
-        private void SaveCommentBlocks(GraphSaveData dialogueContainer){
-            foreach (var block in CommentBlocks) {
-                var nodes = block.containedElements.Where(x => x is DialogueNode).Cast<DialogueNode>().Select(x => x.GUID)
-                    .ToList();
-
-                dialogueContainer.CommentBlockData.Add(new CommentBlockData {
-                    ChildNodes = nodes,
-                    Title = block.title,
-                    Position = block.GetPosition().position
-                });
-            }
-        }
         private void LoadResolutionGraph()
         {
             if (graph.nodes.Count == 0) {
