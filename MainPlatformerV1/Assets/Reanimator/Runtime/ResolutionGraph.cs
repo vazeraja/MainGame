@@ -2,19 +2,12 @@
 using System;
 using System.Linq;
 using Aarthificial.Reanimation.Nodes;
-using Aarthificial.Reanimation.ResolutionGraph.Editor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace Aarthificial.Reanimation.ResolutionGraph {
-    
-    [Serializable]
-    public class SaveData {
-        public List<GroupBlock> CommentBlockData = new List<GroupBlock>();
-    }
-    
     [CreateAssetMenu(fileName = "ResolutionGraph", menuName = "Reanimator/ResolutionGraph", order = 400)]
     public class ResolutionGraph : ScriptableObject {
         public ReanimatorNode root;
