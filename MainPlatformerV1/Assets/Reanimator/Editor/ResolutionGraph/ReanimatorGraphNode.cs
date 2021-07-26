@@ -8,13 +8,16 @@ using UnityEngine.UIElements;
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
-        public Action<ReanimatorGraphNode> OnNodeSelected;
         public readonly ReanimatorNode node;
+        
+        public readonly Vector2 DefaultNodeSize = new Vector2(200, 150);
+        
+        public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node)
+        public ReanimatorGraphNode(ReanimatorNode node) : base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             this.node = node;
             this.node.name = node.GetType().Name;
@@ -56,6 +59,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             switch (node) {
                 case SimpleAnimationNode _:
+                    output = new NodePort(Direction.Output, Port.Capacity.Multi);
+                    output.visible = false;
+                    output.capabilities &= ~Capabilities.Selectable;
+                    output.capabilities &= ~Capabilities.Collapsible;
                     break;
                 case SwitchNode _:
                     output = new NodePort(Direction.Output, Port.Capacity.Multi);

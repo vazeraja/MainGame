@@ -105,13 +105,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graph.nodes.ForEach(p => {
                 var children = graph.GetChildren(p);
                 children.ForEach(c => {
+                    
                     // Returns node by its guid and cast it back to a ReanimatorGraphNode
                     var parent = GetNodeByGuid(p.guid) as ReanimatorGraphNode;
                     var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
-
+                    
+                    // If it is a new graph, check if the root has a child or not
                     if (parent?.node is GraphRootNode node && child?.node == null)
                         return;
-
+                    
+                    // Connect each parents output to the saved children
                     var edge = parent?.output.ConnectTo(child?.input);
                     AddElement(edge);
                 });
@@ -125,7 +128,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 
             }
         }
-
+        
+        /// <summary>
+        /// Creates a Search Window as seen in Unity graph tools such as Shader Graph
+        /// </summary>
+        /// <param name="editorWindow"></param>
         public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
         {
             searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
@@ -133,7 +140,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             nodeCreationRequest = context =>
                 SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
         }
-
+        
+        /// <summary>
+        /// Creates a group block to contain and organize sections of related nodes
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="groupBlock"></param>
+        /// <returns></returns>
         public ReanimatorGroup CreateCommentBlock(Rect rect, GroupBlock groupBlock = null)
         {
             groupBlock ??= new GroupBlock();
@@ -146,7 +159,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) => ports.ToList()
             .Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
-
+        
+        /// <summary>
+        /// Event listener to intercept the GraphView graphViewChanged delegate.
+        /// </summary>
+        /// <param name="graphViewChange"></param>
+        /// <returns></returns>
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
             graphViewChange.elementsToRemove?.ForEach(elem => {
@@ -179,7 +197,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             node.position = nodePosition;
             CreateGraphNode(node);
         }
-
+        
+        /// <summary>
+        /// Creates a simple animation node on the graph
+        /// if it was dragged into the window from the project folder
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="simpleCels"></param>
+        /// <param name="controlDriver"></param>
+        /// <param name="driverDictionary"></param>
         public void CreateSimpleAnimationNode(
             ReanimatorNode node,
             IEnumerable<SimpleCel> simpleCels,

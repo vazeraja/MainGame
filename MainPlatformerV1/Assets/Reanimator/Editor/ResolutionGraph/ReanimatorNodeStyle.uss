@@ -1,0 +1,8 @@
+#node-border {
+    background-color: rgb(20, 20, 20);
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+}
