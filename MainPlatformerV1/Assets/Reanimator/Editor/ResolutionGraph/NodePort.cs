@@ -53,11 +53,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             }
         }
 
-        public NodePort(Direction direction, Capacity capacity) : base(Orientation.Horizontal, direction, capacity, typeof(bool)) {
+        public NodePort(Direction direction, Capacity capacity) : base(Orientation.Vertical, direction, capacity, typeof(bool)) {
             var connectorListener = new DefaultEdgeConnectorListener();
             m_EdgeConnector = new EdgeConnector<Edge>(connectorListener);
             this.AddManipulator(m_EdgeConnector);
-            style.width = 100;
+            style.width = 50;
+        }
+        public NodePort(Direction direction, Capacity capacity, Orientation orientation) : base(orientation, direction, capacity, typeof(bool)) {
+            var connectorListener = new DefaultEdgeConnectorListener();
+            m_EdgeConnector = new EdgeConnector<Edge>(connectorListener);
+            this.AddManipulator(m_EdgeConnector);
+            style.width = 50;
         }
 
         public override bool ContainsPoint(Vector2 localPoint) {

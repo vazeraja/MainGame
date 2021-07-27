@@ -14,13 +14,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphView : GraphView {
         public new class UxmlFactory : UxmlFactory<ReanimatorGraphView, UxmlTraits> { }
 
-        public ResolutionGraph graph;
+        private ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
 
-        private List<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
-        private List<Edge> GraphEdges => edges.ToList();
-        private List<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
+        private IEnumerable<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
+        private IEnumerable<Edge> GraphEdges => edges.ToList();
+        private IEnumerable<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
 
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
@@ -42,8 +42,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 Initialize(graph, editorWindow);
                 AssetDatabase.SaveAssets();
             };
-            
-            
         }
 
         public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow)

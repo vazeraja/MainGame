@@ -10,14 +10,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         
         public readonly ReanimatorNode node;
         
-        public readonly Vector2 DefaultNodeSize = new Vector2(200, 150);
-        
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node) : base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             this.node = node;
             this.node.name = node.GetType().Name;
@@ -35,22 +33,24 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             switch (node) {
                 case SimpleAnimationNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single);
-                    input.portName = "";
+                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
                     break;
                 case SwitchNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single);
-                    input.portName = "";
+                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
                     break;
                 case OverrideNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single);
-                    input.portName = "";
+                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
                     break;
                 case GraphRootNode _:
+                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
+                    input.visible = false;
+                    input.capabilities &= ~Capabilities.Selectable;
                     break;
             }
 
             if (input != null) {
+                input.portName = "";
+                //input.style.flexDirection = FlexDirection.Column;
                 inputContainer.Add(input);
             }
         }
@@ -59,24 +59,24 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             switch (node) {
                 case SimpleAnimationNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Multi);
+                    output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
                     output.visible = false;
                     output.capabilities &= ~Capabilities.Selectable;
-                    output.capabilities &= ~Capabilities.Collapsible;
                     break;
                 case SwitchNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Multi);
+                    output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
                     break;
                 case OverrideNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Single);
+                    output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);
                     break;
                 case GraphRootNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Single);
+                    output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);
                     break;
             }
 
             if (output != null) {
                 output.portName = "";
+                //output.style.flexDirection = FlexDirection.ColumnReverse;
                 outputContainer.Add(output);
             }
         }

@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Aarthificial.Reanimation;
 using Aarthificial.Reanimation.Nodes;
-using TheKiwiCoder;
-using TN.Extensions;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = System.Object;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphEditor : EditorWindow {
@@ -95,7 +92,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             if (DragAndDrop.objectReferences == null) return;
 
-            var references = DragAndDrop.objectReferences;
+            Object[] references = DragAndDrop.objectReferences;
             List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
             foreach (var reference in references) {
@@ -130,7 +127,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     }
                 }
                 else {
-                    EditorUtility.DisplayDialog("Invalid", "Use a Reanimator Node", "OK");
+                    EditorUtility.DisplayDialog("Invalid", "You dumb cunt, use a Reanimator Node,not whatever that is", "OK");
                     break;
                 }
             }
