@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
   m_Name: root
   m_EditorClassIdentifier: 
+  guid: 
+  position: {x: 0, y: 0}
   nodes:
   - {fileID: 11400000, guid: b474f5a67092e754abf27552fc83df9d, type: 2}
   - {fileID: 11400000, guid: e12b658551928c548ac9eda8b0000fd3, type: 2}

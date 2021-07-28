@@ -173,7 +173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &87621030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37118,7 +37118,6 @@ GameObject:
   - component: {fileID: 1569780563}
   - component: {fileID: 1569780562}
   - component: {fileID: 1569780561}
-  - component: {fileID: 1569780560}
   m_Layer: 11
   m_Name: Kakashi_Enemy
   m_TagString: Untagged
@@ -37126,18 +37125,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1569780560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1569780559}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1569780561
 Rigidbody2D:
   serializedVersion: 4
@@ -37906,7 +37893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1920202712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37923,7 +37910,7 @@ MonoBehaviour:
     enabled: 1
     value: {fileID: 11400000, guid: 5cc10f80772e46a41bd1b2d5b70cdc9e, type: 2}
   root: {fileID: 0}
-  renderer: {fileID: 0}
+  renderer: {fileID: 1920202716}
   fps: 12
   temporaryDrivers: []
 --- !u!114 &1920202713
@@ -38781,7 +38768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8544018097327659937
 MonoBehaviour:
   m_ObjectHideFlags: 0

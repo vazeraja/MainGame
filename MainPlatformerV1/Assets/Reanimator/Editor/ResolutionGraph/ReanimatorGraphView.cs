@@ -102,7 +102,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             // Create all connections based on the children of the nodes in the graph
             graph.nodes.ForEach(p => {
                 var children = graph.GetChildren(p);
-                children.ForEach(c => {
+                foreach (var c in children) {
                     
                     // Returns node by its guid and cast it back to a ReanimatorGraphNode
                     var parent = GetNodeByGuid(p.guid) as ReanimatorGraphNode;
@@ -110,12 +110,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     
                     // If it is a new graph, check if the root has a child or not
                     if (parent?.node is GraphRootNode node && child?.node == null)
-                        return;
+                        continue;
                     
                     // Connect each parents output to the saved children
                     var edge = parent?.output.ConnectTo(child?.input);
                     AddElement(edge);
-                });
+                }
             });
             
             // Load all comment blocks and contained nodes
@@ -123,7 +123,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 var block = CreateCommentBlock(new Rect(commentBlockData.Position, BlockSize),
                     commentBlockData);
                 block.AddElements(GraphNodes.Where(x => commentBlockData.ChildNodes.Contains(x.node.guid)));
-                
             }
         }
         
@@ -155,8 +154,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         }
 
 
-        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) => ports.ToList()
-            .Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) 
+            => ports.ToList().Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
         
         /// <summary>
         /// Event listener to intercept the GraphView graphViewChanged delegate.
@@ -234,34 +233,34 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             AddElement(graphNode);
         }
 
-        // public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
-        // {
-        //     if (graph.CreateSubAsset(type) is SwitchNode switchNode) {
-        //         switchNode.nodes = reanimatorNodes;
-        //
-        //         CreateGraphNode(switchNode);
-        //
-        //         foreach (ReanimatorNode node in switchNode.nodes) {
-        //             switch (node) {
-        //                 case SwitchNode innerSwitchNode: {
-        //                     var innerSwitchNodes = innerSwitchNode.nodes;
-        //                     EditorApplication.delayCall += () => {
-        //                         CreateSwitchNode(innerSwitchNode.GetType(), innerSwitchNodes);
-        //                     };
-        //                     break;
-        //                 }
-        //                 case SimpleAnimationNode simpleAnimationNode: {
-        //                     var cels = simpleAnimationNode.sprites;
-        //                     var controlDriver = simpleAnimationNode.ControlDriver;
-        //                     var drivers = simpleAnimationNode.Drivers;
-        //                     EditorApplication.delayCall += () => {
-        //                         CreateSimpleAnimationNode(simpleAnimationNode, cels, controlDriver, drivers);
-        //                     };
-        //                     break;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
+        {
+            if (graph.CreateSubAsset(type) is SwitchNode switchNode) {
+                switchNode.nodes = reanimatorNodes;
+        
+                CreateGraphNode(switchNode);
+        
+                // foreach (ReanimatorNode node in switchNode.nodes) {
+                //     switch (node) {
+                //         case SwitchNode innerSwitchNode: {
+                //             var innerSwitchNodes = innerSwitchNode.nodes;
+                //             EditorApplication.delayCall += () => {
+                //                 CreateSwitchNode(innerSwitchNode.GetType(), innerSwitchNodes);
+                //             };
+                //             break;
+                //         }
+                //         case SimpleAnimationNode simpleAnimationNode: {
+                //             var cels = simpleAnimationNode.sprites;
+                //             var controlDriver = simpleAnimationNode.ControlDriver;
+                //             var drivers = simpleAnimationNode.Drivers;
+                //             EditorApplication.delayCall += () => {
+                //                 CreateSimpleAnimationNode(simpleAnimationNode, cels, controlDriver, drivers);
+                //             };
+                //             break;
+                //         }
+                //     }
+                // }
+            }
+        }
     }
 }

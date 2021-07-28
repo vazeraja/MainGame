@@ -114,10 +114,21 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             return children;
         }
 
+        public void Traverse(ReanimatorNode node, Action<ReanimatorNode> visitor)
+        {
+            if (!node) return;
+            visitor.Invoke(node);
+            var children = GetChildren(node);
+            children.ForEach(n => Traverse(n, visitor));
+        }
         public ResolutionGraph GetCopy()
         {
             ResolutionGraph graph = Instantiate(this);
             graph.root = graph.root.Copy();
+            graph.nodes = new List<ReanimatorNode>();
+            Traverse(graph.root, (n) => {
+                graph.nodes.Add(n);
+            });
             return graph;
         }
     }

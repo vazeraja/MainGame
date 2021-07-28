@@ -92,7 +92,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             if (DragAndDrop.objectReferences == null) return;
 
-            Object[] references = DragAndDrop.objectReferences;
+            var references = DragAndDrop.objectReferences;
             List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
             foreach (var reference in references) {
@@ -110,13 +110,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                                 };
                                 break;
                             }
-                            // case SwitchNode switchNode: {
-                            //     EditorApplication.delayCall += () => {
-                            //         var nodes = switchNode.nodes;
-                            //         graphView.CreateSwitchNode(switchNode.GetType(), nodes);
-                            //     };
-                            //     break;
-                            // }
+                            case SwitchNode switchNode: {
+                                EditorApplication.delayCall += () => {
+                                    var nodes = switchNode.nodes;
+                                    graphView.CreateSwitchNode(switchNode.GetType(), nodes);
+                                };
+                                break;
+                            }
                             // case OverrideNode overrideNode: {
                             //     EditorApplication.delayCall += delegate {
                             //         graphView.CreateNode(overrideNode.GetType(), new Vector2());
