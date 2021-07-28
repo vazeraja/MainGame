@@ -15,10 +15,21 @@ MonoBehaviour:
   guid: 6a86ea4d07dbf3c4b894895c0ec70bdf
   nodeTitle: JumpToIdleAnimation
   position: {x: 1406, y: 194.98865}
-  cels: []
+  cels:
+  - sprite: {fileID: 3298105886585063087, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys:
+      - idleTransition
+      values: 02000000
+  - sprite: {fileID: 5560605583954493893, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
-    autoIncrement: 0
+    name: temporary
+    autoIncrement: 1
     percentageBased: 0
     guid: 7afc3216-9f19-4712-9f7c-591c67135ef9
   drivers:
@@ -39,9 +50,20 @@ MonoBehaviour:
   guid: 2643a84ec0dc3714d87a7f2a30034df5
   nodeTitle: RunNJumpAnimation
   position: {x: 1378, y: -276.01135}
-  cels: []
+  cels:
+  - sprite: {fileID: 6612509912714155400, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys:
+      - run
+      values: 02000000
+  - sprite: {fileID: 5560605583954493893, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
+    name: jumpDirection
     autoIncrement: 0
     percentageBased: 0
     guid: 924ae696-d0ae-4e85-a2c9-bf2fdfe6f1ff
@@ -119,15 +141,46 @@ MonoBehaviour:
   guid: 9b2fc9b1233627f4485f3ae8af27b699
   nodeTitle: RunAnimation
   position: {x: 1253, y: -106.01135}
-  cels: []
+  cels:
+  - sprite: {fileID: -3434879642533976785, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6900529643414002696, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 8494806145318214075, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -3020548108663225488, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -622354641076717811, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 6171374375413776551, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
-    autoIncrement: 0
+    name: run
+    autoIncrement: 1
     percentageBased: 0
     guid: bb8de841-7ecb-4c42-9ebd-485d77a5e1ad
   drivers:
-    keys: []
-    values: 
+    keys:
+    - idleTransition
+    values: 01000000
 --- !u!114 &-2859016246121784277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,9 +266,19 @@ MonoBehaviour:
   guid: 7cc164ab5cb9354428846ef421b16096
   nodeTitle: JumpAnimation
   position: {x: 1378, y: -384.01135}
-  cels: []
+  cels:
+  - sprite: {fileID: 3298105886585063087, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 5560605583954493893, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
+    name: jumpDirection
     autoIncrement: 0
     percentageBased: 0
     guid: 549222dc-289d-43d6-ab82-7e558969fca1
@@ -252,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 8888fbbc40ce6ee45b940373ac11a8dc
   nodeTitle: RootMovement_GroundIdle
-  position: {x: 1169, y: 87.98865}
+  position: {x: 1168, y: 88}
   nodes:
   - {fileID: 4121047940114990893}
   - {fileID: 5145656718631313926}
@@ -275,7 +338,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
-  m_Name: ResolutionGraph
+  m_Name: Sasuke_AnimationGraph
   m_EditorClassIdentifier: 
   root: {fileID: 4312978999189567477}
   nodes:
@@ -365,11 +428,35 @@ MonoBehaviour:
   guid: 4c81fdd4ff18f8f41a57d94ed6f9d667
   nodeTitle: FlipAnimation
   position: {x: 1187, y: -199.01135}
-  cels: []
+  cels:
+  - sprite: {fileID: -14635915900717176, guid: 70334b78acba2ad4db16b9e6a5515a8d, type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 4625936013739869009, guid: 70334b78acba2ad4db16b9e6a5515a8d,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 7090611045446874900, guid: 70334b78acba2ad4db16b9e6a5515a8d,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6129432467426448923, guid: 70334b78acba2ad4db16b9e6a5515a8d,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6043553512486061327, guid: 70334b78acba2ad4db16b9e6a5515a8d,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
+    name: flipCompletion
     autoIncrement: 0
-    percentageBased: 0
+    percentageBased: 1
     guid: 9dac8008-5b90-4915-bacc-301dda547b3b
   drivers:
     keys: []
@@ -390,13 +477,29 @@ MonoBehaviour:
   nodeTitle: IdleAnimation
   position: {x: 1460.72, y: 11}
   cels:
-  - sprite: {fileID: 0}
+  - sprite: {fileID: -2937644175521846342, guid: f31e889de574c78499d5df74639f2b86,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -6672705515115128521, guid: f31e889de574c78499d5df74639f2b86,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -672653471037824313, guid: f31e889de574c78499d5df74639f2b86,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -3433722061912466453, guid: f31e889de574c78499d5df74639f2b86,
+      type: 3}
     drivers:
       keys: []
       values: 
   controlDriver:
     name: 
-    autoIncrement: 0
+    autoIncrement: 1
     percentageBased: 0
     guid: 797e8e40-a35d-4307-9856-75f45af6a8d8
   drivers:
@@ -471,10 +574,21 @@ MonoBehaviour:
   guid: 4952adb04b154de4aae3eb644e108fc7
   nodeTitle: RunToIdleAnimation
   position: {x: 1406, y: 100.98865}
-  cels: []
+  cels:
+  - sprite: {fileID: 6171374375413776551, guid: 96c42d47a44319a49a6f5c769ee74b73,
+      type: 3}
+    drivers:
+      keys:
+      - idleTransition
+      values: 01000000
+  - sprite: {fileID: 7984399840888605053, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
-    name: 
-    autoIncrement: 0
+    name: temporary
+    autoIncrement: 1
     percentageBased: 0
     guid: a0913069-99df-475b-912d-d6395f203bc3
   drivers:
