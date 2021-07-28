@@ -16,8 +16,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorNodeStyle.uxml")
         {
+            // UseDefaultStyling();
+            
             this.node = node;
             this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
             title = node.nodeTitle == string.Empty
@@ -30,9 +32,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             CreateInputPorts();
             CreateOutputPorts();
-            CreateTitleEditField();
+            //CreateTitleEditField();
             
-            if (this.node is GraphRootNode) {
+            if (this.node is BaseNode) {
                 capabilities &= ~Capabilities.Movable;
                 capabilities &= ~Capabilities.Deletable;
             }
@@ -52,15 +54,18 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             switch (node) {
                 case SimpleAnimationNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
+                    input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single,
+                        typeof(SimpleAnimationNode));
                     break;
                 case SwitchNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
+                    input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single,
+                        typeof(SwitchNode));
                     break;
                 case OverrideNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
+                    input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single,
+                        typeof(OverrideNode));
                     break;
-                case GraphRootNode _:
+                case BaseNode _:
                     break;
             }
 
@@ -77,13 +82,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 case SimpleAnimationNode _:
                     break;
                 case SwitchNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
+                    output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi,
+                        typeof(SwitchNode));
                     break;
                 case OverrideNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);
+                    output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single,
+                        typeof(OverrideNode));
                     break;
-                case GraphRootNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);
+                case BaseNode _:
+                    output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single,
+                        typeof(BaseNode));
                     break;
             }
 

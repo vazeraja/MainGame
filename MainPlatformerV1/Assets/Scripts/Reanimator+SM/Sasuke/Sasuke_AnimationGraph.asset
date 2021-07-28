@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 6a86ea4d07dbf3c4b894895c0ec70bdf
   nodeTitle: JumpToIdleAnimation
-  position: {x: 1406, y: 194.98865}
+  position: {x: 1406, y: 195}
   cels:
-  - sprite: {fileID: 3298105886585063087, guid: 7cf92fcfe9147d94e961ea8384f393f7,
+  - sprite: {fileID: 8494806145318214075, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
     drivers:
       keys:

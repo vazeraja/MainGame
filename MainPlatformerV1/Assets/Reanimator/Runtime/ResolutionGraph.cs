@@ -53,7 +53,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public void AddChild(ReanimatorNode parent, ReanimatorNode child)
         {
             switch (parent) {
-                case GraphRootNode rootNode:
+                case BaseNode rootNode:
                     Undo.RecordObject(rootNode, "Resolution Tree");
                     root = child;
                     rootNode.root = child;
@@ -75,7 +75,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public void RemoveChild(ReanimatorNode parent, ReanimatorNode child)
         {
             switch (parent) {
-                case GraphRootNode rootNode:
+                case BaseNode rootNode:
                     Undo.RecordObject(rootNode, "Resolution Tree");
                     root = null;
                     rootNode.root = null;
@@ -101,7 +101,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
 
             switch (parent) {
-                case GraphRootNode rootNode when root != null:
+                case BaseNode rootNode when root != null:
                     children.Add(root);
                     break;
                 case OverrideNode overrideNode when overrideNode.next != null:

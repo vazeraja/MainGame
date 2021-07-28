@@ -50,12 +50,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(GraphNodes);
-            DeleteElements(GraphEdges);
-            DeleteElements(CommentBlocks);
+            DeleteElements(graphElements);
             graphViewChanged += OnGraphViewChanged;
             
-            AddSearchWindow(editorWindow);
+            CreateSearchWindow(editorWindow);
+            CreateMiniMap();
             LoadGraph();
         }
 
@@ -86,12 +85,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 EditorUtility.SetDirty(graph);
             }
         }
-
         private void LoadGraph()
         {
             // Create root node if graph is empty
             if (graph.nodes.Count == 0) {
-                graph.root = graph.CreateSubAsset(typeof(GraphRootNode)) as GraphRootNode;
+                graph.root = graph.CreateSubAsset(typeof(BaseNode)) as BaseNode;
                 EditorUtility.SetDirty(graph);
                 AssetDatabase.SaveAssets();
             }
@@ -109,7 +107,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
                     
                     // If it is a new graph, check if the root has a child or not
-                    if (parent?.node is GraphRootNode node && child?.node == null)
+                    if (parent?.node is BaseNode node && child?.node == null)
                         continue;
                     
                     // Connect each parents output to the saved children
@@ -129,13 +127,24 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         /// <summary>
         /// Creates a Search Window as seen in Unity graph tools such as Shader Graph
         /// </summary>
-        /// <param name="editorWindow"></param>
-        public void AddSearchWindow(ReanimatorGraphEditor editorWindow)
+        /// <param name="window"></param>
+        private void CreateSearchWindow(EditorWindow window)
         {
             searchWindowProvider = ScriptableObject.CreateInstance<ReanimatorSearchWindowProvider>();
-            searchWindowProvider.Initialize(editorWindow, this);
+            searchWindowProvider.Initialize(window, this);
             nodeCreationRequest = context =>
                 SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
+        }
+
+        /// <summary>
+        /// Creates a minimap on top left corner of the graphview
+        /// </summary>
+        private void CreateMiniMap(){
+            var miniMap = new MiniMap {
+                anchored = true
+            };
+            miniMap.SetPosition(new Rect(10, 30, 200, 140));
+            Add(miniMap);
         }
         
         /// <summary>

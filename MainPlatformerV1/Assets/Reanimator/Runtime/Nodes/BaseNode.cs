@@ -9,7 +9,7 @@ namespace Aarthificial.Reanimation.Nodes {
         public List<GroupBlock> groupBlocks = new List<GroupBlock>();
     }
     
-    public class GraphRootNode : ReanimatorNode {
+    public class BaseNode : ReanimatorNode {
         
         public ReanimatorNode root;
 
@@ -19,7 +19,7 @@ namespace Aarthificial.Reanimation.Nodes {
         }
         public override ReanimatorNode Copy()
         {
-            GraphRootNode node = Instantiate(this);
+            BaseNode node = Instantiate(this);
             node.root = root.Copy();
             return node;
         }
