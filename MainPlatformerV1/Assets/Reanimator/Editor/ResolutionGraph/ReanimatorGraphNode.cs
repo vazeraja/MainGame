@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEngine;
@@ -9,17 +10,21 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
         public readonly ReanimatorNode node;
+        public ResolutionGraph graph;
         
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             this.node = node;
-            this.node.name = node.GetType().Name;
-            title = node.name.Replace("(Clone)", "").Replace("Node", "");
+            this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
+
+            title = node.nodeTitle == string.Empty
+                ? node.name.Replace("(Clone)", "").Replace("Node", "")
+                : node.nodeTitle;
             viewDataKey = node.guid;
 
             style.left = node.position.x;
@@ -27,6 +32,22 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             CreateInputPorts();
             CreateOutputPorts();
+            CreateTitleEditField();
+            
+            if (this.node is GraphRootNode) {
+                capabilities &= ~Capabilities.Movable;
+                capabilities &= ~Capabilities.Deletable;
+            }
+        }
+
+        private void CreateTitleEditField()
+        {
+            var textField = new TextField();
+            textField.RegisterValueChangedCallback(evt => {
+                title = evt.newValue;
+                node.nodeTitle = evt.newValue;
+            });
+            extensionContainer.Add(textField);
         }
 
         private void CreateInputPorts()
@@ -42,9 +63,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
                     break;
                 case GraphRootNode _:
-                    input = new NodePort(Direction.Input, Port.Capacity.Single, Orientation.Horizontal);
-                    input.visible = false;
-                    input.capabilities &= ~Capabilities.Selectable;
                     break;
             }
 
@@ -59,12 +77,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             switch (node) {
                 case SimpleAnimationNode _:
-                    output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
-                    output.visible = false;
-                    output.capabilities &= ~Capabilities.Selectable;
                     break;
                 case SwitchNode _:
                     output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
+                    output.visible = true;
                     break;
                 case OverrideNode _:
                     output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);

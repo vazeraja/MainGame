@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: 7fcfaf537ced92742a5f37d71255c070
+  nodeTitle: IdleAnimation
   position: {x: 507, y: 101}
   cels: []
   controlDriver:
@@ -36,7 +37,8 @@ MonoBehaviour:
   m_Name: SwitchNode
   m_EditorClassIdentifier: 
   guid: 1c9a605c37f55b446b31a36fb0d817f7
-  position: {x: 264, y: -2}
+  nodeTitle: root
+  position: {x: 262, y: 0}
   nodes:
   - {fileID: -6689801868859213147}
   - {fileID: -8523535016307351848}
@@ -61,6 +63,7 @@ MonoBehaviour:
   m_Name: GraphRootNode
   m_EditorClassIdentifier: 
   guid: 7a2bb84e27baa104fa077cfe6069db74
+  nodeTitle: BaseNode
   position: {x: 0, y: 0}
   root: {fileID: -7961706622034404322}
 --- !u!114 &-6689801868859213147
@@ -76,6 +79,7 @@ MonoBehaviour:
   m_Name: SimpleAnimationNode
   m_EditorClassIdentifier: 
   guid: f3b175a540fa3e8479f4c017722fe5fe
+  nodeTitle: RunAnimation
   position: {x: 507, y: -110}
   cels:
   - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,

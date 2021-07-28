@@ -9,7 +9,7 @@ namespace Aarthificial.Reanimation.Nodes {
         public List<GroupBlock> groupBlocks = new List<GroupBlock>();
     }
     
-    public class GraphRootNode : ReanimatorNode, IReanimatorGraphNode {
+    public class GraphRootNode : ReanimatorNode {
         
         public ReanimatorNode root;
 

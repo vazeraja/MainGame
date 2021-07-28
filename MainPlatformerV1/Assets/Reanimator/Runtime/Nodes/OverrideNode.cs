@@ -12,7 +12,7 @@ namespace Aarthificial.Reanimation.Nodes
     }
 
     [CreateAssetMenu(fileName = "override", menuName = "Reanimator/Override", order = 400)]
-    public class OverrideNode : ReanimatorNode, IReanimatorGraphNode
+    public class OverrideNode : ReanimatorNode
     {
         public ReanimatorNode next;
         [SerializeField] private List<OverridePair> overrides = new List<OverridePair>();

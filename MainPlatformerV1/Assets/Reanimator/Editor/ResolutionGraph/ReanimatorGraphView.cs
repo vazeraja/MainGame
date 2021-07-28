@@ -18,9 +18,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
 
+        private IEnumerable<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
         private IEnumerable<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
         private IEnumerable<Edge> GraphEdges => edges.ToList();
-        private IEnumerable<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
 
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
@@ -220,14 +220,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateGraphNode(ReanimatorNode node)
         {
-            var graphNode = new ReanimatorGraphNode(node) {
+            var graphNode = new ReanimatorGraphNode(node, graph) {
                 OnNodeSelected = OnNodeSelected
             };
-
-            if (node is GraphRootNode rootNode) {
-                graphNode.capabilities &= ~Capabilities.Movable;
-                graphNode.capabilities &= ~Capabilities.Deletable;
-            }
 
             graphNode.OnSelected();
             AddElement(graphNode);

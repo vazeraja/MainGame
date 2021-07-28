@@ -152,15 +152,14 @@ namespace ThunderNut.SceneManagement.Editor {
                 },
             };
 
-            // Get the existing character names ONCE as GuiContent[]
-            // Later only update this if the List was changed
+            // Get the existing character names as GuiContent[]
             availableOptions = sceneHandle.sceneTags.Select(item => new GUIContent(item)).ToArray();
         }
 
         public override void OnInspectorGUI() {
             DrawScriptField();
 
-            serializedObject.Update(); // load real target values into SerializedProperties
+            serializedObject.Update(); 
 
             sceneProperty = serializedObject.FindProperty("scene");
             EditorGUILayout.PropertyField(sceneProperty);
@@ -169,11 +168,11 @@ namespace ThunderNut.SceneManagement.Editor {
             EditorGUI.BeginChangeCheck();
             sceneTagsList.DoLayoutList();
             if (EditorGUI.EndChangeCheck()) {
-                serializedObject.ApplyModifiedProperties(); // Write back changed values into the real target
+                serializedObject.ApplyModifiedProperties();
 
                 availableOptions = sceneHandle.sceneTags
                     .Select(item => new GUIContent(item))
-                    .ToArray(); // Update the existing tags as GuiContent[]
+                    .ToArray();
 
                 EditorUtility.SetDirty(target);
             }
@@ -181,7 +180,7 @@ namespace ThunderNut.SceneManagement.Editor {
             passageElementsList.drawElementCallback = DrawPassageElementsFields;
             passageElementsList.DoLayoutList();
 
-            serializedObject.ApplyModifiedProperties(); // Write back changed values into the real target
+            serializedObject.ApplyModifiedProperties();
         }
 
         /// <summary>
