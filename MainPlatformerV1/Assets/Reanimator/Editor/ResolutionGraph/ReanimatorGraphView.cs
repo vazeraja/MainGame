@@ -209,7 +209,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             ControlDriver controlDriver,
             DriverDictionary driverDictionary)
         {
-            if (!(graph.CreateSubAsset(node.GetType()) is SimpleAnimationNode simpleAnimationNode)) return;
+            if (!(graph.CreateSubAsset(node.GetType()) is SimpleAnimationNode simpleAnimationNode)) 
+                return;
             var nodeSprites = simpleCels as SimpleCel[] ?? simpleCels.ToArray();
             simpleAnimationNode.sprites = nodeSprites;
             simpleAnimationNode.ControlDriver = controlDriver;
@@ -220,7 +221,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateGraphNode(ReanimatorNode node)
         {
-            var graphNode = new ReanimatorGraphNode(node, graph) {
+            var graphNode = new ReanimatorGraphNode(node) {
                 OnNodeSelected = OnNodeSelected
             };
 

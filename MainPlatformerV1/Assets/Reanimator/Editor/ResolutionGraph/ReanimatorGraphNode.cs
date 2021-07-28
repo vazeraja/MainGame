@@ -10,18 +10,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
         public readonly ReanimatorNode node;
-        public ResolutionGraph graph;
-        
+
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             this.node = node;
             this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
-
             title = node.nodeTitle == string.Empty
                 ? node.name.Replace("(Clone)", "").Replace("Node", "")
                 : node.nodeTitle;
@@ -80,7 +78,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     break;
                 case SwitchNode _:
                     output = new NodePort(Direction.Output, Port.Capacity.Multi, Orientation.Horizontal);
-                    output.visible = true;
                     break;
                 case OverrideNode _:
                     output = new NodePort(Direction.Output, Port.Capacity.Single, Orientation.Horizontal);
