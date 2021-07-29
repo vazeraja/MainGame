@@ -4,10 +4,10 @@
     border-right-width: 4px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(33, 32, 32, 255);
-    border-right-color: rgba(33, 32, 32, 255);
-    border-top-color: rgba(33, 32, 32, 255);
-    border-bottom-color: rgba(239, 178, 79, 255);
+    border-left-color: rgb(33, 32, 32);
+    border-right-color: rgb(33, 32, 32);
+    border-top-color: rgb(33, 32, 32);
+    border-bottom-color: rgb(239, 178, 79);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -94,7 +94,7 @@
 }
 
 #title-divider {
-    background-color: rgba(77, 77, 77, 255);
+    background-color: rgb(77, 77, 77);
     min-height: 2px;
     min-width: auto;
     border-left-width: 0;
@@ -108,10 +108,10 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    border-left-color: rgba(255, 255, 255, 255);
-    border-right-color: rgba(255, 255, 255, 255);
-    border-top-color: rgba(255, 255, 255, 255);
-    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }
 
 :selected > #selection-border {
@@ -132,13 +132,59 @@
     border-bottom-right-radius: 5px;
 }
 
-:title > #collapse-button {
+.switch #collapse-button {
     align-items: stretch;
     justify-content: flex-start;
-    border-left-color: rgba(239, 178, 79, 255);
-    border-right-color: rgba(239, 178, 79, 255);
-    border-top-color: rgba(239, 178, 79, 255);
-    border-bottom-color: rgba(239, 178, 79, 255);
+    border-left-color: rgb(239, 178, 79);
+    border-right-color: rgb(239, 178, 79);
+    border-top-color: rgb(239, 178, 79);
+    border-bottom-color: rgb(239, 178, 79);
+    width: 1px;
+    height: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.simpleAnimation #collapse-button {
+    align-items: stretch;
+    justify-content: flex-start;
+    border-left-color: rgb(30, 112, 207);
+    border-right-color: rgb(30, 112, 207);
+    border-top-color: rgb(30, 112, 207);
+    border-bottom-color: rgb(30, 112, 207);
+    width: 1px;
+    height: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.override #collapse-button {
+    align-items: stretch;
+    justify-content: flex-start;
+    border-left-color: rgb(207, 73, 72);
+    border-right-color: rgb(207, 73, 72);
+    border-top-color: rgb(207, 73, 72);
+    border-bottom-color: rgb(207, 73, 72);
     width: 1px;
     height: 1px;
     margin-left: 3px;
