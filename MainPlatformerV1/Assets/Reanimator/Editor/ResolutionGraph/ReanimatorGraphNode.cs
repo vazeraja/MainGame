@@ -10,7 +10,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
         public readonly ReanimatorNode node;
-        private ResolutionGraph graph; 
+        public readonly ResolutionGraph graph; 
         
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
@@ -37,11 +37,34 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateInputPorts();
             CreateOutputPorts();
             CreateTitleEditField();
-            //RefreshExpandedState();
+            SetupClasses();
+            EditorUtility.SetDirty(this.graph);
             
-            if (this.node is BaseNode) {
-                capabilities &= ~Capabilities.Movable;
-                capabilities &= ~Capabilities.Deletable;
+            switch (node) {
+                case BaseNode _:
+                    capabilities &= ~Capabilities.Movable;
+                    capabilities &= ~Capabilities.Deletable;
+                    break;
+                case SwitchNode switchNode:
+                    break;
+            }
+        }
+
+        private void SetupClasses()
+        {
+            switch (node) {
+                case SimpleAnimationNode _:
+                    AddToClassList("simpleAnimation");
+                    break;
+                case SwitchNode _:
+                    AddToClassList("switch");
+                    break;
+                case OverrideNode _:
+                    AddToClassList("override");
+                    break;
+                case BaseNode _:
+                    AddToClassList("base");
+                    break;
             }
         }
 
@@ -74,11 +97,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     break;
             }
 
-            if (input != null) {
-                input.portName = "";
-                //input.style.flexDirection = FlexDirection.Column;
-                inputContainer.Add(input);
-            }
+            if (input == null) return;
+            input.portName = "";
+            inputContainer.Add(input);
         }
 
         private void CreateOutputPorts()
@@ -100,11 +121,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     break;
             }
 
-            if (output != null) {
-                output.portName = "";
-                //output.style.flexDirection = FlexDirection.ColumnReverse;
-                outputContainer.Add(output);
-            }
+            if (output == null) return;
+            output.portName = "";
+            outputContainer.Add(output);
         }
 
         public override void SetPosition(Rect newPos)

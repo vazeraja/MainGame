@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f385209e995b2b24d9b8172f40eaf3f7
   nodeTitle: RootMovement_AirJump
-  position: {x: 928, y: -451.9353}
+  position: {x: 928, y: -442}
   nodes:
   - {fileID: -1620949668163360245}
   - {fileID: -7861671682695949504}
@@ -360,6 +360,7 @@ MonoBehaviour:
   - {fileID: 4121047940114990893}
   - {fileID: 5145656718631313926}
   - {fileID: -9130189663412503569}
+  - {fileID: 5441868800992372898}
   SaveData:
     CommentBlockData: []
 --- !u!114 &1210843896723939208
@@ -402,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 4c81fdd4ff18f8f41a57d94ed6f9d667
   nodeTitle: FlipAnimation
-  position: {x: 928, y: -302.93533}
+  position: {x: 945.5, y: -288}
   cels:
   - sprite: {fileID: -14635915900717176, guid: 70334b78acba2ad4db16b9e6a5515a8d, type: 3}
     drivers:
@@ -494,7 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: afe91bd7c62d4d14b889a31a301a9e8c
   nodeTitle: Root
-  position: {x: 161, y: 66}
+  position: {x: 192, y: 62}
   nodes:
   - {fileID: 1210843896723939208}
   - {fileID: 8972811193946634867}
@@ -521,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 2ecd64fc9442d22479371d890e162ebd
   nodeTitle: RootMovement_Air
-  position: {x: 716, y: -352.9353}
+  position: {x: 716, y: -352}
   nodes:
   - {fileID: -7832042094402424365}
   - {fileID: 1700534619507601169}
@@ -569,6 +570,23 @@ MonoBehaviour:
   drivers:
     keys: []
     values: 
+--- !u!114 &5441868800992372898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd1e6768d7d47f2976614169efeebba, type: 3}
+  m_Name: OverrideNode
+  m_EditorClassIdentifier: 
+  guid: 5e3316d054fe63f4584f550bd0b94333
+  nodeTitle: 
+  position: {x: 181, y: -287}
+  next: {fileID: 0}
+  overrides: []
 --- !u!114 &7835456377009927491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cbdb7e6637779c04cb883e5786835887
   nodeTitle: RootMovement_Ground
-  position: {x: 692.99994, y: -97.93533}
+  position: {x: 694.498, y: -96.98808}
   nodes:
   - {fileID: -347048784571739294}
   - {fileID: -3296058019168418609}
