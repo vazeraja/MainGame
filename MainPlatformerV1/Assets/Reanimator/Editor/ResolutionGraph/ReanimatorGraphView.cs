@@ -230,7 +230,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateGraphNode(ReanimatorNode node)
         {
-            var graphNode = new ReanimatorGraphNode(node) {
+            var graphNode = new ReanimatorGraphNode(node, graph) {
                 OnNodeSelected = OnNodeSelected
             };
 

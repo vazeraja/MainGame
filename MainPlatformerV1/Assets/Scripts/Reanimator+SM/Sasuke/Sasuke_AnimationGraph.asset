@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 49314c2948ac77549a7cb8197c565163
   nodeTitle: DashAnimation
-  position: {x: 512.18176, y: 288.67053}
+  position: {x: 527, y: 212.56}
   cels:
   - sprite: {fileID: 5724131686658579246, guid: 7cf92fcfe9147d94e961ea8384f393f7,
       type: 3}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 67259735e9c78d0429e7aad1f0d3f525
   nodeTitle: AirDashAnimation
-  position: {x: 512.18176, y: 175.67055}
+  position: {x: 527, y: 299}
   cels:
   - sprite: {fileID: 5724131686658579246, guid: 7cf92fcfe9147d94e961ea8384f393f7,
       type: 3}
@@ -361,32 +361,7 @@ MonoBehaviour:
   - {fileID: 5145656718631313926}
   - {fileID: -9130189663412503569}
   SaveData:
-    CommentBlockData:
-    - ChildNodes:
-      - a6fdbe8ddecc6634b9ae9322c24e2641
-      Position: {x: 264.99997, y: -182.99994}
-      Title: Damaged State
-    - ChildNodes:
-      - 507b8f188e86fb14bb82149f7db9a599
-      - 49314c2948ac77549a7cb8197c565163
-      - 67259735e9c78d0429e7aad1f0d3f525
-      Position: {x: 218.99998, y: 482}
-      Title: Dash State
-    - ChildNodes:
-      - 03a8d36fe19192847a85245d70db13e3
-      - 2ecd64fc9442d22479371d890e162ebd
-      - cbdb7e6637779c04cb883e5786835887
-      - f385209e995b2b24d9b8172f40eaf3f7
-      - 4c81fdd4ff18f8f41a57d94ed6f9d667
-      - 7cc164ab5cb9354428846ef421b16096
-      - 2643a84ec0dc3714d87a7f2a30034df5
-      - 8888fbbc40ce6ee45b940373ac11a8dc
-      - 9b2fc9b1233627f4485f3ae8af27b699
-      - 069c5c17a9493314ab6769232ad1bbbb
-      - 4952adb04b154de4aae3eb644e108fc7
-      - 6a86ea4d07dbf3c4b894895c0ec70bdf
-      Position: {x: 691.99994, y: -258.99997}
-      Title: Movement State
+    CommentBlockData: []
 --- !u!114 &1210843896723939208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 03a8d36fe19192847a85245d70db13e3
   nodeTitle: RootMovement
-  position: {x: 759, y: -161.01135}
+  position: {x: 662, y: -97.000015}
   nodes:
   - {fileID: 4773496542237128343}
   - {fileID: 7835456377009927491}
@@ -519,7 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: afe91bd7c62d4d14b889a31a301a9e8c
   nodeTitle: Root
-  position: {x: 156, y: 0}
+  position: {x: 161, y: 66}
   nodes:
   - {fileID: 1210843896723939208}
   - {fileID: 8972811193946634867}
@@ -546,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 2ecd64fc9442d22479371d890e162ebd
   nodeTitle: RootMovement_Air
-  position: {x: 959, y: -260}
+  position: {x: 933, y: -262.99997}
   nodes:
   - {fileID: -7832042094402424365}
   - {fileID: 1700534619507601169}
@@ -608,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cbdb7e6637779c04cb883e5786835887
   nodeTitle: RootMovement_Ground
-  position: {x: 933, y: -29.011353}
+  position: {x: 933, y: -22.879974}
   nodes:
   - {fileID: -347048784571739294}
   - {fileID: -3296058019168418609}
@@ -634,7 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 507b8f188e86fb14bb82149f7db9a599
   nodeTitle: RootDash
-  position: {x: 310.18176, y: 239.67055}
+  position: {x: 326, y: 250}
   nodes:
   - {fileID: -7553571759567474767}
   - {fileID: -2859016246121784277}

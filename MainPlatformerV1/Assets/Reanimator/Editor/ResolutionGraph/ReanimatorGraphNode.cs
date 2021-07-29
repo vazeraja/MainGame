@@ -10,18 +10,22 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         
         public readonly ReanimatorNode node;
-
+        private ResolutionGraph graph; 
+        
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node) //: base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorNodeStyle.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             // UseDefaultStyling();
-            
+            this.graph = graph;
             this.node = node;
-            this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
+            
+            this.node.name = node.nodeTitle == string.Empty 
+                ? node.GetType().Name 
+                : node.nodeTitle;
             title = node.nodeTitle == string.Empty
                 ? node.name.Replace("(Clone)", "").Replace("Node", "")
                 : node.nodeTitle;
@@ -32,7 +36,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             CreateInputPorts();
             CreateOutputPorts();
-            //CreateTitleEditField();
+            CreateTitleEditField();
+            //RefreshExpandedState();
             
             if (this.node is BaseNode) {
                 capabilities &= ~Capabilities.Movable;
