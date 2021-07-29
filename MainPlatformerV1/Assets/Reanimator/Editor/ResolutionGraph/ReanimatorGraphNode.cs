@@ -8,27 +8,29 @@ using UnityEngine.UIElements;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
-        
         public readonly ReanimatorNode node;
-        public readonly ResolutionGraph graph; 
-        
+        public readonly ResolutionGraph graph;
+
         public Action<ReanimatorGraphNode> OnNodeSelected;
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base("Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base(
+            "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
         {
             // UseDefaultStyling();
             this.graph = graph;
             this.node = node;
+
+            this.node.name = node.nodeTitle == string.Empty
+                ? node.GetType().Name
+                : node.nodeTitle;
+            // title = node.nodeTitle == string.Empty
+            //     ? node.name.Replace("(Clone)", "").Replace("Node", "")
+            //     : node.nodeTitle;
+            title = node.name.Replace("(Clone)", "").Replace("Node", "");
             
-            this.node.name = node.nodeTitle == string.Empty 
-                ? node.GetType().Name 
-                : node.nodeTitle;
-            title = node.nodeTitle == string.Empty
-                ? node.name.Replace("(Clone)", "").Replace("Node", "")
-                : node.nodeTitle;
             viewDataKey = node.guid;
 
             style.left = node.position.x;
@@ -39,7 +41,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateTitleEditField();
             SetupClasses();
             EditorUtility.SetDirty(this.graph);
-            
+
             switch (node) {
                 case BaseNode _:
                     capabilities &= ~Capabilities.Movable;

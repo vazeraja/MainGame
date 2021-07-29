@@ -58,72 +58,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             LoadGraph();
         }
 
-        public void SaveToGraphSaveData()
-        {
-            var saveData = new SaveData();
-
-            foreach (var block in CommentBlocks) {
-                var childNodes = block.containedElements
-                    .Where(x => x is ReanimatorGraphNode)
-                    .Cast<ReanimatorGraphNode>()
-                    .Select(x => x.node.guid)
-                    .ToList();
-
-               saveData.CommentBlockData.Add(new GroupBlock() {
-                   ChildNodes = childNodes,
-                   Title = block.title,
-                   Position = block.GetPosition().position
-               });
-            }
-
-            if (graph.SaveData == null) {
-                graph.SaveData = new SaveData();
-                EditorUtility.SetDirty(graph);
-            }
-            else {
-                graph.SaveData.CommentBlockData = saveData.CommentBlockData;
-                EditorUtility.SetDirty(graph);
-            }
-        }
-        private void LoadGraph()
-        {
-            // Create root node if graph is empty
-            if (graph.nodes.Count == 0) {
-                graph.root = graph.CreateSubAsset(typeof(BaseNode)) as BaseNode;
-                EditorUtility.SetDirty(graph);
-                AssetDatabase.SaveAssets();
-            }
-
-            // Create every graph node from the nodes in the graph
-            graph.nodes.ForEach(CreateGraphNode);
-
-            // Create all connections based on the children of the nodes in the graph
-            graph.nodes.ForEach(p => {
-                var children = graph.GetChildren(p);
-                foreach (var c in children) {
-                    
-                    // Returns node by its guid and cast it back to a ReanimatorGraphNode
-                    var parent = GetNodeByGuid(p.guid) as ReanimatorGraphNode;
-                    var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
-                    
-                    // If it is a new graph, check if the root has a child or not
-                    if (parent?.node is BaseNode node && child?.node == null)
-                        continue;
-                    
-                    // Connect each parents output to the saved children
-                    var edge = parent?.output.ConnectTo(child?.input);
-                    AddElement(edge);
-                }
-            });
-            
-            // Load all comment blocks and contained nodes
-            foreach (var commentBlockData in graph.SaveData.CommentBlockData) {
-                var block = CreateCommentBlock(new Rect(commentBlockData.Position, BlockSize),
-                    commentBlockData);
-                block.AddElements(GraphNodes.Where(x => commentBlockData.ChildNodes.Contains(x.node.guid)));
-            }
-        }
-        
         /// <summary>
         /// Creates a Search Window as seen in Unity graph tools such as Shader Graph
         /// </summary>
@@ -162,7 +96,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             return group;
         }
 
-
+        /// <summary>
+        /// Make sure inputs cant be connected to inputs and outputs to outputs
+        /// </summary>
+        /// <param name="startPort"></param>
+        /// <param name="nodeAdapter"></param>
+        /// <returns></returns>
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter) 
             => ports.ToList().Where(endPort => endPort.direction != startPort.direction && endPort.node != startPort.node).ToList();
         
@@ -227,17 +166,13 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             CreateGraphNode(simpleAnimationNode);
         }
-
-        private void CreateGraphNode(ReanimatorNode node)
-        {
-            var graphNode = new ReanimatorGraphNode(node, graph) {
-                OnNodeSelected = OnNodeSelected
-            };
-
-            graphNode.OnSelected();
-            AddElement(graphNode);
-        }
-
+        
+        /// <summary>
+        /// Creates a switch node on the graph
+        /// if it was dragged into the window from the project folder
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="reanimatorNodes"></param>
         public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
         {
             if (graph.CreateSubAsset(type) is SwitchNode switchNode) {
@@ -267,5 +202,81 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 // }
             }
         }
+
+        private void CreateGraphNode(ReanimatorNode node)
+        {
+            var graphNode = new ReanimatorGraphNode(node, graph) {
+                OnNodeSelected = OnNodeSelected
+            };
+
+            graphNode.OnSelected();
+            AddElement(graphNode);
+        }
+        public void SaveToGraphSaveData()
+        {
+            var saveData = new SaveData();
+
+            foreach (var block in CommentBlocks) {
+                var childNodes = block.containedElements
+                    .Where(x => x is ReanimatorGraphNode)
+                    .Cast<ReanimatorGraphNode>()
+                    .Select(x => x.node.guid)
+                    .ToList();
+
+               saveData.CommentBlockData.Add(new GroupBlock() {
+                   ChildNodes = childNodes,
+                   Title = block.title,
+                   Position = block.GetPosition().position
+               });
+            }
+
+            if (graph.SaveData == null) {
+                graph.SaveData = new SaveData();
+                EditorUtility.SetDirty(graph);
+            }
+            else {
+                graph.SaveData.CommentBlockData = saveData.CommentBlockData;
+                EditorUtility.SetDirty(graph);
+            }
+        }
+        private void LoadGraph()
+        {
+            // Create root node if graph is empty
+            if (graph.nodes.Count == 0) {
+                graph.root = graph.CreateSubAsset(typeof(BaseNode)) as BaseNode;
+                EditorUtility.SetDirty(graph);
+                AssetDatabase.SaveAssets();
+            }
+
+            // Create every graph node from the nodes in the graph
+            graph.nodes.ForEach(CreateGraphNode);
+
+            // Create all connections based on the children of the nodes in the graph
+            graph.nodes.ForEach(p => {
+                var children = ResolutionGraph.GetChildren(p);
+                foreach (var c in children) {
+                    
+                    // Returns node by its guid and cast it back to a ReanimatorGraphNode
+                    var parent = GetNodeByGuid(p.guid) as ReanimatorGraphNode;
+                    var child = GetNodeByGuid(c.guid) as ReanimatorGraphNode;
+                    
+                    // If it is a new graph, check if the root has a child or not
+                    if (parent?.node is BaseNode node && child?.node == null)
+                        continue;
+                    
+                    // Connect each parents output to the saved children
+                    var edge = parent?.output.ConnectTo(child?.input);
+                    AddElement(edge);
+                }
+            });
+            
+            // Load all comment blocks and contained nodes
+            foreach (var commentBlockData in graph.SaveData.CommentBlockData) {
+                var block = CreateCommentBlock(new Rect(commentBlockData.Position, BlockSize),
+                    commentBlockData);
+                block.AddElements(GraphNodes.Where(x => commentBlockData.ChildNodes.Contains(x.node.guid)));
+            }
+        }
+        
     }
 }

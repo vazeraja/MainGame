@@ -80,7 +80,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
                 renderer = GetComponent<SpriteRenderer>();
 
             if (graph.Enabled) {
-                graph.Value = graph.Value.GetCopy();
+                // graph.Value = graph.Value.GetCopy();
                 root = graph.Value.root;
             }
         }

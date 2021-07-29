@@ -118,12 +118,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                                 };
                                 break;
                             }
-                            // case OverrideNode overrideNode: {
-                            //     EditorApplication.delayCall += delegate {
-                            //         graphView.CreateNode(overrideNode.GetType(), new Vector2());
-                            //     };
-                            //     break;
-                            // }
+                            case OverrideNode overrideNode: {
+                                EditorApplication.delayCall += delegate {
+                                    graphView.CreateNode(overrideNode.GetType(), new Vector2());
+                                };
+                                break;
+                            }
                         }
                     }
                 }
@@ -142,7 +142,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     if (Selection.activeGameObject) {
                         Reanimator reanimator = Selection.activeGameObject.GetComponent<Reanimator>();
                         if (reanimator) {
-                            //graph = reanimator.graph;
+                            graph = reanimator.graph.Value;
                         }
                     }
                 }
