@@ -13,7 +13,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public ReanimatorNode root;
 
         public List<ReanimatorNode> nodes = new List<ReanimatorNode>();
-        private List<ReanimatorNode> currentTrace = new List<ReanimatorNode>();
+        public List<ReanimatorNode> currentTrace = new List<ReanimatorNode>();
 
         public SaveData SaveData = new SaveData();
         
