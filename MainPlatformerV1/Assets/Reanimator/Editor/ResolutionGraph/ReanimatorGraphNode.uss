@@ -12,6 +12,7 @@
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    min-width: 175px;
 }
 
 #selection-border {
@@ -35,8 +36,20 @@
 }
 
 #title {
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#title-divider {
+    background-color: rgba(77, 77, 77, 255);
+    min-height: 2px;
+    min-width: auto;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 :hover > #selection-border {
@@ -68,10 +81,34 @@
     border-bottom-right-radius: 9px;
 }
 
+:title > #collapse-button {
+    align-items: stretch;
+    justify-content: flex-start;
+    border-left-color: rgba(239, 178, 79, 255);
+    border-right-color: rgba(239, 178, 79, 255);
+    border-top-color: rgba(239, 178, 79, 255);
+    border-bottom-color: rgba(239, 178, 79, 255);
+    width: 1px;
+    height: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 .node {
     min-width: 150px;
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
+    min-height: auto;
 }

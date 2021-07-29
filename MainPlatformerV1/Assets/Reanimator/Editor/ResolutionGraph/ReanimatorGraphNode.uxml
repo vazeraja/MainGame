@@ -9,6 +9,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="title-divider" class="horizontal" />
         <ui:VisualElement name="contents">
             <ui:VisualElement name="divider" class="horizontal" />
             <ui:VisualElement name="top">
