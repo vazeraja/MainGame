@@ -136,10 +136,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
             Ticked?.Invoke();
             
             // Display current path of resolution process
-            if (graph.Enabled) {
-                graph.Value.currentTrace = _nextState._trace;
-                _nextState._trace.ForEach(Debug.Log);
-            }
+            // if (graph.Enabled) {
+            //     graph.Value.currentTrace = _nextState._trace;
+            //     _nextState._trace.ForEach(Debug.Log);
+            // }
         }
 
         /// <summary>
