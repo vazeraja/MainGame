@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f385209e995b2b24d9b8172f40eaf3f7
   nodeTitle: RootMovement_AirJump
-  position: {x: 968, y: -514}
+  position: {x: 965.7984, y: -514}
   nodes:
   - {fileID: -1620949668163360245}
   - {fileID: -7861671682695949504}
@@ -592,8 +592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5e3316d054fe63f4584f550bd0b94333
   nodeTitle: 
-  position: {x: 214.27538, y: -183.00005}
-  next: {fileID: 0}
+  position: {x: -40.95999, y: -221}
+  next: {fileID: 9141405596328664425}
   overrides: []
 --- !u!114 &7835456377009927491
 MonoBehaviour:
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 2fae0acecefec5a4eb141b3f687db279
   nodeTitle: 
-  position: {x: 0, y: 0}
+  position: {x: 191, y: -244}
   cels: []
   controlDriver:
     name: 
