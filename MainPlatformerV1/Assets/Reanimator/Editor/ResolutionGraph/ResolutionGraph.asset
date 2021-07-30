@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 7a2bb84e27baa104fa077cfe6069db74
   nodeTitle: BaseNode
   position: {x: 0, y: 0}
-  root: {fileID: 0}
+  root: {fileID: -6689801868859213147}
 --- !u!114 &-6689801868859213147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f3b175a540fa3e8479f4c017722fe5fe
   nodeTitle: RunAnimation
-  position: {x: 507, y: -110}
+  position: {x: 266.23334, y: -1.5000191}
   cels:
   - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,
       type: 3}
@@ -82,15 +82,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ResolutionGraph
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
+  sprite: {fileID: 0}
+  root: {fileID: -6689801868859213147}
   nodes:
   - {fileID: -6966010986285571502}
   - {fileID: -6689801868859213147}
+  currentTrace: []
   SaveData:
     CommentBlockData:
     - ChildNodes:
       - f3b175a540fa3e8479f4c017722fe5fe
-      - 1c9a605c37f55b446b31a36fb0d817f7
-      - 7fcfaf537ced92742a5f37d71255c070
       Position: {x: 238, y: -258}
       Title: Run

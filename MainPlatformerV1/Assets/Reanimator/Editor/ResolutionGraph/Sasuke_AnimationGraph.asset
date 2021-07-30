@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: Sasuke_AnimationGraph
   m_EditorClassIdentifier: 
+  sprite: {fileID: 2119321894245011408, guid: 8cb61626df0de444ba5c773b94c7ba59, type: 3}
   root: {fileID: 4312978999189567477}
   nodes:
   - {fileID: -1168521784519300095}
@@ -361,6 +362,13 @@ MonoBehaviour:
   - {fileID: 5145656718631313926}
   - {fileID: -9130189663412503569}
   - {fileID: 5441868800992372898}
+  - {fileID: 9141405596328664425}
+  currentTrace:
+  - {fileID: 4312978999189567477}
+  - {fileID: 1210843896723939208}
+  - {fileID: 7835456377009927491}
+  - {fileID: -347048784571739294}
+  - {fileID: 4121047940114990893}
   SaveData:
     CommentBlockData: []
 --- !u!114 &1210843896723939208
@@ -451,7 +459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 069c5c17a9493314ab6769232ad1bbbb
   nodeTitle: IdleAnimation
-  position: {x: 1297, y: -126}
+  position: {x: 1297, y: -119.00004}
   cels:
   - sprite: {fileID: -2937644175521846342, guid: f31e889de574c78499d5df74639f2b86,
       type: 3}
@@ -636,6 +644,30 @@ MonoBehaviour:
     autoIncrement: 0
     percentageBased: 0
     guid: f83e046f-94b9-4c80-87ff-5de5c2e1d60e
+  drivers:
+    keys: []
+    values: 
+--- !u!114 &9141405596328664425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
+  m_Name: SimpleAnimationNode
+  m_EditorClassIdentifier: 
+  guid: 2fae0acecefec5a4eb141b3f687db279
+  nodeTitle: 
+  position: {x: 0, y: 0}
+  cels: []
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: dce8cda4-a014-4b9c-ae78-e0aeeb8f238b
   drivers:
     keys: []
     values: 

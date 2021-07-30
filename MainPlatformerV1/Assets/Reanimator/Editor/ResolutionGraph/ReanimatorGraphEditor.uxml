@@ -5,11 +5,11 @@
     </uie:Toolbar>
     <Aarthificial.Reanimation.ResolutionGraph.Editor.TwoPanelCustomControl fixed-pane-initial-dimension="750">
         <ui:VisualElement name="left-panel">
-            <ui:Label text="Resolution Graph" display-tooltip-when-elided="true" style="border-left-color: rgba(56, 56, 56, 255); border-right-color: rgba(56, 56, 56, 255); border-top-color: rgba(56, 56, 56, 255); border-bottom-color: rgba(56, 56, 56, 255); background-color: rgba(13, 55, 58, 255);" />
+            <ui:Label text="Resolution Graph" display-tooltip-when-elided="true" style="border-left-color: rgb(56, 56, 56); border-right-color: rgb(56, 56, 56); border-top-color: rgb(56, 56, 56); border-bottom-color: rgb(56, 56, 56); background-color: rgb(13, 55, 58);" />
             <Aarthificial.Reanimation.ResolutionGraph.Editor.ReanimatorGraphView focusable="true" style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="right-panel">
-            <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgba(13, 55, 58, 255);" />
+            <ui:Label text="Inspector" display-tooltip-when-elided="true" style="background-color: rgb(13, 55, 58);" />
             <Aarthificial.Reanimation.ResolutionGraph.Editor.InspectorCustomControl style="flex-grow: 1;" />
         </ui:VisualElement>
     </Aarthificial.Reanimation.ResolutionGraph.Editor.TwoPanelCustomControl>

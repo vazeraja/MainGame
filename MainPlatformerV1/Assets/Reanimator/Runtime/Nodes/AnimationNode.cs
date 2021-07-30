@@ -1,4 +1,5 @@
-﻿using Aarthificial.Reanimation.Cels;
+﻿using System;
+using Aarthificial.Reanimation.Cels;
 using Aarthificial.Reanimation.Common;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Aarthificial.Reanimation.Nodes {
         [SerializeField] protected TCel[] cels;
         [SerializeField] protected ControlDriver controlDriver = new ControlDriver();
         [SerializeField] protected DriverDictionary drivers = new DriverDictionary();
-
+        
         public override TerminationNode Resolve(IReadOnlyReanimatorState previousState, ReanimatorState nextState)
         {
             AddTrace(nextState);

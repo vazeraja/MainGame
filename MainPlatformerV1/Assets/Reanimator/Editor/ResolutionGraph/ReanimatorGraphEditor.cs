@@ -28,6 +28,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
         private InspectorCustomControl inspectorCustomControl;
+        private PreviewContainer previewContainer;
 
         private void OnEnable()
         {
@@ -87,6 +88,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private void OnNodeSelectionChanged(ReanimatorGraphNode node)
         {
             inspectorCustomControl.UpdateSelection(node);
+            // previewContainer.DisplaySpritePreview(node);
         }
 
         private void CreateDragAndDropNodes()
