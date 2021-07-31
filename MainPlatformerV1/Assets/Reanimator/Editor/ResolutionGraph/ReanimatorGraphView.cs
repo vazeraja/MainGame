@@ -22,7 +22,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public Blackboard Blackboard;
         public List<ExposedProperty> ExposedProperties = new List<ExposedProperty>();
 
-        private IEnumerable<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
+        private IEnumerable<ReanimatorGroup> CommentBlocks => graphElements.ToList().Where(x => x is ReanimatorGroup).Cast<ReanimatorGroup>().ToList();
         private IEnumerable<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
         private IEnumerable<Edge> GraphEdges => edges.ToList();
 
@@ -47,6 +47,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 Initialize(graph, editorWindow, inspector);
                 AssetDatabase.SaveAssets();
             };
+            
+            EditorApplication.update -= PlayAnimationPreview;
+            EditorApplication.update += PlayAnimationPreview;
         }
 
         public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow, InspectorCustomControl inspector)
@@ -154,12 +157,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     case ReanimatorGraphNode nodeDisplay:
                         graph.DeleteSubAsset(nodeDisplay.node);
                         break;
-                    case Edge edge: {
+                    case Edge edge: 
                         ReanimatorGraphNode parent = edge.output.node as ReanimatorGraphNode;
                         ReanimatorGraphNode child = edge.input.node as ReanimatorGraphNode;
                         graph.RemoveChild(parent?.node, child?.node);
                         break;
-                    }
+                    case ReanimatorGroup group:
+                        SaveToGraphSaveData();
+                        break;
                 }
             });
 
@@ -168,6 +173,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 ReanimatorGraphNode child = edge.input.node as ReanimatorGraphNode;
 
                 graph.AddChild(parent?.node, child?.node);
+                SaveToGraphSaveData();
             });
 
             return graphViewChange;

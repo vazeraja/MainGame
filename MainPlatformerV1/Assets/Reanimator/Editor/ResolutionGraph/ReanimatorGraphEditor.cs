@@ -28,7 +28,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ResolutionGraph resolutionGraph;
         private ReanimatorGraphView editorGraph;
         private InspectorCustomControl inspector;
-
+        
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
@@ -49,12 +49,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 SelectTree(resolutionGraph);
             }
         }
-
-        private void Update()
-        {
-            editorGraph?.PlayAnimationPreview();
-        }
-
         private void OnSelectionChange()
         {
             EditorApplication.delayCall += () => {

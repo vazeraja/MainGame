@@ -363,7 +363,10 @@ MonoBehaviour:
   - {fileID: -9130189663412503569}
   currentTrace: []
   SaveData:
-    CommentBlockData: []
+    CommentBlockData:
+    - ChildNodes: []
+      Position: {x: -205.99997, y: -367.99994}
+      Title: Comment Block
 --- !u!114 &1210843896723939208
 MonoBehaviour:
   m_ObjectHideFlags: 0
