@@ -25,7 +25,7 @@ namespace Aarthificial.Reanimation.Editor.Nodes
 
         protected virtual void OnEnable()
         {
-            AddCustomProperty("nodeTitle");
+            AddCustomProperty("title");
             AddCustomProperty("controlDriver");
             AddCustomProperty("drivers");
             Cels = AddCustomProperty("cels");
@@ -166,5 +166,6 @@ namespace Aarthificial.Reanimation.Editor.Nodes
                 }
             }
         }
+        
     }
 }

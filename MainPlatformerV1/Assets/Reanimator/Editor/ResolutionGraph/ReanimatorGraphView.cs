@@ -54,12 +54,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.editorWindow = editorWindow;
 
             graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(graphElements);
+            DeleteElements(graphElements.ToList());
             graphViewChanged += OnGraphViewChanged;
             
             CreateSearchWindow(editorWindow);
-            //CreateBlackboard();
-            //CreateMiniMap();
+            // CreateBlackboard();
+            CreateMiniMap();
             LoadGraph();
         }
 

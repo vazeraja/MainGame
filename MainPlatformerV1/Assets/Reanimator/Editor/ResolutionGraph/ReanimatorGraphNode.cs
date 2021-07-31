@@ -24,7 +24,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.graph = graph;
             this.node = node;
 
-            this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
+            this.node.name = node.title == string.Empty ? node.GetType().Name : node.title;
             title = node.GetType().Name;
             
             viewDataKey = node.guid;
@@ -61,7 +61,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private void CreateTitleEditField()
         {
             Label description = this.Q<Label>("title-label");
-            description.bindingPath = "nodeTitle";
+            description.bindingPath = "title";
             description.Bind(new SerializedObject(node));
             
             var textField = new TextField();

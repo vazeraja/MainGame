@@ -8,7 +8,7 @@ namespace Aarthificial.Reanimation.Editor.Nodes
     {
         protected void OnEnable()
         {
-            AddCustomProperty("nodeTitle");
+            AddCustomProperty("title");
             AddCustomProperty("controlDriver");
             AddCustomProperty("drivers");
             AddCustomProperty("nodes");

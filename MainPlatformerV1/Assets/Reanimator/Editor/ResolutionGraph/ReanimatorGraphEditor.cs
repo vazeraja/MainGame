@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using Aarthificial.Reanimation.Editor;
 using Aarthificial.Reanimation.Editor.Nodes;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Object = System.Object;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphEditor : EditorWindow {
@@ -32,7 +28,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private InspectorCustomControl inspectorCustomControl;
         private UnityEditor.Editor editor;
         private ReanimatorNodeEditor anotherEditor;
-        
+        private AnimationNodeEditor animationEditor;
+        private bool simple;
+
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
@@ -63,9 +61,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inspectorCustomControl.Clear();
             DestroyImmediate(editor);
             DestroyImmediate(anotherEditor);
+            DestroyImmediate(animationEditor);
 
             editor = UnityEditor.Editor.CreateEditor(node.node);
             anotherEditor = UnityEditor.Editor.CreateEditor(node.node) as ReanimatorNodeEditor;
+            animationEditor = UnityEditor.Editor.CreateEditor(node.node) as AnimationNodeEditor;
 
             IMGUIContainer container = new IMGUIContainer(() => {
                 if (editor && editor.target) {
@@ -75,12 +75,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                             editor.OnInspectorGUI();
                             break;
                         case SimpleAnimationNode _:
+                            simple = true;
+                            animationEditor.OnInspectorGUI();
+                            animationEditor.RequiresConstantRepaint();
+                            animationEditor.HasPreviewGUI();
+                            animationEditor.OnPreviewGUI(GUILayoutUtility.GetRect(200, 200), new GUIStyle());
+                            break;
                         case SwitchNode _: {
                             anotherEditor.OnInspectorGUI();
-                            if (node.node is SimpleAnimationNode) {
-                                Helpers.DrawTexturePreview(GUILayoutUtility.GetRect(150, 150), node.graph.sprite);
-                            }
-
                             break;
                         }
                     }
@@ -89,7 +91,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
             inspectorCustomControl.Add(container);
         }
-        
+
+        private void OnInspectorUpdate()
+        {
+            
+        }
+
         private void OnSelectionChange()
         {
             EditorApplication.delayCall += () => {

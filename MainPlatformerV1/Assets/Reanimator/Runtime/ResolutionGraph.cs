@@ -21,7 +21,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph {
         public static List<ReanimatorNode> GetChildren(ReanimatorNode parent)
         {
             List<ReanimatorNode> children = new List<ReanimatorNode>();
-
+            
             switch (parent) {
                 case BaseNode rootNode when rootNode.root != null:
                     children.Add(rootNode.root);

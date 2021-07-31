@@ -16,7 +16,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             target.UnregisterCallback<DragExitedEvent>(CreateDragAndDropNodes);
         }
 
-        private void CreateDragAndDropNodes(DragExitedEvent evt)
+        private void CreateDragAndDropNodes(DragExitedEvent evt) 
         {
             if (!(target is ReanimatorGraphView graphView)) return;
             if (DragAndDrop.objectReferences == null) return;
