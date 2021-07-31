@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 9b2fc9b1233627f4485f3ae8af27b699
   title: RunAnimation
-  position: {x: 1012.99994, y: -220.99994}
+  position: {x: 1010.00006, y: -221.00005}
   cels:
   - sprite: {fileID: -3434879642533976785, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cbdb7e6637779c04cb883e5786835887
   title: RootMovement_Ground
-  position: {x: 734, y: -169}
+  position: {x: 734.0001, y: -169.00005}
   nodes:
   - {fileID: -347048784571739294}
   - {fileID: -3296058019168418609}
