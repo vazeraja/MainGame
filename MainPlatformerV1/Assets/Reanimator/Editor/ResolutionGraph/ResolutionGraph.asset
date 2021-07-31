@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 7a2bb84e27baa104fa077cfe6069db74
   nodeTitle: BaseNode
   position: {x: 0, y: 0}
-  root: {fileID: -6689801868859213147}
+  root: {fileID: 4075698059609802293}
 --- !u!114 &-6689801868859213147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f3b175a540fa3e8479f4c017722fe5fe
   nodeTitle: RunAnimation
-  position: {x: 266.23334, y: -1.5000191}
+  position: {x: 507, y: 34.85}
   cels:
   - sprite: {fileID: 8562431805029759849, guid: d907cee78eda0484e9ed0c704dd5ac50,
       type: 3}
@@ -82,15 +82,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec083b8678648e496376b01594506fa, type: 3}
   m_Name: ResolutionGraph
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  root: {fileID: -6689801868859213147}
+  sprite: {fileID: -4337030984175252958, guid: 1e9c17df720c0ba4f90f4102589b69c1, type: 3}
+  root: {fileID: 4075698059609802293}
   nodes:
   - {fileID: -6966010986285571502}
   - {fileID: -6689801868859213147}
+  - {fileID: 4075698059609802293}
   currentTrace: []
   SaveData:
     CommentBlockData:
     - ChildNodes:
       - f3b175a540fa3e8479f4c017722fe5fe
-      Position: {x: 238, y: -258}
+      Position: {x: 390, y: -37.999985}
       Title: Run
+--- !u!114 &4075698059609802293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
+  m_Name: SwitchNode
+  m_EditorClassIdentifier: 
+  guid: f0491f65172583448bb092a4b22e9296
+  nodeTitle: 
+  position: {x: 248, y: 118.119995}
+  nodes:
+  - {fileID: -6689801868859213147}
+  controlDriver:
+    name: 
+    autoIncrement: 0
+    percentageBased: 0
+    guid: d177d131-62bc-4543-8106-c50bd3effeef
+  drivers:
+    keys: []
+    values: 

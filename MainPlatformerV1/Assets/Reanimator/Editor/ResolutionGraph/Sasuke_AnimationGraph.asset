@@ -361,14 +361,7 @@ MonoBehaviour:
   - {fileID: 4121047940114990893}
   - {fileID: 5145656718631313926}
   - {fileID: -9130189663412503569}
-  - {fileID: 5441868800992372898}
-  - {fileID: 9141405596328664425}
-  currentTrace:
-  - {fileID: 4312978999189567477}
-  - {fileID: 1210843896723939208}
-  - {fileID: 7835456377009927491}
-  - {fileID: -347048784571739294}
-  - {fileID: 4121047940114990893}
+  currentTrace: []
   SaveData:
     CommentBlockData: []
 --- !u!114 &1210843896723939208
@@ -578,23 +571,6 @@ MonoBehaviour:
   drivers:
     keys: []
     values: 
---- !u!114 &5441868800992372898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd1e6768d7d47f2976614169efeebba, type: 3}
-  m_Name: OverrideNode
-  m_EditorClassIdentifier: 
-  guid: 5e3316d054fe63f4584f550bd0b94333
-  nodeTitle: 
-  position: {x: -40.95999, y: -221}
-  next: {fileID: 9141405596328664425}
-  overrides: []
 --- !u!114 &7835456377009927491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,30 +620,6 @@ MonoBehaviour:
     autoIncrement: 0
     percentageBased: 0
     guid: f83e046f-94b9-4c80-87ff-5de5c2e1d60e
-  drivers:
-    keys: []
-    values: 
---- !u!114 &9141405596328664425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: SimpleAnimationNode
-  m_EditorClassIdentifier: 
-  guid: 2fae0acecefec5a4eb141b3f687db279
-  nodeTitle: 
-  position: {x: 191, y: -244}
-  cels: []
-  controlDriver:
-    name: 
-    autoIncrement: 0
-    percentageBased: 0
-    guid: dce8cda4-a014-4b9c-ae78-e0aeeb8f238b
   drivers:
     keys: []
     values: 

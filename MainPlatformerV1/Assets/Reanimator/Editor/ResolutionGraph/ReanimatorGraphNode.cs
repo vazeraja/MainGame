@@ -4,6 +4,7 @@ using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
@@ -12,24 +13,19 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public readonly ResolutionGraph graph;
 
         public Action<ReanimatorGraphNode> OnNodeSelected;
+        public const string nodeStyleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml";
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base(
-            "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml")
+        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base(nodeStyleSheetPath)
         {
             // UseDefaultStyling();
             this.graph = graph;
             this.node = node;
 
-            this.node.name = node.nodeTitle == string.Empty
-                ? node.GetType().Name
-                : node.nodeTitle;
-            // title = node.nodeTitle == string.Empty
-            //     ? node.name.Replace("(Clone)", "").Replace("Node", "")
-            //     : node.nodeTitle;
-            title = node.name.Replace("(Clone)", "").Replace("Node", "");
+            this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
+            title = node.GetType().Name;
             
             viewDataKey = node.guid;
 
@@ -40,16 +36,6 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             CreateOutputPorts();
             CreateTitleEditField();
             SetupClasses();
-            EditorUtility.SetDirty(this.graph);
-
-            switch (node) {
-                case BaseNode _:
-                    capabilities &= ~Capabilities.Movable;
-                    capabilities &= ~Capabilities.Deletable;
-                    break;
-                case SwitchNode switchNode:
-                    break;
-            }
         }
 
         private void SetupClasses()
@@ -65,6 +51,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                     AddToClassList("override");
                     break;
                 case BaseNode _:
+                    capabilities &= ~Capabilities.Movable;
+                    capabilities &= ~Capabilities.Deletable;
                     AddToClassList("base");
                     break;
             }
@@ -72,11 +60,11 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateTitleEditField()
         {
+            Label description = this.Q<Label>("title-label");
+            description.bindingPath = "nodeTitle";
+            description.Bind(new SerializedObject(node));
+            
             var textField = new TextField();
-            textField.RegisterValueChangedCallback(evt => {
-                title = evt.newValue;
-                node.nodeTitle = evt.newValue;
-            });
             extensionContainer.Add(textField);
         }
 

@@ -18,6 +18,9 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
 
+        public Blackboard Blackboard;
+        public List<ExposedProperty> ExposedProperties = new List<ExposedProperty>();
+
         private IEnumerable<Group> CommentBlocks => graphElements.ToList().Where(x => x is Group).Cast<Group>().ToList();
         private IEnumerable<ReanimatorGraphNode> GraphNodes => nodes.ToList().Cast<ReanimatorGraphNode>().ToList();
         private IEnumerable<Edge> GraphEdges => edges.ToList();
@@ -37,6 +40,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
+            this.AddManipulator(new DragAndDropManipulator());
 
             Undo.undoRedoPerformed += () => {
                 Initialize(graph, editorWindow);
@@ -54,7 +58,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             graphViewChanged += OnGraphViewChanged;
             
             CreateSearchWindow(editorWindow);
-            CreateMiniMap();
+            //CreateBlackboard();
+            //CreateMiniMap();
             LoadGraph();
         }
 
@@ -68,6 +73,36 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             searchWindowProvider.Initialize(window, this);
             nodeCreationRequest = context =>
                 SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindowProvider);
+        }
+
+        private void CreateBlackboard()
+        {
+            var blackboard = new Blackboard(this);
+            blackboard.Add(new BlackboardSection{title = "Exposed Drivers"});
+            blackboard.addItemRequested = blackboard1 => {
+                AddBlackboardProperty(new ExposedProperty());
+            };
+            Blackboard = blackboard;
+            Add(blackboard);
+        }
+
+        [Serializable]
+        public class ExposedProperty {
+            public string propertyName = "new prop";
+        }
+        private void AddBlackboardProperty(ExposedProperty prop)
+        {
+            var property = new ExposedProperty();
+            property.propertyName = prop.propertyName;
+            ExposedProperties.Add(property);
+
+            var ve = new VisualElement();
+            var blackboardField = new BlackboardField {
+                text = property.propertyName,
+                typeText = "string prop"
+            };
+            ve.Add(blackboardField);
+            Blackboard.Add(ve);
         }
 
         /// <summary>
@@ -136,71 +171,49 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             return graphViewChange;
         }
 
-        public void CreateNode(Type type, Vector2 nodePosition)
+        public ReanimatorNode CreateNode(Type type, Vector2 nodePosition)
         {
-            var node = graph.CreateSubAsset(type);
+            ReanimatorNode node = graph.CreateSubAsset(type);
             node.position = nodePosition;
             CreateGraphNode(node);
+            return node;
         }
-        
+
         /// <summary>
         /// Creates a simple animation node on the graph
-        /// if it was dragged into the window from the project folder
+        /// -- Used for drag and drop nodes --
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="type"></param>
+        /// <param name="nodePosition"></param>
         /// <param name="simpleCels"></param>
         /// <param name="controlDriver"></param>
         /// <param name="driverDictionary"></param>
         public void CreateSimpleAnimationNode(
-            ReanimatorNode node,
+            Type type,
+            Vector2 nodePosition,
             IEnumerable<SimpleCel> simpleCels,
             ControlDriver controlDriver,
             DriverDictionary driverDictionary)
         {
-            if (!(graph.CreateSubAsset(node.GetType()) is SimpleAnimationNode simpleAnimationNode)) 
-                return;
+            if (!(CreateNode(type, nodePosition) is SimpleAnimationNode simpleAnimationNode)) return;
             var nodeSprites = simpleCels as SimpleCel[] ?? simpleCels.ToArray();
             simpleAnimationNode.sprites = nodeSprites;
             simpleAnimationNode.ControlDriver = controlDriver;
             simpleAnimationNode.Drivers = driverDictionary;
 
-            CreateGraphNode(simpleAnimationNode);
         }
-        
+
         /// <summary>
         /// Creates a switch node on the graph
-        /// if it was dragged into the window from the project folder
+        /// -- Used for drag and drop nodes --
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="nodePosition"></param>
         /// <param name="reanimatorNodes"></param>
-        public void CreateSwitchNode(Type type, List<ReanimatorNode> reanimatorNodes)
+        public void CreateSwitchNode(Type type, Vector2 nodePosition, List<ReanimatorNode> reanimatorNodes)
         {
-            if (graph.CreateSubAsset(type) is SwitchNode switchNode) {
-                switchNode.nodes = reanimatorNodes;
-        
-                CreateGraphNode(switchNode);
-        
-                // foreach (ReanimatorNode node in switchNode.nodes) {
-                //     switch (node) {
-                //         case SwitchNode innerSwitchNode: {
-                //             var innerSwitchNodes = innerSwitchNode.nodes;
-                //             EditorApplication.delayCall += () => {
-                //                 CreateSwitchNode(innerSwitchNode.GetType(), innerSwitchNodes);
-                //             };
-                //             break;
-                //         }
-                //         case SimpleAnimationNode simpleAnimationNode: {
-                //             var cels = simpleAnimationNode.sprites;
-                //             var controlDriver = simpleAnimationNode.ControlDriver;
-                //             var drivers = simpleAnimationNode.Drivers;
-                //             EditorApplication.delayCall += () => {
-                //                 CreateSimpleAnimationNode(simpleAnimationNode, cels, controlDriver, drivers);
-                //             };
-                //             break;
-                //         }
-                //     }
-                // }
-            }
+            if (!(CreateNode(type, nodePosition) is SwitchNode switchNode)) return;
+            switchNode.nodes = reanimatorNodes;
         }
 
         private void CreateGraphNode(ReanimatorNode node)
