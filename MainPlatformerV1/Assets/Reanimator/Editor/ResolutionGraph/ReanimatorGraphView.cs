@@ -17,6 +17,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private ResolutionGraph graph;
         private ReanimatorSearchWindowProvider searchWindowProvider;
         private ReanimatorGraphEditor editorWindow;
+        private InspectorCustomControl inspector;
 
         public Blackboard Blackboard;
         public List<ExposedProperty> ExposedProperties = new List<ExposedProperty>();
@@ -43,15 +44,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new DragAndDropManipulator());
 
             Undo.undoRedoPerformed += () => {
-                Initialize(graph, editorWindow);
+                Initialize(graph, editorWindow, inspector);
                 AssetDatabase.SaveAssets();
             };
         }
 
-        public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow)
+        public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow, InspectorCustomControl inspector)
         {
             this.graph = graph;
             this.editorWindow = editorWindow;
+            this.inspector = inspector;
 
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements.ToList());
@@ -218,12 +220,17 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void CreateGraphNode(ReanimatorNode node)
         {
-            var graphNode = new ReanimatorGraphNode(node, graph) {
-                OnNodeSelected = OnNodeSelected
-            };
-
+            var graphNode = new ReanimatorGraphNode(node, inspector);
             graphNode.OnSelected();
             AddElement(graphNode);
+        }
+
+        public void Update()
+        {
+            nodes.ForEach(node => {
+                if (node is ReanimatorGraphNode graphNode)
+                    graphNode.Update();
+            });
         }
         public void SaveToGraphSaveData()
         {

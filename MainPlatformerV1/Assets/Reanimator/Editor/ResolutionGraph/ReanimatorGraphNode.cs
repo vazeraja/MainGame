@@ -10,34 +10,34 @@ using UnityEngine.UIElements;
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         public readonly ReanimatorNode node;
-        public readonly ResolutionGraph graph;
-
-        public Action<ReanimatorGraphNode> OnNodeSelected;
+        private InspectorCustomControl inspector;
+        
         public const string nodeStyleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml";
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base(nodeStyleSheetPath)
+        public ReanimatorGraphNode(ReanimatorNode node, InspectorCustomControl inspector) : base(nodeStyleSheetPath)
         {
             // UseDefaultStyling();
-            this.graph = graph;
             this.node = node;
+            this.inspector = inspector;
 
             this.node.name = node.title == string.Empty ? node.GetType().Name : node.title;
             title = node.GetType().Name;
-            
             viewDataKey = node.guid;
 
             style.left = node.position.x;
             style.top = node.position.y;
 
+            this.AddManipulator(new InspectorMouseOverManipulator(inspector));
+            
             CreateInputPorts();
             CreateOutputPorts();
             CreateTitleEditField();
             SetupClasses();
         }
-
+        
         private void SetupClasses()
         {
             switch (node) {
@@ -125,10 +125,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             EditorUtility.SetDirty(node);
         }
 
-        public override void OnSelected()
+        public void Update()
         {
-            base.OnSelected();
-            OnNodeSelected?.Invoke(this);
+            RemoveFromClassList("selected");
+            RemoveFromClassList("not-selected");
+             
+            switch (selected) {
+                 case true:
+                     AddToClassList("selected");
+                     break;
+                 case false:
+                     AddToClassList("not-selected");
+                     break;
+            }
         }
+        
     }
 }

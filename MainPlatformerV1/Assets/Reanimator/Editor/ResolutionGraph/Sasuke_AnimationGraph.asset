@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38410541ac5f4ea48c5cdb5f1d957b6f, type: 3}
-  m_Name: Run Animation
+  m_Name: JumpAnimation
   m_EditorClassIdentifier: 
   guid: 7cc164ab5cb9354428846ef421b16096
   title: JumpAnimation
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 4c81fdd4ff18f8f41a57d94ed6f9d667
   title: FlipAnimation
-  position: {x: 966, y: -394.99997}
+  position: {x: 966, y: -395.00006}
   cels:
   - sprite: {fileID: -14635915900717176, guid: 70334b78acba2ad4db16b9e6a5515a8d, type: 3}
     drivers:

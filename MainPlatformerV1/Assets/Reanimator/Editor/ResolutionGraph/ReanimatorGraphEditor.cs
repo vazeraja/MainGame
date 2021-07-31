@@ -22,31 +22,25 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             ShowWindow();
             return true;
         }
+        private const string visualTreePath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml";
+        private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
 
         private ResolutionGraph graph;
         private ReanimatorGraphView graphView;
-        private InspectorCustomControl inspectorCustomControl;
-        private UnityEditor.Editor editor;
-        private ReanimatorNodeEditor anotherEditor;
-        private AnimationNodeEditor animationEditor;
-        private bool simple;
+        private InspectorCustomControl inspector;
 
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
 
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
-                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(visualTreePath);
             visualTree.CloneTree(root);
 
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
-                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(styleSheetPath);
             root.styleSheets.Add(styleSheet);
 
             graphView = root.Q<ReanimatorGraphView>();
-            inspectorCustomControl = root.Q<InspectorCustomControl>();
-
-            graphView.OnNodeSelected = OnNodeSelectionChanged;
+            inspector = root.Q<InspectorCustomControl>();
 
             if (graph == null) {
                 OnSelectionChange();
@@ -55,46 +49,10 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                 SelectTree(graph);
             }
         }
-        
-        private void OnNodeSelectionChanged(ReanimatorGraphNode node)
+
+        private void Update()
         {
-            inspectorCustomControl.Clear();
-            DestroyImmediate(editor);
-            DestroyImmediate(anotherEditor);
-            DestroyImmediate(animationEditor);
-
-            editor = UnityEditor.Editor.CreateEditor(node.node);
-            anotherEditor = UnityEditor.Editor.CreateEditor(node.node) as ReanimatorNodeEditor;
-            animationEditor = UnityEditor.Editor.CreateEditor(node.node) as AnimationNodeEditor;
-
-            IMGUIContainer container = new IMGUIContainer(() => {
-                if (editor && editor.target) {
-                    switch (node.node) {
-                        case OverrideNode _:
-                        case BaseNode _:
-                            editor.OnInspectorGUI();
-                            break;
-                        case SimpleAnimationNode _:
-                            simple = true;
-                            animationEditor.OnInspectorGUI();
-                            animationEditor.RequiresConstantRepaint();
-                            animationEditor.HasPreviewGUI();
-                            animationEditor.OnPreviewGUI(GUILayoutUtility.GetRect(200, 200), new GUIStyle());
-                            break;
-                        case SwitchNode _: {
-                            anotherEditor.OnInspectorGUI();
-                            break;
-                        }
-                    }
-                }
-            });
-
-            inspectorCustomControl.Add(container);
-        }
-
-        private void OnInspectorUpdate()
-        {
-            
+            graphView?.Update();
         }
 
         private void OnSelectionChange()
@@ -119,14 +77,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             if (graphView == null || !newGraph) {
                 return;
             }
-            
+
             graph = newGraph;
 
             if (Application.isPlaying) {
-                graphView.Initialize(graph, this);
+                graphView.Initialize(graph, this, inspector);
             }
             else {
-                graphView.Initialize(graph, this);
+                graphView.Initialize(graph, this, inspector);
             }
 
             EditorApplication.delayCall += () => { graphView.FrameAll(); };
