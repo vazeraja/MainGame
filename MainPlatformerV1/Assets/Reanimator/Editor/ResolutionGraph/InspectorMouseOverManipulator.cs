@@ -9,10 +9,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class InspectorMouseOverManipulator : MouseManipulator {
         
         private readonly InspectorCustomControl inspector;
+        private ReanimatorGraphView reanimatorGraphView;
 
         private UnityEditor.Editor editor;
-        private ReanimatorNodeEditor anotherEditor;
         private AnimationNodeEditor animationEditor;
+        private SwitchNodeEditor switchNodeEditor;
+        private OverrideNodeEditor overrideNodeEditor;
 
         protected override void RegisterCallbacksOnTarget()
         {
@@ -24,52 +26,46 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             target.UnregisterCallback<MouseDownEvent>(ShowInInspector);
         }
 
-        public InspectorMouseOverManipulator(InspectorCustomControl inspector)
+        public InspectorMouseOverManipulator(ReanimatorGraphView reanimatorGraphView, InspectorCustomControl inspector)
         {
             this.inspector = inspector;
+            this.reanimatorGraphView = reanimatorGraphView;
         }
         private void ShowInInspector(MouseDownEvent evt)
         {
-            // if (!(target is ReanimatorGraphNode graphNode)) return;
-            
-            if (!CanStopManipulation(evt))
-                return;
+            if (!(target is ReanimatorGraphNode graphNode)) return;
+            if (!CanStopManipulation(evt)) return;
 
-            if (!(evt.target is ReanimatorGraphNode clickedElement)) {
-                var ve = evt.target as VisualElement;
-                clickedElement = ve?.GetFirstAncestorOfType<ReanimatorGraphNode>();
-                if (clickedElement == null)
-                    return;
-            }
-            
             inspector.Clear();
             
             DestroyImmediate(editor);
-            DestroyImmediate(anotherEditor);
+            DestroyImmediate(switchNodeEditor);
             DestroyImmediate(animationEditor);
+            DestroyImmediate(overrideNodeEditor);
             
-            editor = UnityEditor.Editor.CreateEditor(clickedElement.node);
-            anotherEditor = UnityEditor.Editor.CreateEditor(clickedElement.node) as ReanimatorNodeEditor;
-            animationEditor = UnityEditor.Editor.CreateEditor(clickedElement.node) as AnimationNodeEditor;
-
+            editor = UnityEditor.Editor.CreateEditor(graphNode.node);
+            switchNodeEditor = UnityEditor.Editor.CreateEditor(graphNode.node) as SwitchNodeEditor;
+            animationEditor = UnityEditor.Editor.CreateEditor(graphNode.node) as AnimationNodeEditor;
+            overrideNodeEditor = UnityEditor.Editor.CreateEditor(graphNode.node) as OverrideNodeEditor;
 
             IMGUIContainer container = new IMGUIContainer(() => {
                 if (editor && editor.target) {
-                    switch (clickedElement.node) {
-                        case OverrideNode _:
-                        case BaseNode _:
+                    switch (graphNode.node) {
+                        case OverrideNode _ when graphNode.IsSelected(reanimatorGraphView):
+                            overrideNodeEditor.OnInspectorGUI();
+                            break;
+                        case BaseNode _ when graphNode.IsSelected(reanimatorGraphView):
                             editor.OnInspectorGUI();
                             break;
-                        case SimpleAnimationNode _:
+                        case SimpleAnimationNode _ when graphNode.IsSelected(reanimatorGraphView):
                             animationEditor.OnInspectorGUI();
                             animationEditor.RequiresConstantRepaint();
                             animationEditor.HasPreviewGUI();
                             animationEditor.OnPreviewGUI(GUILayoutUtility.GetRect(200, 200), new GUIStyle());
                             break;
-                        case SwitchNode _: {
-                            anotherEditor.OnInspectorGUI();
+                        case SwitchNode _ when graphNode.IsSelected(reanimatorGraphView): 
+                            switchNodeEditor.OnInspectorGUI();
                             break;
-                        }
                     }
                 }
             });

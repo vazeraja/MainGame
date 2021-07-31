@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 8888fbbc40ce6ee45b940373ac11a8dc
   title: RootMovement_Idle
-  position: {x: 1010, y: -61}
+  position: {x: 1010.00006, y: -67.00007}
   nodes:
   - {fileID: 4121047940114990893}
   - {fileID: 5145656718631313926}

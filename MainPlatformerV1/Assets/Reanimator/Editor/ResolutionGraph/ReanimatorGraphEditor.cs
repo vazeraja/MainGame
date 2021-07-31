@@ -26,7 +26,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
 
         private ResolutionGraph resolutionGraph;
-        private ReanimatorGraphView graph;
+        private ReanimatorGraphView editorGraph;
         private InspectorCustomControl inspector;
 
         public void CreateGUI()
@@ -39,7 +39,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(styleSheetPath);
             root.styleSheets.Add(styleSheet);
 
-            graph = root.Q<ReanimatorGraphView>();
+            editorGraph = root.Q<ReanimatorGraphView>();
             inspector = root.Q<InspectorCustomControl>();
 
             if (resolutionGraph == null) {
@@ -52,7 +52,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void Update()
         {
-            graph?.PlayAnimationPreview();
+            editorGraph?.PlayAnimationPreview();
         }
 
         private void OnSelectionChange()
@@ -74,20 +74,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void SelectTree(ResolutionGraph newGraph)
         {
-            if (graph == null || !newGraph) {
+            if (editorGraph == null || !newGraph) {
                 return;
             }
 
             resolutionGraph = newGraph;
 
             if (Application.isPlaying) {
-                graph.Initialize(resolutionGraph, this, inspector);
+                editorGraph.Initialize(resolutionGraph, this, inspector);
             }
             else {
-                graph.Initialize(resolutionGraph, this, inspector);
+                editorGraph.Initialize(resolutionGraph, this, inspector);
             }
 
-            EditorApplication.delayCall += () => { graph.FrameAll(); };
+            EditorApplication.delayCall += () => { editorGraph.FrameAll(); };
         }
     }
 }

@@ -11,17 +11,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         public readonly ReanimatorNode node;
         private InspectorCustomControl inspector;
-        
+        private ReanimatorGraphView graphView;
+
         public const string nodeStyleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml";
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, InspectorCustomControl inspector) : base(nodeStyleSheetPath)
+        public ReanimatorGraphNode(ReanimatorNode node, ReanimatorGraphView graphView, InspectorCustomControl inspector)
+            : base(nodeStyleSheetPath)
         {
             // UseDefaultStyling();
             this.node = node;
             this.inspector = inspector;
+            this.graphView = graphView;
 
             this.node.name = node.title == string.Empty ? node.GetType().Name : node.title;
             title = node.GetType().Name;
@@ -30,14 +33,14 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             style.left = node.position.x;
             style.top = node.position.y;
 
-            this.AddManipulator(new InspectorMouseOverManipulator(inspector));
+            this.AddManipulator(new InspectorMouseOverManipulator(graphView, inspector));
 
             CreateInputPorts();
             CreateOutputPorts();
             CreateTitleEditField();
             SetupClasses();
         }
-        
+
         private void SetupClasses()
         {
             switch (node) {
@@ -63,7 +66,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             Label description = this.Q<Label>("title-label");
             description.bindingPath = "title";
             description.Bind(new SerializedObject(node));
-            
+
             var textField = new TextField();
             extensionContainer.Add(textField);
         }
@@ -129,16 +132,15 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         {
             RemoveFromClassList("selected");
             RemoveFromClassList("not-selected");
-             
+
             switch (selected) {
-                 case true:
-                     AddToClassList("selected");
-                     break;
-                 case false:
-                     AddToClassList("not-selected");
-                     break;
+                case true:
+                    AddToClassList("selected");
+                    break;
+                case false:
+                    AddToClassList("not-selected");
+                    break;
             }
         }
-        
     }
 }
