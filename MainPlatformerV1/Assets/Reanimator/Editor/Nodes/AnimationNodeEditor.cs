@@ -25,6 +25,7 @@ namespace Aarthificial.Reanimation.Editor.Nodes
 
         protected virtual void OnEnable()
         {
+            AddCustomProperty("nodeTitle");
             AddCustomProperty("controlDriver");
             AddCustomProperty("drivers");
             Cels = AddCustomProperty("cels");
