@@ -225,11 +225,12 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             AddElement(graphNode);
         }
 
-        public void Update()
+        public void PlayAnimationPreview()
         {
-            nodes.ForEach(node => {
-                if (node is ReanimatorGraphNode graphNode)
-                    graphNode.Update();
+            GraphNodes.ForEach(node => {
+                if (node.node is SimpleAnimationNode simpleAnimationNode) {
+                    node.PlayAnimationPreview();
+                }
             });
         }
         public void SaveToGraphSaveData()

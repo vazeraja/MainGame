@@ -31,7 +31,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             style.top = node.position.y;
 
             this.AddManipulator(new InspectorMouseOverManipulator(inspector));
-            
+
             CreateInputPorts();
             CreateOutputPorts();
             CreateTitleEditField();
@@ -125,7 +125,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             EditorUtility.SetDirty(node);
         }
 
-        public void Update()
+        public void PlayAnimationPreview()
         {
             RemoveFromClassList("selected");
             RemoveFromClassList("not-selected");

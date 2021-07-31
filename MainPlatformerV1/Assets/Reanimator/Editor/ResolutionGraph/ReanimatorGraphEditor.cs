@@ -25,8 +25,8 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private const string visualTreePath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml";
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
 
-        private ResolutionGraph graph;
-        private ReanimatorGraphView graphView;
+        private ResolutionGraph resolutionGraph;
+        private ReanimatorGraphView graph;
         private InspectorCustomControl inspector;
 
         public void CreateGUI()
@@ -39,20 +39,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(styleSheetPath);
             root.styleSheets.Add(styleSheet);
 
-            graphView = root.Q<ReanimatorGraphView>();
+            graph = root.Q<ReanimatorGraphView>();
             inspector = root.Q<InspectorCustomControl>();
 
-            if (graph == null) {
+            if (resolutionGraph == null) {
                 OnSelectionChange();
             }
             else {
-                SelectTree(graph);
+                SelectTree(resolutionGraph);
             }
         }
 
         private void Update()
         {
-            graphView?.Update();
+            graph?.PlayAnimationPreview();
         }
 
         private void OnSelectionChange()
@@ -74,20 +74,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void SelectTree(ResolutionGraph newGraph)
         {
-            if (graphView == null || !newGraph) {
+            if (graph == null || !newGraph) {
                 return;
             }
 
-            graph = newGraph;
+            resolutionGraph = newGraph;
 
             if (Application.isPlaying) {
-                graphView.Initialize(graph, this, inspector);
+                graph.Initialize(resolutionGraph, this, inspector);
             }
             else {
-                graphView.Initialize(graph, this, inspector);
+                graph.Initialize(resolutionGraph, this, inspector);
             }
 
-            EditorApplication.delayCall += () => { graphView.FrameAll(); };
+            EditorApplication.delayCall += () => { graph.FrameAll(); };
         }
     }
 }
