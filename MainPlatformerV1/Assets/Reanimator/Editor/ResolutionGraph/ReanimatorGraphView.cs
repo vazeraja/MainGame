@@ -31,6 +31,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
         public readonly Vector2 BlockSize = new Vector2(300, 200);
 
+
         public ReanimatorGraphView()
         {
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(styleSheetPath);
@@ -42,14 +43,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new DragAndDropManipulator());
-
-            Undo.undoRedoPerformed += () => {
-                Initialize(graph, editorWindow, inspector);
-                AssetDatabase.SaveAssets();
-            };
             
-            EditorApplication.update -= PlayAnimationPreview;
-            EditorApplication.update += PlayAnimationPreview;
         }
 
         public void Initialize(ResolutionGraph graph, ReanimatorGraphEditor editorWindow, InspectorCustomControl inspector)
@@ -57,15 +51,28 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             this.graph = graph;
             this.editorWindow = editorWindow;
             this.inspector = inspector;
-
+            
+            Undo.undoRedoPerformed -= UndoRedo;
+            // TODO: Needs optimizing -- causes CPU to work a lot harder for some reason
+            EditorApplication.update -= PlayAnimationPreview;
             graphViewChanged -= OnGraphViewChanged;
+            
             DeleteElements(graphElements.ToList());
+            
             graphViewChanged += OnGraphViewChanged;
+            EditorApplication.update += PlayAnimationPreview;
+            Undo.undoRedoPerformed += UndoRedo;
             
             CreateSearchWindow(editorWindow);
             // CreateBlackboard();
             CreateMiniMap();
             LoadGraph();
+        }
+
+        private void UndoRedo()
+        {
+            Initialize(graph, editorWindow, inspector);
+            AssetDatabase.SaveAssets();
         }
 
         /// <summary>

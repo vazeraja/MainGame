@@ -24,8 +24,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             var references = DragAndDrop.objectReferences;
             List<ReanimatorNode> draggedNodes = new List<ReanimatorNode>();
 
-            Vector2 nodePosition =
-                graphView.ChangeCoordinatesTo(graphView.contentViewContainer, evt.localMousePosition);
+            Vector2 nodePosition = graphView.ChangeCoordinatesTo(graphView.contentViewContainer, evt.localMousePosition);
             foreach (var reference in references) {
                 if (reference is ReanimatorNode reanimatorNode) {
                     draggedNodes.Add(reanimatorNode);
@@ -50,7 +49,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
                                 break;
                             }
                             case OverrideNode overrideNode: {
-                                EditorApplication.delayCall += delegate {
+                                EditorApplication.delayCall += () => {
                                     graphView.CreateNode(overrideNode.GetType(), nodePosition);
                                 };
                                 break;
