@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JumpToIdleAnimation
   m_EditorClassIdentifier: 
   guid: 6a86ea4d07dbf3c4b894895c0ec70bdf
-  nodeTitle: JumpToIdleAnimation
+  title: JumpToIdleAnimation
   position: {x: 1297, y: 58}
   cels:
   - sprite: {fileID: 8494806145318214075, guid: 96c42d47a44319a49a6f5c769ee74b73,
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: RunNJumpAnimation
   m_EditorClassIdentifier: 
   guid: 2643a84ec0dc3714d87a7f2a30034df5
-  nodeTitle: RunNJumpAnimation
+  title: RunNJumpAnimation
   position: {x: 1206.5, y: -496.99997}
   cels:
   - sprite: {fileID: 6612509912714155400, guid: 7cf92fcfe9147d94e961ea8384f393f7,
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: RootMovement_AirJump
   m_EditorClassIdentifier: 
   guid: f385209e995b2b24d9b8172f40eaf3f7
-  nodeTitle: RootMovement_AirJump
+  title: RootMovement_AirJump
   position: {x: 966.4791, y: -560.5427}
   nodes:
   - {fileID: -1620949668163360245}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: DashAnimation
   m_EditorClassIdentifier: 
   guid: 49314c2948ac77549a7cb8197c565163
-  nodeTitle: DashAnimation
+  title: DashAnimation
   position: {x: 716, y: 122.00001}
   cels:
   - sprite: {fileID: 5724131686658579246, guid: 7cf92fcfe9147d94e961ea8384f393f7,
@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: RunAnimation
   m_EditorClassIdentifier: 
   guid: 9b2fc9b1233627f4485f3ae8af27b699
-  nodeTitle: RunAnimation
-  position: {x: 1012.99994, y: -220.99994}
+  title: RunAnimation
+  position: {x: 1010.00006, y: -221.00005}
   cels:
   - sprite: {fileID: -3434879642533976785, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: AirDashAnimation
   m_EditorClassIdentifier: 
   guid: 67259735e9c78d0429e7aad1f0d3f525
-  nodeTitle: AirDashAnimation
+  title: AirDashAnimation
   position: {x: 716, y: 207.99998}
   cels:
   - sprite: {fileID: 5724131686658579246, guid: 7cf92fcfe9147d94e961ea8384f393f7,
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: HitAnimation
   m_EditorClassIdentifier: 
   guid: a6fdbe8ddecc6634b9ae9322c24e2641
-  nodeTitle: HitAnimation
+  title: HitAnimation
   position: {x: 575, y: -10}
   cels:
   - sprite: {fileID: 4088135725779492898, guid: 0686ed5205576b84c985475e2c72957d,
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: JumpAnimation
   m_EditorClassIdentifier: 
   guid: 7cc164ab5cb9354428846ef421b16096
-  nodeTitle: JumpAnimation
+  title: JumpAnimation
   position: {x: 1206.5, y: -592.0615}
   cels:
   - sprite: {fileID: 3298105886585063087, guid: 7cf92fcfe9147d94e961ea8384f393f7,
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: BaseNode
   m_EditorClassIdentifier: 
   guid: 2f135011018bdbc4789bcc27f3d8e396
-  nodeTitle: BaseNode
+  title: BaseNode
   position: {x: 0, y: 0}
   root: {fileID: 4312978999189567477}
 --- !u!114 &-347048784571739294
@@ -314,8 +314,8 @@ MonoBehaviour:
   m_Name: RootMovement_Idle
   m_EditorClassIdentifier: 
   guid: 8888fbbc40ce6ee45b940373ac11a8dc
-  nodeTitle: RootMovement_Idle
-  position: {x: 1010, y: -61}
+  title: RootMovement_Idle
+  position: {x: 1010.00006, y: -67.00007}
   nodes:
   - {fileID: 4121047940114990893}
   - {fileID: 5145656718631313926}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: RootMovement
   m_EditorClassIdentifier: 
   guid: 03a8d36fe19192847a85245d70db13e3
-  nodeTitle: RootMovement
+  title: RootMovement
   position: {x: 485, y: -259}
   nodes:
   - {fileID: 4773496542237128343}
@@ -403,8 +403,8 @@ MonoBehaviour:
   m_Name: FlipAnimation
   m_EditorClassIdentifier: 
   guid: 4c81fdd4ff18f8f41a57d94ed6f9d667
-  nodeTitle: FlipAnimation
-  position: {x: 966, y: -394.99997}
+  title: FlipAnimation
+  position: {x: 966, y: -395.00006}
   cels:
   - sprite: {fileID: -14635915900717176, guid: 70334b78acba2ad4db16b9e6a5515a8d, type: 3}
     drivers:
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Name: IdleAnimation
   m_EditorClassIdentifier: 
   guid: 069c5c17a9493314ab6769232ad1bbbb
-  nodeTitle: IdleAnimation
+  title: IdleAnimation
   position: {x: 1297, y: -119.00004}
   cels:
   - sprite: {fileID: -2937644175521846342, guid: f31e889de574c78499d5df74639f2b86,
@@ -495,8 +495,8 @@ MonoBehaviour:
   m_Name: Root
   m_EditorClassIdentifier: 
   guid: afe91bd7c62d4d14b889a31a301a9e8c
-  nodeTitle: Root
-  position: {x: 232, y: -10}
+  title: Root
+  position: {x: 230.67755, y: 0.00006771088}
   nodes:
   - {fileID: 1210843896723939208}
   - {fileID: 8972811193946634867}
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: RootMovement_Air
   m_EditorClassIdentifier: 
   guid: 2ecd64fc9442d22479371d890e162ebd
-  nodeTitle: RootMovement_Air
+  title: RootMovement_Air
   position: {x: 734, y: -445}
   nodes:
   - {fileID: -7832042094402424365}
@@ -549,8 +549,8 @@ MonoBehaviour:
   m_Name: RunToIdleAnimation
   m_EditorClassIdentifier: 
   guid: 4952adb04b154de4aae3eb644e108fc7
-  nodeTitle: RunToIdleAnimation
-  position: {x: 1297, y: -36}
+  title: RunToIdleAnimation
+  position: {x: 1297, y: -35}
   cels:
   - sprite: {fileID: 6171374375413776551, guid: 96c42d47a44319a49a6f5c769ee74b73,
       type: 3}
@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Name: RootMovement_Ground
   m_EditorClassIdentifier: 
   guid: cbdb7e6637779c04cb883e5786835887
-  nodeTitle: RootMovement_Ground
-  position: {x: 734, y: -169}
+  title: RootMovement_Ground
+  position: {x: 734.0001, y: -169.00005}
   nodes:
   - {fileID: -347048784571739294}
   - {fileID: -3296058019168418609}
@@ -607,10 +607,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5a331ab63864df5b568b41a2c1738c4, type: 3}
-  m_Name: Root_Dash
+  m_Name: RootDash
   m_EditorClassIdentifier: 
   guid: 507b8f188e86fb14bb82149f7db9a599
-  nodeTitle: Root_Dash
+  title: RootDash
   position: {x: 465, y: 148}
   nodes:
   - {fileID: -7553571759567474767}

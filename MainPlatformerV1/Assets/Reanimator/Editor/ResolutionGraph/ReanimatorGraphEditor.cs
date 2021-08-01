@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using Aarthificial.Reanimation.Editor;
 using Aarthificial.Reanimation.Editor.Nodes;
 using Aarthificial.Reanimation.Nodes;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Object = System.Object;
 
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public class ReanimatorGraphEditor : EditorWindow {
@@ -26,70 +22,33 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             ShowWindow();
             return true;
         }
+        private const string visualTreePath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml";
+        private const string styleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss";
 
-        private ResolutionGraph graph;
-        private ReanimatorGraphView graphView;
-        private InspectorCustomControl inspectorCustomControl;
-        private UnityEditor.Editor editor;
-        private ReanimatorNodeEditor anotherEditor;
+        private ResolutionGraph resolutionGraph;
+        private ReanimatorGraphView editorGraph;
+        private InspectorCustomControl inspector;
         
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
 
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
-                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(visualTreePath);
             visualTree.CloneTree(root);
 
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
-                "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphEditor.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(styleSheetPath);
             root.styleSheets.Add(styleSheet);
 
-            graphView = root.Q<ReanimatorGraphView>();
-            inspectorCustomControl = root.Q<InspectorCustomControl>();
+            editorGraph = root.Q<ReanimatorGraphView>();
+            inspector = root.Q<InspectorCustomControl>();
 
-            graphView.OnNodeSelected = OnNodeSelectionChanged;
-
-            if (graph == null) {
+            if (resolutionGraph == null) {
                 OnSelectionChange();
             }
             else {
-                SelectTree(graph);
+                SelectTree(resolutionGraph);
             }
         }
-        
-        private void OnNodeSelectionChanged(ReanimatorGraphNode node)
-        {
-            inspectorCustomControl.Clear();
-            DestroyImmediate(editor);
-            DestroyImmediate(anotherEditor);
-
-            editor = UnityEditor.Editor.CreateEditor(node.node);
-            anotherEditor = UnityEditor.Editor.CreateEditor(node.node) as ReanimatorNodeEditor;
-
-            IMGUIContainer container = new IMGUIContainer(() => {
-                if (editor && editor.target) {
-                    switch (node.node) {
-                        case OverrideNode _:
-                        case BaseNode _:
-                            editor.OnInspectorGUI();
-                            break;
-                        case SimpleAnimationNode _:
-                        case SwitchNode _: {
-                            anotherEditor.OnInspectorGUI();
-                            if (node.node is SimpleAnimationNode) {
-                                Helpers.DrawTexturePreview(GUILayoutUtility.GetRect(150, 150), node.graph.sprite);
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            });
-
-            inspectorCustomControl.Add(container);
-        }
-        
         private void OnSelectionChange()
         {
             EditorApplication.delayCall += () => {
@@ -109,20 +68,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
 
         private void SelectTree(ResolutionGraph newGraph)
         {
-            if (graphView == null || !newGraph) {
+            if (editorGraph == null || !newGraph) {
                 return;
             }
-            
-            graph = newGraph;
+
+            resolutionGraph = newGraph;
 
             if (Application.isPlaying) {
-                graphView.Initialize(graph, this);
+                editorGraph.Initialize(resolutionGraph, this, inspector);
             }
             else {
-                graphView.Initialize(graph, this);
+                editorGraph.Initialize(resolutionGraph, this, inspector);
             }
 
-            EditorApplication.delayCall += () => { graphView.FrameAll(); };
+            EditorApplication.delayCall += () => { editorGraph.FrameAll(); };
         }
     }
 }

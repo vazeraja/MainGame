@@ -10,27 +10,29 @@ using UnityEngine.UIElements;
 namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
     public sealed class ReanimatorGraphNode : Node {
         public readonly ReanimatorNode node;
-        public readonly ResolutionGraph graph;
+        private InspectorCustomControl inspector;
+        private ReanimatorGraphView graphView;
 
-        public Action<ReanimatorGraphNode> OnNodeSelected;
         public const string nodeStyleSheetPath = "Assets/Reanimator/Editor/ResolutionGraph/ReanimatorGraphNode.uxml";
 
         public Port input;
         public Port output;
 
-        public ReanimatorGraphNode(ReanimatorNode node, ResolutionGraph graph) : base(nodeStyleSheetPath)
-        {
+        public ReanimatorGraphNode(ReanimatorNode node, ReanimatorGraphView graphView, InspectorCustomControl inspector)
+            : base(nodeStyleSheetPath) {
             // UseDefaultStyling();
-            this.graph = graph;
             this.node = node;
+            this.inspector = inspector;
+            this.graphView = graphView;
 
-            this.node.name = node.nodeTitle == string.Empty ? node.GetType().Name : node.nodeTitle;
+            this.node.name = node.title == string.Empty ? node.GetType().Name : node.title;
             title = node.GetType().Name;
-            
             viewDataKey = node.guid;
 
             style.left = node.position.x;
             style.top = node.position.y;
+
+            this.AddManipulator(new InspectorManipulator(graphView, inspector));
 
             CreateInputPorts();
             CreateOutputPorts();
@@ -38,8 +40,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             SetupClasses();
         }
 
-        private void SetupClasses()
-        {
+        private void SetupClasses() {
             switch (node) {
                 case SimpleAnimationNode _:
                     AddToClassList("simpleAnimation");
@@ -58,18 +59,16 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             }
         }
 
-        private void CreateTitleEditField()
-        {
+        private void CreateTitleEditField() {
             Label description = this.Q<Label>("title-label");
-            description.bindingPath = "nodeTitle";
+            description.bindingPath = "title";
             description.Bind(new SerializedObject(node));
-            
+
             var textField = new TextField();
             extensionContainer.Add(textField);
         }
 
-        private void CreateInputPorts()
-        {
+        private void CreateInputPorts() {
             switch (node) {
                 case SimpleAnimationNode _:
                     input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single,
@@ -92,8 +91,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inputContainer.Add(input);
         }
 
-        private void CreateOutputPorts()
-        {
+        private void CreateOutputPorts() {
             switch (node) {
                 case SimpleAnimationNode _:
                     break;
@@ -116,8 +114,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             outputContainer.Add(output);
         }
 
-        public override void SetPosition(Rect newPos)
-        {
+        public override void SetPosition(Rect newPos) {
             base.SetPosition(newPos);
             Undo.RecordObject(node, "ResolutionGraph (Set Position)");
             node.position.x = newPos.xMin;
@@ -125,10 +122,20 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             EditorUtility.SetDirty(node);
         }
 
-        public override void OnSelected()
-        {
-            base.OnSelected();
-            OnNodeSelected?.Invoke(this);
+        public void PlayAnimationPreview() {
+            RemoveFromClassList("selected ---");
+            RemoveFromClassList("not-selected");
+
+            if (!Application.isPlaying) {
+                switch (selected) {
+                    case true:
+                        AddToClassList("selected ---");
+                        break;
+                    case false:
+                        AddToClassList("not-selected");
+                        break;
+                }
+            }
         }
     }
 }
