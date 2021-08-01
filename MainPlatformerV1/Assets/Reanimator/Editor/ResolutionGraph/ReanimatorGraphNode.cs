@@ -19,8 +19,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         public Port output;
 
         public ReanimatorGraphNode(ReanimatorNode node, ReanimatorGraphView graphView, InspectorCustomControl inspector)
-            : base(nodeStyleSheetPath)
-        {
+            : base(nodeStyleSheetPath) {
             // UseDefaultStyling();
             this.node = node;
             this.inspector = inspector;
@@ -41,8 +40,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             SetupClasses();
         }
 
-        private void SetupClasses()
-        {
+        private void SetupClasses() {
             switch (node) {
                 case SimpleAnimationNode _:
                     AddToClassList("simpleAnimation");
@@ -61,8 +59,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             }
         }
 
-        private void CreateTitleEditField()
-        {
+        private void CreateTitleEditField() {
             Label description = this.Q<Label>("title-label");
             description.bindingPath = "title";
             description.Bind(new SerializedObject(node));
@@ -71,8 +68,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             extensionContainer.Add(textField);
         }
 
-        private void CreateInputPorts()
-        {
+        private void CreateInputPorts() {
             switch (node) {
                 case SimpleAnimationNode _:
                     input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single,
@@ -95,8 +91,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             inputContainer.Add(input);
         }
 
-        private void CreateOutputPorts()
-        {
+        private void CreateOutputPorts() {
             switch (node) {
                 case SimpleAnimationNode _:
                     break;
@@ -119,8 +114,7 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             outputContainer.Add(output);
         }
 
-        public override void SetPosition(Rect newPos)
-        {
+        public override void SetPosition(Rect newPos) {
             base.SetPosition(newPos);
             Undo.RecordObject(node, "ResolutionGraph (Set Position)");
             node.position.x = newPos.xMin;
@@ -128,18 +122,19 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
             EditorUtility.SetDirty(node);
         }
 
-        public void PlayAnimationPreview()
-        {
+        public void PlayAnimationPreview() {
             RemoveFromClassList("selected ---");
             RemoveFromClassList("not-selected");
 
-            switch (selected) {
-                case true:
-                    AddToClassList("selected ---");
-                    break;
-                case false:
-                    AddToClassList("not-selected");
-                    break;
+            if (!Application.isPlaying) {
+                switch (selected) {
+                    case true:
+                        AddToClassList("selected ---");
+                        break;
+                    case false:
+                        AddToClassList("not-selected");
+                        break;
+                }
             }
         }
     }
