@@ -123,18 +123,18 @@ namespace Aarthificial.Reanimation.ResolutionGraph.Editor {
         }
 
         public void PlayAnimationPreview() {
+            if (Application.isPlaying) return;
+            
             RemoveFromClassList("selected ---");
             RemoveFromClassList("not-selected");
 
-            if (!Application.isPlaying) {
-                switch (selected) {
-                    case true:
-                        AddToClassList("selected ---");
-                        break;
-                    case false:
-                        AddToClassList("not-selected");
-                        break;
-                }
+            switch (selected) {
+                case true:
+                    AddToClassList("selected ---");
+                    break;
+                case false:
+                    AddToClassList("not-selected");
+                    break;
             }
         }
     }
