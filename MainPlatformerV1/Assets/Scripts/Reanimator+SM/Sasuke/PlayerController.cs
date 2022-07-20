@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     public float dashSpeed = 12;
     public FixedStopwatch dashStopwatch = new FixedStopwatch();
 
-    [Header("Damaged")] 
+    [Header("Damage")] 
     public Vector2 hitForce;
     public FixedStopwatch hitStopwatch = new FixedStopwatch();
     public Collision2D collisionData;
