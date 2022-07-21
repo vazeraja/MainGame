@@ -9,6 +9,7 @@ using TN.Extensions;
 using TN.GameEngine;
 using UnityEditor;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public enum AnimState {
     Movement = 0,
@@ -16,11 +17,14 @@ public enum AnimState {
     Hit = 2,
 }
 
+
 public class PlayerController : MonoBehaviour, ISaveable {
     public InputProvider provider;
     public Optional<InteractionLogic> interactionLogic;
     [HideInInspector] public RuntimeStateMachine stateMachine;
     [HideInInspector] public CollisionDetection collisionDetection;
+
+    [SerializeField] private SceneReference scene;
 
     #region Inspector Variables
 
@@ -67,6 +71,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     }
 
     private void Awake() {
+        //SceneManager.LoadScene(scene.sceneIndex);
         JsonSaveService.LoadJsonData(new[] {this});
         collisionDetection = GetComponent<CollisionDetection>();
 

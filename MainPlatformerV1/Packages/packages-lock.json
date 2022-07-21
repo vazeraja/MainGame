@@ -9,8 +9,8 @@
       },
       "hash": "dbe057aecdea1e512bc036e4925e2de414bb3c46"
     },
-    "com.thundernut.interactionsystem": {
-      "version": "file:InteractionSystem",
+    "com.thundernut.scenemanagement": {
+      "version": "file:SceneManagement",
       "depth": 0,
       "source": "embedded",
       "dependencies": {

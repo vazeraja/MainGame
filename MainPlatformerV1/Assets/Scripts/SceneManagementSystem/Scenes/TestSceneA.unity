@@ -362,6 +362,8 @@ MonoBehaviour:
     value: {fileID: 0}
   stateMachine: {fileID: 0}
   collisionDetection: {fileID: 112331387}
+  scene:
+    sceneGuid: 
   walkSpeed: 20
   crouchSpeed: 3
   firstJumpSpeed: 50
@@ -39086,6 +39088,8 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 3adf13f8fd2182840af21032831dc7c9, type: 2}
   stateMachine: {fileID: 0}
   collisionDetection: {fileID: 8544018097327659942}
+  scene:
+    sceneGuid: 11d3f2886a01f724bb55dda7a2f8c0a6
   walkSpeed: 20
   crouchSpeed: 3
   firstJumpSpeed: 50
