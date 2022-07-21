@@ -15,7 +15,47 @@ MonoBehaviour:
   guid: 
   title: 
   position: {x: 0, y: 0}
-  cels: []
+  cels:
+  - sprite: {fileID: 7524045463543801961, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 2493154019533861436, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -4188407647324664987, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -1697686948412687292, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 6901384055803385123, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: -3339002182637032387, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 3138191645937462602, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
+  - sprite: {fileID: 4876857171378593501, guid: c58414217f3be3b488dffd776120e985,
+      type: 3}
+    drivers:
+      keys: []
+      values: 
   controlDriver:
     name: 
     autoIncrement: 0

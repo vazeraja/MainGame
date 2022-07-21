@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace UnityEditor {
+namespace ThunderNut.SceneManagement.Editor {
     class SceneReferencesEditorHelper : ScriptableObject {
         [SerializeField] internal SceneAsset missingScene = null, nullScene = null;
     }

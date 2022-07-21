@@ -15,3 +15,6 @@ MonoBehaviour:
   interactionInputData: {fileID: 11400000, guid: 97824210736283940bfc9afa78f29495,
     type: 2}
   interactionData: {fileID: 11400000, guid: 80ac243dc4bf674429a7dd1bb7ba5301, type: 2}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 1024

@@ -1,10 +1,13 @@
 ﻿using System;
+using MainGame;
 using ThunderNut.SceneManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ThunderNut.StateMachine;
 using TN.Common;
+using TN.Extensions;
 using TN.GameEngine;
+using UnityEditor;
 using UnityEngine.Events;
 
 public enum AnimState {
@@ -15,34 +18,31 @@ public enum AnimState {
 
 public class PlayerController : MonoBehaviour, ISaveable {
     public InputProvider provider;
+    public Optional<InteractionLogic> interactionLogic;
     [HideInInspector] public RuntimeStateMachine stateMachine;
     [HideInInspector] public CollisionDetection collisionDetection;
 
     #region Inspector Variables
 
-    [Header("Walking")] 
-    public float walkSpeed = 7;
+    [Header("Walking")] public float walkSpeed = 7;
     public float crouchSpeed = 3;
 
-    [Header("Jumping")] 
-    public float firstJumpSpeed;
+    [Header("Jumping")] public float firstJumpSpeed;
     public float secondJumpSpeed;
     public float fallSpeed;
     public int numberOfJumps = 2;
     public AnimationCurve jumpFallOff = AnimationCurve.Linear(0, 1, 1, 0);
     public FixedStopwatch jumpStopwatch = new FixedStopwatch();
 
-    [Header("Dashing")] 
-    public float dashSpeed = 12;
+    [Header("Dashing")] public float dashSpeed = 12;
     public FixedStopwatch dashStopwatch = new FixedStopwatch();
 
-    [Header("Damage")] 
-    public Vector2 hitForce;
+    [Header("Damage")] public Vector2 hitForce;
     public FixedStopwatch hitStopwatch = new FixedStopwatch();
     public Collision2D collisionData;
 
     #endregion
-    
+
     private InputState inputState => provider;
     public AnimState State { get; set; } = AnimState.Movement;
     public Vector2 MovementDirection => inputState.movementDirection;
@@ -59,9 +59,14 @@ public class PlayerController : MonoBehaviour, ISaveable {
     [HideInInspector] public bool wasOnTheGround;
     [HideInInspector] public int jumpsLeft;
     [HideInInspector] public bool canDash;
+    
+    
+    private void OnDrawGizmos() {
+        // Gizmos.color = hitSomething ? Color.green : Color.red;
+        // Gizmos.DrawLine(GetComponent<BoxCollider2D>().bounds.center, (Vector2)GetComponent<BoxCollider2D>().bounds.center + Vector2.right * 5f);
+    }
 
-    private void Awake()
-    {
+    private void Awake() {
         JsonSaveService.LoadJsonData(new[] {this});
         collisionDetection = GetComponent<CollisionDetection>();
 
@@ -78,36 +83,35 @@ public class PlayerController : MonoBehaviour, ISaveable {
             .Build<PlayerController>(this);
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         provider.onJump += OnJump;
         provider.onDash += OnDash;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         provider.onJump -= OnJump;
         provider.onDash -= OnDash;
     }
 
-    private void Update() => stateMachine.Update();
+    private void Update() {
+        stateMachine.Update();
+        if(interactionLogic.Enabled)
+            interactionLogic.Value.UpdateInteractable(this, GetComponent<BoxCollider2D>().bounds.center);
+    }
 
     private void FixedUpdate() => stateMachine.FixedUpdate();
 
-    private void OnApplicationQuit()
-    {
+    private void OnApplicationQuit() {
         JsonSaveService.SaveJsonData(new[] {this});
     }
 
     #region Events
 
-    private void OnJump(float value)
-    {
+    private void OnJump(float value) {
         wantsToJump = value > 0.5f;
         HandleJump();
 
-        void HandleJump()
-        {
+        void HandleJump() {
             if (wantsToJump) {
                 if (State != AnimState.Movement || jumpsLeft <= 0)
                     return;
@@ -125,15 +129,13 @@ public class PlayerController : MonoBehaviour, ISaveable {
 
     #endregion
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
+    private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.layer != collisionDetection.enemyLayer) return;
         collisionData = other;
         EnterHitState();
     }
 
-    private void OnCollisionStay2D(Collision2D other)
-    {
+    private void OnCollisionStay2D(Collision2D other) {
         if (other.gameObject.layer != collisionDetection.enemyLayer || State == AnimState.Hit) return;
         collisionData = other;
         EnterHitState();
@@ -141,32 +143,27 @@ public class PlayerController : MonoBehaviour, ISaveable {
 
     #region States
 
-    private void EnterHitState()
-    {
+    private void EnterHitState() {
         if (State != AnimState.Hit && !hitStopwatch.IsReady) return;
         State = AnimState.Hit;
     }
 
-    private void EnterDashState()
-    {
+    private void EnterDashState() {
         if (State != AnimState.Movement || !dashStopwatch.IsReady || !canDash) return;
         State = AnimState.Dash;
     }
 
-    public void EnterMovementState()
-    {
+    public void EnterMovementState() {
         State = AnimState.Movement;
     }
 
     #endregion
 
-    public void PopulateSaveData(SaveData saveData)
-    {
+    public void PopulateSaveData(SaveData saveData) {
         saveData.profile.location = transform.position;
     }
 
-    public void LoadFromSaveData(SaveData saveData)
-    {
+    public void LoadFromSaveData(SaveData saveData) {
         transform.position = saveData.profile.location;
     }
 }

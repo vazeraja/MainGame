@@ -9,6 +9,14 @@
       },
       "hash": "dbe057aecdea1e512bc036e4925e2de414bb3c46"
     },
+    "com.thundernut.interactionsystem": {
+      "version": "file:InteractionSystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.inputsystem": "1.0.2"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "6.0.3",
       "depth": 0,
