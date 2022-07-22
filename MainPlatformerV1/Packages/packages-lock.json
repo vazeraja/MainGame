@@ -10,12 +10,11 @@
       "hash": "dbe057aecdea1e512bc036e4925e2de414bb3c46"
     },
     "com.thundernut.scenemanagement": {
-      "version": "file:SceneManagement",
+      "version": "https://github.com/vazeraja/TN_SceneManagement.git",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.inputsystem": "1.0.2"
-      }
+      "source": "git",
+      "dependencies": {},
+      "hash": "1d2f923aa5af7d7700a42b19337ccb0147a97cc9"
     },
     "com.unity.2d.animation": {
       "version": "6.0.3",

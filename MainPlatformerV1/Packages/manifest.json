@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.aarthificial.pixelgraphics": "https://github.com/aarthificial/pixelgraphics.git",
+    "com.thundernut.scenemanagement": "https://github.com/vazeraja/TN_SceneManagement.git",
     "com.unity.2d.animation": "6.0.3",
     "com.unity.2d.pixel-perfect": "5.0.0",
     "com.unity.2d.psdimporter": "5.0.3",

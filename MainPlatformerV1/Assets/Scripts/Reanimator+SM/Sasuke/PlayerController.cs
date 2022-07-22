@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     }
 
     private void Awake() {
-        SceneManager.LoadScene(scene.sceneIndex);
+        //SceneManager.LoadScene(scene.sceneIndex);
         JsonSaveService.LoadJsonData(new[] {this});
         collisionDetection = GetComponent<CollisionDetection>();
 
