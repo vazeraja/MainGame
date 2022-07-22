@@ -2,13 +2,8 @@
 using MainGame;
 using ThunderNut.SceneManagement;
 using UnityEngine;
-using UnityEngine.Serialization;
 using ThunderNut.StateMachine;
 using TN.Common;
-using TN.Extensions;
-using TN.GameEngine;
-using UnityEditor;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum AnimState {
@@ -71,7 +66,7 @@ public class PlayerController : MonoBehaviour, ISaveable {
     }
 
     private void Awake() {
-        //SceneManager.LoadScene(scene.sceneIndex);
+        SceneManager.LoadScene(scene.sceneIndex);
         JsonSaveService.LoadJsonData(new[] {this});
         collisionDetection = GetComponent<CollisionDetection>();
 
