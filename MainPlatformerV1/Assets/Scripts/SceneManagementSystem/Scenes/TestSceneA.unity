@@ -39089,7 +39089,7 @@ MonoBehaviour:
   stateMachine: {fileID: 0}
   collisionDetection: {fileID: 8544018097327659942}
   scene:
-    sceneGuid: 11d3f2886a01f724bb55dda7a2f8c0a6
+    sceneGuid: 
   walkSpeed: 20
   crouchSpeed: 3
   firstJumpSpeed: 50
